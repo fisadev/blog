@@ -21,10 +21,10 @@ BLOG_AUTHOR = "Juan Pedro Fisanotti"  # (translatable)
 BLOG_TITLE = "Blog (fisa)"  # (translatable)
 # This is the main URL for your site. It will be used
 # in a prominent link. Don't forget the protocol (http/https)!
-SITE_URL = "https://fisadev.github.io/blog/"
+SITE_URL = "http://blog.fisadev.com/"
 # This is the URL where Nikola's output will be deployed.
 # If not set, defaults to SITE_URL
-# BASE_URL = "https://fisadev.github.io/blog/"
+# BASE_URL = "http://blog.fisadev.com/"
 BLOG_EMAIL = "fisadev@gmail.com"
 BLOG_DESCRIPTION = "This is my personal blog."  # (translatable)
 
