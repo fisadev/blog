@@ -12,9 +12,9 @@ The "fun" story
 
 Imagine having a "main" gmail account, and a handfull of extra accounts (to reserve names, to test some api stuff, etc).
 
-Imagine not having used those extra accounts in years. And even more: not having used them **ever**. Not a single email sent, not a single app connected to them, not any login to other sites, etc.
+Imagine not having used those extra accounts in years. And even more: not having used them **ever**. Not a single email sent, not a single external app connected to them, not any login to other sites, etc.
 
-One day, you decide to start using a password manager. And an open source one, which stores the data encrypted, using gpg. You even create a new gpg key to encrypt them, to be sure it's safe. You sync your encrypted data into an online private git repo, because nobody could decrypt the data anyway.
+One day you decide to start using a password manager. And an open source one, which stores the data encrypted using gpg. You even create a new gpg key to encrypt them, to be sure it's safe. You sync your encrypted data into an online private git repo, because nobody could decrypt the data anyway.
 
 Two days later, you receive an email from google:
 
