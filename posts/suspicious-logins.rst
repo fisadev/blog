@@ -18,7 +18,7 @@ One day, you decide to start using a password manager. And an open source one, w
 
 Two days later, you receive an email from google:
 
-.. thumbnail:: /images/someone_has_your_password.png
+.. thumbnail:: /images/suspicious-logins/someone_has_your_password.png
 
 **PANIC**
 
@@ -46,7 +46,7 @@ Think about it: Google is telling you "hey, someone knows your account and passw
 
 What can you do?
 
-.. thumbnail:: /images/scared.jpg
+.. thumbnail:: /images/suspicious-logins/scared.jpg
 
 NSA, is that you? Or a random hacker who really wants to steal my data? What valuable data can I have? Hell, I need to get everyone to revoke my credentials everywhere, now.
 
@@ -57,7 +57,7 @@ But no. There is always a boring explanation, something simpler, that doesn't lo
 
 I discovered this almost by chance, while writting down a super comprehensive explanation of the things I was seeing (a 5x longer version of the fun story). I realized I had both accounts added to my main email account, using gmail's feature to access emails from multiple sources. This feature:
 
-.. thumbnail:: /images/gmail_feature.png
+.. thumbnail:: /images/suspicious-logins/gmail_feature.png
 
 I thought: "oh! I forgot to update those settings after changing the passwords". And so I opened gmail, went to the settings, and saw the big red messages telling me that gmail wasn't able to connect to those accounts. Which was to be expected, as I changed the passwords. But something clicked inside my head: since when is gmail unable to check those accounts? what was the error?...
 
