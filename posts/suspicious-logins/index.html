@@ -90,17 +90,20 @@ Imagine not having used those extra accounts in years. And even'>
 <p>Some might think "oh, that's to be expected as well. Google must have blocked the account as soon as the security incident was detected". But no. This feature doesn't check email every second. For my accounts, it's doing it once every day, more or less. And the failed attempt was at the exact same time the "suspicious login" happened. In <strong>both</strong> accounts. Too much coincidence.</p>
 <p>I wasn't able to see the original error for one of the accounts, too many login errors since it because of the password change, and it only stores the last 5 of them. But for the other account the first error was still there, and it was different to the password related ones.</p>
 <p>The errors after the password changes were:</p>
-<pre class="code text"><a name="rest_code_12d1d4c10bbe44eeb5fb4ee8b27f36b9-1"></a>Authentication error.
-<a name="rest_code_12d1d4c10bbe44eeb5fb4ee8b27f36b9-2"></a>Server returned error "[AUTH] Username and password not accepted."
+<pre class="code text"><a name="rest_code_d1780d1fc9044d62a9075b134788bce1-1"></a>Authentication error.
+<a name="rest_code_d1780d1fc9044d62a9075b134788bce1-2"></a>Server returned error "[AUTH] Username and password not accepted."
 </pre>
 <p>But the error at the same time than the suspicious login was:</p>
-<pre class="code text"><a name="rest_code_1d46084b3e1d4ac8846b50256ebb5aff-1"></a>Authentication error.
-<a name="rest_code_1d46084b3e1d4ac8846b50256ebb5aff-2"></a>Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
+<pre class="code text"><a name="rest_code_56bb682fb5ef41a69d1012d827193942-1"></a>Authentication error.
+<a name="rest_code_56bb682fb5ef41a69d1012d827193942-2"></a>Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
 </pre>
 <p>The linked support page isn't very helpful, but if you google the error you will find some people having the same issue: after years of not using an account, the login on their pop3 client starts to fail. Maybe something changed in google's security policies, maybe it's related to new terms of service, or required security checkups. But the thing is: logins fail until you login from a browser and tweak some stuff (enabling less secure apps, etc).</p>
-<p>Where is the bug worst part? It's in flagging those pop3 logins which came <strong>from inside google</strong> (it's a gmail feature, running on their servers), as if they were "suspicious logins". They are not suspicious, they are comming from inside google, they are being made from a google server trying to execute a gmail feature.</p>
-<p>A gmail server tries to login to a gmail account for a gmail feature to work, and the user gets a big red email: "someone has your password". Yes, google, someone has my password. It's you...</p>
+<p>The bug worst part? It's flagging those pop3 logins which came <strong>from inside google</strong> (it's a gmail feature, running on their servers), as if they were "suspicious logins". They are not suspicious, they are comming from inside google, they are being made from a google server trying to execute a gmail feature.</p>
 <p>But by Cthulhu's beard, I'm happy this was a bug.</p>
+</div>
+<div class="section" id="in-short">
+<h2>In short</h2>
+<p>A gmail server tries to login to a gmail account for a gmail feature to work, and the user gets a big red email: "someone has your password". Yes, google, someone has my password. It's you...</p>
 </div>
 </div>
     </div>
