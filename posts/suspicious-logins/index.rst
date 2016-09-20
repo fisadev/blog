@@ -27,8 +27,9 @@ Two days later, you receive an email from google:
 After some investigation, you discover:
 
 * You were reusing the password from that account.
+* The way you were using the password manager, the account names weren't encrypted (the passwords were, of course).
 * By reusing it, the encrypted data is the same in all encrypted files.
-* You never used the account, but it has yor name on it, easily guessable account name.
+* You never used the account, but it has your name on it, easily guessable account name.
 
 **Conclussion**: someone who has your password from another (unsafe?) service, could have either guessed your secondary account name, or gained access to the encrypted data, which has the account names in clear text. By just comparing encrypted contents, not even decrypting them, that person could have known in which other sites the leaked password could work.
 
