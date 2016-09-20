@@ -6,11 +6,15 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
+  <loc>http://blog.fisadev.com/categories/security.xml</loc>
+  <lastmod>2016-09-20T00:50:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>http://blog.fisadev.com/rss.xml</loc>
-  <lastmod>2016-09-20T00:37:00Z</lastmod>
+  <lastmod>2016-09-20T00:50:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://blog.fisadev.com/sitemap.xml</loc>
-  <lastmod>2016-09-20T00:37:00Z</lastmod>
+  <lastmod>2016-09-20T00:54:00Z</lastmod>
  </sitemap>
 </sitemapindex>
