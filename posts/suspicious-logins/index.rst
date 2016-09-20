@@ -37,7 +37,7 @@ Ok, you now think you know, you just need to change passwords on all those sites
 
 Email: **Someone has your password**.
 
-Again! But this time from a different account: not that one which was easily guessable and which shared the password with other sites. No. This time? An account you **didn't even write down the name, anywhere, ever**. The password was written down in your password manager, in clear text, because you were a little clumsy and confused "user" with "password". But then again, you **never wrote down the account name, anywhere, ever**.
+Again! But this time from a different account: not that one which was easily guessable and which shared the password with other sites. No. This time? An account you **didn't even write down the name**, not in your password manager, nor anywhere outside google itself. The password was written down in your password manager, in clear text, because you were a little clumsy and confused "user" with "password". But then again, you **never wrote down the account name outside google, ever**.
 
 How could someone have gained access to that account? How in hell can someone know you own that account, and he can use that "username" as password for it?
 
