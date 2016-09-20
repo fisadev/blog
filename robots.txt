@@ -1,4 +1,4 @@
-Sitemap: https://fisadev.github.io/blog/sitemapindex.xml
+Sitemap: http://blog.fisadev.com/sitemapindex.xml
 
 User-Agent: *
-Host: fisadev.github.io
+Host: blog.fisadev.com
