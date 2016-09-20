@@ -33,7 +33,7 @@ After some investigation, you discover:
 
 **Conclussion**: someone who has your password from another (unsafe?) service, could have either guessed your secondary account name, or gained access to the encrypted data, which has the account names in clear text. By just comparing encrypted contents, not even decrypting them, that person could have known in which other sites the leaked password could work.
 
-Ok, you now think you know, you just need to change passwords on all those sites, and never ever again reuse passwords. But oh no, you know nothing. After doing it, a few days later...
+Ok, you now think you know, you just need to change passwords on all those sites, and never ever reuse passwords again. But oh no, you know nothing. After doing it, a few days later...
 
 Email: **Someone has your password**.
 
