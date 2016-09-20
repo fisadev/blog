@@ -60,7 +60,7 @@ I discovered this almost by chance, while writting down a super comprehensive ex
 
 .. thumbnail:: /images/suspicious-logins/gmail_feature.png
 
-I thought: "oh! I forgot to update those settings after changing the passwords". And so I opened gmail, went to the settings, and saw the big red messages telling me that gmail wasn't able to connect to those accounts. Which was to be expected, as I changed the passwords. But something clicked inside my head: since when is gmail unable to check those accounts? what was the error?...
+I thought: "oh! I forgot to update those settings after changing the passwords". And so I opened gmail, went to the settings, and saw the big red errors telling me that gmail wasn't able to connect to those accounts. Which was to be expected, as I changed the passwords. But something clicked inside my head: since when is gmail unable to check those accounts? what was the error?...
 
 And there it was, the boring truth in all its boringness: gmail wasn't able to access the accounts from the exact same moment the "suspicious logins" happened. 
 
