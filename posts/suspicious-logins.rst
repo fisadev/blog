@@ -86,7 +86,9 @@ But the error at the same time than the suspicious login was:
 
 The linked support page isn't very helpful, but if you google the error you will find some people having the same issue: after years of not using an account, the login on their pop3 client starts to fail. Maybe something changed in google's security policies, maybe it's related to new terms of service, or required security checkups. But the thing is: logins fail until you login from a browser and tweak some stuff (enabling less secure apps, etc).
 
-The bug worst part? It's flagging those pop3 logins which came **from inside google** (it's a gmail feature, running on their servers), as if they were "suspicious logins". They are not suspicious, they are comming from inside google, they are being made from a google server trying to execute a gmail feature.
+That itself isn't the bug. The bug is flagging those pop3 logins which came **from inside google** (it's a gmail feature, running on their servers), as if they were "suspicious logins". They are not suspicious, they are comming from inside google, they are being made from a google server trying to execute a gmail feature.
+
+And googling a little bit, I can't find any other person with the same problem.
 
 But by Cthulhu's beard, I'm happy this was a bug.
 
