@@ -88,12 +88,12 @@ The linked support page isn't very helpful, but if you google the error you will
 
 That itself isn't the bug. The bug is flagging those pop3 logins which came **from inside google** (it's a gmail feature, running on their servers), as if they were "suspicious logins". They are not suspicious, they are comming from inside google, they are being made from a google server trying to execute a gmail feature.
 
-And googling a little bit, I can't find any other person with the same problem.
+Finally, how sure am I that the logins came from inside google? Well, a traceroute to the login ip took me to this host: ``mail-pa0-x218.google.com``. 
 
-But by Cthulhu's beard, I'm happy this was a bug.
+So yes, I'm pretty sure this was a bug. But by Cthulhu's beard, I'm **happy** this was a bug.
 
 In short
 ========
 
-A gmail server tries to login to a gmail account for a gmail feature to work, and the user gets a big red email: "someone has your password". Yes, google, someone has my password. It's you...
+A gmail server tries to login to a gmail account for a gmail feature to work, and the user gets a big red email: "someone has your password". Yes, google, someone has my password. It's you.
 
