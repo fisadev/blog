@@ -41,7 +41,7 @@ Again! But this time from a different account: not that one which was easily gue
 
 How could someone have gained access to that account? How in hell can someone know you own that account, and he can use that "username" as password for it?
 
-You start to recall... There is only **one** place were you have references to that account: old emails you received in your inbox, when you created the account. **Your inbox***.
+You start to recall... There is only **one** place were you have references to that account: old emails you received in your inbox, when you created the account. **Your inbox**.
 
 Think about it: Google is telling you "hey, someone knows your account and password", and you know that the account name was only present in old emails at your inbox, while the password was only written down in your trusty new password manager.
 
