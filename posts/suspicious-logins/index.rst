@@ -7,10 +7,10 @@
 .. description: 
 .. type: text
 
-The "fun" story
-===============
+The "interesting" story
+=======================
 
-Imagine having a "main" gmail account, and a handfull of extra accounts (to reserve names, to test some api stuff, etc).
+Imagine having a main gmail account, and a handfull of extra accounts (to reserve names, to test some api stuff, etc).
 
 Imagine not having used those extra accounts in years. And even more: not having used them **ever**. Not a single email sent, not a single external app connected to them, not any login to other sites, etc.
 
@@ -56,7 +56,7 @@ The "boring" story
 
 But no. There is always a boring explanation, something simpler, that doesn't look like a CSI Cyber episode. In this case? something that looks like a bug on some internal Google services.
 
-I discovered this almost by chance, while writting down a super comprehensive explanation of the things I was seeing (a 5x longer version of the fun story). I realized I had both accounts added to my main email account, using gmail's feature to access emails from multiple sources. This feature:
+I discovered this almost by chance, while writting down a super comprehensive explanation of the things I was seeing (a 5x longer version of the interesting story). I realized I had both accounts added to my main email account, using gmail's feature to access emails from multiple sources. This feature:
 
 .. thumbnail:: /images/suspicious-logins/gmail_feature.png
 
