@@ -64,7 +64,7 @@ I thought: "oh! I forgot to update those settings after changing the passwords".
 
 And there it was, the boring truth in all its boringness: gmail wasn't able to access the accounts from the exact same moment the "suspicious logins" happened. 
 
-Some might think "oh, that's to be expected as well. Google must have blocked the account as soon as the security incident was detected". But no. This feature doesn't check email every second. For my accounts, it's doing it once every day, more or less. And the failed attempt was at the exact same time the "suspicious login" happened. In **both** accounts. Too much coincidence.
+Some might think "oh, that's to be expected as well. Google must have blocked the account as soon as the security incident was detected". But no. This feature doesn't check email every second. For my accounts, it's doing it once every day, more or less. And the failed attempt was at the exact same time the "suspicious login" happened. In **both** accounts. Different times each one. Too much coincidence.
 
 I wasn't able to see the original error for one of the accounts, too many login errors since it because of the password change, and it only stores the last 5 of them. But for the other account the first error was still there, and it was different to the password related ones.
 
