@@ -45,8 +45,6 @@ You start to recall... There is only **one** place were you have references to t
 
 Think about it: Google is telling you "hey, someone knows your account and password", and you know that the account name was only present in old emails at your inbox, while the password was only written down in your trusty new password manager.
 
-What can you do?
-
 .. thumbnail:: /images/suspicious-logins/scared.jpg
 
 NSA, is that you? Or a random hacker who really wants to steal my data? What valuable data can I have? Hell, I need to get everyone to revoke my credentials everywhere, now.
