@@ -15,15 +15,43 @@
  </url>
  <url>
   <loc>http://blog.fisadev.com/archive.html</loc>
-  <lastmod>2016-09-20T00:54:00Z</lastmod>
+  <lastmod>2016-09-21T01:59:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/categories/</loc>
-  <lastmod>2016-09-20T00:50:00Z</lastmod>
+  <lastmod>2016-09-21T01:59:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://blog.fisadev.com/categories/cuda/</loc>
+  <lastmod>2016-09-21T01:59:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://blog.fisadev.com/categories/keras/</loc>
+  <lastmod>2016-09-21T01:59:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://blog.fisadev.com/categories/machine-learning/</loc>
+  <lastmod>2016-09-21T01:59:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://blog.fisadev.com/categories/programming/</loc>
+  <lastmod>2016-09-21T01:59:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://blog.fisadev.com/categories/python/</loc>
+  <lastmod>2016-09-21T01:59:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/categories/security/</loc>
   <lastmod>2016-09-20T00:50:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://blog.fisadev.com/categories/ubuntu/</loc>
+  <lastmod>2016-09-21T01:59:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://blog.fisadev.com/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/</loc>
+  <lastmod>2016-09-21T01:59:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/posts/suspicious-logins/</loc>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html prefix="
+og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" vocab="http://ogp.me/ns" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04 | Blog (fisa)</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<meta content="#5670d4" name="theme-color">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="http://blog.fisadev.com/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Juan Pedro Fisanotti">
+<link rel="prev" href="../suspicious-logins/" title="Suspicious logins" type="text/html">
+<meta property="og:site_name" content="Blog (fisa)">
+<meta property="og:title" content="How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA">
+<meta property="og:url" content="http://blog.fisadev.com/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/">
+<meta property="og:description" content="How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04
+I broke so many things trying to get this to work, that I need to write it down for my future self and any ot">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2016-09-20T22:58:35-03:00">
+<meta property="article:tag" content="cuda">
+<meta property="article:tag" content="keras">
+<meta property="article:tag" content="machine learning">
+<meta property="article:tag" content="programming">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="ubuntu">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <div id="container">
+             <header id="header"><h1 id="brand"><a href="http://blog.fisadev.com/" title="Blog (fisa)" rel="home">
+
+        <span id="blog-title">Blog (fisa)</span>
+    </a></h1>
+
+        
+            <nav id="menu"><ul>
+<li><a href="../../archive.html">Archive</a></li>
+                <li><a href="../../categories/">Tags</a></li>
+                <li><a href="../../rss.xml">RSS feed</a></li>
+    
+    
+    </ul></nav></header><main id="content"><article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn">
+                    Juan Pedro Fisanotti
+            </span></p>
+            <p class="dateline"><a href="." rel="bookmark"><time class="published dt-published" datetime="2016-09-20T22:58:35-03:00" itemprop="datePublished" title="2016-09-20 22:58">2016-09-20 22:58</time></a></p>
+                <p class="commentline">            <a href="#disqus_thread" data-disqus-identifier="cache/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604.html">Comments</a>
+
+
+                    </p>
+<p class="sourceline"><a href="index.rst" id="sourcelink">Source</a></p>
+
+        </div>
+        
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<div class="section" id="how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-16-04">
+<h2>How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04</h2>
+<p>I broke so many things trying to get this to work, that I need to write it down for my future self and any others who might need this.</p>
+<p>This tutorial explains how to get a Keras neural network to train using your gpu, or any Theano related code for that matter, but for the special scenario of having a Nvidia Optimus enabled gpu running under Ubuntu 16.04.
+Other scenarios:</p>
+<ul class="simple">
+<li>Under Ubuntu 16.04 and you have a Nvidia gpu which is not Optimus enabled? then some things might work, but the "Nvidia gpu drivers" section won't be useful to you.</li>
+<li>Under a different distro or Ubuntu version? I would <strong>not</strong> recommend trying this.</li>
+<li>Have an non-Nvidia gpu? this <strong>won't work</strong> at all.</li>
+</ul>
+<p>Enough presentations, lets get to work.</p>
+</div>
+<div class="section" id="the-example">
+<h2>0. The example</h2>
+<p>We will need a Keras example to check if things are working well.
+Use the code from <a class="reference external" href="https://github.com/fisadev/keras_experiments">this repo</a>.</p>
+<p>In that repo you will find a keras experiment (in one of the ipython notebooks), and a small script to check for gpu usage from Theano.
+Both will be useful.</p>
+<p><strong>Remember</strong> to create a virtualenv and <strong>install its dependencies</strong> (from the <tt class="docutils literal">requirements.txt</tt>).
+You can use wheels to speed up the process. And it requires <strong>python 3</strong>.</p>
+</div>
+<div class="section" id="nvidia-gpu-drivers">
+<h2>1. Nvidia gpu drivers</h2>
+<p>We need Ubuntu to be able to use our gpu.
+To achieve that, we need both the gpu drivers and the Optimus drivers.
+Thing is, Optimus drivers are kind of broken right now under Ubuntu 16.04.</p>
+<p>But we can get things working, with some small annoyances:</p>
+<ol class="arabic simple">
+<li>Disconnect any external/secondary monitors.</li>
+<li>Install video and optimus drivers: <tt class="docutils literal">sudo apt install <span class="pre">nvidia-361</span> <span class="pre">nvidia-prime</span></tt>
+</li>
+<li>Reboot your machine and login.</li>
+<li>Open the "Nvidia X Server Settings" app, go to the "PRIME Profiles" section and choose "NVIDIA".</li>
+<li>Close the settings app.</li>
+<li>Logout and login again, so the profile change can take effect.</li>
+</ol>
+<p><strong>A small annoyance</strong>: while the "NVIDIA" profile is active you cannot (at the moment) use a secondary screen.
+It will crash your X server.</p>
+<p><strong>Important</strong>: remember to go back to the "Intel" profile whenever you don't want to use your gpu anymore, logout and login back for it to take effect.
+Otherwise, your gpu will be using lots of power for nothing.</p>
+</div>
+<div class="section" id="cuda">
+<h2>2. CUDA</h2>
+<p>We need to be able to do general purpose computation on our Nvidia gpu.
+To achieve that, we need the CUDA toolkit.
+Thing is, CUDA has no Ubuntu 16.04 package at the moment.</p>
+<p>But we can make things work. This is Linux, after all (thanks to Martin Thoma's <a class="reference external" href="http://askubuntu.com/questions/799184/how-can-i-install-cuda-on-ubuntu-16-04">answer</a>):</p>
+<ol class="arabic simple">
+<li>Download CUDA from the <a class="reference external" href="https://developer.nvidia.com/cuda-downloads">Nvidia website</a>. Choose the Ubuntu 15.04 "runfile (local)" version.</li>
+<li>Check the md5 sum with: <tt class="docutils literal">md5sum cuda_7.5.18_linux.run</tt>. Only continue if it is correct.</li>
+<li>Run the installer and follow the instructions: <tt class="docutils literal">sudo sh cuda_7.5.18_linux.run <span class="pre">--override</span></tt>. <strong>Make sure</strong> that you say <strong>y</strong> for the symbolic link, and <strong>n</strong> to the video drivers installation.</li>
+</ol>
+<p>Don't worry about the warning related to the non-installation of the video drivers.
+The script is somewhat dumb and doesn't detect the drivers we installed on the previous section.</p>
+</div>
+<div class="section" id="gcc-and-g-versions">
+<h2>3. Gcc and G++ versions</h2>
+<p>Guess what? Yes, more problems.</p>
+<p>CUDA requires gcc to be a version up to 4.9.
+Later versions won't work.
+Ubuntu 16.04 ships with gcc 5.4.</p>
+<p>But we can have both versions side by side, and trick CUDA to use the older versions with just some simple symlinks (thanks to <a class="reference external" href="https://twitter.com/_zzzoom_/status/765720104868904964">charlie</a> for the tip, the old solution was far more complicated).</p>
+<pre class="code bash"><a name="rest_code_e520a89b515649c7986aec73f5387055-1"></a>sudo apt-get install gcc-4.9 g++-4.9
+<a name="rest_code_e520a89b515649c7986aec73f5387055-2"></a>sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
+<a name="rest_code_e520a89b515649c7986aec73f5387055-3"></a>sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
+<a name="rest_code_e520a89b515649c7986aec73f5387055-4"></a>
+<a name="rest_code_e520a89b515649c7986aec73f5387055-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
+<a name="rest_code_e520a89b515649c7986aec73f5387055-6"></a><span class="nb">echo</span> -e <span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span> &gt;&gt; ~/.theanorc
+</pre>
+</div>
+<div class="section" id="testing">
+<h2>4. Testing</h2>
+<p>Done! You should be able to run Theano things (including Keras neural networks) using your gpu.</p>
+<p>A simple way to check if that's true, is to run the <tt class="docutils literal">test_gpu.py</tt> script from the example repo.
+But don't just "run" it.
+You need to tell Theano "hey, I want you to use my shiny cuda gpu".
+To achieve that, run the script like this (inside your virtualenv):</p>
+<pre class="code bash"><a name="rest_code_76ad84d801994ff8bb8e5f3c2bee589f-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> python test_gpu.py
+</pre>
+<p>If everything is working, it should quickly run and output something which ends with: <tt class="docutils literal">Used the gpu</tt>.
+If instead it takes a long time (~1 minute) and ends with <tt class="docutils literal">Used the cpu</tt>, then something is not working.</p>
+<p>If that worked, then you can try the full example and play a little with it (should be able to run all lines without errors):</p>
+<pre class="code bash"><a name="rest_code_831768c85386410485d0b89fceccaf6f-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> ipython notebook
+</pre>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/cuda/" rel="tag">cuda</a></li>
+            <li><a class="tag p-category" href="../../categories/keras/" rel="tag">keras</a></li>
+            <li><a class="tag p-category" href="../../categories/machine-learning/" rel="tag">machine learning</a></li>
+            <li><a class="tag p-category" href="../../categories/programming/" rel="tag">programming</a></li>
+            <li><a class="tag p-category" href="../../categories/python/" rel="tag">python</a></li>
+            <li><a class="tag p-category" href="../../categories/ubuntu/" rel="tag">ubuntu</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../suspicious-logins/" rel="prev" title="Suspicious logins">Previous post</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+                        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="fisa-blog",
+            disqus_url="http://blog.fisadev.com/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/",
+        disqus_title="How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04",
+        disqus_identifier="cache/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script></main><footer id="footer"><p>Contents © 2016         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+            
+        </footer>
+</div>
+        
+
+    
+    
+</body>
+</html>
