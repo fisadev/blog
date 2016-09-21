@@ -7,9 +7,6 @@
 .. description: 
 .. type: text
 
-How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04 
-==========================================================================================
-
 I broke so many things trying to get this to work, that I need to write it down for my future self and any others who might need this.
 
 This tutorial explains how to get a Keras neural network to train using your gpu, or any Theano related code for that matter, but for the special scenario of having a Nvidia Optimus enabled gpu running under Ubuntu 16.04. 
