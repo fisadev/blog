@@ -15,8 +15,8 @@ og: http://ogp.me/ns# article: http://ogp.me/ns/article#
 <meta property="og:site_name" content="Blog (fisa)">
 <meta property="og:title" content="How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA">
 <meta property="og:url" content="http://blog.fisadev.com/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/">
-<meta property="og:description" content="How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04
-I broke so many things trying to get this to work, that I need to write it down for my future self and any ot">
+<meta property="og:description" content="I broke so many things trying to get this to work, that I need to write it down for my future self and any others who might need this.
+This tutorial explains how to get a Keras neural network to train">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2016-09-20T22:58:35-03:00">
 <meta property="article:tag" content="cuda">
@@ -58,8 +58,6 @@ I broke so many things trying to get this to work, that I need to write it down 
         
     </header><div class="e-content entry-content" itemprop="articleBody text">
     <div>
-<div class="section" id="how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-16-04">
-<h2>How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04</h2>
 <p>I broke so many things trying to get this to work, that I need to write it down for my future self and any others who might need this.</p>
 <p>This tutorial explains how to get a Keras neural network to train using your gpu, or any Theano related code for that matter, but for the special scenario of having a Nvidia Optimus enabled gpu running under Ubuntu 16.04.
 Other scenarios:</p>
@@ -69,7 +67,6 @@ Other scenarios:</p>
 <li>Have an non-Nvidia gpu? this <strong>won't work</strong> at all.</li>
 </ul>
 <p>Enough presentations, lets get to work.</p>
-</div>
 <div class="section" id="the-example">
 <h2>0. The example</h2>
 <p>We will need a Keras example to check if things are working well.
@@ -120,12 +117,12 @@ The script is somewhat dumb and doesn't detect the drivers we installed on the p
 Later versions won't work.
 Ubuntu 16.04 ships with gcc 5.4.</p>
 <p>But we can have both versions side by side, and trick CUDA to use the older versions with just some simple symlinks (thanks to <a class="reference external" href="https://twitter.com/_zzzoom_/status/765720104868904964">charlie</a> for the tip, the old solution was far more complicated).</p>
-<pre class="code bash"><a name="rest_code_e520a89b515649c7986aec73f5387055-1"></a>sudo apt-get install gcc-4.9 g++-4.9
-<a name="rest_code_e520a89b515649c7986aec73f5387055-2"></a>sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
-<a name="rest_code_e520a89b515649c7986aec73f5387055-3"></a>sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
-<a name="rest_code_e520a89b515649c7986aec73f5387055-4"></a>
-<a name="rest_code_e520a89b515649c7986aec73f5387055-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
-<a name="rest_code_e520a89b515649c7986aec73f5387055-6"></a><span class="nb">echo</span> -e <span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span> &gt;&gt; ~/.theanorc
+<pre class="code bash"><a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-1"></a>sudo apt-get install gcc-4.9 g++-4.9
+<a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-2"></a>sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
+<a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-3"></a>sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
+<a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-4"></a>
+<a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
+<a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-6"></a><span class="nb">echo</span> -e <span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span> &gt;&gt; ~/.theanorc
 </pre>
 </div>
 <div class="section" id="testing">
@@ -135,12 +132,12 @@ Ubuntu 16.04 ships with gcc 5.4.</p>
 But don't just "run" it.
 You need to tell Theano "hey, I want you to use my shiny cuda gpu".
 To achieve that, run the script like this (inside your virtualenv):</p>
-<pre class="code bash"><a name="rest_code_76ad84d801994ff8bb8e5f3c2bee589f-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> python test_gpu.py
+<pre class="code bash"><a name="rest_code_41a0b6610f734a3cb3989acfefa80734-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> python test_gpu.py
 </pre>
 <p>If everything is working, it should quickly run and output something which ends with: <tt class="docutils literal">Used the gpu</tt>.
 If instead it takes a long time (~1 minute) and ends with <tt class="docutils literal">Used the cpu</tt>, then something is not working.</p>
 <p>If that worked, then you can try the full example and play a little with it (should be able to run all lines without errors):</p>
-<pre class="code bash"><a name="rest_code_831768c85386410485d0b89fceccaf6f-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> ipython notebook
+<pre class="code bash"><a name="rest_code_a3501ce5d46f405395da6fb9fd919f33-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> ipython notebook
 </pre>
 </div>
 </div>
