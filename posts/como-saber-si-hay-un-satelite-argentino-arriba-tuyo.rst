@@ -30,6 +30,9 @@ Lo abrimos y por primera vez vamos a ver un dashboard un poco diferente al que m
 Vamos a decirle que se baje datos actualizados, así las órbitas que vemos tienen menos error: vamos al menú "Edit" > "Update TLE" > "From network". 
 Eso nos va a mostrar una ventana con el progreso de la actualización, solamente tenemos que esperar a que termine (unos segundos) y luego cerrar la ventana.
 
+.. thumbnail:: /images/satelites-arriba-tuyo/update.png
+
+
 Configurar qué queremos ver
 ---------------------------
 
