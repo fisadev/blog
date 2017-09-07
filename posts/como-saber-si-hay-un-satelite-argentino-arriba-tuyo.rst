@@ -72,7 +72,7 @@ Ello nos abre una ventana donde rellenar nuestra posición:
 Lo importante a rellenar es "Name", "Latitude" y "Longitude" (datos que podemos obtener con el gps del celular, usando aplicaciones `como esta <https://play.google.com/store/apps/details?id=com.wered.sensorsmultitool>`_). "Altitud" también es útil, pero no super importante.
 
 Guardamos la ubicación, y ahora en la misma pantalla de edición del dashboard, vamos a hacer un último paso para que se vea un poco más lindo (al menos a mi gusto, jeje).
-Hacemos click en el botón "Properties". Esto nos despliega una ventana, en la que solo nos interesa cambiar el valor de "select layout":
+Hacemos click en el botón "Properties". Esto nos despliega una ventana, en la que solo nos interesa cambiar el valor de "Select layout":
 
 .. thumbnail:: /images/satelites-arriba-tuyo/edit_properties.png
 
