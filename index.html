@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html prefix="
-og: http://ogp.me/ns# article: http://ogp.me/ns/article#
-" vocab="http://ogp.me/ns" lang="en">
+            og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+    " vocab="http://ogp.me/ns" lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="description" content="This is my personal blog.">
 <meta name="viewport" content="width=device-width">
 <title>Blog (fisa)</title>
-<link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<meta content="#5670d4" name="theme-color">
+<link href="assets/css/baguetteBox.min.css" rel="stylesheet" type="text/css">
+<link href="assets/css/rst.css" rel="stylesheet" type="text/css">
+<link href="assets/css/code.css" rel="stylesheet" type="text/css">
+<link href="assets/css/theme.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="http://blog.fisadev.com/">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5shiv-printshiv.min.js"></script><![endif]--><link rel="prefetch" href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/" type="text/html">
 </head>
 <body>
-<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
     <div id="container">
              <header id="header"><h1 id="brand"><a href="http://blog.fisadev.com/" title="Blog (fisa)" rel="home">
 
@@ -29,9 +33,95 @@ og: http://ogp.me/ns# article: http://ogp.me/ns/article#
     
     
     </ul></nav></header><main id="content"><div class="postindex">
-    <article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/" class="u-url">How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04</a></h1>
+    <article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/" class="u-url">Cómo saber si hay un satélite argentino arriba tuyo</a></h1>
         <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Juan Pedro Fisanotti
+            </span></p>
+            <p class="dateline"><a href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/" rel="bookmark"><time class="published dt-published" datetime="2017-09-06T20:14:38-03:00" title="2017-09-06 20:14">2017-09-06 20:14</time></a></p>
+                <p class="commentline">            <a href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/#disqus_thread" data-disqus-identifier="cache/posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <div>
+<p>No te gustaría poder ver algo como esto en tu máquina, para saber cuándo alguno de los satélites argentinos anda por el cielo que está arriba tuyo? Algo así:</p>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/preview.png"><img alt="/images/satelites-arriba-tuyo/preview.thumbnail.png" src="images/satelites-arriba-tuyo/preview.thumbnail.png"></a>
+<p>Parece algo salido de una película, es re interesante para curiosear, y lo mejor de todo es que es una pavada tenerlo. Está todo disponible con programas y datos libres y gratuitos, y sin tener que hacer casi nada de trabajo. Así que les dejo los pasos para reproducirlo:</p>
+<div class="section" id="programa-y-datos">
+<h2>Programa y datos</h2>
+<p>Primero que nada necesitamos instalar GPredict, el programa que hace todo esto. Se puede bajar desde el sitio oficial: <a class="reference external" href="http://gpredict.oz9aec.net/">http://gpredict.oz9aec.net/</a></p>
+<p>Para quienes estén en Ubuntu, pueden instalarlo desde los repositorios:</p>
+<pre class="code text"><a name="rest_code_d7bacef77e374b57b962e13e9637e23e-1"></a>sudo apt install gpredict
+</pre>
+<p>Lo abrimos y por primera vez vamos a ver un dashboard un poco diferente al que mostré, con datos de satélites y la estación espacial internacional.
+Vamos a decirle que se baje datos actualizados, así las órbitas que vemos tienen menos error: vamos al menú "Edit" &gt; "Update TLE" &gt; "From network".
+Eso nos va a mostrar una ventana con el progreso de la actualización, solamente tenemos que esperar a que termine (unos segundos) y luego cerrar la ventana.</p>
+</div>
+<div class="section" id="configurar-que-queremos-ver">
+<h2>Configurar qué queremos ver</h2>
+<p>Ahora solo tenemos que decirle al programa dos cosas: qué queremos ver, y dónde estamos.</p>
+<p>Vamos al menú "File" &gt; "New module", lo que nos va a mostrar una ventana como esta:</p>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/new_module.png"><img alt="/images/satelites-arriba-tuyo/new_module.thumbnail.png" src="images/satelites-arriba-tuyo/new_module.thumbnail.png"></a>
+<p>Rellenamos:</p>
+<ul class="simple">
+<li>"Module Name": nombre de nuestro dashboard.</li>
+<li>"Selected Satellites": los satélites que queremos ver, que agregamos haciendo doble click en la lista de la izquierda ("Available Satellites"). Por suerte permite buscar :)
+Los satélites argentinos actuales son los <strong>CUBEBUG, NUSAT y ARSAT (hay varios de cada tipo, NUSAT-3 por ejemplo es el Milanesat de Satellogic!)</strong>.</li>
+</ul>
+<p>Guardamos, y terminamos con algo como esta imagen:</p>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/initial_dashboard.png"><img alt="/images/satelites-arriba-tuyo/initial_dashboard.thumbnail.png" src="images/satelites-arriba-tuyo/initial_dashboard.thumbnail.png"></a>
+<p>Todavía no se ve muy lindo, y falta nuestra posición. Pero ya podemos ver la posición actual de los satélites que nos interesaban!</p>
+<p>Agreguemos nuestra posición. Para ello hay que editar el módulo (dashboard), lo hacemos desplegando el menú que se abre con este botón (arriba a la derecha, en la esquina del mapa) y eligiendo la opción "Configure":</p>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/menu_button.png"><img alt="/images/satelites-arriba-tuyo/menu_button.thumbnail.png" src="images/satelites-arriba-tuyo/menu_button.thumbnail.png"></a>
+<p>En la ventana que se nos abre (que es la misma que cuando creamos el dashboard), hacemos click en el botón con un signo "+" que está al lado de "Ground Station".
+Ello nos abre una ventana donde rellenar nuestra posición:</p>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/add_ground_station.png"><img alt="/images/satelites-arriba-tuyo/add_ground_station.thumbnail.png" src="images/satelites-arriba-tuyo/add_ground_station.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/ground_station.png"><img alt="/images/satelites-arriba-tuyo/ground_station.thumbnail.png" src="images/satelites-arriba-tuyo/ground_station.thumbnail.png"></a>
+<p>Lo importante a rellenar es "Name", "Latitude" y "Longitude" (datos que podemos obtener con el gps del celular, usando aplicaciones <a class="reference external" href="https://play.google.com/store/apps/details?id=com.wered.sensorsmultitool">como esta</a>). "Altitud" también es útil, pero no super importante.</p>
+<p>Guardamos la ubicación, y ahora en la misma pantalla de edición del dashboard, vamos a hacer un último paso para que se vea un poco más lindo (al menos a mi gusto, jeje).
+Hacemos click en el botón "Properties". Esto nos despliega una ventana, en la que solo nos interesa cambiar el valor de "select layout":</p>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/edit_properties.png"><img alt="/images/satelites-arriba-tuyo/edit_properties.thumbnail.png" src="images/satelites-arriba-tuyo/edit_properties.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/properties.png"><img alt="/images/satelites-arriba-tuyo/properties.thumbnail.png" src="images/satelites-arriba-tuyo/properties.thumbnail.png"></a>
+<p>Elegimos "Map, table, polar and single sat (wide)". Guardamos todo, y listo! Ya tenemos nuestro super dashboard satelital :)</p>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/todo.png"><img alt="/images/satelites-arriba-tuyo/todo.thumbnail.png" src="images/satelites-arriba-tuyo/todo.thumbnail.png"></a>
+<p>Podés dejar de leer en este punto, o si te interesa saber un poco más, debajo explico qué son las cosas más importantes que se ven en el dashboard.</p>
+</div>
+<div class="section" id="que-estamos-viendo-en-el-mapa">
+<h2>Qué estamos viendo en el mapa?</h2>
+<p>En el mapa se ven las posiciones de los satélites, y el área de la tierra que ellos "cubren". Imaginate una pelota muy grande (o un planeta, jeje): si estás muy cerca ves poco, pero si te alejás, ves mucho más.
+Cuánto ves? Ves una zona de la pelota que tiene forma de círculo. Un radio de X distancia alrededor tuyo.</p>
+<p>Con los sates pasa esto mismo: si están muy cerca de la tierra (como los NUSAT), ven menos de ella al mismo tiempo. Si están más lejos (como los ARSAT), ven más.
+Dependiendo de qué función tenga el satélite, conviene estar más lejos o más cerca, y no hay una "mejor".
+Por ejemplo, no sirve estar super lejos y cubrir un montón si lo que interesa es sacar fotos detalladas de ciudades.
+Y no sirve estar re cerca y cubrir poco si lo que interesa es transmitir señales de comunicaciones.</p>
+<p>Si dije que el area que cubre tiene forma de círculo, por qué no se ven como círculos en en mapa?
+Los ARSAT parecieran cubrir un cuadrado, mientras que los NUSAT ven círculos o cosas más deformes dependiendo del momento!</p>
+<p>Eso es culpa de la proyección que usamos en el mapa. El mapa deforma mucho la imagen, la estira más cuanto más cerca estemos del polo.
+Si lo viésemos en un globo terraqueo, se verían como círculos.</p>
+<p>Cosa extra que se puede ver: si hacemos click derecho en el punto de un satélite, podemos tildar la opción "Ground Track", y eso nos muestra el camino que el satélite va a recorrer
+durante las próximas horas. Si lo hacemos para un ARSAT no se va a ver ningún camino, porque son sates que están siempre en el mismo lugar en el cielo! (geoestacionarios).</p>
+</div>
+<div class="section" id="que-estamos-viendo-alrededor">
+<h2>Qué estamos viendo alrededor?</h2>
+<p>Al costado hay dos cosas: un gráfico con forma de mira ("vista polar"), y un grupito de datos de un satélite.</p>
+<p>El gráfico con forma de mira es el cielo que vemos desde nuestra casa, con las posiciones de los satélites que lleguemos a ver (si es que hay alguno arriba nuestro).
+Si por ejemplo vivís en Argentina y pusiste tus coordenadas, deberías siempre poder ver a los dos ARSAT, y de a ratos algún otro.</p>
+<p>Los datos que se ven abajo del gráfico son el detalle de algún satélite en particular.
+Con el menú que tiene esa sección (botoncito con flecha hacia abajo), podemos elegir qué satélite ver.
+Cosa que sorprende a la mayoría de la gente: velocidad de los NUSAT o CUBEBUG, de 7 km/s. O sea, más o menos 23000 km/h.
+Un poquito rápido, suficiente como para dar la vuelta al mundo 16 veces por día (lo hacen!).</p>
+<p>Otra cosa útil: podemos ver cuándo es la próxima pasada del satélite por encima nuestro (o cuánto tiempo le falta antes de irse de nuestro cielo, si justo está pasando por arriba).
+Eso se ve en el campo "Next Event".</p>
+<p>Y finalmente, la tabla de abajo es similar al detalle del costado. Solo que muestra datos de varios sates a la vez.</p>
+<p>Espero que lo disfruten tanto como yo :)</p>
+</div>
+</div>
+    </div>
+    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/" class="u-url">How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Juan Pedro Fisanotti
             </span></p>
             <p class="dateline"><a href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/" rel="bookmark"><time class="published dt-published" datetime="2016-09-20T22:58:35-03:00" title="2016-09-20 22:58">2016-09-20 22:58</time></a></p>
@@ -101,12 +191,12 @@ The script is somewhat dumb and doesn't detect the drivers we installed on the p
 Later versions won't work.
 Ubuntu 16.04 ships with gcc 5.4.</p>
 <p>But we can have both versions side by side, and trick CUDA to use the older versions with just some simple symlinks (thanks to <a class="reference external" href="https://twitter.com/_zzzoom_/status/765720104868904964">charlie</a> for the tip, the old solution was far more complicated).</p>
-<pre class="code bash"><a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-1"></a>sudo apt-get install gcc-4.9 g++-4.9
-<a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-2"></a>sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
-<a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-3"></a>sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
-<a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-4"></a>
-<a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
-<a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-6"></a><span class="nb">echo</span> -e <span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span> &gt;&gt; ~/.theanorc
+<pre class="code bash"><a name="rest_code_d86c45f324be4963b246afbc408e81a3-1"></a>sudo apt-get install gcc-4.9 g++-4.9
+<a name="rest_code_d86c45f324be4963b246afbc408e81a3-2"></a>sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
+<a name="rest_code_d86c45f324be4963b246afbc408e81a3-3"></a>sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
+<a name="rest_code_d86c45f324be4963b246afbc408e81a3-4"></a>
+<a name="rest_code_d86c45f324be4963b246afbc408e81a3-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
+<a name="rest_code_d86c45f324be4963b246afbc408e81a3-6"></a><span class="nb">echo</span> -e <span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span> &gt;&gt; ~/.theanorc
 </pre>
 </div>
 <div class="section" id="testing">
@@ -116,19 +206,19 @@ Ubuntu 16.04 ships with gcc 5.4.</p>
 But don't just "run" it.
 You need to tell Theano "hey, I want you to use my shiny cuda gpu".
 To achieve that, run the script like this (inside your virtualenv):</p>
-<pre class="code bash"><a name="rest_code_41a0b6610f734a3cb3989acfefa80734-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> python test_gpu.py
+<pre class="code bash"><a name="rest_code_86c52060168449bea7b8ac1449dbfd01-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> python test_gpu.py
 </pre>
 <p>If everything is working, it should quickly run and output something which ends with: <tt class="docutils literal">Used the gpu</tt>.
 If instead it takes a long time (~1 minute) and ends with <tt class="docutils literal">Used the cpu</tt>, then something is not working.</p>
 <p>If that worked, then you can try the full example and play a little with it (should be able to run all lines without errors):</p>
-<pre class="code bash"><a name="rest_code_a3501ce5d46f405395da6fb9fd919f33-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> ipython notebook
+<pre class="code bash"><a name="rest_code_0a5d7b65029048e7ac18ab6047186c93-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> ipython notebook
 </pre>
 </div>
 </div>
     </div>
     </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/suspicious-logins/" class="u-url">Suspicious logins</a></h1>
         <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Juan Pedro Fisanotti
             </span></p>
             <p class="dateline"><a href="posts/suspicious-logins/" rel="bookmark"><time class="published dt-published" datetime="2016-09-19T20:45:15-03:00" title="2016-09-19 20:45">2016-09-19 20:45</time></a></p>
@@ -175,12 +265,12 @@ If instead it takes a long time (~1 minute) and ends with <tt class="docutils li
 <p>Some might think "oh, that's to be expected as well. Google must have blocked the account as soon as the security incident was detected". But no. This feature doesn't check email every second. For my accounts, it's doing it once every day, more or less. And the failed attempt was at the exact same time the "suspicious login" happened. In <strong>both</strong> accounts. Different times each one. Too much coincidence.</p>
 <p>I wasn't able to see the original error for one of the accounts, too many login errors since it because of the password change, and it only stores the last 5 of them. But for the other account the first error was still there, and it was different to the password related ones.</p>
 <p>The errors after the password changes were:</p>
-<pre class="code text"><a name="rest_code_587b577b14454f8cb7cf706f74bf6b07-1"></a>Authentication error.
-<a name="rest_code_587b577b14454f8cb7cf706f74bf6b07-2"></a>Server returned error "[AUTH] Username and password not accepted."
+<pre class="code text"><a name="rest_code_ca823e3fe8de4cab8f6da0c0e78ab7ea-1"></a>Authentication error.
+<a name="rest_code_ca823e3fe8de4cab8f6da0c0e78ab7ea-2"></a>Server returned error "[AUTH] Username and password not accepted."
 </pre>
 <p>But the error at the same time than the suspicious login was:</p>
-<pre class="code text"><a name="rest_code_0c8bba7179584d26aca56f5e126a0d4d-1"></a>Authentication error.
-<a name="rest_code_0c8bba7179584d26aca56f5e126a0d4d-2"></a>Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
+<pre class="code text"><a name="rest_code_ea9ef937a02a44478a192ab84a30fc3f-1"></a>Authentication error.
+<a name="rest_code_ea9ef937a02a44478a192ab84a30fc3f-2"></a>Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
 </pre>
 <p>The linked support page isn't very helpful, but if you google the error you will find some people having the same issue: after years of not using an account, the login on their pop3 client starts to fail. Maybe something changed in google's security policies, maybe it's related to new terms of service, or required security checkups. But the thing is: logins fail until you login from a browser and tweak some stuff (enabling less secure apps, etc).</p>
 <p>That itself isn't the bug. The bug is flagging those pop3 logins which came <strong>from inside google</strong> (it's a gmail feature, running on their servers), as if they were "suspicious logins". They are not suspicious, they are comming from inside google, they are being made from a google server trying to execute a gmail feature.</p>
@@ -196,13 +286,15 @@ If instead it takes a long time (~1 minute) and ends with <tt class="docutils li
     </article>
 </div>
 
-               <script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script></main><footer id="footer"><p>Contents © 2016         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+               <script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script></main><footer id="footer"><p>Contents © 2017         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>
         
 
-    
-    
+        <script src="assets/js/baguetteBox.min.js"></script><script>baguetteBox.run('a.reference', {
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});</script>
 </body>
 </html>

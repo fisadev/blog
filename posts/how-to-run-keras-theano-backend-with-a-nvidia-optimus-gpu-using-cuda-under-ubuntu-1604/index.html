@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html prefix="
-og: http://ogp.me/ns# article: http://ogp.me/ns/article#
-" vocab="http://ogp.me/ns" lang="en">
+            og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+    " vocab="http://ogp.me/ns" lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <title>How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04 | Blog (fisa)</title>
-<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<meta content="#5670d4" name="theme-color">
+<link href="../../assets/css/baguetteBox.min.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/rst.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/code.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/theme.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
 <link rel="canonical" href="http://blog.fisadev.com/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/">
-<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Juan Pedro Fisanotti">
+<!--[if lt IE 9]><script src="../../assets/js/html5shiv-printshiv.min.js"></script><![endif]--><meta name="author" content="Juan Pedro Fisanotti">
 <link rel="prev" href="../suspicious-logins/" title="Suspicious logins" type="text/html">
+<link rel="next" href="../como-saber-si-hay-un-satelite-argentino-arriba-tuyo/" title="Cómo saber si hay un satélite argentino arriba tuyo" type="text/html">
 <meta property="og:site_name" content="Blog (fisa)">
 <meta property="og:title" content="How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA">
 <meta property="og:url" content="http://blog.fisadev.com/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/">
@@ -27,7 +32,7 @@ This tutorial explains how to get a Keras neural network to train">
 <meta property="article:tag" content="ubuntu">
 </head>
 <body>
-<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
     <div id="container">
              <header id="header"><h1 id="brand"><a href="http://blog.fisadev.com/" title="Blog (fisa)" rel="home">
 
@@ -44,7 +49,7 @@ This tutorial explains how to get a Keras neural network to train">
     </ul></nav></header><main id="content"><article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04</a></h1>
 
         <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                     Juan Pedro Fisanotti
             </span></p>
             <p class="dateline"><a href="." rel="bookmark"><time class="published dt-published" datetime="2016-09-20T22:58:35-03:00" itemprop="datePublished" title="2016-09-20 22:58">2016-09-20 22:58</time></a></p>
@@ -52,7 +57,7 @@ This tutorial explains how to get a Keras neural network to train">
 
 
                     </p>
-<p class="sourceline"><a href="index.rst" id="sourcelink">Source</a></p>
+<p class="sourceline"><a href="index.rst" class="sourcelink">Source</a></p>
 
         </div>
         
@@ -117,12 +122,12 @@ The script is somewhat dumb and doesn't detect the drivers we installed on the p
 Later versions won't work.
 Ubuntu 16.04 ships with gcc 5.4.</p>
 <p>But we can have both versions side by side, and trick CUDA to use the older versions with just some simple symlinks (thanks to <a class="reference external" href="https://twitter.com/_zzzoom_/status/765720104868904964">charlie</a> for the tip, the old solution was far more complicated).</p>
-<pre class="code bash"><a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-1"></a>sudo apt-get install gcc-4.9 g++-4.9
-<a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-2"></a>sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
-<a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-3"></a>sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
-<a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-4"></a>
-<a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
-<a name="rest_code_bb6fed1177c34eadb6e2fa4d029d5eb9-6"></a><span class="nb">echo</span> -e <span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span> &gt;&gt; ~/.theanorc
+<pre class="code bash"><a name="rest_code_d86c45f324be4963b246afbc408e81a3-1"></a>sudo apt-get install gcc-4.9 g++-4.9
+<a name="rest_code_d86c45f324be4963b246afbc408e81a3-2"></a>sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
+<a name="rest_code_d86c45f324be4963b246afbc408e81a3-3"></a>sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
+<a name="rest_code_d86c45f324be4963b246afbc408e81a3-4"></a>
+<a name="rest_code_d86c45f324be4963b246afbc408e81a3-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
+<a name="rest_code_d86c45f324be4963b246afbc408e81a3-6"></a><span class="nb">echo</span> -e <span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span> &gt;&gt; ~/.theanorc
 </pre>
 </div>
 <div class="section" id="testing">
@@ -132,12 +137,12 @@ Ubuntu 16.04 ships with gcc 5.4.</p>
 But don't just "run" it.
 You need to tell Theano "hey, I want you to use my shiny cuda gpu".
 To achieve that, run the script like this (inside your virtualenv):</p>
-<pre class="code bash"><a name="rest_code_41a0b6610f734a3cb3989acfefa80734-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> python test_gpu.py
+<pre class="code bash"><a name="rest_code_86c52060168449bea7b8ac1449dbfd01-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> python test_gpu.py
 </pre>
 <p>If everything is working, it should quickly run and output something which ends with: <tt class="docutils literal">Used the gpu</tt>.
 If instead it takes a long time (~1 minute) and ends with <tt class="docutils literal">Used the cpu</tt>, then something is not working.</p>
 <p>If that worked, then you can try the full example and play a little with it (should be able to run all lines without errors):</p>
-<pre class="code bash"><a name="rest_code_a3501ce5d46f405395da6fb9fd919f33-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> ipython notebook
+<pre class="code bash"><a name="rest_code_0a5d7b65029048e7ac18ab6047186c93-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> ipython notebook
 </pre>
 </div>
 </div>
@@ -153,6 +158,9 @@ If instead it takes a long time (~1 minute) and ends with <tt class="docutils li
 <ul class="pager hidden-print">
 <li class="previous">
                 <a href="../suspicious-logins/" rel="prev" title="Suspicious logins">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="../como-saber-si-hay-un-satelite-argentino-arriba-tuyo/" rel="next" title="Cómo saber si hay un satélite argentino arriba tuyo">Next post</a>
             </li>
         </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
                         <div id="disqus_thread"></div>
@@ -174,13 +182,15 @@ If instead it takes a long time (~1 minute) and ends with <tt class="docutils li
     <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script></main><footer id="footer"><p>Contents © 2016         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script></main><footer id="footer"><p>Contents © 2017         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>
         
 
-    
-    
+        <script src="../../assets/js/baguetteBox.min.js"></script><script>baguetteBox.run('a.reference', {
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});</script>
 </body>
 </html>

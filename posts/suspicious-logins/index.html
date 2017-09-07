@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html prefix="
-og: http://ogp.me/ns# article: http://ogp.me/ns/article#
-" vocab="http://ogp.me/ns" lang="en">
+            og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+    " vocab="http://ogp.me/ns" lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <title>Suspicious logins | Blog (fisa)</title>
-<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<meta content="#5670d4" name="theme-color">
+<link href="../../assets/css/baguetteBox.min.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/rst.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/code.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/theme.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
 <link rel="canonical" href="http://blog.fisadev.com/posts/suspicious-logins/">
-<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Juan Pedro Fisanotti">
+<!--[if lt IE 9]><script src="../../assets/js/html5shiv-printshiv.min.js"></script><![endif]--><meta name="author" content="Juan Pedro Fisanotti">
 <link rel="next" href="../how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/" title="How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04" type="text/html">
 <meta property="og:site_name" content="Blog (fisa)">
 <meta property="og:title" content="Suspicious logins">
@@ -23,7 +27,7 @@ Imagine not having used those extra accounts in years. An'>
 <meta property="article:tag" content="security">
 </head>
 <body>
-<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
     <div id="container">
              <header id="header"><h1 id="brand"><a href="http://blog.fisadev.com/" title="Blog (fisa)" rel="home">
 
@@ -40,7 +44,7 @@ Imagine not having used those extra accounts in years. An'>
     </ul></nav></header><main id="content"><article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Suspicious logins</a></h1>
 
         <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                     Juan Pedro Fisanotti
             </span></p>
             <p class="dateline"><a href="." rel="bookmark"><time class="published dt-published" datetime="2016-09-19T20:45:15-03:00" itemprop="datePublished" title="2016-09-19 20:45">2016-09-19 20:45</time></a></p>
@@ -48,7 +52,7 @@ Imagine not having used those extra accounts in years. An'>
 
 
                     </p>
-<p class="sourceline"><a href="index.rst" id="sourcelink">Source</a></p>
+<p class="sourceline"><a href="index.rst" class="sourcelink">Source</a></p>
 
         </div>
         
@@ -90,12 +94,12 @@ Imagine not having used those extra accounts in years. An'>
 <p>Some might think "oh, that's to be expected as well. Google must have blocked the account as soon as the security incident was detected". But no. This feature doesn't check email every second. For my accounts, it's doing it once every day, more or less. And the failed attempt was at the exact same time the "suspicious login" happened. In <strong>both</strong> accounts. Different times each one. Too much coincidence.</p>
 <p>I wasn't able to see the original error for one of the accounts, too many login errors since it because of the password change, and it only stores the last 5 of them. But for the other account the first error was still there, and it was different to the password related ones.</p>
 <p>The errors after the password changes were:</p>
-<pre class="code text"><a name="rest_code_587b577b14454f8cb7cf706f74bf6b07-1"></a>Authentication error.
-<a name="rest_code_587b577b14454f8cb7cf706f74bf6b07-2"></a>Server returned error "[AUTH] Username and password not accepted."
+<pre class="code text"><a name="rest_code_ca823e3fe8de4cab8f6da0c0e78ab7ea-1"></a>Authentication error.
+<a name="rest_code_ca823e3fe8de4cab8f6da0c0e78ab7ea-2"></a>Server returned error "[AUTH] Username and password not accepted."
 </pre>
 <p>But the error at the same time than the suspicious login was:</p>
-<pre class="code text"><a name="rest_code_0c8bba7179584d26aca56f5e126a0d4d-1"></a>Authentication error.
-<a name="rest_code_0c8bba7179584d26aca56f5e126a0d4d-2"></a>Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
+<pre class="code text"><a name="rest_code_ea9ef937a02a44478a192ab84a30fc3f-1"></a>Authentication error.
+<a name="rest_code_ea9ef937a02a44478a192ab84a30fc3f-2"></a>Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
 </pre>
 <p>The linked support page isn't very helpful, but if you google the error you will find some people having the same issue: after years of not using an account, the login on their pop3 client starts to fail. Maybe something changed in google's security policies, maybe it's related to new terms of service, or required security checkups. But the thing is: logins fail until you login from a browser and tweak some stuff (enabling less secure apps, etc).</p>
 <p>That itself isn't the bug. The bug is flagging those pop3 logins which came <strong>from inside google</strong> (it's a gmail feature, running on their servers), as if they were "suspicious logins". They are not suspicious, they are comming from inside google, they are being made from a google server trying to execute a gmail feature.</p>
@@ -135,13 +139,15 @@ Imagine not having used those extra accounts in years. An'>
     <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script></main><footer id="footer"><p>Contents © 2016         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script></main><footer id="footer"><p>Contents © 2017         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>
         
 
-    
-    
+        <script src="../../assets/js/baguetteBox.min.js"></script><script>baguetteBox.run('a.reference', {
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});</script>
 </body>
 </html>
