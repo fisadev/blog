@@ -7,7 +7,7 @@
 .. description: 
 .. type: text
 
-No te gustaría poder ver algo como esto en tu máquina, para saber cuándo alguno de los satélites argentinos anda por el cielo que está arriba tuyo? Algo así:
+No te gustaría poder ver algo como esto en tu máquina, para saber cuándo alguno de los satélites argentinos anda por el cielo que está arriba tuyo?:
 
 .. thumbnail:: /images/satelites-arriba-tuyo/preview.png
 
