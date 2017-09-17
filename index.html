@@ -15,7 +15,7 @@
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="http://blog.fisadev.com/">
-<!--[if lt IE 9]><script src="assets/js/html5shiv-printshiv.min.js"></script><![endif]--><link rel="prefetch" href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5shiv-printshiv.min.js"></script><![endif]--><link rel="prefetch" href="posts/customer-and-code-quality/" type="text/html">
 </head>
 <body>
     <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -33,7 +33,52 @@
     
     
     </ul></nav></header><main id="content"><div class="postindex">
-    <article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/" class="u-url">Cómo saber si hay un satélite argentino arriba tuyo</a></h1>
+    <article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/customer-and-code-quality/" class="u-url">Customer and code quality</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Juan Pedro Fisanotti
+            </span></p>
+            <p class="dateline"><a href="posts/customer-and-code-quality/" rel="bookmark"><time class="published dt-published" datetime="2017-09-17T16:28:30-03:00" title="2017-09-17 16:28">2017-09-17 16:28</time></a></p>
+                <p class="commentline">            <a href="posts/customer-and-code-quality/#disqus_thread" data-disqus-identifier="cache/posts/customer-and-code-quality.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <div>
+<p>I hear this a lot in the software development community: "the customer doesn't care about the quality of the code, just about features, usability, user experience, etc.".
+It has many variations, but the idea remains the same: code quality isn't a factor in the decisions of the customer (internal or external).</p>
+<p>Sometimes it's even used to justify writing, or not refactoring, bad code.
+Because the main thing is to give your customer some value, and code quality just doesn't do that.</p>
+<p>I currently believe this is false.
+I believe that <strong>customers do care</strong> about the quality of the code, even if they don't understand what code is or how does it work.</p>
+<div class="section" id="cars">
+<h2>Cars</h2>
+<p>When buying a car, would you ask how are the wheels attached to the rest of the car?
+You probably wouldn't, you don't care about that.
+But what if car X had wheels so special that each time you must change a tire, you need to spend 10.000$?
+Suddenly you care about wheel attachment systems.
+You would even feel cheated if someone sold you this car without warning you about its wheels.</p>
+<p>Well, no, you don't care about wheel attachment systems specifically.
+But you don't want a car that costs lots of money each time it requires some maintainance.
+You care about <strong>maintainance costs</strong>.</p>
+</div>
+<div class="section" id="software">
+<h2>Software</h2>
+<p>You probably get my point already.</p>
+<p>Software, code, will need maintainance in most projects.
+And we know that one of the major factors defining the time (money) required to do code maintainance, is how good it is.
+Bad code costs more to maintain because it tends to have more bugs, to spawn new bugs more easily when modifying it, to be harder to read/understand how to change it, etc.</p>
+<p>So the customer might have zero idea regarding what code is.
+But they still <strong>care</strong>, they want software with reasonable maintainance costs and that means code that is decent enough.
+And giving them bad code without warning them of its impacts on maintainance, is a way of cheating them.</p>
+<p>Finally, customers tend to be unable to see this relation by themselves, and contractors usually don't want to tell them "this is taking too long to modify because we gave you bad quality code".
+This may be the reason we got the idea that customers don't care about code, developers just usually fail to explain (or even hide) to them the strong relation between code quality and maintainance costs.
+So they never come back asking for "better code".</p>
+</div>
+</div>
+    </div>
+    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/" class="u-url">Cómo saber si hay un satélite argentino arriba tuyo</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Juan Pedro Fisanotti
