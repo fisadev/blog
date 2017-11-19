@@ -30,7 +30,7 @@ Usually it's just installing a package with ``apt``:
 
 .. code-block::
 
-    ``sudo apt install nvidia-375``
+    sudo apt install nvidia-375
 
 
 But if you are using an Optimus-enabled graphics card (most laptops with Nvidia cards previous to the 10xx generation),
