@@ -1,5 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Blog (fisa)</title><link>http://blog.fisadev.com/</link><description>This is my personal blog.</description><atom:link rel="self" href="http://blog.fisadev.com/rss.xml" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Sun, 17 Sep 2017 20:20:35 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Customer and code quality</title><link>http://blog.fisadev.com/posts/customer-and-code-quality/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;div&gt;&lt;p&gt;I hear this a lot in the software development community: "the customer doesn't care about the quality of the code, just about features, usability, user experience, etc.".
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0"><channel><title>Blog (fisa)</title><link>http://blog.fisadev.com/</link><description>This is my personal blog.</description><atom:link type="application/rss+xml" rel="self" href="http://blog.fisadev.com/rss.xml"></atom:link><language>en</language><lastBuildDate>Sun, 19 Nov 2017 13:46:49 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Using Keras and TensorFlow with Nvidia gpus under Ubuntu</title><link>http://blog.fisadev.com/posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;div&gt;&lt;div class="section" id="what-are-all-these-things"&gt;
+&lt;h2&gt;What are all these things???&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;strong&gt;Keras&lt;/strong&gt;: the Python library that knows how to build and train artificial neural networks.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;TensorFlow&lt;/strong&gt;: the Python library that knows how to do heavy computations both under cpus and gpus, used by Keras.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CUDA + cuDNN&lt;/strong&gt;: Nvidia utilities to be able to run general purpose computations in the gpu.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Graphics drivers&lt;/strong&gt;: drivers that allow your linux to access and use the graphics card.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="graphics-drivers"&gt;
+&lt;h2&gt;Graphics drivers&lt;/h2&gt;
+&lt;p&gt;It might be possible to use CUDA without having the graphics drivers installed, but I'm not sure how easy and stable it is.
+So my recommendation is to install them first, and verify that they are working.&lt;/p&gt;
+&lt;p&gt;Usually it's just installing a package with &lt;tt class="docutils literal"&gt;apt&lt;/tt&gt;:&lt;/p&gt;
+&lt;pre class="code text"&gt;&lt;a name="rest_code_7f970433d505436ba476d10c00b22387-1"&gt;&lt;/a&gt;sudo apt install nvidia-375
+&lt;/pre&gt;&lt;p&gt;But if you are using an Optimus-enabled graphics card (most laptops with Nvidia cards previous to the 10xx generation),
+you might need to install the &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;nvidia-prime&lt;/span&gt;&lt;/tt&gt; package too.&lt;/p&gt;
+&lt;p&gt;The recommended version might be higher in the future, 375 is the one I'm using right now under Ubuntu 16.10.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="cuda-installation"&gt;
+&lt;h2&gt;CUDA installation&lt;/h2&gt;
+&lt;p&gt;Get both the CUDA installer and the cuDNN installer, from their official websites:
+&lt;a class="reference external" href="https://developer.nvidia.com/cuda-downloads"&gt;https://developer.nvidia.com/cuda-downloads&lt;/a&gt; and &lt;a class="reference external" href="https://developer.nvidia.com/cudnn"&gt;https://developer.nvidia.com/cudnn&lt;/a&gt;
+(you will need to register in the website and fill a survey to be able to download cuDNN).&lt;/p&gt;
+&lt;p&gt;The versions you need to get depend on which versions does TensorFlow support.
+You can check this in the official website, at &lt;a class="reference external" href="https://www.tensorflow.org/install/install_linux"&gt;https://www.tensorflow.org/install/install_linux&lt;/a&gt; .&lt;/p&gt;
+&lt;p&gt;Once you have both installers, first run the cuda installer (replace the name of the file with the one you got):&lt;/p&gt;
+&lt;pre class="code text"&gt;&lt;a name="rest_code_d6432458f1ac42d8977572a83b5d1a65-1"&gt;&lt;/a&gt;sudo sh ./cuda_8.0.61_375.26_linux.run --override
+&lt;/pre&gt;&lt;p&gt;It will ask you a few things. Tell "no" to the installation of graphics drivers (you should already have them),
+and "yes" to the creation of the symbolic link.&lt;/p&gt;
+&lt;p&gt;Then uncompress the cuDNN installer (a file with a name similar to &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;cudnn-8.0-linux-x64-v5.1.tgz&lt;/span&gt;&lt;/tt&gt;),
+and copy its files into the &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;/usr/local/cuda-8.0&lt;/span&gt;&lt;/tt&gt; folder (you should have it from the CUDA installation).
+The tar file contains subfolders, be sure to copy the files into the same subfolders in the destination.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="tensorflow-and-keras-installation"&gt;
+&lt;h2&gt;TensorFlow and Keras installation&lt;/h2&gt;
+&lt;p&gt;Once you have the graphics drivers and CUDA, then it's easy to install TensorFlow and Keras, they are just Python packages:&lt;/p&gt;
+&lt;pre class="code text"&gt;&lt;a name="rest_code_2ef94498f2cf4b13b8204fc06b1ffa1e-1"&gt;&lt;/a&gt;pip install tensorflow-gpu keras
+&lt;/pre&gt;&lt;p&gt;If you aren't using virtualenvs (you should!), you should add &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;--user&lt;/span&gt;&lt;/tt&gt; to that command.
+I don't recommend installing the packages system-wide with &lt;tt class="docutils literal"&gt;sudo&lt;/tt&gt;, as with time you will probably need different versions of both
+&lt;tt class="docutils literal"&gt;tensorflow&lt;/tt&gt; and &lt;tt class="docutils literal"&gt;keras&lt;/tt&gt; for different projects (they both evolve quite quickly).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="running-the-code"&gt;
+&lt;h2&gt;Running the code&lt;/h2&gt;
+&lt;p&gt;Finally, when running your code you may need to define the &lt;tt class="docutils literal"&gt;LD_LIBRARY_PATH&lt;/tt&gt; environment variable, for TensorFlow to be able to
+find the needed CUDA libraries:&lt;/p&gt;
+&lt;pre class="code text"&gt;&lt;a name="rest_code_5d880ecf5d3949c18400295ab7a865f6-1"&gt;&lt;/a&gt;LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python your_awesome_code.py
+&lt;/pre&gt;&lt;p&gt;This is true also for Jupyter notebooks:&lt;/p&gt;
+&lt;pre class="code text"&gt;&lt;a name="rest_code_c69a0bdec55544d4a513fdf4089e9fba-1"&gt;&lt;/a&gt;LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 jupyter notebook
+&lt;/pre&gt;&lt;p&gt;If you are unsure if your code is actually using your gpu, you can paste this snippet into a &lt;tt class="docutils literal"&gt;test_device.py&lt;/tt&gt; file:&lt;/p&gt;
+&lt;pre class="code python"&gt;&lt;a name="rest_code_185b9068aed241168cb323ce90f0124a-1"&gt;&lt;/a&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;tensorflow&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;tf&lt;/span&gt;
+&lt;a name="rest_code_185b9068aed241168cb323ce90f0124a-2"&gt;&lt;/a&gt;&lt;span class="n"&gt;sess&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Session&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ConfigProto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;log_device_placement&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;p&gt;And then run it:&lt;/p&gt;
+&lt;pre class="code text"&gt;&lt;a name="rest_code_7c836d3481a14f08805f831d0b9c37d5-1"&gt;&lt;/a&gt;LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python test_device.py
+&lt;/pre&gt;&lt;p&gt;It should print a lot of information, but in between you should see something with your graphics card name, like
+&lt;tt class="docutils literal"&gt;name: GeForce GTX 1070&lt;/tt&gt;.&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description><guid>http://blog.fisadev.com/posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/</guid><pubDate>Sun, 19 Nov 2017 12:55:28 GMT</pubDate></item><item><title>Customer and code quality</title><link>http://blog.fisadev.com/posts/customer-and-code-quality/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;div&gt;&lt;p&gt;I hear this a lot in the software development community: "the customer doesn't care about the quality of the code, just about features, usability, user experience, etc.".
 It has many variations, but the idea remains the same: code quality isn't a factor in the decisions of the customer (internal or external).&lt;/p&gt;
 &lt;p&gt;Sometimes it's even used to justify writing, or not refactoring, bad code.
 Because the main thing is to give your customer some value, and code quality just doesn't do that.&lt;/p&gt;
