@@ -13,10 +13,10 @@ Using Keras and TensorFlow with Nvidia gpus under Ubuntu
 What are all these things???
 ----------------------------
 
-* Keras: the Python library that knows how to build and train artificial neural networks.
-* TensorFlow: the Python library that knows how to do heavy computations both under cpus and gpus, used by Keras.
-* CUDA + cuDNN: Nvidia utilities to be able to run general purpose computations in the gpu.
-* Graphics drivers: drivers that allow your linux to access and use the graphics card.
+* **Keras**: the Python library that knows how to build and train artificial neural networks.
+* **TensorFlow**: the Python library that knows how to do heavy computations both under cpus and gpus, used by Keras.
+* **CUDA + cuDNN**: Nvidia utilities to be able to run general purpose computations in the gpu.
+* **Graphics drivers**: drivers that allow your linux to access and use the graphics card.
 
 
 Graphics drivers
