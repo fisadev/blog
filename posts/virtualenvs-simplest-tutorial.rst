@@ -1,4 +1,4 @@
-.. title: The simplest tutorial for Virtualenvs in Python 3
+.. title: The simplest Virtualenv tutorial (Python 3)
 .. slug: virtualenvs-simplest-tutorial
 .. date: 2019-04-15 19:51:00 UTC-03:00
 .. tags: 
