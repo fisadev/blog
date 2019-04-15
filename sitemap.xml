@@ -7,70 +7,82 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>http://blog.fisadev.com/</loc>
-  <lastmod>2017-09-07T00:19:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/2016/</loc>
-  <lastmod>2016-09-20T00:50:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/2017/</loc>
-  <lastmod>2017-09-07T00:19:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://blog.fisadev.com/2019/</loc>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/archive.html</loc>
-  <lastmod>2017-11-19T13:44:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/categories/</loc>
-  <lastmod>2016-09-21T01:59:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://blog.fisadev.com/categories/cat_posts/</loc>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/categories/cuda/</loc>
-  <lastmod>2016-09-21T01:59:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/categories/keras/</loc>
-  <lastmod>2016-09-21T01:59:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/categories/machine-learning/</loc>
-  <lastmod>2016-09-21T01:59:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/categories/programming/</loc>
-  <lastmod>2016-09-21T01:59:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/categories/python/</loc>
-  <lastmod>2016-09-21T01:59:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/categories/security/</loc>
-  <lastmod>2016-09-20T00:50:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/categories/ubuntu/</loc>
-  <lastmod>2016-09-21T01:59:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/</loc>
-  <lastmod>2017-09-07T00:19:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/posts/customer-and-code-quality/</loc>
-  <lastmod>2017-09-17T20:08:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/</loc>
-  <lastmod>2016-09-21T01:59:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/posts/suspicious-logins/</loc>
-  <lastmod>2016-09-20T00:27:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/</loc>
-  <lastmod>2017-11-19T13:44:00Z</lastmod>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://blog.fisadev.com/posts/virtualenvs-simplest-tutorial/</loc>
+  <lastmod>2019-04-15T23:26:00Z</lastmod>
  </url>
 </urlset>

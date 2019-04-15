@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html prefix="
-            og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+        og: http://ogp.me/ns# article: http://ogp.me/ns/article#
     " vocab="http://ogp.me/ns" lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="description" content="This is my personal blog.">
 <meta name="viewport" content="width=device-width">
 <title>Blog (fisa)</title>
-<link href="assets/css/baguetteBox.min.css" rel="stylesheet" type="text/css">
-<link href="assets/css/rst.css" rel="stylesheet" type="text/css">
-<link href="assets/css/code.css" rel="stylesheet" type="text/css">
-<link href="assets/css/theme.css" rel="stylesheet" type="text/css">
+<link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="rss.xml">
 <link rel="canonical" href="http://blog.fisadev.com/">
-<!--[if lt IE 9]><script src="assets/js/html5shiv-printshiv.min.js"></script><![endif]--><link rel="prefetch" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5shiv-printshiv.min.js"></script><![endif]--><link rel="prefetch" href="posts/virtualenvs-simplest-tutorial/" type="text/html">
 </head>
 <body>
     <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -30,24 +27,90 @@
 <li><a href="archive.html">Archive</a></li>
                 <li><a href="categories/">Tags</a></li>
                 <li><a href="rss.xml">RSS feed</a></li>
+
+    
     
     
     </ul></nav></header><main id="content"><div class="postindex">
-    <article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/" class="u-url">Using Keras and TensorFlow with Nvidia gpus under Ubuntu</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/virtualenvs-simplest-tutorial/" class="u-url">The simplest tutorial for Virtualenvs in Python 3</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Juan Pedro Fisanotti
             </span></p>
-            <p class="dateline"><a href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/" rel="bookmark"><time class="published dt-published" datetime="2017-11-19T09:55:28-03:00" title="2017-11-19 09:55">2017-11-19 09:55</time></a></p>
-                <p class="commentline">            <a href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#disqus_thread" data-disqus-identifier="cache/posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu.html">Comments</a>
+            <p class="dateline">
+            <a href="posts/virtualenvs-simplest-tutorial/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-04-15T19:51:00-03:00" itemprop="datePublished" title="2019-04-15 19:51">2019-04-15 19:51</time></a>
+            </p>
+                <p class="commentline">            <a href="posts/virtualenvs-simplest-tutorial/#disqus_thread" data-disqus-identifier="cache/posts/virtualenvs-simplest-tutorial.html">Comments</a>
 
 
         </p>
 </div>
     </header><div class="e-content entry-content">
     <div>
+<p>Python virtualenvs allow you to have isolated environments, in which you can install python libs and run your programs. This is useful when you have different projects with different requirements, and also to avoid installing python libs at system level.</p>
+<p>This is how to use them in modern versions of python.</p>
+<div class="section" id="what-do-i-need">
+<h2>What do I need?</h2>
+<p>Python 3.3 or newer (older versions do have virtualenvs, but they are used in a slightly different way).</p>
+</div>
+<div class="section" id="how-do-i-create-a-new-virtualenv">
+<h2>How do I create a new virtualenv?</h2>
+<p>Open a terminal, and run this:</p>
+<pre class="code bash"><a name="rest_code_76f36cb828f643079babd0a6a442c9df-1"></a>python3 -m venv PATH_TO_YOUR_VIRTUALENV
+</pre>
+<p>The path it receives as a paramenter, is the location for a folder that will be created and will contain your virtualenv inside. It will only contain the virtualenv, <strong>don't</strong> add any files inside that folder. Treat it like a "system" folder.</p>
+<p>Example:</p>
+<pre class="code bash"><a name="rest_code_079e5e55b5f04bf0b2027313a8f7402c-1"></a>python3 -m venv /home/fisa/projects/my_blog/venv
+</pre>
+</div>
+<div class="section" id="how-do-i-use-the-virtualenv">
+<h2>How do I use the virtualenv?</h2>
+<p>Each time you open a new terminal (console) to work in your project, you need to <strong>activate</strong> the virtualenv. The command to activate the virtualenv is different for Linux/MacOS vs Windows.</p>
+<p>On Linux and MacOS, run:</p>
+<pre class="code bash"><a name="rest_code_37bb42e69d6a4a83969a7ddc9cb699db-1"></a><span class="nb">source</span> PATH_TO_YOUR_VIRTUALENV/bin/activate
+</pre>
+<p>(if your are using fish shell, the command is different too)</p>
+<p>On Windows:</p>
+<pre class="code text"><a name="rest_code_f22a3d4af45e4d18a6851a31c281b173-1"></a>PATH_TO_YOUR_VIRTUALENV\Scripts\activate.bat
+</pre>
+<p>From now on, the prompt of the terminal should say something like <tt class="docutils literal">(venv)</tt> at the begining (with the name of your virtualenv). This indicates that you are working inside your virtualenv.</p>
+<p>With your virtualenv activated, if you now install libs with pip (example: <tt class="docutils literal">pip install pandas</tt>), they will be installed inside the virtualenv. If you run a program inside that terminal, it will be able to import any libs installed in the virtualenv.</p>
+</div>
+<div class="section" id="that-s-it">
+<h2>That's it?</h2>
+<p>Yep.</p>
+<p>Well, there's more to it, but this is what you need to start using virtualenvs :)</p>
+</div>
+<div class="section" id="ok-but">
+<h2>Ok, but...</h2>
+<ul class="simple">
+<li>... how do I deactivate the virtualenv? Just close that terminal. Or run <tt class="docutils literal">deactivate</tt>.</li>
+<li>... how do I delete the virtualenv? Just delete the folder. Nothing else is created anywhere else.</li>
+<li>... can I move the virtualenv? No. Just delete it, and create a new one in the new location. Virtualenvs are disposable, don't get attached to them :) (your project should define it's dependencies either in a <tt class="docutils literal">requirements.txt</tt> or in a <tt class="docutils literal">setup.py</tt>, so you can easily install all the dependencies at once in the new environment)</li>
+</ul>
+</div>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/" class="u-url">Using Keras and TensorFlow with Nvidia gpus under Ubuntu</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Juan Pedro Fisanotti
+            </span></p>
+            <p class="dateline">
+            <a href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/" rel="bookmark">
+            <time class="published dt-published" datetime="2017-11-19T09:55:28-03:00" itemprop="datePublished" title="2017-11-19 09:55">2017-11-19 09:55</time></a>
+            </p>
+                <p class="commentline">            <a href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#disqus_thread" data-disqus-identifier="cache/posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <div class="section" id="using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu">
+<h2>Using Keras and TensorFlow with Nvidia gpus under Ubuntu</h2>
 <div class="section" id="what-are-all-these-things">
-<h2>What are all these things???</h2>
+<h3>What are all these things???</h3>
 <ul class="simple">
 <li>
 <strong>Keras</strong>: the Python library that knows how to build and train artificial neural networks.</li>
@@ -60,25 +123,25 @@
 </ul>
 </div>
 <div class="section" id="graphics-drivers">
-<h2>Graphics drivers</h2>
+<h3>Graphics drivers</h3>
 <p>It might be possible to use CUDA without having the graphics drivers installed, but I'm not sure how easy and stable it is.
 So my recommendation is to install them first, and verify that they are working.</p>
 <p>Usually it's just installing a package with <tt class="docutils literal">apt</tt>:</p>
-<pre class="code text"><a name="rest_code_7f970433d505436ba476d10c00b22387-1"></a>sudo apt install nvidia-375
+<pre class="code text"><a name="rest_code_d5e9d223fd5b4a86ab3868f9858d926b-1"></a>sudo apt install nvidia-375
 </pre>
 <p>But if you are using an Optimus-enabled graphics card (most laptops with Nvidia cards previous to the 10xx generation),
 you might need to install the <tt class="docutils literal"><span class="pre">nvidia-prime</span></tt> package too.</p>
 <p>The recommended version might be higher in the future, 375 is the one I'm using right now under Ubuntu 16.10.</p>
 </div>
 <div class="section" id="cuda-installation">
-<h2>CUDA installation</h2>
+<h3>CUDA installation</h3>
 <p>Get both the CUDA installer and the cuDNN installer, from their official websites:
 <a class="reference external" href="https://developer.nvidia.com/cuda-downloads">https://developer.nvidia.com/cuda-downloads</a> and <a class="reference external" href="https://developer.nvidia.com/cudnn">https://developer.nvidia.com/cudnn</a>
 (you will need to register in the website and fill a survey to be able to download cuDNN).</p>
 <p>The versions you need to get depend on which versions does TensorFlow support.
 You can check this in the official website, at <a class="reference external" href="https://www.tensorflow.org/install/install_linux">https://www.tensorflow.org/install/install_linux</a> .</p>
 <p>Once you have both installers, first run the cuda installer (replace the name of the file with the one you got):</p>
-<pre class="code text"><a name="rest_code_d6432458f1ac42d8977572a83b5d1a65-1"></a>sudo sh ./cuda_8.0.61_375.26_linux.run --override
+<pre class="code text"><a name="rest_code_59f5a2a6c43a4988adb57d411f6c9b55-1"></a>sudo sh ./cuda_8.0.61_375.26_linux.run --override
 </pre>
 <p>It will ask you a few things. Tell "no" to the installation of graphics drivers (you should already have them),
 and "yes" to the creation of the symbolic link.</p>
@@ -87,41 +150,44 @@ and copy its files into the <tt class="docutils literal"><span class="pre">/usr/
 The tar file contains subfolders, be sure to copy the files into the same subfolders in the destination.</p>
 </div>
 <div class="section" id="tensorflow-and-keras-installation">
-<h2>TensorFlow and Keras installation</h2>
+<h3>TensorFlow and Keras installation</h3>
 <p>Once you have the graphics drivers and CUDA, then it's easy to install TensorFlow and Keras, they are just Python packages:</p>
-<pre class="code text"><a name="rest_code_2ef94498f2cf4b13b8204fc06b1ffa1e-1"></a>pip install tensorflow-gpu keras
+<pre class="code text"><a name="rest_code_b3f8663fe6b540c4b191451d6160922a-1"></a>pip install tensorflow-gpu keras
 </pre>
 <p>If you aren't using virtualenvs (you should!), you should add <tt class="docutils literal"><span class="pre">--user</span></tt> to that command.
 I don't recommend installing the packages system-wide with <tt class="docutils literal">sudo</tt>, as with time you will probably need different versions of both
 <tt class="docutils literal">tensorflow</tt> and <tt class="docutils literal">keras</tt> for different projects (they both evolve quite quickly).</p>
 </div>
 <div class="section" id="running-the-code">
-<h2>Running the code</h2>
+<h3>Running the code</h3>
 <p>Finally, when running your code you may need to define the <tt class="docutils literal">LD_LIBRARY_PATH</tt> environment variable, for TensorFlow to be able to
 find the needed CUDA libraries:</p>
-<pre class="code text"><a name="rest_code_5d880ecf5d3949c18400295ab7a865f6-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python your_awesome_code.py
+<pre class="code text"><a name="rest_code_7e5432d5bdfd4aad9cfe09634cd01e92-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python your_awesome_code.py
 </pre>
 <p>This is true also for Jupyter notebooks:</p>
-<pre class="code text"><a name="rest_code_c69a0bdec55544d4a513fdf4089e9fba-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 jupyter notebook
+<pre class="code text"><a name="rest_code_42a7b51095c4420485c76e67054d19c4-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 jupyter notebook
 </pre>
 <p>If you are unsure if your code is actually using your gpu, you can paste this snippet into a <tt class="docutils literal">test_device.py</tt> file:</p>
-<pre class="code python"><a name="rest_code_185b9068aed241168cb323ce90f0124a-1"></a><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
-<a name="rest_code_185b9068aed241168cb323ce90f0124a-2"></a><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">(</span><span class="n">log_device_placement</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+<pre class="code python"><a name="rest_code_cf428386d1e048b680764061a43daef9-1"></a><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
+<a name="rest_code_cf428386d1e048b680764061a43daef9-2"></a><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">(</span><span class="n">log_device_placement</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
 </pre>
 <p>And then run it:</p>
-<pre class="code text"><a name="rest_code_7c836d3481a14f08805f831d0b9c37d5-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python test_device.py
+<pre class="code text"><a name="rest_code_e04ab8bb670f4df3aa2b529c94fcd40a-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python test_device.py
 </pre>
 <p>It should print a lot of information, but in between you should see something with your graphics card name, like
 <tt class="docutils literal">name: GeForce GTX 1070</tt>.</p>
 </div>
 </div>
     </div>
-    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/customer-and-code-quality/" class="u-url">Customer and code quality</a></h1>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/customer-and-code-quality/" class="u-url">Customer and code quality</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Juan Pedro Fisanotti
             </span></p>
-            <p class="dateline"><a href="posts/customer-and-code-quality/" rel="bookmark"><time class="published dt-published" datetime="2017-09-17T16:28:30-03:00" title="2017-09-17 16:28">2017-09-17 16:28</time></a></p>
+            <p class="dateline">
+            <a href="posts/customer-and-code-quality/" rel="bookmark">
+            <time class="published dt-published" datetime="2017-09-17T16:28:30-03:00" itemprop="datePublished" title="2017-09-17 16:28">2017-09-17 16:28</time></a>
+            </p>
                 <p class="commentline">            <a href="posts/customer-and-code-quality/#disqus_thread" data-disqus-identifier="cache/posts/customer-and-code-quality.html">Comments</a>
 
 
@@ -161,12 +227,15 @@ So they never come back asking for "better code".</p>
 </div>
 </div>
     </div>
-    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/" class="u-url">Cómo saber si hay un satélite argentino arriba tuyo</a></h1>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/" class="u-url">Cómo saber si hay un satélite argentino arriba tuyo</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Juan Pedro Fisanotti
             </span></p>
-            <p class="dateline"><a href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/" rel="bookmark"><time class="published dt-published" datetime="2017-09-06T20:14:38-03:00" title="2017-09-06 20:14">2017-09-06 20:14</time></a></p>
+            <p class="dateline">
+            <a href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/" rel="bookmark">
+            <time class="published dt-published" datetime="2017-09-06T20:14:38-03:00" itemprop="datePublished" title="2017-09-06 20:14">2017-09-06 20:14</time></a>
+            </p>
                 <p class="commentline">            <a href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/#disqus_thread" data-disqus-identifier="cache/posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo.html">Comments</a>
 
 
@@ -181,7 +250,7 @@ So they never come back asking for "better code".</p>
 <h2>Programa y datos</h2>
 <p>Primero que nada necesitamos instalar GPredict, el programa que hace todo esto. Se puede bajar desde el sitio oficial: <a class="reference external" href="http://gpredict.oz9aec.net/">http://gpredict.oz9aec.net/</a></p>
 <p>Para quienes estén en Ubuntu, pueden instalarlo desde los repositorios:</p>
-<pre class="code text"><a name="rest_code_ad5dcdd6df5a4f37927ef4c60ad0953d-1"></a>sudo apt install gpredict
+<pre class="code text"><a name="rest_code_3630f26470984d51b799100cf0abf481-1"></a>sudo apt install gpredict
 </pre>
 <p>Lo abrimos y por primera vez vamos a ver un dashboard un poco diferente al que mostré, con datos de satélites y la estación espacial internacional.
 Vamos a decirle que se baje datos actualizados, así las órbitas que vemos tienen menos error: vamos al menú "Edit" &gt; "Update TLE" &gt; "From network".
@@ -248,12 +317,15 @@ Eso se ve en el campo "Next Event".</p>
 </div>
 </div>
     </div>
-    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/" class="u-url">How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04</a></h1>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/" class="u-url">How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Juan Pedro Fisanotti
             </span></p>
-            <p class="dateline"><a href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/" rel="bookmark"><time class="published dt-published" datetime="2016-09-20T22:58:35-03:00" title="2016-09-20 22:58">2016-09-20 22:58</time></a></p>
+            <p class="dateline">
+            <a href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/" rel="bookmark">
+            <time class="published dt-published" datetime="2016-09-20T22:58:35-03:00" itemprop="datePublished" title="2016-09-20 22:58">2016-09-20 22:58</time></a>
+            </p>
                 <p class="commentline">            <a href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#disqus_thread" data-disqus-identifier="cache/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604.html">Comments</a>
 
 
@@ -320,12 +392,12 @@ The script is somewhat dumb and doesn't detect the drivers we installed on the p
 Later versions won't work.
 Ubuntu 16.04 ships with gcc 5.4.</p>
 <p>But we can have both versions side by side, and trick CUDA to use the older versions with just some simple symlinks (thanks to <a class="reference external" href="https://twitter.com/_zzzoom_/status/765720104868904964">charlie</a> for the tip, the old solution was far more complicated).</p>
-<pre class="code bash"><a name="rest_code_d86c45f324be4963b246afbc408e81a3-1"></a>sudo apt-get install gcc-4.9 g++-4.9
-<a name="rest_code_d86c45f324be4963b246afbc408e81a3-2"></a>sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
-<a name="rest_code_d86c45f324be4963b246afbc408e81a3-3"></a>sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
-<a name="rest_code_d86c45f324be4963b246afbc408e81a3-4"></a>
-<a name="rest_code_d86c45f324be4963b246afbc408e81a3-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
-<a name="rest_code_d86c45f324be4963b246afbc408e81a3-6"></a><span class="nb">echo</span> -e <span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span> &gt;&gt; ~/.theanorc
+<pre class="code bash"><a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-1"></a>sudo apt-get install gcc-4.9 g++-4.9
+<a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-2"></a>sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
+<a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-3"></a>sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
+<a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-4"></a>
+<a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
+<a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-6"></a><span class="nb">echo</span> -e <span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span> &gt;&gt; ~/.theanorc
 </pre>
 </div>
 <div class="section" id="testing">
@@ -335,22 +407,25 @@ Ubuntu 16.04 ships with gcc 5.4.</p>
 But don't just "run" it.
 You need to tell Theano "hey, I want you to use my shiny cuda gpu".
 To achieve that, run the script like this (inside your virtualenv):</p>
-<pre class="code bash"><a name="rest_code_86c52060168449bea7b8ac1449dbfd01-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> python test_gpu.py
+<pre class="code bash"><a name="rest_code_76bb3351daf34b68ad38bb81a11241e6-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> python test_gpu.py
 </pre>
 <p>If everything is working, it should quickly run and output something which ends with: <tt class="docutils literal">Used the gpu</tt>.
 If instead it takes a long time (~1 minute) and ends with <tt class="docutils literal">Used the cpu</tt>, then something is not working.</p>
 <p>If that worked, then you can try the full example and play a little with it (should be able to run all lines without errors):</p>
-<pre class="code bash"><a name="rest_code_0a5d7b65029048e7ac18ab6047186c93-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> ipython notebook
+<pre class="code bash"><a name="rest_code_269cfdbc1bcf48379265aea9bcea98f9-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> ipython notebook
 </pre>
 </div>
 </div>
     </div>
-    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/suspicious-logins/" class="u-url">Suspicious logins</a></h1>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/suspicious-logins/" class="u-url">Suspicious logins</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Juan Pedro Fisanotti
             </span></p>
-            <p class="dateline"><a href="posts/suspicious-logins/" rel="bookmark"><time class="published dt-published" datetime="2016-09-19T20:45:15-03:00" title="2016-09-19 20:45">2016-09-19 20:45</time></a></p>
+            <p class="dateline">
+            <a href="posts/suspicious-logins/" rel="bookmark">
+            <time class="published dt-published" datetime="2016-09-19T20:45:15-03:00" itemprop="datePublished" title="2016-09-19 20:45">2016-09-19 20:45</time></a>
+            </p>
                 <p class="commentline">            <a href="posts/suspicious-logins/#disqus_thread" data-disqus-identifier="cache/posts/suspicious-logins.html">Comments</a>
 
 
@@ -394,12 +469,12 @@ If instead it takes a long time (~1 minute) and ends with <tt class="docutils li
 <p>Some might think "oh, that's to be expected as well. Google must have blocked the account as soon as the security incident was detected". But no. This feature doesn't check email every second. For my accounts, it's doing it once every day, more or less. And the failed attempt was at the exact same time the "suspicious login" happened. In <strong>both</strong> accounts. Different times each one. Too much coincidence.</p>
 <p>I wasn't able to see the original error for one of the accounts, too many login errors since it because of the password change, and it only stores the last 5 of them. But for the other account the first error was still there, and it was different to the password related ones.</p>
 <p>The errors after the password changes were:</p>
-<pre class="code text"><a name="rest_code_ca823e3fe8de4cab8f6da0c0e78ab7ea-1"></a>Authentication error.
-<a name="rest_code_ca823e3fe8de4cab8f6da0c0e78ab7ea-2"></a>Server returned error "[AUTH] Username and password not accepted."
+<pre class="code text"><a name="rest_code_29165f74463f448a8819d30e291f640e-1"></a>Authentication error.
+<a name="rest_code_29165f74463f448a8819d30e291f640e-2"></a>Server returned error "[AUTH] Username and password not accepted."
 </pre>
 <p>But the error at the same time than the suspicious login was:</p>
-<pre class="code text"><a name="rest_code_ea9ef937a02a44478a192ab84a30fc3f-1"></a>Authentication error.
-<a name="rest_code_ea9ef937a02a44478a192ab84a30fc3f-2"></a>Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
+<pre class="code text"><a name="rest_code_1be6476ee051483e858db7e658a8b5d3-1"></a>Authentication error.
+<a name="rest_code_1be6476ee051483e858db7e658a8b5d3-2"></a>Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
 </pre>
 <p>The linked support page isn't very helpful, but if you google the error you will find some people having the same issue: after years of not using an account, the login on their pop3 client starts to fail. Maybe something changed in google's security policies, maybe it's related to new terms of service, or required security checkups. But the thing is: logins fail until you login from a browser and tweak some stuff (enabling less secure apps, etc).</p>
 <p>That itself isn't the bug. The bug is flagging those pop3 logins which came <strong>from inside google</strong> (it's a gmail feature, running on their servers), as if they were "suspicious logins". They are not suspicious, they are comming from inside google, they are being made from a google server trying to execute a gmail feature.</p>
@@ -415,15 +490,16 @@ If instead it takes a long time (~1 minute) and ends with <tt class="docutils li
     </article>
 </div>
 
-               <script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script></main><footer id="footer"><p>Contents © 2017         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+               <script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script></main><footer id="footer"><p>Contents © 2019         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>
-        
-
-        <script src="assets/js/baguetteBox.min.js"></script><script>baguetteBox.run('a.reference', {
+                <script src="assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
         captions: function(element) {
             return element.getElementsByTagName('img')[0].alt;
-    }});</script>
+    }});
+    </script>
 </body>
 </html>
