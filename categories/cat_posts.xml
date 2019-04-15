@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about posts)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Mon, 15 Apr 2019 23:34:30 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>The simplest tutorial for Virtualenvs in Python 3</title><link>http://blog.fisadev.com/posts/virtualenvs-simplest-tutorial/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;div&gt;&lt;p&gt;Python virtualenvs allow you to have isolated environments, in which you can install python libs and run your programs. This is useful when you have different projects with different requirements, and also to avoid installing python libs at system level.&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about posts)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Mon, 15 Apr 2019 23:40:14 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>The simplest Virtualenv tutorial (Python 3)</title><link>http://blog.fisadev.com/posts/virtualenvs-simplest-tutorial/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;div&gt;&lt;p&gt;Python virtualenvs allow you to have isolated environments, in which you can install python libs and run your programs. This is useful when you have different projects with different requirements, and also to avoid installing python libs at system level.&lt;/p&gt;
 &lt;p&gt;This is how to use them in modern versions of python.&lt;/p&gt;
 &lt;div class="section" id="what-do-i-need"&gt;
 &lt;h2&gt;What do I need?&lt;/h2&gt;
@@ -8,19 +8,19 @@
 &lt;div class="section" id="how-do-i-create-a-new-virtualenv"&gt;
 &lt;h2&gt;How do I create a new virtualenv?&lt;/h2&gt;
 &lt;p&gt;Open a terminal, and run this:&lt;/p&gt;
-&lt;pre class="code bash"&gt;&lt;a name="rest_code_76f36cb828f643079babd0a6a442c9df-1"&gt;&lt;/a&gt;python3 -m venv PATH_TO_YOUR_VIRTUALENV
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_805566d119324efda1bf59c5ff937993-1"&gt;&lt;/a&gt;python3 -m venv PATH_TO_YOUR_VIRTUALENV
 &lt;/pre&gt;&lt;p&gt;The path it receives as a paramenter, is the location for a folder that will be created and will contain your virtualenv inside. It will only contain the virtualenv, &lt;strong&gt;don't&lt;/strong&gt; add any files inside that folder. Treat it like a "system" folder.&lt;/p&gt;
 &lt;p&gt;Example:&lt;/p&gt;
-&lt;pre class="code bash"&gt;&lt;a name="rest_code_079e5e55b5f04bf0b2027313a8f7402c-1"&gt;&lt;/a&gt;python3 -m venv /home/fisa/projects/my_blog/venv
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_512151fd1d3c4551a9a058bd7759306a-1"&gt;&lt;/a&gt;python3 -m venv /home/fisa/projects/my_blog/venv
 &lt;/pre&gt;&lt;/div&gt;
 &lt;div class="section" id="how-do-i-use-the-virtualenv"&gt;
 &lt;h2&gt;How do I use the virtualenv?&lt;/h2&gt;
 &lt;p&gt;Each time you open a new terminal (console) to work in your project, you need to &lt;strong&gt;activate&lt;/strong&gt; the virtualenv. The command to activate the virtualenv is different for Linux/MacOS vs Windows.&lt;/p&gt;
 &lt;p&gt;On Linux and MacOS, run:&lt;/p&gt;
-&lt;pre class="code bash"&gt;&lt;a name="rest_code_37bb42e69d6a4a83969a7ddc9cb699db-1"&gt;&lt;/a&gt;&lt;span class="nb"&gt;source&lt;/span&gt; PATH_TO_YOUR_VIRTUALENV/bin/activate
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_f983b51b9c4641c2bb9ea36df05253de-1"&gt;&lt;/a&gt;&lt;span class="nb"&gt;source&lt;/span&gt; PATH_TO_YOUR_VIRTUALENV/bin/activate
 &lt;/pre&gt;&lt;p&gt;(if your are using fish shell, the command is different too)&lt;/p&gt;
 &lt;p&gt;On Windows:&lt;/p&gt;
-&lt;pre class="code text"&gt;&lt;a name="rest_code_f22a3d4af45e4d18a6851a31c281b173-1"&gt;&lt;/a&gt;PATH_TO_YOUR_VIRTUALENV\Scripts\activate.bat
+&lt;pre class="code text"&gt;&lt;a name="rest_code_58cc4e6ea01844fa9c8a21c6e4bc58d7-1"&gt;&lt;/a&gt;PATH_TO_YOUR_VIRTUALENV\Scripts\activate.bat
 &lt;/pre&gt;&lt;p&gt;From now on, the prompt of the terminal should say something like &lt;tt class="docutils literal"&gt;(venv)&lt;/tt&gt; at the begining (with the name of your virtualenv). This indicates that you are working inside your virtualenv.&lt;/p&gt;
 &lt;p&gt;With your virtualenv activated, if you now install libs with pip (example: &lt;tt class="docutils literal"&gt;pip install pandas&lt;/tt&gt;), they will be installed inside the virtualenv. If you run a program inside that terminal, it will be able to import any libs installed in the virtualenv.&lt;/p&gt;
 &lt;/div&gt;
