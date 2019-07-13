@@ -54,7 +54,7 @@ The details of the coin. A little shiny because of the oil used to keep the swor
 
 .. thumbnail:: /images/daneluz-longsword-best-sword/8.jpg
 
-With a rondel daga, a type of dagger designed to fight people in armor, usually carried by knights and man-at-arms along this kind of swords.
+With a rondel dagger, a type of dagger designed to fight people in armor, usually carried by knights and man-at-arms along this kind of swords.
 
 .. thumbnail:: /images/daneluz-longsword-best-sword/9.jpg
 
