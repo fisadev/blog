@@ -124,12 +124,12 @@ The script is somewhat dumb and doesn't detect the drivers we installed on the p
 Later versions won't work.
 Ubuntu 16.04 ships with gcc 5.4.</p>
 <p>But we can have both versions side by side, and trick CUDA to use the older versions with just some simple symlinks (thanks to <a class="reference external" href="https://twitter.com/_zzzoom_/status/765720104868904964">charlie</a> for the tip, the old solution was far more complicated).</p>
-<pre class="code bash"><a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-1"></a>sudo apt-get install gcc-4.9 g++-4.9
-<a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-2"></a>sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
-<a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-3"></a>sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
-<a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-4"></a>
-<a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
-<a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-6"></a><span class="nb">echo</span> -e <span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span> &gt;&gt; ~/.theanorc
+<pre class="code bash"><a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-1"></a>sudo apt-get install gcc-4.9 g++-4.9
+<a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-2"></a>sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
+<a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-3"></a>sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
+<a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-4"></a>
+<a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
+<a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-6"></a><span class="nb">echo</span> -e <span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span> &gt;&gt; ~/.theanorc
 </pre>
 </div>
 <div class="section" id="testing">
@@ -139,12 +139,12 @@ Ubuntu 16.04 ships with gcc 5.4.</p>
 But don't just "run" it.
 You need to tell Theano "hey, I want you to use my shiny cuda gpu".
 To achieve that, run the script like this (inside your virtualenv):</p>
-<pre class="code bash"><a name="rest_code_76bb3351daf34b68ad38bb81a11241e6-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> python test_gpu.py
+<pre class="code bash"><a name="rest_code_09ce7fb87a754eb0b2da12503357908e-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> python test_gpu.py
 </pre>
 <p>If everything is working, it should quickly run and output something which ends with: <tt class="docutils literal">Used the gpu</tt>.
 If instead it takes a long time (~1 minute) and ends with <tt class="docutils literal">Used the cpu</tt>, then something is not working.</p>
 <p>If that worked, then you can try the full example and play a little with it (should be able to run all lines without errors):</p>
-<pre class="code bash"><a name="rest_code_269cfdbc1bcf48379265aea9bcea98f9-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> ipython notebook
+<pre class="code bash"><a name="rest_code_6c60e5e4773e4fe9b44f792e8afcafaa-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> ipython notebook
 </pre>
 </div>
 </div>

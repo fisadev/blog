@@ -1,5 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about posts)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Mon, 15 Apr 2019 23:40:14 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>The simplest Virtualenv tutorial (Python 3)</title><link>http://blog.fisadev.com/posts/virtualenvs-simplest-tutorial/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;div&gt;&lt;p&gt;Python virtualenvs allow you to have isolated environments, in which you can install python libs and run your programs. This is useful when you have different projects with different requirements, and also to avoid installing python libs at system level.&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about posts)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Sat, 13 Jul 2019 00:13:14 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Longsword by Leonardo Daneluz, my best sword!</title><link>http://blog.fisadev.com/posts/daneluz-longsword-best-sword/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;div class="section" id="the-sword"&gt;
+&lt;h2&gt;The sword&lt;/h2&gt;
+&lt;p&gt;(click the photos to see the full resolution versions)&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/daneluz-longsword-best-sword/1.jpg"&gt;&lt;img alt="/images/daneluz-longsword-best-sword/1.thumbnail.jpg" src="http://blog.fisadev.com/images/daneluz-longsword-best-sword/1.thumbnail.jpg"&gt;&lt;/a&gt;
+&lt;p&gt;It's a longsword made in the typical style of the year 1400, with a special reinforced tip (useful to fight against armor), and an actual medieval coin in the pommel.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Weight:&lt;/strong&gt; 1.515 kg.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Length:&lt;/strong&gt; 119.5 cm (118.5 cm not counting the pin block), 93 cm blade.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Width:&lt;/strong&gt; 5.55 cm at the base of the blade.Thickness: 6 mm at the base of the blade, then tapers to 3.75 mm at the thinnest point (near the center of percussion), but then thickens again to 5 mm near the tip.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Blade steel:&lt;/strong&gt; quenched and tempered SAE 5160.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Guard steel:&lt;/strong&gt; quenched and tempered AISI 1045.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Grip:&lt;/strong&gt; made of really hard wood (Lapacho), with both hexagonal (near the guard) and oval (near the pommel) cross sections. Covered in string to give it the texture, resin, and then cow leather above it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Coin:&lt;/strong&gt; the coin in the pommel is an actual coin from the year 1180, with an image of  &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Manuel_I_Komnenos"&gt;Manuel I Komnenos&lt;/a&gt;, a Byzantine emperor.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Maker:&lt;/strong&gt; Leonardo Daneluz. More of his high quality work in &lt;a class="reference external" href="https://www.facebook.com/leonardo.daneluz/photos"&gt;his facebook page&lt;/a&gt;.&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/daneluz-longsword-best-sword/2.jpg"&gt;&lt;img alt="/images/daneluz-longsword-best-sword/2.thumbnail.jpg" src="http://blog.fisadev.com/images/daneluz-longsword-best-sword/2.thumbnail.jpg"&gt;&lt;/a&gt;
+&lt;p&gt;Gosh, I'm really happy with this sword :D&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/daneluz-longsword-best-sword/3.jpg"&gt;&lt;img alt="/images/daneluz-longsword-best-sword/3.thumbnail.jpg" src="http://blog.fisadev.com/images/daneluz-longsword-best-sword/3.thumbnail.jpg"&gt;&lt;/a&gt;
+&lt;p&gt;With "Il Fior Di Battaglia", a medieval martial arts manuscript from around 1400 (&lt;a class="reference external" href="https://wiktenauer.com/wiki/Fior_di_Battaglia_(MS_Ludwig_XV_13)"&gt;you can read it online!&lt;/a&gt;). People from that time didn't just crudely bash themselves with blunt heavy swords. In reality, swords were fairly light and agile, quite sharp, and they had very developed martial arts around their usage. Luckily many manuscripts from the time survive, which we can use to revive those martial arts (google "HEMA" if you want to see people practicing them).&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/daneluz-longsword-best-sword/4.jpg"&gt;&lt;img alt="/images/daneluz-longsword-best-sword/4.thumbnail.jpg" src="http://blog.fisadev.com/images/daneluz-longsword-best-sword/4.thumbnail.jpg"&gt;&lt;/a&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/daneluz-longsword-best-sword/5.jpg"&gt;&lt;img alt="/images/daneluz-longsword-best-sword/5.thumbnail.jpg" src="http://blog.fisadev.com/images/daneluz-longsword-best-sword/5.thumbnail.jpg"&gt;&lt;/a&gt;
+&lt;p&gt;Here you can see the pin, which is the end of the tang (the part of the blade that continues inside the grip). And also a glimpse of the coin (better pictures below).&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/daneluz-longsword-best-sword/6.jpg"&gt;&lt;img alt="/images/daneluz-longsword-best-sword/6.thumbnail.jpg" src="http://blog.fisadev.com/images/daneluz-longsword-best-sword/6.thumbnail.jpg"&gt;&lt;/a&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/daneluz-longsword-best-sword/7.jpg"&gt;&lt;img alt="/images/daneluz-longsword-best-sword/7.thumbnail.jpg" src="http://blog.fisadev.com/images/daneluz-longsword-best-sword/7.thumbnail.jpg"&gt;&lt;/a&gt;
+&lt;p&gt;The details of the coin. A little shiny because of the oil used to keep the sword from rusting. You can see the figure of &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Manuel_I_Komnenos"&gt;Manuel I Komnenos&lt;/a&gt;.&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/daneluz-longsword-best-sword/8.jpg"&gt;&lt;img alt="/images/daneluz-longsword-best-sword/8.thumbnail.jpg" src="http://blog.fisadev.com/images/daneluz-longsword-best-sword/8.thumbnail.jpg"&gt;&lt;/a&gt;
+&lt;p&gt;With a rondel daga, a type of dagger designed to fight people in armor, usually carried by knights and man-at-arms along this kind of swords.&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/daneluz-longsword-best-sword/9.jpg"&gt;&lt;img alt="/images/daneluz-longsword-best-sword/9.thumbnail.jpg" src="http://blog.fisadev.com/images/daneluz-longsword-best-sword/9.thumbnail.jpg"&gt;&lt;/a&gt;
+&lt;p&gt;Scolari is a HEMA study/practice group that we founded in Argentina. We focus on the teachings of &lt;a class="reference external" href="https://wiktenauer.com/wiki/Fiore_de%27i_Liberi"&gt;Fiore dei Liberi&lt;/a&gt;, the medieval martial arts master that wrote the manuscript you saw before. &lt;a class="reference external" href="https://www.facebook.com/scolariesgrimahistorica/"&gt;https://www.facebook.com/scolariesgrimahistorica/&lt;/a&gt;&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/daneluz-longsword-best-sword/10.jpg"&gt;&lt;img alt="/images/daneluz-longsword-best-sword/10.thumbnail.jpg" src="http://blog.fisadev.com/images/daneluz-longsword-best-sword/10.thumbnail.jpg"&gt;&lt;/a&gt;
+&lt;p&gt;A better picture of the coin, before it was embedded in the pommel.&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/daneluz-longsword-best-sword/11.jpg"&gt;&lt;img alt="/images/daneluz-longsword-best-sword/11.thumbnail.jpg" src="http://blog.fisadev.com/images/daneluz-longsword-best-sword/11.thumbnail.jpg"&gt;&lt;/a&gt;
+&lt;p&gt;The sword without the grip and coin. You can see how the blade goes all the way through, sticking out of the pommel. This is how historical swords were built.&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/daneluz-longsword-best-sword/12.jpg"&gt;&lt;img alt="/images/daneluz-longsword-best-sword/12.thumbnail.jpg" src="http://blog.fisadev.com/images/daneluz-longsword-best-sword/12.thumbnail.jpg"&gt;&lt;/a&gt;
+&lt;p&gt;To give it its final texture, the artisan not only uses string below the leather, but also above it. After a short while, the top string is removed, and the leather keeps its texture, providing better grip but also a nicer finish.&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/daneluz-longsword-best-sword/13.jpg"&gt;&lt;img alt="/images/daneluz-longsword-best-sword/13.thumbnail.jpg" src="http://blog.fisadev.com/images/daneluz-longsword-best-sword/13.thumbnail.jpg"&gt;&lt;/a&gt;
+&lt;p&gt;That's a heck of a thick point.&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/daneluz-longsword-best-sword/14.jpg"&gt;&lt;img alt="/images/daneluz-longsword-best-sword/14.thumbnail.jpg" src="http://blog.fisadev.com/images/daneluz-longsword-best-sword/14.thumbnail.jpg"&gt;&lt;/a&gt;
+&lt;p&gt;Leonardo quenching it! :)&lt;/p&gt;
+&lt;p&gt;Hope you enjoyed it as much as I do. Bah, that's impossible :p&lt;/p&gt;
+&lt;p&gt;(Thanks &lt;a class="reference external" href="https://www.facebook.com/ruththelerfotografia/"&gt;Ruth Teller&lt;/a&gt; for most of the photos!)&lt;/p&gt;
+&lt;/div&gt;</description><category>hema</category><category>longsword</category><category>swords</category><guid>http://blog.fisadev.com/posts/daneluz-longsword-best-sword/</guid><pubDate>Fri, 12 Jul 2019 23:40:00 GMT</pubDate></item><item><title>The simplest Virtualenv tutorial (Python 3)</title><link>http://blog.fisadev.com/posts/virtualenvs-simplest-tutorial/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;div&gt;&lt;p&gt;Python virtualenvs allow you to have isolated environments, in which you can install python libs and run your programs. This is useful when you have different projects with different requirements, and also to avoid installing python libs at system level.&lt;/p&gt;
 &lt;p&gt;This is how to use them in modern versions of python.&lt;/p&gt;
 &lt;div class="section" id="what-do-i-need"&gt;
 &lt;h2&gt;What do I need?&lt;/h2&gt;
@@ -8,19 +47,19 @@
 &lt;div class="section" id="how-do-i-create-a-new-virtualenv"&gt;
 &lt;h2&gt;How do I create a new virtualenv?&lt;/h2&gt;
 &lt;p&gt;Open a terminal, and run this:&lt;/p&gt;
-&lt;pre class="code bash"&gt;&lt;a name="rest_code_805566d119324efda1bf59c5ff937993-1"&gt;&lt;/a&gt;python3 -m venv PATH_TO_YOUR_VIRTUALENV
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_08b8f7bb5ab445cf81cfce392005b9be-1"&gt;&lt;/a&gt;python3 -m venv PATH_TO_YOUR_VIRTUALENV
 &lt;/pre&gt;&lt;p&gt;The path it receives as a paramenter, is the location for a folder that will be created and will contain your virtualenv inside. It will only contain the virtualenv, &lt;strong&gt;don't&lt;/strong&gt; add any files inside that folder. Treat it like a "system" folder.&lt;/p&gt;
 &lt;p&gt;Example:&lt;/p&gt;
-&lt;pre class="code bash"&gt;&lt;a name="rest_code_512151fd1d3c4551a9a058bd7759306a-1"&gt;&lt;/a&gt;python3 -m venv /home/fisa/projects/my_blog/venv
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_2fea2e3a5aa44852b52b6e8f48a623d2-1"&gt;&lt;/a&gt;python3 -m venv /home/fisa/projects/my_blog/venv
 &lt;/pre&gt;&lt;/div&gt;
 &lt;div class="section" id="how-do-i-use-the-virtualenv"&gt;
 &lt;h2&gt;How do I use the virtualenv?&lt;/h2&gt;
 &lt;p&gt;Each time you open a new terminal (console) to work in your project, you need to &lt;strong&gt;activate&lt;/strong&gt; the virtualenv. The command to activate the virtualenv is different for Linux/MacOS vs Windows.&lt;/p&gt;
 &lt;p&gt;On Linux and MacOS, run:&lt;/p&gt;
-&lt;pre class="code bash"&gt;&lt;a name="rest_code_f983b51b9c4641c2bb9ea36df05253de-1"&gt;&lt;/a&gt;&lt;span class="nb"&gt;source&lt;/span&gt; PATH_TO_YOUR_VIRTUALENV/bin/activate
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_6828d3e89be1486fbc402b163002060e-1"&gt;&lt;/a&gt;&lt;span class="nb"&gt;source&lt;/span&gt; PATH_TO_YOUR_VIRTUALENV/bin/activate
 &lt;/pre&gt;&lt;p&gt;(if your are using fish shell, the command is different too)&lt;/p&gt;
 &lt;p&gt;On Windows:&lt;/p&gt;
-&lt;pre class="code text"&gt;&lt;a name="rest_code_58cc4e6ea01844fa9c8a21c6e4bc58d7-1"&gt;&lt;/a&gt;PATH_TO_YOUR_VIRTUALENV\Scripts\activate.bat
+&lt;pre class="code text"&gt;&lt;a name="rest_code_ffe027a709bc4d2c9579535fea65856e-1"&gt;&lt;/a&gt;PATH_TO_YOUR_VIRTUALENV\Scripts\activate.bat
 &lt;/pre&gt;&lt;p&gt;From now on, the prompt of the terminal should say something like &lt;tt class="docutils literal"&gt;(venv)&lt;/tt&gt; at the begining (with the name of your virtualenv). This indicates that you are working inside your virtualenv.&lt;/p&gt;
 &lt;p&gt;With your virtualenv activated, if you now install libs with pip (example: &lt;tt class="docutils literal"&gt;pip install pandas&lt;/tt&gt;), they will be installed inside the virtualenv. If you run a program inside that terminal, it will be able to import any libs installed in the virtualenv.&lt;/p&gt;
 &lt;/div&gt;
@@ -52,7 +91,7 @@
 &lt;p&gt;It might be possible to use CUDA without having the graphics drivers installed, but I'm not sure how easy and stable it is.
 So my recommendation is to install them first, and verify that they are working.&lt;/p&gt;
 &lt;p&gt;Usually it's just installing a package with &lt;tt class="docutils literal"&gt;apt&lt;/tt&gt;:&lt;/p&gt;
-&lt;pre class="code text"&gt;&lt;a name="rest_code_d5e9d223fd5b4a86ab3868f9858d926b-1"&gt;&lt;/a&gt;sudo apt install nvidia-375
+&lt;pre class="code text"&gt;&lt;a name="rest_code_a81502b9bc724a95a6cf798be31e21a4-1"&gt;&lt;/a&gt;sudo apt install nvidia-375
 &lt;/pre&gt;&lt;p&gt;But if you are using an Optimus-enabled graphics card (most laptops with Nvidia cards previous to the 10xx generation),
 you might need to install the &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;nvidia-prime&lt;/span&gt;&lt;/tt&gt; package too.&lt;/p&gt;
 &lt;p&gt;The recommended version might be higher in the future, 375 is the one I'm using right now under Ubuntu 16.10.&lt;/p&gt;
@@ -65,7 +104,7 @@ you might need to install the &lt;tt class="docutils literal"&gt;&lt;span class=
 &lt;p&gt;The versions you need to get depend on which versions does TensorFlow support.
 You can check this in the official website, at &lt;a class="reference external" href="https://www.tensorflow.org/install/install_linux"&gt;https://www.tensorflow.org/install/install_linux&lt;/a&gt; .&lt;/p&gt;
 &lt;p&gt;Once you have both installers, first run the cuda installer (replace the name of the file with the one you got):&lt;/p&gt;
-&lt;pre class="code text"&gt;&lt;a name="rest_code_59f5a2a6c43a4988adb57d411f6c9b55-1"&gt;&lt;/a&gt;sudo sh ./cuda_8.0.61_375.26_linux.run --override
+&lt;pre class="code text"&gt;&lt;a name="rest_code_ddcd16714e6c42d9b1f7538aa54d926f-1"&gt;&lt;/a&gt;sudo sh ./cuda_8.0.61_375.26_linux.run --override
 &lt;/pre&gt;&lt;p&gt;It will ask you a few things. Tell "no" to the installation of graphics drivers (you should already have them),
 and "yes" to the creation of the symbolic link.&lt;/p&gt;
 &lt;p&gt;Then uncompress the cuDNN installer (a file with a name similar to &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;cudnn-8.0-linux-x64-v5.1.tgz&lt;/span&gt;&lt;/tt&gt;),
@@ -75,7 +114,7 @@ The tar file contains subfolders, be sure to copy the files into the same subfol
 &lt;div class="section" id="tensorflow-and-keras-installation"&gt;
 &lt;h3&gt;TensorFlow and Keras installation&lt;/h3&gt;
 &lt;p&gt;Once you have the graphics drivers and CUDA, then it's easy to install TensorFlow and Keras, they are just Python packages:&lt;/p&gt;
-&lt;pre class="code text"&gt;&lt;a name="rest_code_b3f8663fe6b540c4b191451d6160922a-1"&gt;&lt;/a&gt;pip install tensorflow-gpu keras
+&lt;pre class="code text"&gt;&lt;a name="rest_code_b704da22b17243aaab0a9b0b3540b176-1"&gt;&lt;/a&gt;pip install tensorflow-gpu keras
 &lt;/pre&gt;&lt;p&gt;If you aren't using virtualenvs (you should!), you should add &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;--user&lt;/span&gt;&lt;/tt&gt; to that command.
 I don't recommend installing the packages system-wide with &lt;tt class="docutils literal"&gt;sudo&lt;/tt&gt;, as with time you will probably need different versions of both
 &lt;tt class="docutils literal"&gt;tensorflow&lt;/tt&gt; and &lt;tt class="docutils literal"&gt;keras&lt;/tt&gt; for different projects (they both evolve quite quickly).&lt;/p&gt;
@@ -84,14 +123,14 @@ I don't recommend installing the packages system-wide with &lt;tt class="docutil
 &lt;h3&gt;Running the code&lt;/h3&gt;
 &lt;p&gt;Finally, when running your code you may need to define the &lt;tt class="docutils literal"&gt;LD_LIBRARY_PATH&lt;/tt&gt; environment variable, for TensorFlow to be able to
 find the needed CUDA libraries:&lt;/p&gt;
-&lt;pre class="code text"&gt;&lt;a name="rest_code_7e5432d5bdfd4aad9cfe09634cd01e92-1"&gt;&lt;/a&gt;LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python your_awesome_code.py
+&lt;pre class="code text"&gt;&lt;a name="rest_code_1a915c5f85cf40b4948f0ba77d48cd8e-1"&gt;&lt;/a&gt;LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python your_awesome_code.py
 &lt;/pre&gt;&lt;p&gt;This is true also for Jupyter notebooks:&lt;/p&gt;
-&lt;pre class="code text"&gt;&lt;a name="rest_code_42a7b51095c4420485c76e67054d19c4-1"&gt;&lt;/a&gt;LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 jupyter notebook
+&lt;pre class="code text"&gt;&lt;a name="rest_code_49849716d9684d288488386fc54876a3-1"&gt;&lt;/a&gt;LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 jupyter notebook
 &lt;/pre&gt;&lt;p&gt;If you are unsure if your code is actually using your gpu, you can paste this snippet into a &lt;tt class="docutils literal"&gt;test_device.py&lt;/tt&gt; file:&lt;/p&gt;
-&lt;pre class="code python"&gt;&lt;a name="rest_code_cf428386d1e048b680764061a43daef9-1"&gt;&lt;/a&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;tensorflow&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;tf&lt;/span&gt;
-&lt;a name="rest_code_cf428386d1e048b680764061a43daef9-2"&gt;&lt;/a&gt;&lt;span class="n"&gt;sess&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Session&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ConfigProto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;log_device_placement&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;pre class="code python"&gt;&lt;a name="rest_code_dd42661bf26844de8f03e1c2bd207061-1"&gt;&lt;/a&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;tensorflow&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;tf&lt;/span&gt;
+&lt;a name="rest_code_dd42661bf26844de8f03e1c2bd207061-2"&gt;&lt;/a&gt;&lt;span class="n"&gt;sess&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Session&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ConfigProto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;log_device_placement&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 &lt;/pre&gt;&lt;p&gt;And then run it:&lt;/p&gt;
-&lt;pre class="code text"&gt;&lt;a name="rest_code_e04ab8bb670f4df3aa2b529c94fcd40a-1"&gt;&lt;/a&gt;LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python test_device.py
+&lt;pre class="code text"&gt;&lt;a name="rest_code_14de8d3f42144cbf97fe3b0ed32e6f98-1"&gt;&lt;/a&gt;LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python test_device.py
 &lt;/pre&gt;&lt;p&gt;It should print a lot of information, but in between you should see something with your graphics card name, like
 &lt;tt class="docutils literal"&gt;name: GeForce GTX 1070&lt;/tt&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -131,7 +170,7 @@ So they never come back asking for "better code".&lt;/p&gt;
 &lt;h2&gt;Programa y datos&lt;/h2&gt;
 &lt;p&gt;Primero que nada necesitamos instalar GPredict, el programa que hace todo esto. Se puede bajar desde el sitio oficial: &lt;a class="reference external" href="http://gpredict.oz9aec.net/"&gt;http://gpredict.oz9aec.net/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Para quienes estén en Ubuntu, pueden instalarlo desde los repositorios:&lt;/p&gt;
-&lt;pre class="code text"&gt;&lt;a name="rest_code_3630f26470984d51b799100cf0abf481-1"&gt;&lt;/a&gt;sudo apt install gpredict
+&lt;pre class="code text"&gt;&lt;a name="rest_code_07fa800a85c649a1a6bda2573341d8a3-1"&gt;&lt;/a&gt;sudo apt install gpredict
 &lt;/pre&gt;&lt;p&gt;Lo abrimos y por primera vez vamos a ver un dashboard un poco diferente al que mostré, con datos de satélites y la estación espacial internacional.
 Vamos a decirle que se baje datos actualizados, así las órbitas que vemos tienen menos error: vamos al menú "Edit" &amp;gt; "Update TLE" &amp;gt; "From network".
 Eso nos va a mostrar una ventana con el progreso de la actualización, solamente tenemos que esperar a que termine (unos segundos) y luego cerrar la ventana.&lt;/p&gt;
@@ -252,12 +291,12 @@ The script is somewhat dumb and doesn't detect the drivers we installed on the p
 Later versions won't work.
 Ubuntu 16.04 ships with gcc 5.4.&lt;/p&gt;
 &lt;p&gt;But we can have both versions side by side, and trick CUDA to use the older versions with just some simple symlinks (thanks to &lt;a class="reference external" href="https://twitter.com/_zzzoom_/status/765720104868904964"&gt;charlie&lt;/a&gt; for the tip, the old solution was far more complicated).&lt;/p&gt;
-&lt;pre class="code bash"&gt;&lt;a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-1"&gt;&lt;/a&gt;sudo apt-get install gcc-4.9 g++-4.9
-&lt;a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-2"&gt;&lt;/a&gt;sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
-&lt;a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-3"&gt;&lt;/a&gt;sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
-&lt;a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-4"&gt;&lt;/a&gt;
-&lt;a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-5"&gt;&lt;/a&gt;&lt;span class="c1"&gt;# Work around a glibc bug (according to the theano docs)&lt;/span&gt;
-&lt;a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-6"&gt;&lt;/a&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; -e &lt;span class="s2"&gt;"\n[nvcc]\nflags=-D_FORCE_INLINES\n"&lt;/span&gt; &amp;gt;&amp;gt; ~/.theanorc
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-1"&gt;&lt;/a&gt;sudo apt-get install gcc-4.9 g++-4.9
+&lt;a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-2"&gt;&lt;/a&gt;sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
+&lt;a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-3"&gt;&lt;/a&gt;sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
+&lt;a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-4"&gt;&lt;/a&gt;
+&lt;a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-5"&gt;&lt;/a&gt;&lt;span class="c1"&gt;# Work around a glibc bug (according to the theano docs)&lt;/span&gt;
+&lt;a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-6"&gt;&lt;/a&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; -e &lt;span class="s2"&gt;"\n[nvcc]\nflags=-D_FORCE_INLINES\n"&lt;/span&gt; &amp;gt;&amp;gt; ~/.theanorc
 &lt;/pre&gt;&lt;/div&gt;
 &lt;div class="section" id="testing"&gt;
 &lt;h2&gt;4. Testing&lt;/h2&gt;
@@ -266,11 +305,11 @@ Ubuntu 16.04 ships with gcc 5.4.&lt;/p&gt;
 But don't just "run" it.
 You need to tell Theano "hey, I want you to use my shiny cuda gpu".
 To achieve that, run the script like this (inside your virtualenv):&lt;/p&gt;
-&lt;pre class="code bash"&gt;&lt;a name="rest_code_76bb3351daf34b68ad38bb81a11241e6-1"&gt;&lt;/a&gt;&lt;span class="nv"&gt;THEANO_FLAGS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"&lt;/span&gt; python test_gpu.py
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_09ce7fb87a754eb0b2da12503357908e-1"&gt;&lt;/a&gt;&lt;span class="nv"&gt;THEANO_FLAGS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"&lt;/span&gt; python test_gpu.py
 &lt;/pre&gt;&lt;p&gt;If everything is working, it should quickly run and output something which ends with: &lt;tt class="docutils literal"&gt;Used the gpu&lt;/tt&gt;.
 If instead it takes a long time (~1 minute) and ends with &lt;tt class="docutils literal"&gt;Used the cpu&lt;/tt&gt;, then something is not working.&lt;/p&gt;
 &lt;p&gt;If that worked, then you can try the full example and play a little with it (should be able to run all lines without errors):&lt;/p&gt;
-&lt;pre class="code bash"&gt;&lt;a name="rest_code_269cfdbc1bcf48379265aea9bcea98f9-1"&gt;&lt;/a&gt;&lt;span class="nv"&gt;THEANO_FLAGS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"&lt;/span&gt; ipython notebook
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_6c60e5e4773e4fe9b44f792e8afcafaa-1"&gt;&lt;/a&gt;&lt;span class="nv"&gt;THEANO_FLAGS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"&lt;/span&gt; ipython notebook
 &lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</description><category>cuda</category><category>keras</category><category>machine learning</category><category>programming</category><category>python</category><category>ubuntu</category><guid>http://blog.fisadev.com/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/</guid><pubDate>Wed, 21 Sep 2016 01:58:35 GMT</pubDate></item><item><title>Suspicious logins</title><link>http://blog.fisadev.com/posts/suspicious-logins/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;div&gt;&lt;div class="section" id="the-interesting-story"&gt;
 &lt;h2&gt;The "interesting" story&lt;/h2&gt;
 &lt;p&gt;Imagine having a main gmail account, and a handfull of extra accounts (to reserve names, to test some api stuff, etc).&lt;/p&gt;
@@ -307,11 +346,11 @@ If instead it takes a long time (~1 minute) and ends with &lt;tt class="docutils
 &lt;p&gt;Some might think "oh, that's to be expected as well. Google must have blocked the account as soon as the security incident was detected". But no. This feature doesn't check email every second. For my accounts, it's doing it once every day, more or less. And the failed attempt was at the exact same time the "suspicious login" happened. In &lt;strong&gt;both&lt;/strong&gt; accounts. Different times each one. Too much coincidence.&lt;/p&gt;
 &lt;p&gt;I wasn't able to see the original error for one of the accounts, too many login errors since it because of the password change, and it only stores the last 5 of them. But for the other account the first error was still there, and it was different to the password related ones.&lt;/p&gt;
 &lt;p&gt;The errors after the password changes were:&lt;/p&gt;
-&lt;pre class="code text"&gt;&lt;a name="rest_code_29165f74463f448a8819d30e291f640e-1"&gt;&lt;/a&gt;Authentication error.
-&lt;a name="rest_code_29165f74463f448a8819d30e291f640e-2"&gt;&lt;/a&gt;Server returned error "[AUTH] Username and password not accepted."
+&lt;pre class="code text"&gt;&lt;a name="rest_code_3cd21b2fb4e048ce995b96abc150b9ac-1"&gt;&lt;/a&gt;Authentication error.
+&lt;a name="rest_code_3cd21b2fb4e048ce995b96abc150b9ac-2"&gt;&lt;/a&gt;Server returned error "[AUTH] Username and password not accepted."
 &lt;/pre&gt;&lt;p&gt;But the error at the same time than the suspicious login was:&lt;/p&gt;
-&lt;pre class="code text"&gt;&lt;a name="rest_code_1be6476ee051483e858db7e658a8b5d3-1"&gt;&lt;/a&gt;Authentication error.
-&lt;a name="rest_code_1be6476ee051483e858db7e658a8b5d3-2"&gt;&lt;/a&gt;Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
+&lt;pre class="code text"&gt;&lt;a name="rest_code_458d158fefd0445aa6b24ade0dd3d383-1"&gt;&lt;/a&gt;Authentication error.
+&lt;a name="rest_code_458d158fefd0445aa6b24ade0dd3d383-2"&gt;&lt;/a&gt;Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
 &lt;/pre&gt;&lt;p&gt;The linked support page isn't very helpful, but if you google the error you will find some people having the same issue: after years of not using an account, the login on their pop3 client starts to fail. Maybe something changed in google's security policies, maybe it's related to new terms of service, or required security checkups. But the thing is: logins fail until you login from a browser and tweak some stuff (enabling less secure apps, etc).&lt;/p&gt;
 &lt;p&gt;That itself isn't the bug. The bug is flagging those pop3 logins which came &lt;strong&gt;from inside google&lt;/strong&gt; (it's a gmail feature, running on their servers), as if they were "suspicious logins". They are not suspicious, they are comming from inside google, they are being made from a google server trying to execute a gmail feature.&lt;/p&gt;
 &lt;p&gt;Finally, how sure am I that the logins came from inside google? Well, a traceroute to the login ip took me to this host: &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;mail-pa0-x218.google.com&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;

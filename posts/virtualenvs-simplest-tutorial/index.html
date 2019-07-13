@@ -14,6 +14,7 @@
 <link rel="canonical" href="http://blog.fisadev.com/posts/virtualenvs-simplest-tutorial/">
 <!--[if lt IE 9]><script src="../../assets/js/html5shiv-printshiv.min.js"></script><![endif]--><meta name="author" content="Juan Pedro Fisanotti">
 <link rel="prev" href="../using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/" title="Using Keras and TensorFlow with Nvidia gpus under Ubuntu" type="text/html">
+<link rel="next" href="../daneluz-longsword-best-sword/" title="Longsword by Leonardo Daneluz, my best sword!" type="text/html">
 <meta property="og:site_name" content="Blog (fisa)">
 <meta property="og:title" content="The simplest Virtualenv tutorial (Python 3)">
 <meta property="og:url" content="http://blog.fisadev.com/posts/virtualenvs-simplest-tutorial/">
@@ -67,22 +68,22 @@
 <div class="section" id="how-do-i-create-a-new-virtualenv">
 <h2>How do I create a new virtualenv?</h2>
 <p>Open a terminal, and run this:</p>
-<pre class="code bash"><a name="rest_code_805566d119324efda1bf59c5ff937993-1"></a>python3 -m venv PATH_TO_YOUR_VIRTUALENV
+<pre class="code bash"><a name="rest_code_08b8f7bb5ab445cf81cfce392005b9be-1"></a>python3 -m venv PATH_TO_YOUR_VIRTUALENV
 </pre>
 <p>The path it receives as a paramenter, is the location for a folder that will be created and will contain your virtualenv inside. It will only contain the virtualenv, <strong>don't</strong> add any files inside that folder. Treat it like a "system" folder.</p>
 <p>Example:</p>
-<pre class="code bash"><a name="rest_code_512151fd1d3c4551a9a058bd7759306a-1"></a>python3 -m venv /home/fisa/projects/my_blog/venv
+<pre class="code bash"><a name="rest_code_2fea2e3a5aa44852b52b6e8f48a623d2-1"></a>python3 -m venv /home/fisa/projects/my_blog/venv
 </pre>
 </div>
 <div class="section" id="how-do-i-use-the-virtualenv">
 <h2>How do I use the virtualenv?</h2>
 <p>Each time you open a new terminal (console) to work in your project, you need to <strong>activate</strong> the virtualenv. The command to activate the virtualenv is different for Linux/MacOS vs Windows.</p>
 <p>On Linux and MacOS, run:</p>
-<pre class="code bash"><a name="rest_code_f983b51b9c4641c2bb9ea36df05253de-1"></a><span class="nb">source</span> PATH_TO_YOUR_VIRTUALENV/bin/activate
+<pre class="code bash"><a name="rest_code_6828d3e89be1486fbc402b163002060e-1"></a><span class="nb">source</span> PATH_TO_YOUR_VIRTUALENV/bin/activate
 </pre>
 <p>(if your are using fish shell, the command is different too)</p>
 <p>On Windows:</p>
-<pre class="code text"><a name="rest_code_58cc4e6ea01844fa9c8a21c6e4bc58d7-1"></a>PATH_TO_YOUR_VIRTUALENV\Scripts\activate.bat
+<pre class="code text"><a name="rest_code_ffe027a709bc4d2c9579535fea65856e-1"></a>PATH_TO_YOUR_VIRTUALENV\Scripts\activate.bat
 </pre>
 <p>From now on, the prompt of the terminal should say something like <tt class="docutils literal">(venv)</tt> at the begining (with the name of your virtualenv). This indicates that you are working inside your virtualenv.</p>
 <p>With your virtualenv activated, if you now install libs with pip (example: <tt class="docutils literal">pip install pandas</tt>), they will be installed inside the virtualenv. If you run a program inside that terminal, it will be able to import any libs installed in the virtualenv.</p>
@@ -105,6 +106,9 @@
     <aside class="postpromonav"><nav><ul class="pager hidden-print">
 <li class="previous">
                 <a href="../using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/" rel="prev" title="Using Keras and TensorFlow with Nvidia gpus under Ubuntu">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="../daneluz-longsword-best-sword/" rel="next" title="Longsword by Leonardo Daneluz, my best sword!">Next post</a>
             </li>
         </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
                         <div id="disqus_thread"></div>

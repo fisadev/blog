@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about python)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/python.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Mon, 15 Apr 2019 23:26:48 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04</title><link>http://blog.fisadev.com/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;div&gt;&lt;p&gt;I broke so many things trying to get this to work, that I need to write it down for my future self and any others who might need this.&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about python)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/python.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Fri, 12 Jul 2019 23:40:29 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04</title><link>http://blog.fisadev.com/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;div&gt;&lt;p&gt;I broke so many things trying to get this to work, that I need to write it down for my future self and any others who might need this.&lt;/p&gt;
 &lt;p&gt;This tutorial explains how to get a Keras neural network to train using your gpu, or any Theano related code for that matter, but for the special scenario of having a Nvidia Optimus enabled gpu running under Ubuntu 16.04.
 Other scenarios:&lt;/p&gt;
 &lt;ul class="simple"&gt;
@@ -57,12 +57,12 @@ The script is somewhat dumb and doesn't detect the drivers we installed on the p
 Later versions won't work.
 Ubuntu 16.04 ships with gcc 5.4.&lt;/p&gt;
 &lt;p&gt;But we can have both versions side by side, and trick CUDA to use the older versions with just some simple symlinks (thanks to &lt;a class="reference external" href="https://twitter.com/_zzzoom_/status/765720104868904964"&gt;charlie&lt;/a&gt; for the tip, the old solution was far more complicated).&lt;/p&gt;
-&lt;pre class="code bash"&gt;&lt;a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-1"&gt;&lt;/a&gt;sudo apt-get install gcc-4.9 g++-4.9
-&lt;a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-2"&gt;&lt;/a&gt;sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
-&lt;a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-3"&gt;&lt;/a&gt;sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
-&lt;a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-4"&gt;&lt;/a&gt;
-&lt;a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-5"&gt;&lt;/a&gt;&lt;span class="c1"&gt;# Work around a glibc bug (according to the theano docs)&lt;/span&gt;
-&lt;a name="rest_code_8f07e92f99c04e87b2b98eb3ee0a486f-6"&gt;&lt;/a&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; -e &lt;span class="s2"&gt;"\n[nvcc]\nflags=-D_FORCE_INLINES\n"&lt;/span&gt; &amp;gt;&amp;gt; ~/.theanorc
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-1"&gt;&lt;/a&gt;sudo apt-get install gcc-4.9 g++-4.9
+&lt;a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-2"&gt;&lt;/a&gt;sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
+&lt;a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-3"&gt;&lt;/a&gt;sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
+&lt;a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-4"&gt;&lt;/a&gt;
+&lt;a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-5"&gt;&lt;/a&gt;&lt;span class="c1"&gt;# Work around a glibc bug (according to the theano docs)&lt;/span&gt;
+&lt;a name="rest_code_1cc12ab1e3b941cfb9d5a11a79cc5e3e-6"&gt;&lt;/a&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; -e &lt;span class="s2"&gt;"\n[nvcc]\nflags=-D_FORCE_INLINES\n"&lt;/span&gt; &amp;gt;&amp;gt; ~/.theanorc
 &lt;/pre&gt;&lt;/div&gt;
 &lt;div class="section" id="testing"&gt;
 &lt;h2&gt;4. Testing&lt;/h2&gt;
@@ -71,9 +71,9 @@ Ubuntu 16.04 ships with gcc 5.4.&lt;/p&gt;
 But don't just "run" it.
 You need to tell Theano "hey, I want you to use my shiny cuda gpu".
 To achieve that, run the script like this (inside your virtualenv):&lt;/p&gt;
-&lt;pre class="code bash"&gt;&lt;a name="rest_code_76bb3351daf34b68ad38bb81a11241e6-1"&gt;&lt;/a&gt;&lt;span class="nv"&gt;THEANO_FLAGS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"&lt;/span&gt; python test_gpu.py
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_09ce7fb87a754eb0b2da12503357908e-1"&gt;&lt;/a&gt;&lt;span class="nv"&gt;THEANO_FLAGS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"&lt;/span&gt; python test_gpu.py
 &lt;/pre&gt;&lt;p&gt;If everything is working, it should quickly run and output something which ends with: &lt;tt class="docutils literal"&gt;Used the gpu&lt;/tt&gt;.
 If instead it takes a long time (~1 minute) and ends with &lt;tt class="docutils literal"&gt;Used the cpu&lt;/tt&gt;, then something is not working.&lt;/p&gt;
 &lt;p&gt;If that worked, then you can try the full example and play a little with it (should be able to run all lines without errors):&lt;/p&gt;
-&lt;pre class="code bash"&gt;&lt;a name="rest_code_269cfdbc1bcf48379265aea9bcea98f9-1"&gt;&lt;/a&gt;&lt;span class="nv"&gt;THEANO_FLAGS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"&lt;/span&gt; ipython notebook
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_6c60e5e4773e4fe9b44f792e8afcafaa-1"&gt;&lt;/a&gt;&lt;span class="nv"&gt;THEANO_FLAGS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"&lt;/span&gt; ipython notebook
 &lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</description><category>cuda</category><category>keras</category><category>machine learning</category><category>programming</category><category>python</category><category>ubuntu</category><guid>http://blog.fisadev.com/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/</guid><pubDate>Wed, 21 Sep 2016 01:58:35 GMT</pubDate></item></channel></rss>
