@@ -80,6 +80,8 @@ That's a heck of a thick point.
 
 Leonardo quenching it! :)
 
+He's well known for the quality and historicity of his work. If you like medieval swords, then you should definitely check `his swords <https://www.facebook.com/leonardo.daneluz/photos>`_.
+
 Hope you enjoyed it as much as I do. Bah, that's impossible :p
 
 (Thanks `Ruth Teller <https://www.facebook.com/ruththelerfotografia/>`_ for most of the photos!)
