@@ -44,9 +44,9 @@ With "Il Fior Di Battaglia", a medieval martial arts manuscript from around 1400
 
 .. thumbnail:: /images/daneluz-longsword-best-sword/5.jpg
 
-Here you can see the pin, which is the end of the tang (the part of the blade that continues inside the grip). And also a glimpse of the coin (better pictures below).
-
 .. thumbnail:: /images/daneluz-longsword-best-sword/6.jpg
+
+Here you can see the pin, which is the end of the tang (the part of the blade that continues inside the grip). And also a glimpse of the coin (better pictures below).
 
 .. thumbnail:: /images/daneluz-longsword-best-sword/7.jpg
 
