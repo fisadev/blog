@@ -38,9 +38,9 @@ Gosh, I'm really happy with this sword :D
 
 .. thumbnail:: /images/daneluz-longsword-best-sword/3.jpg
 
-With "Il Fior Di Battaglia", a medieval martial arts manuscript from around 1400 (`you can read it online! <https://wiktenauer.com/wiki/Fior_di_Battaglia_(MS_Ludwig_XV_13)>`_). People from that time didn't just crudely bash themselves with blunt heavy swords. In reality, swords were fairly light and agile, quite sharp, and they had very developed martial arts around their usage. Luckily many manuscripts from the time survive, which we can use to revive those martial arts (google "HEMA" if you want to see people practicing them).
-
 .. thumbnail:: /images/daneluz-longsword-best-sword/4.jpg
+
+With "Il Fior Di Battaglia", a medieval martial arts manuscript from around 1400 (`you can read it online! <https://wiktenauer.com/wiki/Fior_di_Battaglia_(MS_Ludwig_XV_13)>`_). People from that time didn't just crudely bash themselves with blunt heavy swords. In reality, swords were fairly light and agile, quite sharp, and they had very developed martial arts around their usage. Luckily many manuscripts from the time survive, which we can use to revive those martial arts (google "HEMA" if you want to see people practicing them).
 
 .. thumbnail:: /images/daneluz-longsword-best-sword/5.jpg
 
