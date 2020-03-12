@@ -25,8 +25,8 @@ Dependencies
     sudo apt install ecryptfs-utils
 
 
-Initial setup
-=============
+Initial setup (one time only)
+=============================
 
 You need to do this only once to setup your dir. 
 After that you won't have to run these steps in your daily use.
@@ -65,7 +65,7 @@ This will ask you a bunch of questions, these are the answers I recommend, plus 
 - A confirmation asking whether you are sure you typed everything right, because this is the first
   time ecryptfs sees you using this combination of parameters with this directory. Just say yes, 
   because doh, of course it's the first time.
-- And Finally, wether you want ecryptfs to remember the answer to the previous question, so it 
+- And Finally, whether you want ecryptfs to remember the answer to the previous question, so it 
   doesn't ask you "are you sure? this is the first time..." every time you mount the encrypted dir.
   Answer yes.
 
