@@ -68,7 +68,7 @@ editors, etc).
 There's absolutely no need for specialized tools to work with your encrypted files.</p>
 <div class="section" id="dependencies">
 <h2>Dependencies</h2>
-<pre class="code bash"><a name="rest_code_16177e4060cc4d80b69c9b29f73c2667-1"></a>sudo apt install ecryptfs-utils
+<pre class="code bash"><a name="rest_code_216e1080e3254f4fbe545aa365c7bed1-1"></a>sudo apt install ecryptfs-utils
 </pre>
 </div>
 <div class="section" id="initial-setup-one-time-only">
@@ -80,11 +80,11 @@ After that you won't have to run these steps in your daily use.</p>
 <li><p>A dir where you will work with your files when the encrypted filesystem is mounted.</p></li>
 <li><p>A dir where the encrypted data will live. You should <strong>never</strong> edit its contents by yourself.</p></li>
 </ul>
-<pre class="code bash"><a name="rest_code_d6ebf8a384e24b4dbe300b9288d380c5-1"></a>mkdir super_secret_things
-<a name="rest_code_d6ebf8a384e24b4dbe300b9288d380c5-2"></a>mkdir super_secret_things_encrypted
+<pre class="code bash"><a name="rest_code_2e292b4b17774eac9a693511e6973443-1"></a>mkdir super_secret_things
+<a name="rest_code_2e292b4b17774eac9a693511e6973443-2"></a>mkdir super_secret_things_encrypted
 </pre>
 <p>Then, mount the filesystem for the first time:</p>
-<pre class="code bash"><a name="rest_code_94ef0687fd1b4529a9f700b623ed35aa-1"></a>sudo mount super_secret_things_encrypted super_secret_things -t ecryptfs
+<pre class="code bash"><a name="rest_code_0d14b2a7112c46b2ab7653ea581c7c95-1"></a>sudo mount super_secret_things_encrypted super_secret_things -t ecryptfs
 </pre>
 <p>This will ask you a bunch of questions, these are the answers I recommend, plus some explanations:</p>
 <ul class="simple">
@@ -114,15 +114,16 @@ the future! For me this became muscle memory: "1 2 n y enter".</p>
 <ol class="arabic simple">
 <li><p>Mount the encrypted dir</p></li>
 </ol>
-<pre class="code bash"><a name="rest_code_63391bcaff80468ea448a2a0401b486e-1"></a>sudo mount super_secret_things_encrypted super_secret_things -t ecryptfs
-<a name="rest_code_63391bcaff80468ea448a2a0401b486e-2"></a><span class="c1"># answer "1 2 n y enter", or whatever you chose instead</span>
+<pre class="code bash"><a name="rest_code_02cc60d17f3f4d17b6b41773233cb296-1"></a>sudo mount super_secret_things_encrypted super_secret_things -t ecryptfs
+<a name="rest_code_02cc60d17f3f4d17b6b41773233cb296-2"></a><span class="c1"># answer "1 2 n y enter", or whatever you chose instead</span>
 </pre>
 <ol class="arabic simple" start="2">
 <li><p>Work with your files inside <cite>super_secret_things</cite> (REMEMBER!!! never edit the contents of <cite>super_secret_things_encrypted</cite> by yourself)</p></li>
 <li><p>Un-mount the encrypted dir</p></li>
 </ol>
-<pre class="code bash"><a name="rest_code_e8069271bc3f4ae3a1a578686617a794-1"></a>sudo umount super_secret_things
+<pre class="code bash"><a name="rest_code_439f2e9fe53a4908a7d7092cabfcc583-1"></a>sudo umount super_secret_things
 </pre>
+<p>Of course, you can automate these into scripts, alias in your shell, etc.</p>
 <p>Hope this is as useful to you as it was for me :)</p>
 </div>
 </div>
