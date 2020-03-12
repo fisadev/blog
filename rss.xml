@@ -1,5 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa)</title><link>http://blog.fisadev.com/</link><description>This is my personal blog.</description><atom:link href="http://blog.fisadev.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Sat, 13 Jul 2019 00:31:50 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Longsword by Leonardo Daneluz, my best sword!</title><link>http://blog.fisadev.com/posts/daneluz-longsword-best-sword/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;div class="section" id="the-sword"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa)</title><link>http://blog.fisadev.com/</link><description>This is my personal blog.</description><atom:link href="http://blog.fisadev.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Thu, 12 Mar 2020 00:32:18 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Encrypt a dir with Ecryptfs</title><link>http://blog.fisadev.com/posts/encrypt-a-dir-with-ecryptfs/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;div&gt;&lt;p&gt;This is a simple tutorial on how to have an encrypted directory in your Linux, by using Ecryptfs.&lt;/p&gt;
+&lt;p&gt;There are many alternatives to do the same, and I'm not qualified to do a deep comparison of them.
+But I've been using this solution for many years already, and it works like a charm.
+It relies on command line tools only which are easy to automate.
+And because it uses a mounted filesystem, it's pretty transparent to other tools (like backups,
+editors, etc).
+There's absolutely no need for specialized tools to work with your encrypted files.&lt;/p&gt;
+&lt;div class="section" id="dependencies"&gt;
+&lt;h2&gt;Dependencies&lt;/h2&gt;
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_16177e4060cc4d80b69c9b29f73c2667-1"&gt;&lt;/a&gt;sudo apt install ecryptfs-utils
+&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="section" id="initial-setup-one-time-only"&gt;
+&lt;h2&gt;Initial setup (one time only)&lt;/h2&gt;
+&lt;p&gt;You need to do this only once to setup your dir.
+After that you won't have to run these steps in your daily use.&lt;/p&gt;
+&lt;p&gt;First create two dirs:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;A dir where you will work with your files when the encrypted filesystem is mounted.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;A dir where the encrypted data will live. You should &lt;strong&gt;never&lt;/strong&gt; edit its contents by yourself.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_d6ebf8a384e24b4dbe300b9288d380c5-1"&gt;&lt;/a&gt;mkdir super_secret_things
+&lt;a name="rest_code_d6ebf8a384e24b4dbe300b9288d380c5-2"&gt;&lt;/a&gt;mkdir super_secret_things_encrypted
+&lt;/pre&gt;&lt;p&gt;Then, mount the filesystem for the first time:&lt;/p&gt;
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_94ef0687fd1b4529a9f700b623ed35aa-1"&gt;&lt;/a&gt;sudo mount super_secret_things_encrypted super_secret_things -t ecryptfs
+&lt;/pre&gt;&lt;p&gt;This will ask you a bunch of questions, these are the answers I recommend, plus some explanations:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Passphrase&lt;/strong&gt;: whatever you want to use as password :)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Cipher&lt;/strong&gt;: aes (option 1. This is the algorithm used to encrypt. Aes is pretty good)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Key bytes&lt;/strong&gt;: 32 (option 2. The size of the key, bigger usually means harder to hack)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Plaintext passthrough&lt;/strong&gt;: no (this allows for non-encrypted files to be used along encrypted ones,
+which I think is a bad idea. These are your super secret stuff, you need to be sure they are
+always encrypted).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Filename encryption&lt;/strong&gt;: yes (fairly obvious. If the answer is no, people can see the names of the
+files without having to know the encryption password)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Signature confirmation&lt;/strong&gt;: just press enter.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;A confirmation asking whether you are sure you typed everything right, because this is the first
+time ecryptfs sees you using this combination of parameters with this directory. Just say yes,
+because doh, of course it's the first time.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;And Finally, whether you want ecryptfs to remember the answer to the previous question, so it
+doesn't ask you "are you sure? this is the first time..." every time you mount the encrypted dir.
+Answer yes.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;You will need to remember the answers&lt;/strong&gt; you chose, to be able to re-mount the encrypted dir in
+the future! For me this became muscle memory: "1 2 n y enter".&lt;/p&gt;
+&lt;p&gt;And that's it! Encrypted dir created!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="daily-use"&gt;
+&lt;h2&gt;Daily use&lt;/h2&gt;
+&lt;p&gt;Whenever you need to work with your encrypted files, the steps are this:&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;&lt;p&gt;Mount the encrypted dir&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_63391bcaff80468ea448a2a0401b486e-1"&gt;&lt;/a&gt;sudo mount super_secret_things_encrypted super_secret_things -t ecryptfs
+&lt;a name="rest_code_63391bcaff80468ea448a2a0401b486e-2"&gt;&lt;/a&gt;&lt;span class="c1"&gt;# answer "1 2 n y enter", or whatever you chose instead&lt;/span&gt;
+&lt;/pre&gt;&lt;ol class="arabic simple" start="2"&gt;
+&lt;li&gt;&lt;p&gt;Work with your files inside &lt;cite&gt;super_secret_things&lt;/cite&gt; (REMEMBER!!! never edit the contents of &lt;cite&gt;super_secret_things_encrypted&lt;/cite&gt; by yourself)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Un-mount the encrypted dir&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class="code bash"&gt;&lt;a name="rest_code_e8069271bc3f4ae3a1a578686617a794-1"&gt;&lt;/a&gt;sudo umount super_secret_things
+&lt;/pre&gt;&lt;p&gt;Hope this is as useful to you as it was for me :)&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description><guid>http://blog.fisadev.com/posts/encrypt-a-dir-with-ecryptfs/</guid><pubDate>Wed, 11 Mar 2020 23:30:00 GMT</pubDate></item><item><title>Longsword by Leonardo Daneluz, my best sword!</title><link>http://blog.fisadev.com/posts/daneluz-longsword-best-sword/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;div class="section" id="the-sword"&gt;
 &lt;h2&gt;The sword&lt;/h2&gt;
 &lt;p&gt;(click the photos to see the full resolution versions)&lt;/p&gt;
 &lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/daneluz-longsword-best-sword/1.jpg"&gt;&lt;img alt="/images/daneluz-longsword-best-sword/1.thumbnail.jpg" src="http://blog.fisadev.com/images/daneluz-longsword-best-sword/1.thumbnail.jpg"&gt;&lt;/a&gt;
