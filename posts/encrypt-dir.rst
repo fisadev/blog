@@ -95,4 +95,6 @@ Whenever you need to work with your encrypted files, the steps are this:
     sudo umount super_secret_things
 
 
+Of course, you can automate these into scripts, alias in your shell, etc.
+
 Hope this is as useful to you as it was for me :)
