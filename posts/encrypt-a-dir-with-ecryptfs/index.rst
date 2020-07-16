@@ -86,6 +86,12 @@ Whenever you need to work with your encrypted files, the steps are this:
     sudo mount super_secret_things_encrypted super_secret_things -t ecryptfs
     # answer "1 2 n y enter", or whatever you chose instead
 
+You can also avoid having to answer all the questions, by passing all these extra parameters:
+
+.. code:: bash
+    sudo mount super_secret_things_encrypted super_secret_things -t ecryptfs -o ecryptfs_cipher=aes,ecryptfs_key_bytes=32,ecryptfs_passthrough=n,ecryptfs_enable_filename_crypto=y,ecryptfs_fnek_sig=6b8de1a1e22ae45c
+    # (the "encryptfs_fnek_sig" signature is the one that the mount command asks you to verify in the final step, when not receiving all the extra params)
+
 
 2. Work with your files inside `super_secret_things` (REMEMBER!!! never edit the contents of `super_secret_things_encrypted` by yourself)
 3. Un-mount the encrypted dir 
