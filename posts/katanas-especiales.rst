@@ -7,9 +7,6 @@
 .. description: 
 .. type: text
 
-Qué tan especiales son las katanas?
-===================================
-
 
 .. thumbnail:: /images/katanas-especiales/katana.jpg
 
