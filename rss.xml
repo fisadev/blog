@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa)</title><link>http://blog.fisadev.com/</link><description>This is my personal blog.</description><atom:link href="http://blog.fisadev.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Mon, 27 Dec 2021 18:34:07 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Qué tan especiales son las katanas?</title><link>http://blog.fisadev.com/posts/katanas-especiales/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/katanas-especiales/katana.jpg"&gt;&lt;img alt="/images/katanas-especiales/katana.thumbnail.jpg" src="http://blog.fisadev.com/images/katanas-especiales/katana.thumbnail.jpg"&gt;&lt;/a&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa)</title><link>http://blog.fisadev.com/</link><description>This is my personal blog.</description><atom:link href="http://blog.fisadev.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Mon, 27 Dec 2021 18:36:42 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Qué tan especiales son las katanas?</title><link>http://blog.fisadev.com/posts/katanas-especiales/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/katanas-especiales/katana.jpg"&gt;&lt;img alt="/images/katanas-especiales/katana.thumbnail.jpg" src="http://blog.fisadev.com/images/katanas-especiales/katana.thumbnail.jpg"&gt;&lt;/a&gt;
 &lt;p&gt;Hay varios aspectos posibles para responder: podemos ver qué tiene de especial desde lo físico en comparación a otras espadas, desde lo técnico (su uso) y podemos ver qué tiene de especial desde lo cultural. Voy a responder con detalle sobre el primer aspecto, un poco menos del segundo, y muy poco del tercero. Pero spoiler alert: la katana no es una espada super especial, como mucha gente quiere creer. Lamentablemente hay mucha desinformación al respecto :)&lt;/p&gt;
 &lt;section id="lo-fisico"&gt;
 &lt;h2&gt;Lo físico&lt;/h2&gt;
@@ -198,20 +198,20 @@ the future! For me this became muscle memory: "1 2 n y enter".&lt;/p&gt;
 &lt;section id="how-do-i-create-a-new-virtualenv"&gt;
 &lt;h2&gt;How do I create a new virtualenv?&lt;/h2&gt;
 &lt;p&gt;Open a terminal, and run this:&lt;/p&gt;
-&lt;pre class="code bash"&gt;&lt;a id="rest_code_e000bd678c57460ab34eb4fa1b4c6adb-1" name="rest_code_e000bd678c57460ab34eb4fa1b4c6adb-1"&gt;&lt;/a&gt;python3 -m venv PATH_TO_YOUR_VIRTUALENV
+&lt;pre class="code bash"&gt;&lt;a id="rest_code_595ac53013b64580861222dd7b90ed80-1" name="rest_code_595ac53013b64580861222dd7b90ed80-1"&gt;&lt;/a&gt;python3 -m venv PATH_TO_YOUR_VIRTUALENV
 &lt;/pre&gt;&lt;p&gt;The path it receives as a paramenter, is the location for a folder that will be created and will contain your virtualenv inside. It will only contain the virtualenv, &lt;strong&gt;don't&lt;/strong&gt; add any files inside that folder. Treat it like a "system" folder.&lt;/p&gt;
 &lt;p&gt;Example:&lt;/p&gt;
-&lt;pre class="code bash"&gt;&lt;a id="rest_code_e7bb4ab06f54444bb013c14fc26f20f2-1" name="rest_code_e7bb4ab06f54444bb013c14fc26f20f2-1"&gt;&lt;/a&gt;python3 -m venv /home/fisa/projects/my_blog/venv
-&lt;/pre&gt;&lt;p&gt;(If you are using Windows, the path would instead look something like this: "C:Usersfisaprojectsmy_blogvenv")&lt;/p&gt;
+&lt;pre class="code bash"&gt;&lt;a id="rest_code_ce355f8e08254445b867ab71e8f4f260-1" name="rest_code_ce355f8e08254445b867ab71e8f4f260-1"&gt;&lt;/a&gt;python3 -m venv /home/fisa/projects/my_blog/venv
+&lt;/pre&gt;&lt;p&gt;(If you are using Windows, the path would instead look something like this: &lt;cite&gt;C:Usersfisaprojectsmy_blogvenv&lt;/cite&gt;)&lt;/p&gt;
 &lt;/section&gt;
 &lt;section id="how-do-i-use-the-virtualenv"&gt;
 &lt;h2&gt;How do I use the virtualenv?&lt;/h2&gt;
 &lt;p&gt;Each time you open a new terminal (console) to work in your project, you need to &lt;strong&gt;activate&lt;/strong&gt; the virtualenv. The command to activate the virtualenv is different for Linux/MacOS vs Windows.&lt;/p&gt;
 &lt;p&gt;On Linux and MacOS, run:&lt;/p&gt;
-&lt;pre class="code bash"&gt;&lt;a id="rest_code_588d3a64602c442b8ed33a962c5fba8f-1" name="rest_code_588d3a64602c442b8ed33a962c5fba8f-1"&gt;&lt;/a&gt;&lt;span class="nb"&gt;source&lt;/span&gt; PATH_TO_YOUR_VIRTUALENV/bin/activate
-&lt;/pre&gt;&lt;p&gt;(if you are using fish shell, replace "activate" with "activate.fish" at the end of that command)&lt;/p&gt;
+&lt;pre class="code bash"&gt;&lt;a id="rest_code_a579c0e451d24128a54ac7ef7cef360a-1" name="rest_code_a579c0e451d24128a54ac7ef7cef360a-1"&gt;&lt;/a&gt;&lt;span class="nb"&gt;source&lt;/span&gt; PATH_TO_YOUR_VIRTUALENV/bin/activate
+&lt;/pre&gt;&lt;p&gt;(if you are using fish shell, replace &lt;cite&gt;activate&lt;/cite&gt; with &lt;cite&gt;activate.fish&lt;/cite&gt; at the end of that command)&lt;/p&gt;
 &lt;p&gt;On Windows:&lt;/p&gt;
-&lt;pre class="code text"&gt;&lt;a id="rest_code_cfd04a08f52f4678944a4cc09f3e9d68-1" name="rest_code_cfd04a08f52f4678944a4cc09f3e9d68-1"&gt;&lt;/a&gt;PATH_TO_YOUR_VIRTUALENV\Scripts\activate.bat
+&lt;pre class="code text"&gt;&lt;a id="rest_code_5cafb51e889b4238ad386753f5c3fcbf-1" name="rest_code_5cafb51e889b4238ad386753f5c3fcbf-1"&gt;&lt;/a&gt;PATH_TO_YOUR_VIRTUALENV\Scripts\activate.bat
 &lt;/pre&gt;&lt;p&gt;From now on, the prompt of the terminal should say something like &lt;code class="docutils literal"&gt;(venv)&lt;/code&gt; at the begining (with the name of your virtualenv). This indicates that you are working inside your virtualenv.&lt;/p&gt;
 &lt;p&gt;With your virtualenv activated, if you now install libs with pip (example: &lt;code class="docutils literal"&gt;pip install pandas&lt;/code&gt;), they will be installed inside the virtualenv. If you run a program inside that terminal, it will be able to import any libs installed in the virtualenv.&lt;/p&gt;
 &lt;/section&gt;
