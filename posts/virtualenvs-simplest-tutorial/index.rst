@@ -75,4 +75,4 @@ Ok, but...
 
 - ... how do I deactivate the virtualenv? Just close that terminal. Or run ``deactivate``.
 - ... how do I delete the virtualenv? Just delete the folder. Nothing else is created anywhere else.
-- ... can I move the virtualenv? No. Just delete it, and create a new one in the new location. Virtualenvs are disposable, don't get attached to them :) (your project should define it's dependencies either in a ``requirements.txt`` or in a ``setup.py``, so you can easily install all the dependencies at once in the new environment)
+- ... can I move the virtualenv? No. Just delete it, and create a new one in the new location. Virtualenvs are disposable, don't get attached to them :) (your project should define its dependencies either in a ``requirements.txt`` or in a ``setup.py``, so you can easily install all the dependencies at once in the new environment)

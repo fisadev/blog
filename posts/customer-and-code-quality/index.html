@@ -25,7 +25,7 @@ It has many variations, but t">
 <body>
     <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
     <div id="container">
-            <header id="header"><h1 id="brand"><a href="http://blog.fisadev.com/" title="Blog (fisa)" rel="home">
+            <header id="header"><h1 id="brand"><a href="../../" title="Blog (fisa)" rel="home">
 
         <span id="blog-title">Blog (fisa)</span>
     </a></h1>
@@ -49,7 +49,7 @@ It has many variations, but t">
             <a href="." rel="bookmark">
             <time class="published dt-published" datetime="2017-09-17T16:28:30-03:00" itemprop="datePublished" title="2017-09-17 16:28">2017-09-17 16:28</time></a>
             </p>
-                <p class="commentline">            <a href="#disqus_thread" data-disqus-identifier="cache/posts/customer-and-code-quality.html">Comments</a>
+                <p class="commentline">        <a href="#disqus_thread" data-disqus-identifier="cache/posts/customer-and-code-quality.html">Comments</a>
 
 
                     </p>
@@ -58,8 +58,7 @@ It has many variations, but t">
         </div>
         
     </header><div class="e-content entry-content" itemprop="articleBody text">
-    <div>
-<p>I hear this a lot in the software development community: "the customer doesn't care about the quality of the code, just about features, usability, user experience, etc.".
+    <p>I hear this a lot in the software development community: "the customer doesn't care about the quality of the code, just about features, usability, user experience, etc.".
 It has many variations, but the idea remains the same: code quality isn't a factor in the decisions of the customer (internal or external).</p>
 <p>Sometimes it's even used to justify writing, or not refactoring, bad code.
 Because the main thing is to give your customer some value, and code quality just doesn't do that.</p>
@@ -89,7 +88,6 @@ And giving them bad code without warning them of its impacts in maintainance, is
 This may be the reason we got the idea that customers don't care about code, developers just usually fail to explain (or even hide) to them the strong relation between code quality and maintainance costs.
 So they never come back asking for "better code".</p>
 </div>
-</div>
     </div>
     <aside class="postpromonav"><nav><ul class="pager hidden-print">
 <li class="previous">
@@ -99,7 +97,7 @@ So they never come back asking for "better code".</p>
                 <a href="../using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/" rel="next" title="Using Keras and TensorFlow with Nvidia gpus under Ubuntu">Next post</a>
             </li>
         </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
-                        <div id="disqus_thread"></div>
+                    <div id="disqus_thread"></div>
         <script>
         var disqus_shortname ="fisa-blog",
             disqus_url="http://blog.fisadev.com/posts/customer-and-code-quality/",
@@ -118,16 +116,14 @@ So they never come back asking for "better code".</p>
     <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script></main><footer id="footer"><p>Contents © 2020         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script></main><footer id="footer"><p>Contents © 2021         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>
                 <script src="../../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
-        captions: function(element) {
-            return element.getElementsByTagName('img')[0].alt;
-    }});
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
     </script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-10031421-14"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
