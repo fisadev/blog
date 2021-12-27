@@ -279,21 +279,21 @@ the future! For me this became muscle memory: "1 2 n y enter".</p>
 <p>Python 3.3 or newer (older versions do have virtualenvs, but they are used in a slightly different way).</p>
 </section><section id="how-do-i-create-a-new-virtualenv"><h2>How do I create a new virtualenv?</h2>
 <p>Open a terminal, and run this:</p>
-<pre class="code bash"><a id="rest_code_595ac53013b64580861222dd7b90ed80-1" name="rest_code_595ac53013b64580861222dd7b90ed80-1"></a>python3 -m venv PATH_TO_YOUR_VIRTUALENV
+<pre class="code bash"><a id="rest_code_d059b129a26a4f3186d8b4cc40d0dff8-1" name="rest_code_d059b129a26a4f3186d8b4cc40d0dff8-1"></a>python3 -m venv PATH_TO_YOUR_VIRTUALENV
 </pre>
 <p>The path it receives as a paramenter, is the location for a folder that will be created and will contain your virtualenv inside. It will only contain the virtualenv, <strong>don't</strong> add any files inside that folder. Treat it like a "system" folder.</p>
 <p>Example:</p>
-<pre class="code bash"><a id="rest_code_ce355f8e08254445b867ab71e8f4f260-1" name="rest_code_ce355f8e08254445b867ab71e8f4f260-1"></a>python3 -m venv /home/fisa/projects/my_blog/venv
+<pre class="code bash"><a id="rest_code_a6e14fe7e0444394b55f83deea77e37a-1" name="rest_code_a6e14fe7e0444394b55f83deea77e37a-1"></a>python3 -m venv /home/fisa/projects/my_blog/venv
 </pre>
-<p>(If you are using Windows, the path would instead look something like this: <cite>C:Usersfisaprojectsmy_blogvenv</cite>)</p>
+<p>(If you are using Windows, the path would instead look something like this: <code class="docutils literal"><span class="pre">C:\Users\fisa\projects\my_blog\venv</span></code>)</p>
 </section><section id="how-do-i-use-the-virtualenv"><h2>How do I use the virtualenv?</h2>
 <p>Each time you open a new terminal (console) to work in your project, you need to <strong>activate</strong> the virtualenv. The command to activate the virtualenv is different for Linux/MacOS vs Windows.</p>
 <p>On Linux and MacOS, run:</p>
-<pre class="code bash"><a id="rest_code_a579c0e451d24128a54ac7ef7cef360a-1" name="rest_code_a579c0e451d24128a54ac7ef7cef360a-1"></a><span class="nb">source</span> PATH_TO_YOUR_VIRTUALENV/bin/activate
+<pre class="code bash"><a id="rest_code_5bff8a337d2045d0b4630f593ce844ce-1" name="rest_code_5bff8a337d2045d0b4630f593ce844ce-1"></a><span class="nb">source</span> PATH_TO_YOUR_VIRTUALENV/bin/activate
 </pre>
-<p>(if you are using fish shell, replace <cite>activate</cite> with <cite>activate.fish</cite> at the end of that command)</p>
+<p>(if you are using fish shell, replace <code class="docutils literal">activate</code> with <code class="docutils literal">activate.fish</code> at the end of that command)</p>
 <p>On Windows:</p>
-<pre class="code text"><a id="rest_code_5cafb51e889b4238ad386753f5c3fcbf-1" name="rest_code_5cafb51e889b4238ad386753f5c3fcbf-1"></a>PATH_TO_YOUR_VIRTUALENV\Scripts\activate.bat
+<pre class="code text"><a id="rest_code_b65a4b6a896a4105892f263c49446455-1" name="rest_code_b65a4b6a896a4105892f263c49446455-1"></a>PATH_TO_YOUR_VIRTUALENV\Scripts\activate.bat
 </pre>
 <p>From now on, the prompt of the terminal should say something like <code class="docutils literal">(venv)</code> at the begining (with the name of your virtualenv). This indicates that you are working inside your virtualenv.</p>
 <p>With your virtualenv activated, if you now install libs with pip (example: <code class="docutils literal">pip install pandas</code>), they will be installed inside the virtualenv. If you run a program inside that terminal, it will be able to import any libs installed in the virtualenv.</p>

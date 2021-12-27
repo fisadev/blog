@@ -35,7 +35,7 @@ Example:
     python3 -m venv /home/fisa/projects/my_blog/venv
 
 
-(If you are using Windows, the path would instead look something like this: `C:\Users\fisa\projects\my_blog\venv`)
+(If you are using Windows, the path would instead look something like this: ``C:\Users\fisa\projects\my_blog\venv``)
 
 
 How do I use the virtualenv?
@@ -50,7 +50,7 @@ On Linux and MacOS, run:
     source PATH_TO_YOUR_VIRTUALENV/bin/activate
 
 
-(if you are using fish shell, replace `activate` with `activate.fish` at the end of that command)
+(if you are using fish shell, replace ``activate`` with ``activate.fish`` at the end of that command)
 
 On Windows:
 
