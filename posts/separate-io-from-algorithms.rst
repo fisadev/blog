@@ -38,9 +38,9 @@ And we are asked to develop a small program that counts how many developers each
 .. code-block::
 
 
-    Python:2 
-    Perl:1 
-    C:1 
+    Python: 2
+    Perl: 1
+    C: 1
     ...
 
 
@@ -59,7 +59,7 @@ The code we would write to solve the task could be something like this:
                 quantities[language] += 1
 
         for language, quantity in quantities.items():
-            print('{l}: {q}'.format(l=language,q=quantity))
+            print('{l}: {q}'.format(l=language, q=quantity))
 
 
 And it works, it gets the job done. Even more: it looks like simple code, clean code.
@@ -93,7 +93,7 @@ A better approach is then to follow that simple rule we mentioned in the beginni
 
     def show_report(quantities):
         for language, quantity in quantities.items():
-            print('{l}: {q}'.format(l=language,q=quantity))
+            print('{l}: {q}'.format(l=language, q=quantity))
 
 
 In this new solution, we clearly divided our code in three blocks: the code dealing with the input file, the counting algorithm itself (business logic), and the code dealing with the output of the results. We can easily test the business logic without mocking or doing real IO. We can easily reuse the business logic in scenarios where the input or output formats are different. Even if we have to support input data coming from a stream, something quite difficult with the previous approach, we could achieve that with simple refactors. This separation leaves the door open for changes in a way the old code didn’t.
@@ -117,7 +117,7 @@ So, instead of writing views like this:
         # score = a little extra code calculating the new score
         # some more score updating
         # the last bits of the score update
-        returnrender(request, 'score.html', {'score':score})
+        returnrender(request, 'score.html', {'score': score})
 
 
 We should always try to write views more similar to this:
@@ -128,7 +128,7 @@ We should always try to write views more similar to this:
 
     def update_score(request, username):
         score = score_logic.update_score(username)
-        returnrender(request, 'score.html', {'score':score})
+        returnrender(request, 'score.html', {'score': score})
 
 
 Conclusion
