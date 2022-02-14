@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html prefix="
+        og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+    " vocab="http://ogp.me/ns" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Separate IO from algorithms | Blog (fisa)</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
+<link rel="canonical" href="http://blog.fisadev.com/posts/separate-io-from-algorithms/">
+<!--[if lt IE 9]><script src="../../assets/js/html5shiv-printshiv.min.js"></script><![endif]--><meta name="author" content="Juan Pedro Fisanotti">
+<link rel="prev" href="../katanas-especiales/" title="Qué tan especiales son las katanas?" type="text/html">
+<meta property="og:site_name" content="Blog (fisa)">
+<meta property="og:title" content="Separate IO from algorithms">
+<meta property="og:url" content="http://blog.fisadev.com/posts/separate-io-from-algorithms/">
+<meta property="og:description" content="This is an old post I wrote for the Machinalis blog. Machinalis was a company I worked at some years ago, that later on got acquired by Mercado Libre. The old post is no longer online, so I replicated">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-02-14T17:55:50-03:00">
+<meta property="article:tag" content="python">
+</head>
+<body>
+    <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <div id="container">
+            <header id="header"><h1 id="brand"><a href="../../" title="Blog (fisa)" rel="home">
+
+        <span id="blog-title">Blog (fisa)</span>
+    </a></h1>
+
+        
+            <nav id="menu"><ul>
+<li><a href="../../archive.html">Archive</a></li>
+                <li><a href="../../categories/">Tags</a></li>
+                <li><a href="../../rss.xml">RSS feed</a></li>
+
+    
+    
+    
+    </ul></nav></header><main id="content"><article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Separate IO from algorithms</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    Juan Pedro Fisanotti
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2022-02-14T17:55:50-03:00" itemprop="datePublished" title="2022-02-14 17:55">2022-02-14 17:55</time></a>
+            </p>
+                <p class="commentline">        <a href="#disqus_thread" data-disqus-identifier="cache/posts/separate-io-from-algorithms.html">Comments</a>
+
+
+                    </p>
+<p class="sourceline"><a href="index.rst" class="sourcelink">Source</a></p>
+
+        </div>
+        
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <p>This is an old post I wrote for the Machinalis blog. Machinalis was a company I worked at some years ago, that later on got acquired by Mercado Libre. The old post is no longer online, so I replicated it here to keep it somewhere on the web :)</p>
+<section id="separate-io-from-algorithms"><h2>Separate IO from algorithms</h2>
+<p>Being able to write clean, easy to maintain code is one of the most important skills a developer should have. And it isn’t an easy task to accomplish. We will often be presented with complex problems in which there is no clear “clean” solution. But at the same time, there are some simple practices that can help a lot in the path to better code.</p>
+<p>In this post we will talk about one of those practices: separating IO code from algorithms. It’s not rocket science, and many will probably find this obvious. But experience shows that it’s something too often overlooked, and when that happens, the code tends to become messy quite fast.</p>
+<section id="a-not-so-real-example"><h3>A not-so-real example</h3>
+<p>Let’s start with a hypothetical task (later on we will look at a more real example). It will be something quite simple, but bear in mind I’m using it as a vehicle to present some ideas. In real life I would probably just use <code class="docutils literal">collections.Counter</code> and the csv module :)</p>
+<p>Imagine we have a .csv file, in which each line has the name of a developer and the language he uses:</p>
+<pre class="code text"><a id="rest_code_06d02620175e49ef8f31dc3a50e928b9-1" name="rest_code_06d02620175e49ef8f31dc3a50e928b9-1"></a>Guido Van Rossum,Python
+<a id="rest_code_06d02620175e49ef8f31dc3a50e928b9-2" name="rest_code_06d02620175e49ef8f31dc3a50e928b9-2"></a>Dennis Ritchie,C
+<a id="rest_code_06d02620175e49ef8f31dc3a50e928b9-3" name="rest_code_06d02620175e49ef8f31dc3a50e928b9-3"></a>Armin Ronacher,Python
+<a id="rest_code_06d02620175e49ef8f31dc3a50e928b9-4" name="rest_code_06d02620175e49ef8f31dc3a50e928b9-4"></a>Larry Wall,Perl
+<a id="rest_code_06d02620175e49ef8f31dc3a50e928b9-5" name="rest_code_06d02620175e49ef8f31dc3a50e928b9-5"></a>...
+</pre>
+<p>And we are asked to develop a small program that counts how many developers each language has. It must produce these results via standard output:</p>
+<pre class="code text"><a id="rest_code_8da7175944c04876bbf1bf69a937b777-1" name="rest_code_8da7175944c04876bbf1bf69a937b777-1"></a>Python:2
+<a id="rest_code_8da7175944c04876bbf1bf69a937b777-2" name="rest_code_8da7175944c04876bbf1bf69a937b777-2"></a>Perl:1
+<a id="rest_code_8da7175944c04876bbf1bf69a937b777-3" name="rest_code_8da7175944c04876bbf1bf69a937b777-3"></a>C:1
+<a id="rest_code_8da7175944c04876bbf1bf69a937b777-4" name="rest_code_8da7175944c04876bbf1bf69a937b777-4"></a>...
+</pre>
+<p>The code we would write to solve the task could be something like this:</p>
+<pre class="code python"><a id="rest_code_0768248d23bc4c0c9759197d02b80909-1" name="rest_code_0768248d23bc4c0c9759197d02b80909-1"></a><span class="k">def</span> <span class="nf">count_developers</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<a id="rest_code_0768248d23bc4c0c9759197d02b80909-2" name="rest_code_0768248d23bc4c0c9759197d02b80909-2"></a>    <span class="n">quantities</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="rest_code_0768248d23bc4c0c9759197d02b80909-3" name="rest_code_0768248d23bc4c0c9759197d02b80909-3"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">developers_file</span><span class="p">:</span>
+<a id="rest_code_0768248d23bc4c0c9759197d02b80909-4" name="rest_code_0768248d23bc4c0c9759197d02b80909-4"></a>        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">developers_file</span><span class="p">:</span>
+<a id="rest_code_0768248d23bc4c0c9759197d02b80909-5" name="rest_code_0768248d23bc4c0c9759197d02b80909-5"></a>            <span class="n">developer</span><span class="p">,</span> <span class="n">language</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span>
+<a id="rest_code_0768248d23bc4c0c9759197d02b80909-6" name="rest_code_0768248d23bc4c0c9759197d02b80909-6"></a>            <span class="k">if</span> <span class="n">language</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">quantities</span><span class="p">:</span>
+<a id="rest_code_0768248d23bc4c0c9759197d02b80909-7" name="rest_code_0768248d23bc4c0c9759197d02b80909-7"></a>                <span class="n">quantities</span><span class="p">[</span><span class="n">language</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="rest_code_0768248d23bc4c0c9759197d02b80909-8" name="rest_code_0768248d23bc4c0c9759197d02b80909-8"></a>            <span class="n">quantities</span><span class="p">[</span><span class="n">language</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="rest_code_0768248d23bc4c0c9759197d02b80909-9" name="rest_code_0768248d23bc4c0c9759197d02b80909-9"></a>
+<a id="rest_code_0768248d23bc4c0c9759197d02b80909-10" name="rest_code_0768248d23bc4c0c9759197d02b80909-10"></a>    <span class="k">for</span> <span class="n">language</span><span class="p">,</span> <span class="n">quantity</span> <span class="ow">in</span> <span class="n">quantities</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="rest_code_0768248d23bc4c0c9759197d02b80909-11" name="rest_code_0768248d23bc4c0c9759197d02b80909-11"></a>        <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="si">{l}</span><span class="s1">: </span><span class="si">{q}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">language</span><span class="p">,</span><span class="n">q</span><span class="o">=</span><span class="n">quantity</span><span class="p">))</span>
+</pre>
+<p>And it works, it gets the job done. Even more: it looks like simple code, clean code.</p>
+<p>But it has some not-so-obvious problems:</p>
+<ul class="simple">
+<li><p>What if we want to write tests for it? That would be a problem: the tests would either have to create a file to use as input, and capture the standard output to check the results, or use lots of complex mocking to avoid the interaction with real files and real standard output.</p></li>
+<li><p>What if at some point we need to count developers from a different source, like a json API response? We would need to create a .csv file just to be able to feed it into this function, even if our input data doesn’t come in a file.</p></li>
+<li><p>What if we need to use the output in a different way instead of showing it to the user via standard output? This function forces the results to be shown in that particular way.</p></li>
+</ul>
+<p>All these issues have the same root: our code is doing two things at the same time, that should be separated. Our program is dealing with the IO logic (reading files, showing results) and the algorithms itself (the “business logic”) in a single piece of code.</p>
+<p>In this simple example it would be trivial to refactor the code to solve any of those issues. But that kind of refactors (changes to the input and output formats of a piece of business logic) tends not to be so trivial in real life code.</p>
+<p>A better approach is then to follow that simple rule we mentioned in the beginning: to separate IO code from algorithms. Following that rule, our solution would look more like this:</p>
+<pre class="code python"><a id="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-1" name="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-1"></a><span class="k">def</span> <span class="nf">read_developers_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<a id="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-2" name="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-2"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">developers_file</span><span class="p">:</span>
+<a id="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-3" name="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-3"></a>        <span class="k">return</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span>
+<a id="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-4" name="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-4"></a>                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">developers_file</span><span class="p">]</span>
+<a id="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-5" name="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-5"></a>
+<a id="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-6" name="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-6"></a><span class="k">def</span> <span class="nf">count_developers</span><span class="p">(</span><span class="n">developers</span><span class="p">):</span>
+<a id="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-7" name="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-7"></a>    <span class="n">quantities</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-8" name="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-8"></a>    <span class="k">for</span> <span class="n">developer</span><span class="p">,</span> <span class="n">language</span> <span class="ow">in</span> <span class="n">developers</span><span class="p">:</span>
+<a id="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-9" name="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-9"></a>        <span class="k">if</span> <span class="n">language</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">quantities</span><span class="p">:</span>
+<a id="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-10" name="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-10"></a>            <span class="n">quantities</span><span class="p">[</span><span class="n">language</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-11" name="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-11"></a>        <span class="n">quantities</span><span class="p">[</span><span class="n">language</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-12" name="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-12"></a>    <span class="k">return</span> <span class="n">quantities</span>
+<a id="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-13" name="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-13"></a>
+<a id="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-14" name="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-14"></a><span class="k">def</span> <span class="nf">show_report</span><span class="p">(</span><span class="n">quantities</span><span class="p">):</span>
+<a id="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-15" name="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-15"></a>    <span class="k">for</span> <span class="n">language</span><span class="p">,</span> <span class="n">quantity</span> <span class="ow">in</span> <span class="n">quantities</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-16" name="rest_code_95fbda94cd6a443fa09cb2acc58c9c53-16"></a>        <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="si">{l}</span><span class="s1">: </span><span class="si">{q}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">language</span><span class="p">,</span><span class="n">q</span><span class="o">=</span><span class="n">quantity</span><span class="p">))</span>
+</pre>
+<p>In this new solution, we clearly divided our code in three blocks: the code dealing with the input file, the counting algorithm itself (business logic), and the code dealing with the output of the results. We can easily test the business logic without mocking or doing real IO. We can easily reuse the business logic in scenarios where the input or output formats are different. Even if we have to support input data coming from a stream, something quite difficult with the previous approach, we could achieve that with simple refactors. This separation leaves the door open for changes in a way the old code didn’t.</p>
+</section><section id="a-real-example"><h3>A real example</h3>
+<p>A very common scenario in which this rule is neglected, leading to really ugly code, slow and complex tests, and overall difficult to maintain code, are Django views. Developers too often write much of the business logic of their web apps right into the views. At first sight this doesn’t look “that bad”, the code is clean, simple. It’s just a view doing business stuff. But as we saw before, problems start to arise when we need to write tests, or reuse that business logic in slightly different scenarios.</p>
+<p>When writing the tests, people usually just rely on the <code class="docutils literal">django.test.client</code> to solve the “I need to do IO to test this logic” issue. The test client is great, it really solves the need of having to test a view. But the problem is: we shouldn’t be testing a view, when we just need to test a piece of business logic. We are doing lots of unnecessary extra work (url resolving, middlewares, etc), and complicating the test code, when it could have been just a function call.</p>
+<p>And as you can imagine, things get really messy when we need to reuse that business logic that’s buried inside the view.</p>
+<p>So, instead of writing views like this:</p>
+<pre class="code python"><a id="rest_code_d80d178ce8e54868bda3a08ddd779595-1" name="rest_code_d80d178ce8e54868bda3a08ddd779595-1"></a><span class="k">def</span> <span class="nf">update_score</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<a id="rest_code_d80d178ce8e54868bda3a08ddd779595-2" name="rest_code_d80d178ce8e54868bda3a08ddd779595-2"></a>    <span class="c1"># logic to get the current score</span>
+<a id="rest_code_d80d178ce8e54868bda3a08ddd779595-3" name="rest_code_d80d178ce8e54868bda3a08ddd779595-3"></a>    <span class="c1"># logic to get the matches won</span>
+<a id="rest_code_d80d178ce8e54868bda3a08ddd779595-4" name="rest_code_d80d178ce8e54868bda3a08ddd779595-4"></a>    <span class="c1"># score = a little extra code calculating the new score</span>
+<a id="rest_code_d80d178ce8e54868bda3a08ddd779595-5" name="rest_code_d80d178ce8e54868bda3a08ddd779595-5"></a>    <span class="c1"># some more score updating</span>
+<a id="rest_code_d80d178ce8e54868bda3a08ddd779595-6" name="rest_code_d80d178ce8e54868bda3a08ddd779595-6"></a>    <span class="c1"># the last bits of the score update</span>
+<a id="rest_code_d80d178ce8e54868bda3a08ddd779595-7" name="rest_code_d80d178ce8e54868bda3a08ddd779595-7"></a>    <span class="n">returnrender</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">'score.html'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'score'</span><span class="p">:</span><span class="n">score</span><span class="p">})</span>
+</pre>
+<p>We should always try to write views more similar to this:</p>
+<pre class="code python"><a id="rest_code_3b1573253267449c9a3ffe5f8e7dd32e-1" name="rest_code_3b1573253267449c9a3ffe5f8e7dd32e-1"></a><span class="kn">import</span> <span class="nn">score_logic</span>
+<a id="rest_code_3b1573253267449c9a3ffe5f8e7dd32e-2" name="rest_code_3b1573253267449c9a3ffe5f8e7dd32e-2"></a>
+<a id="rest_code_3b1573253267449c9a3ffe5f8e7dd32e-3" name="rest_code_3b1573253267449c9a3ffe5f8e7dd32e-3"></a><span class="k">def</span> <span class="nf">update_score</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<a id="rest_code_3b1573253267449c9a3ffe5f8e7dd32e-4" name="rest_code_3b1573253267449c9a3ffe5f8e7dd32e-4"></a>    <span class="n">score</span> <span class="o">=</span> <span class="n">score_logic</span><span class="o">.</span><span class="n">update_score</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+<a id="rest_code_3b1573253267449c9a3ffe5f8e7dd32e-5" name="rest_code_3b1573253267449c9a3ffe5f8e7dd32e-5"></a>    <span class="n">returnrender</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">'score.html'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'score'</span><span class="p">:</span><span class="n">score</span><span class="p">})</span>
+</pre></section><section id="conclusion"><h3>Conclusion</h3>
+<p>Separating IO from algorithms might sound like an obvious advice, but it isn’t, it’s a principle that is often overlooked. And specially in web apps, leading to test suites that take too much time to run, and code that is indeed very hard to maintain.</p>
+<p>It’s a simple rule, easy to follow, and it does prevent serious maintainability problems. So this is my advice: never again miss a chance to separate that function (or view) into dedicated IO and algorithms blocks. Your future self will be thankful :)</p>
+</section></section>
+</div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/python/" rel="tag">python</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../katanas-especiales/" rel="prev" title="Qué tan especiales son las katanas?">Previous post</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+                    <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="fisa-blog",
+            disqus_url="http://blog.fisadev.com/posts/separate-io-from-algorithms/",
+        disqus_title="Separate IO from algorithms",
+        disqus_identifier="cache/posts/separate-io-from-algorithms.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script></main><footer id="footer"><p>Contents © 2022         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+            
+        </footer>
+</div>
+                <script src="../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
+    </script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-10031421-14"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-10031421-14');
+    </script>
+</body>
+</html>
