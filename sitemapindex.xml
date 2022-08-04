@@ -6,8 +6,12 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
+  <loc>http://blog.fisadev.com/categories/arduino.xml</loc>
+  <lastmod>2022-08-04T14:04:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>http://blog.fisadev.com/categories/cat_posts.xml</loc>
-  <lastmod>2022-02-14T21:02:00Z</lastmod>
+  <lastmod>2022-08-04T14:04:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://blog.fisadev.com/categories/cuda.xml</loc>
@@ -35,7 +39,7 @@
  </sitemap>
  <sitemap>
   <loc>http://blog.fisadev.com/categories/python.xml</loc>
-  <lastmod>2022-02-14T21:02:00Z</lastmod>
+  <lastmod>2022-02-14T21:17:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://blog.fisadev.com/categories/security.xml</loc>
@@ -51,10 +55,10 @@
  </sitemap>
  <sitemap>
   <loc>http://blog.fisadev.com/rss.xml</loc>
-  <lastmod>2022-02-14T21:02:00Z</lastmod>
+  <lastmod>2022-08-04T14:04:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>http://blog.fisadev.com/sitemap.xml</loc>
-  <lastmod>2022-02-14T21:02:00Z</lastmod>
+  <lastmod>2022-08-04T14:04:00Z</lastmod>
  </sitemap>
 </sitemapindex>

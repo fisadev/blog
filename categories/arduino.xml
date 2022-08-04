@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about arduino)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/arduino.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Thu, 04 Aug 2022 14:04:28 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Programar STM32F103C8 en Ubuntu con Arduino IDE</title><link>http://blog.fisadev.com/posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;p&gt;Hacer andar una placa STM32F103C8 (o cualquier STM32 de hecho) con Arduino IDE en Ubuntu no es tan simple, hay muchos tutoriales e info contradictoria en la web.&lt;/p&gt;
+&lt;p&gt;Esto es lo que en mi caso funcionó, en un Ubuntu 20.04 LTS.&lt;/p&gt;
+&lt;p&gt;Este tutorial asume que ya tienen instalado Arduino IDE, de una versión relativamente actual.&lt;/p&gt;
+&lt;section id="paso-1-agregar-soporte-de-stm32-en-arduino-ide"&gt;
+&lt;h2&gt;Paso 1: Agregar soporte de STM32 en Arduino IDE&lt;/h2&gt;
+&lt;p&gt;Lo primero que hay que hacer es instalar los plugins necesarios en Arduino IDE, para que el editor sepa compilar y grabar programas en las placas STM32.&lt;/p&gt;
+&lt;p&gt;Para ello tenemos que ir al menú "File", opción "Preferences", y en la ventana que se nos abre, clickear el botón que está al lado de Additional Board Manager URLs:&lt;/p&gt;
+&lt;img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/menu_preferences.png" src="http://blog.fisadev.com/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/menu_preferences.png"&gt;
+&lt;img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/boton_boards_urls.png" src="http://blog.fisadev.com/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/boton_boards_urls.png"&gt;
+&lt;p&gt;En la segunda ventana que se nos abre debemos agregar la URL de donde Arduino IDE va a bajar toda la información de estas placas. La url es esta:&lt;/p&gt;
+&lt;pre class="code text"&gt;&lt;a id="rest_code_ad5030989d0c45f489e963038a2ac1f4-1" name="rest_code_ad5030989d0c45f489e963038a2ac1f4-1"&gt;&lt;/a&gt;http://dan.drown.org/stm32duino/package_STM32duino_index.json
+&lt;/pre&gt;&lt;p&gt;Y debe agregarse al final, en un renglón nuevo (si es que ya teníamos otras URLs en esta configuración, como es mi caso), y clickear en "Ok":&lt;/p&gt;
+&lt;img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/board_url_agregada.png" src="http://blog.fisadev.com/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/board_url_agregada.png"&gt;
+&lt;p&gt;Luego debemos decirle a Arduino IDE que se baje desde esa URL la información que necesitamos para controlar nuestra placa STM32. Para ello vamos al menú "Tools", luego "Board", y elegimos la opción "Boards Manager..."&lt;/p&gt;
+&lt;img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/menu_boards_manager.png" src="http://blog.fisadev.com/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/menu_boards_manager.png"&gt;
+&lt;p&gt;En la ventana que se nos abre tenemos la posibilidad de filtrar la lista de plugins de Arduino IDE. Tenemos que buscar los que nos interesan, escribiendo "STM32" en la caja de búsqueda. Y de los resultados, tenemos que elegir el que dice "STM32F1xx/GD32F1xx boards". Luego de elegirlo nos va a aparecer un botón de "Install" para ese plugin, al que le hacemos click y esperamos que termine el progreso de la instalación.&lt;/p&gt;
+&lt;img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/install_stm32_plugin.png" src="http://blog.fisadev.com/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/install_stm32_plugin.png"&gt;
+&lt;p&gt;Cuando termina su instalación, podemos cerrar la ventana del Board Manager.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id="paso-2-elegir-nuestra-placa-y-la-forma-de-programarla"&gt;
+&lt;h2&gt;Paso 2: Elegir nuestra placa y la forma de programarla&lt;/h2&gt;
+&lt;p&gt;Ahora tenemos que decirle a Arduino IDE que queremos trabajar con esa placa nueva que instalamos. Para ello elegimos en el menú "Tools", "Board", "STM32F1 Boards", la opción "Generic STM32F103C series":&lt;/p&gt;
+&lt;img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/elegir_board.png" src="http://blog.fisadev.com/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/elegir_board.png"&gt;
+&lt;p&gt;Al hacer eso se nos van a agregar algunas opciones nuevas en el menú "Tools", de las cuales tenemos que elegir dos más:&lt;/p&gt;
+&lt;p&gt;"Tools", "Variant", "STM32F103C8"&lt;/p&gt;
+&lt;img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/elegir_variant.png" src="http://blog.fisadev.com/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/elegir_variant.png"&gt;
+&lt;p&gt;"Tools", "Upload Method", "STLink"&lt;/p&gt;
+&lt;img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/elegir_upload.png" src="http://blog.fisadev.com/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/elegir_upload.png"&gt;
+&lt;/section&gt;
+&lt;section id="paso-3-arreglar-cosas-que-no-deberian-estar-rotas"&gt;
+&lt;h2&gt;Paso 3: Arreglar cosas que no deberían estar rotas&lt;/h2&gt;
+&lt;p&gt;Con los pasos que hicimos antes, en un mundo ideal y con placas más normales, ya todo queda listo para poder programar, hacer click en Play, y que nuestro código corra en la placa que tenemos conectada a la PC. Pero en el caso de las STM32 esto está roto, y hay que hacer algunos pasos manuales para arreglarlo. Los descubrí probando y renegando, y probablemente esto cambie en el futuro.&lt;/p&gt;
+&lt;p&gt;En particular: el plugin de Arduino IDE para las STM trae dentro un programita que se usa para flashear la placa, llamado "stlink-tools". Pero el problema es que trae una versión vieja y rota (al menos rota en entornos modernos).&lt;/p&gt;
+&lt;p&gt;Así que lo primero que vamos a hacer, es eliminar esa versión vieja de ese programita que no sirve de dentro del plugin. Lo hacemos corriendo este comando en una terminal de linux:&lt;/p&gt;
+&lt;pre class="code text"&gt;&lt;a id="rest_code_9b5544d0c05b4f9b8ce7f472a4a6471d-1" name="rest_code_9b5544d0c05b4f9b8ce7f472a4a6471d-1"&gt;&lt;/a&gt;rm ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/st-*
+&lt;/pre&gt;&lt;p&gt;Si el comando dispara un error diciendo que los archivos no existen, lo más probable es que tengan alguna versión diferente o de Arduino IDE, o del plugin. En ese caso van a necesitar encontrar cuál es la ruta para el caso particular de ustedes (probablemente si es otra versión de Arduino IDE, cambie el nombre del directorio &lt;cite&gt;.arduino15&lt;/cite&gt;, o si es otra versión del plugin, cambie el nombre del directorio &lt;cite&gt;2021.5.31&lt;/cite&gt;).&lt;/p&gt;
+&lt;p&gt;Una vez borrados esos archivos, tenemos que instalar una mejor versión de la herramienta "stlink-tools". Hacemos eso con este comando:&lt;/p&gt;
+&lt;pre class="code text"&gt;&lt;a id="rest_code_e87085ba03a54164921de3bee6b3a7e9-1" name="rest_code_e87085ba03a54164921de3bee6b3a7e9-1"&gt;&lt;/a&gt;sudo apt install stlink-tools
+&lt;/pre&gt;&lt;p&gt;Esperamos a que termine de bajar e instalar, y luego tenemos que hacer un último pasito: indicarle a Arduino IDE que use nuestro nuevo stlink tools. Para ello corremos estos tres comandos. Pero ojo!! La ruta que estamos usando acá tiene que ser la misma que la que usamos antes para borrar el viejo stlink tools del plugin. Si cambiamos algún nombre de directorio en el paso de borrado, acá también deberíamos cambiarlo de la misma forma:&lt;/p&gt;
+&lt;pre class="code text"&gt;&lt;a id="rest_code_9f12f545cb8444b4844739c3065ffa8b-1" name="rest_code_9f12f545cb8444b4844739c3065ffa8b-1"&gt;&lt;/a&gt;ln -s /usr/bin/st-flash ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
+&lt;a id="rest_code_9f12f545cb8444b4844739c3065ffa8b-2" name="rest_code_9f12f545cb8444b4844739c3065ffa8b-2"&gt;&lt;/a&gt;ln -s /usr/bin/st-info ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
+&lt;a id="rest_code_9f12f545cb8444b4844739c3065ffa8b-3" name="rest_code_9f12f545cb8444b4844739c3065ffa8b-3"&gt;&lt;/a&gt;ln -s /usr/bin/st-util ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
+&lt;/pre&gt;&lt;/section&gt;
+&lt;section id="listo"&gt;
+&lt;h2&gt;Listo!&lt;/h2&gt;
+&lt;p&gt;Con estos pasos hechos, ya deberíamos poder hacer un programa de ejemplo en Arduino IDE, y al apretar el botón de play (la flecha hacia la derecha) nuestro programa debería ejecutarse en la placa :)&lt;/p&gt;
+&lt;p&gt;Un programa de ejemplo que vi usado en muchos de los tutoriales (desconozco su autor original, si no lo linkearía):&lt;/p&gt;
+&lt;pre class="code text"&gt;&lt;a id="rest_code_9c6984fce12b4e67acb225bd89f82575-1" name="rest_code_9c6984fce12b4e67acb225bd89f82575-1"&gt;&lt;/a&gt;const int ledPIN = PC13;
+&lt;a id="rest_code_9c6984fce12b4e67acb225bd89f82575-2" name="rest_code_9c6984fce12b4e67acb225bd89f82575-2"&gt;&lt;/a&gt;
+&lt;a id="rest_code_9c6984fce12b4e67acb225bd89f82575-3" name="rest_code_9c6984fce12b4e67acb225bd89f82575-3"&gt;&lt;/a&gt;void setup()
+&lt;a id="rest_code_9c6984fce12b4e67acb225bd89f82575-4" name="rest_code_9c6984fce12b4e67acb225bd89f82575-4"&gt;&lt;/a&gt;{
+&lt;a id="rest_code_9c6984fce12b4e67acb225bd89f82575-5" name="rest_code_9c6984fce12b4e67acb225bd89f82575-5"&gt;&lt;/a&gt;  pinMode(ledPIN, OUTPUT);
+&lt;a id="rest_code_9c6984fce12b4e67acb225bd89f82575-6" name="rest_code_9c6984fce12b4e67acb225bd89f82575-6"&gt;&lt;/a&gt;}
+&lt;a id="rest_code_9c6984fce12b4e67acb225bd89f82575-7" name="rest_code_9c6984fce12b4e67acb225bd89f82575-7"&gt;&lt;/a&gt;
+&lt;a id="rest_code_9c6984fce12b4e67acb225bd89f82575-8" name="rest_code_9c6984fce12b4e67acb225bd89f82575-8"&gt;&lt;/a&gt;void loop()
+&lt;a id="rest_code_9c6984fce12b4e67acb225bd89f82575-9" name="rest_code_9c6984fce12b4e67acb225bd89f82575-9"&gt;&lt;/a&gt;{
+&lt;a id="rest_code_9c6984fce12b4e67acb225bd89f82575-10" name="rest_code_9c6984fce12b4e67acb225bd89f82575-10"&gt;&lt;/a&gt;  digitalWrite(ledPIN, HIGH);
+&lt;a id="rest_code_9c6984fce12b4e67acb225bd89f82575-11" name="rest_code_9c6984fce12b4e67acb225bd89f82575-11"&gt;&lt;/a&gt;  delay(1000);
+&lt;a id="rest_code_9c6984fce12b4e67acb225bd89f82575-12" name="rest_code_9c6984fce12b4e67acb225bd89f82575-12"&gt;&lt;/a&gt;  digitalWrite(ledPIN, LOW);
+&lt;a id="rest_code_9c6984fce12b4e67acb225bd89f82575-13" name="rest_code_9c6984fce12b4e67acb225bd89f82575-13"&gt;&lt;/a&gt;  delay(1000);
+&lt;a id="rest_code_9c6984fce12b4e67acb225bd89f82575-14" name="rest_code_9c6984fce12b4e67acb225bd89f82575-14"&gt;&lt;/a&gt;}
+&lt;/pre&gt;&lt;p&gt;Si todo anduvo bien, al dar play el led verde de nuestra placa STM32F103C8 debería titilar exáctamente cada 1 segundo :)&lt;/p&gt;
+&lt;/section&gt;</description><category>arduino</category><guid>http://blog.fisadev.com/posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/</guid><pubDate>Thu, 04 Aug 2022 12:48:13 GMT</pubDate></item></channel></rss>

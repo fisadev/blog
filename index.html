@@ -12,7 +12,8 @@
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="rss.xml">
 <link rel="canonical" href="http://blog.fisadev.com/">
-<!--[if lt IE 9]><script src="assets/js/html5shiv-printshiv.min.js"></script><![endif]--><link rel="prefetch" href="posts/separate-io-from-algorithms/" type="text/html">
+<link rel="next" href="index-1.html" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5shiv-printshiv.min.js"></script><![endif]--><link rel="prefetch" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/" type="text/html">
 </head>
 <body>
     <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -32,7 +33,75 @@
     
     
     </ul></nav></header><main id="content"><div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/separate-io-from-algorithms/" class="u-url">Separate IO from algorithms</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/" class="u-url">Programar STM32F103C8 en Ubuntu con Arduino IDE</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Juan Pedro Fisanotti
+            </span></p>
+            <p class="dateline">
+            <a href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/" rel="bookmark">
+            <time class="published dt-published" datetime="2022-08-04T09:48:13-03:00" itemprop="datePublished" title="2022-08-04 09:48">2022-08-04 09:48</time></a>
+            </p>
+                <p class="commentline">        <a href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#disqus_thread" data-disqus-identifier="cache/posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <p>Hacer andar una placa STM32F103C8 (o cualquier STM32 de hecho) con Arduino IDE en Ubuntu no es tan simple, hay muchos tutoriales e info contradictoria en la web.</p>
+<p>Esto es lo que en mi caso funcionó, en un Ubuntu 20.04 LTS.</p>
+<p>Este tutorial asume que ya tienen instalado Arduino IDE, de una versión relativamente actual.</p>
+<section id="paso-1-agregar-soporte-de-stm32-en-arduino-ide"><h2>Paso 1: Agregar soporte de STM32 en Arduino IDE</h2>
+<p>Lo primero que hay que hacer es instalar los plugins necesarios en Arduino IDE, para que el editor sepa compilar y grabar programas en las placas STM32.</p>
+<p>Para ello tenemos que ir al menú "File", opción "Preferences", y en la ventana que se nos abre, clickear el botón que está al lado de Additional Board Manager URLs:</p>
+<img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/menu_preferences.png" src="images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/menu_preferences.png"><img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/boton_boards_urls.png" src="images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/boton_boards_urls.png"><p>En la segunda ventana que se nos abre debemos agregar la URL de donde Arduino IDE va a bajar toda la información de estas placas. La url es esta:</p>
+<pre class="code text"><a id="rest_code_ad5030989d0c45f489e963038a2ac1f4-1" name="rest_code_ad5030989d0c45f489e963038a2ac1f4-1"></a>http://dan.drown.org/stm32duino/package_STM32duino_index.json
+</pre>
+<p>Y debe agregarse al final, en un renglón nuevo (si es que ya teníamos otras URLs en esta configuración, como es mi caso), y clickear en "Ok":</p>
+<img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/board_url_agregada.png" src="images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/board_url_agregada.png"><p>Luego debemos decirle a Arduino IDE que se baje desde esa URL la información que necesitamos para controlar nuestra placa STM32. Para ello vamos al menú "Tools", luego "Board", y elegimos la opción "Boards Manager..."</p>
+<img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/menu_boards_manager.png" src="images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/menu_boards_manager.png"><p>En la ventana que se nos abre tenemos la posibilidad de filtrar la lista de plugins de Arduino IDE. Tenemos que buscar los que nos interesan, escribiendo "STM32" en la caja de búsqueda. Y de los resultados, tenemos que elegir el que dice "STM32F1xx/GD32F1xx boards". Luego de elegirlo nos va a aparecer un botón de "Install" para ese plugin, al que le hacemos click y esperamos que termine el progreso de la instalación.</p>
+<img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/install_stm32_plugin.png" src="images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/install_stm32_plugin.png"><p>Cuando termina su instalación, podemos cerrar la ventana del Board Manager.</p>
+</section><section id="paso-2-elegir-nuestra-placa-y-la-forma-de-programarla"><h2>Paso 2: Elegir nuestra placa y la forma de programarla</h2>
+<p>Ahora tenemos que decirle a Arduino IDE que queremos trabajar con esa placa nueva que instalamos. Para ello elegimos en el menú "Tools", "Board", "STM32F1 Boards", la opción "Generic STM32F103C series":</p>
+<img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/elegir_board.png" src="images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/elegir_board.png"><p>Al hacer eso se nos van a agregar algunas opciones nuevas en el menú "Tools", de las cuales tenemos que elegir dos más:</p>
+<p>"Tools", "Variant", "STM32F103C8"</p>
+<img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/elegir_variant.png" src="images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/elegir_variant.png"><p>"Tools", "Upload Method", "STLink"</p>
+<img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/elegir_upload.png" src="images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/elegir_upload.png"></section><section id="paso-3-arreglar-cosas-que-no-deberian-estar-rotas"><h2>Paso 3: Arreglar cosas que no deberían estar rotas</h2>
+<p>Con los pasos que hicimos antes, en un mundo ideal y con placas más normales, ya todo queda listo para poder programar, hacer click en Play, y que nuestro código corra en la placa que tenemos conectada a la PC. Pero en el caso de las STM32 esto está roto, y hay que hacer algunos pasos manuales para arreglarlo. Los descubrí probando y renegando, y probablemente esto cambie en el futuro.</p>
+<p>En particular: el plugin de Arduino IDE para las STM trae dentro un programita que se usa para flashear la placa, llamado "stlink-tools". Pero el problema es que trae una versión vieja y rota (al menos rota en entornos modernos).</p>
+<p>Así que lo primero que vamos a hacer, es eliminar esa versión vieja de ese programita que no sirve de dentro del plugin. Lo hacemos corriendo este comando en una terminal de linux:</p>
+<pre class="code text"><a id="rest_code_9b5544d0c05b4f9b8ce7f472a4a6471d-1" name="rest_code_9b5544d0c05b4f9b8ce7f472a4a6471d-1"></a>rm ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/st-*
+</pre>
+<p>Si el comando dispara un error diciendo que los archivos no existen, lo más probable es que tengan alguna versión diferente o de Arduino IDE, o del plugin. En ese caso van a necesitar encontrar cuál es la ruta para el caso particular de ustedes (probablemente si es otra versión de Arduino IDE, cambie el nombre del directorio <cite>.arduino15</cite>, o si es otra versión del plugin, cambie el nombre del directorio <cite>2021.5.31</cite>).</p>
+<p>Una vez borrados esos archivos, tenemos que instalar una mejor versión de la herramienta "stlink-tools". Hacemos eso con este comando:</p>
+<pre class="code text"><a id="rest_code_e87085ba03a54164921de3bee6b3a7e9-1" name="rest_code_e87085ba03a54164921de3bee6b3a7e9-1"></a>sudo apt install stlink-tools
+</pre>
+<p>Esperamos a que termine de bajar e instalar, y luego tenemos que hacer un último pasito: indicarle a Arduino IDE que use nuestro nuevo stlink tools. Para ello corremos estos tres comandos. Pero ojo!! La ruta que estamos usando acá tiene que ser la misma que la que usamos antes para borrar el viejo stlink tools del plugin. Si cambiamos algún nombre de directorio en el paso de borrado, acá también deberíamos cambiarlo de la misma forma:</p>
+<pre class="code text"><a id="rest_code_9f12f545cb8444b4844739c3065ffa8b-1" name="rest_code_9f12f545cb8444b4844739c3065ffa8b-1"></a>ln -s /usr/bin/st-flash ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
+<a id="rest_code_9f12f545cb8444b4844739c3065ffa8b-2" name="rest_code_9f12f545cb8444b4844739c3065ffa8b-2"></a>ln -s /usr/bin/st-info ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
+<a id="rest_code_9f12f545cb8444b4844739c3065ffa8b-3" name="rest_code_9f12f545cb8444b4844739c3065ffa8b-3"></a>ln -s /usr/bin/st-util ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
+</pre></section><section id="listo"><h2>Listo!</h2>
+<p>Con estos pasos hechos, ya deberíamos poder hacer un programa de ejemplo en Arduino IDE, y al apretar el botón de play (la flecha hacia la derecha) nuestro programa debería ejecutarse en la placa :)</p>
+<p>Un programa de ejemplo que vi usado en muchos de los tutoriales (desconozco su autor original, si no lo linkearía):</p>
+<pre class="code text"><a id="rest_code_9c6984fce12b4e67acb225bd89f82575-1" name="rest_code_9c6984fce12b4e67acb225bd89f82575-1"></a>const int ledPIN = PC13;
+<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-2" name="rest_code_9c6984fce12b4e67acb225bd89f82575-2"></a>
+<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-3" name="rest_code_9c6984fce12b4e67acb225bd89f82575-3"></a>void setup()
+<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-4" name="rest_code_9c6984fce12b4e67acb225bd89f82575-4"></a>{
+<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-5" name="rest_code_9c6984fce12b4e67acb225bd89f82575-5"></a>  pinMode(ledPIN, OUTPUT);
+<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-6" name="rest_code_9c6984fce12b4e67acb225bd89f82575-6"></a>}
+<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-7" name="rest_code_9c6984fce12b4e67acb225bd89f82575-7"></a>
+<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-8" name="rest_code_9c6984fce12b4e67acb225bd89f82575-8"></a>void loop()
+<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-9" name="rest_code_9c6984fce12b4e67acb225bd89f82575-9"></a>{
+<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-10" name="rest_code_9c6984fce12b4e67acb225bd89f82575-10"></a>  digitalWrite(ledPIN, HIGH);
+<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-11" name="rest_code_9c6984fce12b4e67acb225bd89f82575-11"></a>  delay(1000);
+<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-12" name="rest_code_9c6984fce12b4e67acb225bd89f82575-12"></a>  digitalWrite(ledPIN, LOW);
+<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-13" name="rest_code_9c6984fce12b4e67acb225bd89f82575-13"></a>  delay(1000);
+<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-14" name="rest_code_9c6984fce12b4e67acb225bd89f82575-14"></a>}
+</pre>
+<p>Si todo anduvo bien, al dar play el led verde de nuestra placa STM32F103C8 debería titilar exáctamente cada 1 segundo :)</p>
+</section>
+</div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/separate-io-from-algorithms/" class="u-url">Separate IO from algorithms</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Juan Pedro Fisanotti
@@ -725,78 +794,13 @@ If instead it takes a long time (~1 minute) and ends with <tt class="docutils li
 </pre>
 </div>
     </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/suspicious-logins/" class="u-url">Suspicious logins</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                Juan Pedro Fisanotti
-            </span></p>
-            <p class="dateline">
-            <a href="posts/suspicious-logins/" rel="bookmark">
-            <time class="published dt-published" datetime="2016-09-19T20:45:15-03:00" itemprop="datePublished" title="2016-09-19 20:45">2016-09-19 20:45</time></a>
-            </p>
-                <p class="commentline">        <a href="posts/suspicious-logins/#disqus_thread" data-disqus-identifier="cache/posts/suspicious-logins.html">Comments</a>
-
-
-        </p>
-</div>
-    </header><div class="e-content entry-content">
-    <div class="section" id="the-interesting-story">
-<h2>The "interesting" story</h2>
-<p>Imagine having a main gmail account, and a handfull of extra accounts (to reserve names, to test some api stuff, etc).</p>
-<p>Imagine not having used those extra accounts in years. And even more: not having used them <strong>ever</strong>. Not a single email sent, not a single external app connected to them, not any login to other sites, etc.</p>
-<p>One day you decide to start using a password manager. And an open source one, which stores the data encrypted using gpg. You even create a new gpg key to encrypt them, to be sure it's safe. You sync your encrypted data into an online private git repo, because nobody could decrypt the data anyway.</p>
-<p>Two days later, you receive an email from google:</p>
-<a class="reference external image-reference" href="images/suspicious-logins/someone_has_your_password.png"><img alt="/images/suspicious-logins/someone_has_your_password.thumbnail.png" src="images/suspicious-logins/someone_has_your_password.thumbnail.png"></a>
-<p><strong>PANIC</strong></p>
-<p>(worth mentioning: I'm from Argentina, the access was from the US)</p>
-<p>After some investigation, you discover:</p>
-<ul class="simple">
-<li>You were reusing the password from that account.</li>
-<li>The way you were using the password manager, the account names weren't encrypted (the passwords were, of course).</li>
-<li>By reusing it, the encrypted data is the same in all encrypted files.</li>
-<li>You never used the account, but it has your name on it, easily guessable account name.</li>
-</ul>
-<p><strong>Conclussion</strong>: someone who has your password from another (unsafe?) service, could have either guessed your secondary account name, or gained access to the encrypted data, which has the account names in clear text. By just comparing encrypted contents, not even decrypting them, that person could have known in which other sites the leaked password could work.</p>
-<p>Ok, you now think you know, you just need to change passwords on all those sites, and never ever reuse passwords again. But oh no, you know nothing. After doing it, a few days later...</p>
-<p>Email: <strong>Someone has your password</strong>.</p>
-<p>Again! But this time from a different account: not that one which was easily guessable and which shared the password with other sites. No. This time? An account you <strong>didn't even write down the name</strong>, not in your password manager, nor anywhere outside google itself. The password was written down in your password manager, in clear text, because you were a little clumsy and confused "user" with "password". But then again, you <strong>never wrote down the account name outside google, ever</strong>.</p>
-<p>How could someone have gained access to that account? How in hell can someone know you own that account, and he can use that "username" as password for it?</p>
-<p>You start to recall... There is only <strong>one</strong> place were you have references to that account: old emails you received in your inbox, when you created the account. <strong>Your inbox</strong>.</p>
-<p>Think about it: Google is telling you "hey, someone knows your account and password", and you know that the account name was only present in old emails at your inbox, while the password was only written down in your trusty new password manager.</p>
-<a class="reference external image-reference" href="images/suspicious-logins/scared.jpg"><img alt="/images/suspicious-logins/scared.thumbnail.jpg" src="images/suspicious-logins/scared.thumbnail.jpg"></a>
-<p>NSA, is that you? Or a random hacker who really wants to steal my data? What valuable data can I have? Hell, I need to get everyone to revoke my credentials everywhere, now.</p>
-</div>
-<div class="section" id="the-boring-story">
-<h2>The "boring" story</h2>
-<p>But no. There is always a boring explanation, something simpler, that doesn't look like a CSI Cyber episode. In this case? something that looks like a bug on some internal Google services.</p>
-<p>I discovered this almost by chance, while writting down a super comprehensive explanation of the things I was seeing (a 5x longer version of the interesting story). I realized I had both accounts added to my main email account, using gmail's feature to access emails from multiple sources. This feature:</p>
-<a class="reference external image-reference" href="images/suspicious-logins/gmail_feature.png"><img alt="/images/suspicious-logins/gmail_feature.thumbnail.png" src="images/suspicious-logins/gmail_feature.thumbnail.png"></a>
-<p>I thought: "oh! I forgot to update those settings after changing the passwords". And so I opened gmail, went to the settings, and saw the big red errors telling me that gmail wasn't able to connect to those accounts. Which was to be expected, as I changed the passwords. But something clicked inside my head: since when is gmail unable to check those accounts? what was the error?...</p>
-<p>And there it was, the boring truth in all its boringness: gmail wasn't able to access the accounts from the exact same moment the "suspicious logins" happened.</p>
-<p>Some might think "oh, that's to be expected as well. Google must have blocked the account as soon as the security incident was detected". But no. This feature doesn't check email every second. For my accounts, it's doing it once every day, more or less. And the failed attempt was at the exact same time the "suspicious login" happened. In <strong>both</strong> accounts. Different times each one. Too much coincidence.</p>
-<p>I wasn't able to see the original error for one of the accounts, too many login errors since it because of the password change, and it only stores the last 5 of them. But for the other account the first error was still there, and it was different to the password related ones.</p>
-<p>The errors after the password changes were:</p>
-<pre class="code text"><a name="rest_code_3cd21b2fb4e048ce995b96abc150b9ac-1"></a>Authentication error.
-<a name="rest_code_3cd21b2fb4e048ce995b96abc150b9ac-2"></a>Server returned error "[AUTH] Username and password not accepted."
-</pre>
-<p>But the error at the same time than the suspicious login was:</p>
-<pre class="code text"><a name="rest_code_458d158fefd0445aa6b24ade0dd3d383-1"></a>Authentication error.
-<a name="rest_code_458d158fefd0445aa6b24ade0dd3d383-2"></a>Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
-</pre>
-<p>The linked support page isn't very helpful, but if you google the error you will find some people having the same issue: after years of not using an account, the login on their pop3 client starts to fail. Maybe something changed in google's security policies, maybe it's related to new terms of service, or required security checkups. But the thing is: logins fail until you login from a browser and tweak some stuff (enabling less secure apps, etc).</p>
-<p>That itself isn't the bug. The bug is flagging those pop3 logins which came <strong>from inside google</strong> (it's a gmail feature, running on their servers), as if they were "suspicious logins". They are not suspicious, they are comming from inside google, they are being made from a google server trying to execute a gmail feature.</p>
-<p>Finally, how sure am I that the logins came from inside google? Well, a traceroute to the login ip took me to this host: <tt class="docutils literal"><span class="pre">mail-pa0-x218.google.com</span></tt>.</p>
-<p>So yes, I'm pretty sure this was a bug. But by Cthulhu's beard, I'm <strong>happy</strong> this was a bug.</p>
-</div>
-<div class="section" id="in-short">
-<h2>In short</h2>
-<p>A gmail server tries to login to a gmail account for a gmail feature to work, and the user gets a big red email: "someone has your password". Yes, google, someone has my password. It's you.</p>
-</div>
-    </div>
     </article>
 </div>
-
-           <script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script></main><footer id="footer"><p>Contents © 2022         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        <nav class="postindexpager"><ul class="pager">
+<li class="next">
+                <a href="index-1.html" rel="next">Older posts</a>
+            </li>
+        </ul></nav><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script></main><footer id="footer"><p>Contents © 2022         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>

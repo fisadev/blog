@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>http://blog.fisadev.com/</loc>
-  <lastmod>2022-02-14T21:02:00Z</lastmod>
+  <lastmod>2022-08-04T14:04:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/2016/</loc>
@@ -31,11 +31,15 @@
  </url>
  <url>
   <loc>http://blog.fisadev.com/archive.html</loc>
-  <lastmod>2022-02-14T21:02:00Z</lastmod>
+  <lastmod>2022-08-04T14:04:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/categories/</loc>
-  <lastmod>2019-07-12T23:42:00Z</lastmod>
+  <lastmod>2022-08-04T14:04:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://blog.fisadev.com/categories/arduino/</loc>
+  <lastmod>2022-08-04T14:04:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/categories/cat_posts/</loc>
@@ -82,6 +86,10 @@
   <lastmod>2019-04-21T11:26:00Z</lastmod>
  </url>
  <url>
+  <loc>http://blog.fisadev.com/index-1.html</loc>
+  <lastmod>2022-08-04T14:04:00Z</lastmod>
+ </url>
+ <url>
   <loc>http://blog.fisadev.com/posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/</loc>
   <lastmod>2019-04-21T11:26:00Z</lastmod>
  </url>
@@ -104,6 +112,10 @@
  <url>
   <loc>http://blog.fisadev.com/posts/katanas-especiales/</loc>
   <lastmod>2020-08-13T22:47:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://blog.fisadev.com/posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/</loc>
+  <lastmod>2022-08-04T14:04:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/posts/separate-io-from-algorithms/</loc>
