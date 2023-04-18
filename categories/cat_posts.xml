@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about posts)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Fri, 16 Dec 2022 06:38:17 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>On AI killing art, and other fears</title><link>http://blog.fisadev.com/posts/art-killer-ai/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;p&gt;A few hours ago, a friend and ex-student of mine asked me this on twitter:&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about posts)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Tue, 18 Apr 2023 19:38:10 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>On AI killing art, and other fears</title><link>http://blog.fisadev.com/posts/art-killer-ai/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;p&gt;A few hours ago, a friend and ex-student of mine asked me this on twitter:&lt;/p&gt;
 &lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/art-killer-ai/lucas-question.png"&gt;&lt;img alt="/images/art-killer-ai/lucas-question.thumbnail.png" src="http://blog.fisadev.com/images/art-killer-ai/lucas-question.thumbnail.png"&gt;&lt;/a&gt;
 &lt;p&gt;Basically, what were my thoughts on the artists vs content-generation AIs debate.&lt;/p&gt;
 &lt;p&gt;I really wanted to answer in a couple of tweets. Believe me, I tried. But I can't, so instead of torturing him and any spectators with a kilometer-long twitter thread, I decided to make this a short-ish blog post :)&lt;/p&gt;
@@ -510,7 +510,7 @@ It has many variations, but the idea remains the same: code quality isn't a fact
 Because the main thing is to give your customer some value, and code quality just doesn't do that.&lt;/p&gt;
 &lt;p&gt;I currently believe this is false.
 I believe that &lt;strong&gt;customers do care&lt;/strong&gt; about the quality of the code, even if they don't understand what code is or how does it work.&lt;/p&gt;
-&lt;div class="section" id="cars"&gt;
+&lt;section id="cars"&gt;
 &lt;h2&gt;Cars&lt;/h2&gt;
 &lt;p&gt;When buying a car, would you ask how are the wheels attached to the rest of the car?
 You probably wouldn't, you don't care about that.
@@ -520,8 +520,8 @@ You would even feel cheated if someone sold you this car without warning you abo
 &lt;p&gt;Well, no, you don't care about wheel attachment systems specifically.
 But you don't want a car that costs lots of money each time it requires some maintainance.
 You care about &lt;strong&gt;maintainance costs&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="section" id="software"&gt;
+&lt;/section&gt;
+&lt;section id="software"&gt;
 &lt;h2&gt;Software&lt;/h2&gt;
 &lt;p&gt;You probably get my point already.&lt;/p&gt;
 &lt;p&gt;Software, code, will need maintainance in most projects.
@@ -533,7 +533,9 @@ And giving them bad code without warning them of its impacts in maintainance, is
 &lt;p&gt;Finally, customers tend to be unable to clearly see this relation by themselves, and developers usually don't want to tell them "this is taking too long to modify because we gave you bad quality code".
 This may be the reason we got the idea that customers don't care about code, developers just usually fail to explain (or even hide) to them the strong relation between code quality and maintainance costs.
 So they never come back asking for "better code".&lt;/p&gt;
-&lt;/div&gt;</description><guid>http://blog.fisadev.com/posts/customer-and-code-quality/</guid><pubDate>Sun, 17 Sep 2017 19:28:30 GMT</pubDate></item><item><title>Cómo saber si hay un satélite argentino arriba tuyo</title><link>http://blog.fisadev.com/posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;p&gt;No te gustaría poder ver algo como esto en tu máquina, para saber cuándo alguno de los satélites argentinos anda por el cielo que está arriba tuyo?:&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/customer-and-code-quality/tech_debt.jpeg"&gt;&lt;img alt="/images/customer-and-code-quality/tech_debt.thumbnail.jpeg" src="http://blog.fisadev.com/images/customer-and-code-quality/tech_debt.thumbnail.jpeg"&gt;&lt;/a&gt;
+&lt;p&gt;(comic by &lt;a class="reference external" href="https://twitter.com/vincentdnl"&gt;Vincent Déniel&lt;/a&gt;)&lt;/p&gt;
+&lt;/section&gt;</description><guid>http://blog.fisadev.com/posts/customer-and-code-quality/</guid><pubDate>Sun, 17 Sep 2017 19:28:30 GMT</pubDate></item><item><title>Cómo saber si hay un satélite argentino arriba tuyo</title><link>http://blog.fisadev.com/posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;p&gt;No te gustaría poder ver algo como esto en tu máquina, para saber cuándo alguno de los satélites argentinos anda por el cielo que está arriba tuyo?:&lt;/p&gt;
 &lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/satelites-arriba-tuyo/preview.png"&gt;&lt;img alt="/images/satelites-arriba-tuyo/preview.thumbnail.png" src="http://blog.fisadev.com/images/satelites-arriba-tuyo/preview.thumbnail.png"&gt;&lt;/a&gt;
 &lt;p&gt;Parece algo salido de una película, es re interesante para curiosear, y lo mejor de todo es que es una pavada tenerlo. Está todo disponible con programas y datos libres y gratuitos, y sin tener que hacer casi nada de trabajo. Así que les dejo los pasos para reproducirlo:&lt;/p&gt;
 &lt;div class="section" id="programa-y-datos"&gt;

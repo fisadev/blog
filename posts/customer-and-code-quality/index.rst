@@ -45,3 +45,9 @@ And giving them bad code without warning them of its impacts in maintainance, is
 Finally, customers tend to be unable to clearly see this relation by themselves, and developers usually don't want to tell them "this is taking too long to modify because we gave you bad quality code".
 This may be the reason we got the idea that customers don't care about code, developers just usually fail to explain (or even hide) to them the strong relation between code quality and maintainance costs.
 So they never come back asking for "better code".
+
+
+.. thumbnail:: /images/customer-and-code-quality/tech_debt.jpeg
+
+
+(comic by `Vincent Déniel <https://twitter.com/vincentdnl>`_)
