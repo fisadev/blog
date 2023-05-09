@@ -23,7 +23,7 @@ My opinion on this topic is probably not the most objective one. I work with AI,
 
 But at the same time, I care deeply for the ethics of AI and its impact in the world. I'm not a blind technology worshiper, I really want AI to be a *tool*, used to build a better future for all, and I'm painfully aware that in its current forms it is already being misused a lot (concentrating power, amplifying discrimination, invading privacy, making people adicted to products, and so many other bad things). So I won't defend AI for the sake of AI progress. 
 
-Still, don't forget that I'm not an artist, and artists should have a voice on this debate too.
+Still, don't forget that I'm not an artist, and artists should have a voice in this debate too.
 
 A misconception
 ---------------
