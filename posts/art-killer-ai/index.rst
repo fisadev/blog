@@ -102,7 +102,7 @@ So, what do you think will happen if, to protect artists from corporations using
 Hint: corporations have lots of money, lots of lawyers, and lots of art ownership rights. Artists and the rest of us, don’t.
 It’s almost as if solving problems by “requiring money to do X”, always ends up benefiting those guys with lots of money instead.
 
-5. The powerful getting more powerful
+4. The powerful getting more powerful
 -------------------------------------
 
 .. thumbnail:: /images/art-killer-ai/concentration.png
