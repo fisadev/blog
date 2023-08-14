@@ -58,7 +58,7 @@ Create a ``build.sh`` file in the root of your repository, with these contents:
 
     pip install -r ./requirements.txt
 
-    cd $(dirname $(find . | grep manage.py))
+    cd $(dirname $(find . | grep manage.py$))
     python manage.py collectstatic --no-input
     python manage.py migrate
     python manage.py createsuperuser --username admin --email "YOUR@EMAIL.com" --noinput || true
@@ -73,8 +73,8 @@ Then create a ``run.sh`` file in the root of your repository, with these content
     # exit on error
     set -o errexit
 
-    cd $(dirname $(find . | grep manage.py))
-    gunicorn $(dirname $(find . | grep wsgi.py) | sed "s/\.\///g").wsgi:application
+    cd $(dirname $(find . | grep manage.py$))
+    gunicorn $(dirname $(find . | grep wsgi.py$) | sed "s/\.\///g").wsgi:application
 
 
 If you have a less standard project or repo structure, you can replace the dark magic in those scripts: the ``cd`` command just needs to get inside your Django project folder, and the ``gunicorn`` command needs to look something like ``gunicorn your_project_name.wsgi:application``.
