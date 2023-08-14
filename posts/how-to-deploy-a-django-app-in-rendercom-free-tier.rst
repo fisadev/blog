@@ -159,7 +159,7 @@ And add three environment variables (it's important that the names are UPPERCASE
 
 Now you can re-attempt the deploy, just hit this menu and everything should work!:
 
-.. thumbnail:: /images/deploy-django-render/web_env.png
+.. thumbnail:: /images/deploy-django-render/web_deploy.png
 
 After the deploy finishes, your website should be ready at ``https://YOUR_RENDER_WEB_SERVICE_NAME.onrender.com/``
 
