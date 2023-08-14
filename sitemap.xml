@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>http://blog.fisadev.com/</loc>
-  <lastmod>2022-08-04T14:04:00Z</lastmod>
+  <lastmod>2023-08-14T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/2016/</loc>
@@ -30,8 +30,12 @@
   <lastmod>2022-02-14T21:02:00Z</lastmod>
  </url>
  <url>
+  <loc>http://blog.fisadev.com/2023/</loc>
+  <lastmod>2023-08-14T23:26:00Z</lastmod>
+ </url>
+ <url>
   <loc>http://blog.fisadev.com/archive.html</loc>
-  <lastmod>2023-04-18T19:38:00Z</lastmod>
+  <lastmod>2023-08-14T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/categories/</loc>
@@ -87,7 +91,7 @@
  </url>
  <url>
   <loc>http://blog.fisadev.com/index-1.html</loc>
-  <lastmod>2023-04-18T19:38:00Z</lastmod>
+  <lastmod>2023-08-14T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/posts/art-killer-ai/</loc>
@@ -108,6 +112,10 @@
  <url>
   <loc>http://blog.fisadev.com/posts/encrypt-a-dir-with-ecryptfs/</loc>
   <lastmod>2020-03-12T00:32:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://blog.fisadev.com/posts/how-to-deploy-a-django-app-in-rendercom-free-tier/</loc>
+  <lastmod>2023-08-14T23:26:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/</loc>

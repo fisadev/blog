@@ -1,5 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about posts)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Tue, 09 May 2023 16:23:31 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>On AI killing art, and other fears</title><link>http://blog.fisadev.com/posts/art-killer-ai/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;p&gt;A few hours ago, a friend and ex-student of mine asked me this on twitter:&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about posts)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Mon, 14 Aug 2023 23:26:48 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>How to deploy a Django app in Render.com (free tier)</title><link>http://blog.fisadev.com/posts/how-to-deploy-a-django-app-in-rendercom-free-tier/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;section id="how-to-deploy-a-django-app-in-render-com-free-tier"&gt;
+&lt;h2&gt;How to deploy a Django app in Render.com (free tier)&lt;/h2&gt;
+&lt;p&gt;This is a basic tutorial on how to deploy a Django app to Render.com, focused on using only the free tier features and automating things as much as possible.
+This also doesn't cover how to do a Django app, it assumes you already have a working app that you just need to deploy.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id="assumptions"&gt;
+&lt;h2&gt;Assumptions&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;You have a working Django app (for instance, you can already run it locally with &lt;code class="docutils literal"&gt;python manage.py runserver&lt;/code&gt; and everything works fine).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;You're using Django 4 or newer (tested up to Django 4.2.4), and your project structure is what Django does by default.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Your Django project is in a Github or Gitlab repository.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;There's a single Django project in the repo, not multiple projects at once, and you don't have.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;You want to use Postgres as your production database in Render.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="render-com-account"&gt;
+&lt;h2&gt;0: Render.com account&lt;/h2&gt;
+&lt;p&gt;Just go to &lt;a class="reference external" href="http://render.com"&gt;Render.com&lt;/a&gt;, create a user (if you don't already have one), activate your account, and sign in to the &lt;a class="reference external" href="https://dashboard.render.com/"&gt;Dashboard&lt;/a&gt;.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id="defining-dependencies"&gt;
+&lt;h2&gt;1: Defining dependencies&lt;/h2&gt;
+&lt;p&gt;Create a &lt;code class="docutils literal"&gt;requirements.txt&lt;/code&gt; file in the root of your repository, and add these dependencies in it:&lt;/p&gt;
+&lt;pre class="code text"&gt;&lt;a id="rest_code_b6cce3d29a9945d8ae006b6d3e5ce71e-1" name="rest_code_b6cce3d29a9945d8ae006b6d3e5ce71e-1"&gt;&lt;/a&gt;django==4.2.4
+&lt;a id="rest_code_b6cce3d29a9945d8ae006b6d3e5ce71e-2" name="rest_code_b6cce3d29a9945d8ae006b6d3e5ce71e-2"&gt;&lt;/a&gt;dj-database-url==2.0.0
+&lt;a id="rest_code_b6cce3d29a9945d8ae006b6d3e5ce71e-3" name="rest_code_b6cce3d29a9945d8ae006b6d3e5ce71e-3"&gt;&lt;/a&gt;psycopg2-binary==2.9.7
+&lt;a id="rest_code_b6cce3d29a9945d8ae006b6d3e5ce71e-4" name="rest_code_b6cce3d29a9945d8ae006b6d3e5ce71e-4"&gt;&lt;/a&gt;whitenoise[brotli]==6.5.0
+&lt;a id="rest_code_b6cce3d29a9945d8ae006b6d3e5ce71e-5" name="rest_code_b6cce3d29a9945d8ae006b6d3e5ce71e-5"&gt;&lt;/a&gt;gunicorn==21.2.0
+&lt;/pre&gt;&lt;p&gt;If you already had a &lt;code class="docutils literal"&gt;requirements.txt&lt;/code&gt;, just add the new packages to it.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id="creating-deploy-scripts"&gt;
+&lt;h2&gt;2: Creating deploy scripts&lt;/h2&gt;
+&lt;p&gt;You will need two scripts: one that builds the web app server (installs dependencies, updates the database structure, etc), and another one that runs your web app.
+Render will use these two scripts when you want to deploy your web app.&lt;/p&gt;
+&lt;p&gt;Create a &lt;code class="docutils literal"&gt;build.sh&lt;/code&gt; file in the root of your repository, with these contents:&lt;/p&gt;
+&lt;pre class="code bash"&gt;&lt;a id="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-1" name="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-1"&gt;&lt;/a&gt;&lt;span class="c1"&gt;# exit on error&lt;/span&gt;
+&lt;a id="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-2" name="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-2"&gt;&lt;/a&gt;&lt;span class="nb"&gt;set&lt;/span&gt; -o errexit
+&lt;a id="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-3" name="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-3"&gt;&lt;/a&gt;
+&lt;a id="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-4" name="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-4"&gt;&lt;/a&gt;pip install -r ./requirements.txt
+&lt;a id="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-5" name="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-5"&gt;&lt;/a&gt;
+&lt;a id="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-6" name="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-6"&gt;&lt;/a&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;dirname &lt;span class="k"&gt;$(&lt;/span&gt;find . &lt;span class="p"&gt;|&lt;/span&gt; grep manage.py$&lt;span class="k"&gt;))&lt;/span&gt;
+&lt;a id="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-7" name="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-7"&gt;&lt;/a&gt;python manage.py collectstatic --no-input
+&lt;a id="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-8" name="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-8"&gt;&lt;/a&gt;python manage.py migrate
+&lt;a id="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-9" name="rest_code_118a5f88a4e84e4a96b68ba7a7cc1d64-9"&gt;&lt;/a&gt;python manage.py createsuperuser --username admin --email &lt;span class="s2"&gt;"YOUR@EMAIL.com"&lt;/span&gt; --noinput &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="nb"&gt;true&lt;/span&gt;
+&lt;/pre&gt;&lt;p&gt;In that script, replace &lt;code class="docutils literal"&gt;YOUR@EMAIL.com&lt;/code&gt; with your real email.&lt;/p&gt;
+&lt;p&gt;Then create a &lt;code class="docutils literal"&gt;run.sh&lt;/code&gt; file in the root of your repository, with these contents:&lt;/p&gt;
+&lt;pre class="code bash"&gt;&lt;a id="rest_code_e20aaf05c0914f04991b5ae1211419ca-1" name="rest_code_e20aaf05c0914f04991b5ae1211419ca-1"&gt;&lt;/a&gt;&lt;span class="c1"&gt;# exit on error&lt;/span&gt;
+&lt;a id="rest_code_e20aaf05c0914f04991b5ae1211419ca-2" name="rest_code_e20aaf05c0914f04991b5ae1211419ca-2"&gt;&lt;/a&gt;&lt;span class="nb"&gt;set&lt;/span&gt; -o errexit
+&lt;a id="rest_code_e20aaf05c0914f04991b5ae1211419ca-3" name="rest_code_e20aaf05c0914f04991b5ae1211419ca-3"&gt;&lt;/a&gt;
+&lt;a id="rest_code_e20aaf05c0914f04991b5ae1211419ca-4" name="rest_code_e20aaf05c0914f04991b5ae1211419ca-4"&gt;&lt;/a&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;dirname &lt;span class="k"&gt;$(&lt;/span&gt;find . &lt;span class="p"&gt;|&lt;/span&gt; grep manage.py$&lt;span class="k"&gt;))&lt;/span&gt;
+&lt;a id="rest_code_e20aaf05c0914f04991b5ae1211419ca-5" name="rest_code_e20aaf05c0914f04991b5ae1211419ca-5"&gt;&lt;/a&gt;gunicorn &lt;span class="k"&gt;$(&lt;/span&gt;dirname &lt;span class="k"&gt;$(&lt;/span&gt;find . &lt;span class="p"&gt;|&lt;/span&gt; grep wsgi.py$&lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; sed &lt;span class="s2"&gt;"s/\.\///g"&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;.wsgi:application
+&lt;/pre&gt;&lt;p&gt;If you have a less standard project or repo structure, you can replace the dark magic in those scripts: the &lt;code class="docutils literal"&gt;cd&lt;/code&gt; command just needs to get inside your Django project folder, and the &lt;code class="docutils literal"&gt;gunicorn&lt;/code&gt; command needs to look something like &lt;code class="docutils literal"&gt;gunicorn your_project_name.wsgi:application&lt;/code&gt;.
+But for normal project structures, the dark magic should work just fine :)&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id="django-settings-for-render"&gt;
+&lt;h2&gt;3. Django settings for Render&lt;/h2&gt;
+&lt;p&gt;Now you need to add this to the end of your &lt;code class="docutils literal"&gt;settings.py&lt;/code&gt; file:&lt;/p&gt;
+&lt;pre class="code python"&gt;&lt;a id="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-1" name="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-1"&gt;&lt;/a&gt;&lt;span class="c1"&gt;# code needed to deploy in Render.com:&lt;/span&gt;
+&lt;a id="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-2" name="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-2"&gt;&lt;/a&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;a id="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-3" name="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-3"&gt;&lt;/a&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;dj_database_url&lt;/span&gt;
+&lt;a id="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-4" name="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-4"&gt;&lt;/a&gt;
+&lt;a id="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-5" name="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-5"&gt;&lt;/a&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="s1"&gt;'RENDER'&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;a id="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-6" name="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-6"&gt;&lt;/a&gt;    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"USING RENDER.COM SETTINGS!"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;a id="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-7" name="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-7"&gt;&lt;/a&gt;    &lt;span class="n"&gt;DEBUG&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;False&lt;/span&gt;
+&lt;a id="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-8" name="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-8"&gt;&lt;/a&gt;    &lt;span class="n"&gt;ALLOWED_HOSTS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'RENDER_EXTERNAL_HOSTNAME'&lt;/span&gt;&lt;span class="p"&gt;)]&lt;/span&gt;
+&lt;a id="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-9" name="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-9"&gt;&lt;/a&gt;    &lt;span class="n"&gt;DATABASES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;'default'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;dj_database_url&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;conn_max_age&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;600&lt;/span&gt;&lt;span class="p"&gt;)}&lt;/span&gt;
+&lt;a id="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-10" name="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-10"&gt;&lt;/a&gt;    &lt;span class="n"&gt;MIDDLEWARE&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;insert&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;MIDDLEWARE&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'django.middleware.security.SecurityMiddleware'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;a id="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-11" name="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-11"&gt;&lt;/a&gt;                      &lt;span class="s1"&gt;'whitenoise.middleware.WhiteNoiseMiddleware'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;a id="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-12" name="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-12"&gt;&lt;/a&gt;    &lt;span class="n"&gt;STATIC_ROOT&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;BASE_DIR&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'staticfiles'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;a id="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-13" name="rest_code_f3a73e61bc0340ad97a1442c3cbc1899-13"&gt;&lt;/a&gt;    &lt;span class="n"&gt;STATICFILES_STORAGE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'whitenoise.storage.CompressedManifestStaticFilesStorage'&lt;/span&gt;
+&lt;/pre&gt;&lt;p&gt;This code basically overrides some of the settings of your project, so it can work well with what we are using inside Render.com: the database, the static files backend, etc.
+But it only does that when it detects your project is running inside Render, otherwise it does nothing to your settings.&lt;/p&gt;
+&lt;p&gt;You can further customize this if you have other settings that should have different values when running in Render.com.
+Just remember to never put secret stuff in there, because this will be commited to your repo.
+If you need to read any secret keys or values, you can use &lt;code class="docutils literal"&gt;&lt;span class="pre"&gt;os.environ.get('MY_SECRET_THING_XYZ')&lt;/span&gt;&lt;/code&gt; and then define the value for that environment variable in the Render dashboard.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id="commit-everything"&gt;
+&lt;h2&gt;4. Commit everything&lt;/h2&gt;
+&lt;p&gt;Commit all your new files and modified files, and push the changes to your Github/Gitlab repo!&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id="creating-your-postgres-database"&gt;
+&lt;h2&gt;5. Creating your Postgres database&lt;/h2&gt;
+&lt;p&gt;Go to &lt;a class="reference external" href="https://dashboard.render.com/"&gt;Render's dashboard&lt;/a&gt; and create a new Postgres database using this menu:&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/deploy-django-render/db_create_menu.png"&gt;&lt;img alt="/images/deploy-django-render/db_create_menu.thumbnail.png" src="http://blog.fisadev.com/images/deploy-django-render/db_create_menu.thumbnail.png"&gt;&lt;/a&gt;
+&lt;p&gt;You will need to specify the database name and a few other fields.
+After you created your database, open its details page from the dashboard and copy the value from this field, to use it in the next step:&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/deploy-django-render/db_url_field.png"&gt;&lt;img alt="/images/deploy-django-render/db_url_field.thumbnail.png" src="http://blog.fisadev.com/images/deploy-django-render/db_url_field.thumbnail.png"&gt;&lt;/a&gt;
+&lt;/section&gt;
+&lt;section id="deploying-your-app-at-render"&gt;
+&lt;h2&gt;6. Deploying your app at Render&lt;/h2&gt;
+&lt;p&gt;Go again to &lt;a class="reference external" href="https://dashboard.render.com/"&gt;Render's dashboard&lt;/a&gt; and create a new "Web service" using this menu:&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/deploy-django-render/web_create_menu.png"&gt;&lt;img alt="/images/deploy-django-render/web_create_menu.thumbnail.png" src="http://blog.fisadev.com/images/deploy-django-render/web_create_menu.thumbnail.png"&gt;&lt;/a&gt;
+&lt;p&gt;In the first page you will need to either fill the url of a public Github or Gitlab repository, or login with your Github/Gitlab account to choose a private repository.
+After you have specified your repo, in the next page you will need to fill out a few fields:&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/deploy-django-render/web_create_form.png"&gt;&lt;img alt="/images/deploy-django-render/web_create_form.thumbnail.png" src="http://blog.fisadev.com/images/deploy-django-render/web_create_form.thumbnail.png"&gt;&lt;/a&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;Name: important, this will be part of the url of your deployed web app, so use something meaningful.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Root Directory: important to leave this empty, so all the code is ran from the root directory.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Runtime: must be Python.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Build command: here you will use your build script: &lt;code class="docutils literal"&gt;bash build.sh&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Start command: and here you will use your run script: &lt;code class="docutils literal"&gt;bash run.sh&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Scroll down, and click "Create Web Service".&lt;/p&gt;
+&lt;p&gt;This will automatically attempt a first deploy, that will fail because we are missing a last step :).
+Go to the "Environment" section of your web app inside Render:&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/deploy-django-render/web_env.png"&gt;&lt;img alt="/images/deploy-django-render/web_env.thumbnail.png" src="http://blog.fisadev.com/images/deploy-django-render/web_env.thumbnail.png"&gt;&lt;/a&gt;
+&lt;p&gt;And add three environment variables (it's important that the name are UPPERCASE):&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;code class="docutils literal"&gt;DATABASE_URL&lt;/code&gt;: here you need to paste the database url that you copied at step 5. You can go to the database details to copy it again if needed.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code class="docutils literal"&gt;DJANGO_SUPERUSER_PASSWORD&lt;/code&gt;: here set a password that you want to use for your Django superuser.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code class="docutils literal"&gt;PYTHON_VERSION&lt;/code&gt;: set it to &lt;code class="docutils literal"&gt;3.11.0&lt;/code&gt; (or newer?).&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now you can re-attempt the deploy, just hit this menu and everything should work!:&lt;/p&gt;
+&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/deploy-django-render/web_env.png"&gt;&lt;img alt="/images/deploy-django-render/web_env.thumbnail.png" src="http://blog.fisadev.com/images/deploy-django-render/web_env.thumbnail.png"&gt;&lt;/a&gt;
+&lt;p&gt;After the deploy finishes, your website should be ready at &lt;code class="docutils literal"&gt;&lt;span class="pre"&gt;https://YOUR_RENDER_WEB_SERVICE_NAME.onrender.com/&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id="what-s-next"&gt;
+&lt;h2&gt;What's next?&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;Any time you need to deploy a new version, you just push it to your repo, and you can use the manual deploy menu to re-deploy. You can even configure your Render app to use a different branch from your repository, so you can deploy from a "stable" branch instead.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The rest of Render's UI is pretty straightforward, explore it! There are plenty of useful things even in the free tier, including logs, usage metrics, etc.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The free tier doesn't include the web shell to access your running app directly, but you can still connect to it via ssh using the "Connect" button to the side of the ""Manual Deploy" one.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;</description><guid>http://blog.fisadev.com/posts/how-to-deploy-a-django-app-in-rendercom-free-tier/</guid><pubDate>Mon, 14 Aug 2023 22:10:17 GMT</pubDate></item><item><title>On AI killing art, and other fears</title><link>http://blog.fisadev.com/posts/art-killer-ai/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;p&gt;A few hours ago, a friend and ex-student of mine asked me this on twitter:&lt;/p&gt;
 &lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/art-killer-ai/lucas-question.png"&gt;&lt;img alt="/images/art-killer-ai/lucas-question.thumbnail.png" src="http://blog.fisadev.com/images/art-killer-ai/lucas-question.thumbnail.png"&gt;&lt;/a&gt;
 &lt;p&gt;Basically, what were my thoughts on the artists vs content-generation AIs debate.&lt;/p&gt;
 &lt;p&gt;I really wanted to answer in a couple of tweets. Believe me, I tried. But I can't, so instead of torturing him and any spectators with a kilometer-long twitter thread, I decided to make this a short-ish blog post :)&lt;/p&gt;
@@ -535,74 +657,4 @@ This may be the reason we got the idea that customers don't care about code, dev
 So they never come back asking for "better code".&lt;/p&gt;
 &lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/customer-and-code-quality/tech_debt.jpeg"&gt;&lt;img alt="/images/customer-and-code-quality/tech_debt.thumbnail.jpeg" src="http://blog.fisadev.com/images/customer-and-code-quality/tech_debt.thumbnail.jpeg"&gt;&lt;/a&gt;
 &lt;p&gt;(comic by &lt;a class="reference external" href="https://twitter.com/vincentdnl"&gt;Vincent Déniel&lt;/a&gt;)&lt;/p&gt;
-&lt;/section&gt;</description><guid>http://blog.fisadev.com/posts/customer-and-code-quality/</guid><pubDate>Sun, 17 Sep 2017 19:28:30 GMT</pubDate></item><item><title>Cómo saber si hay un satélite argentino arriba tuyo</title><link>http://blog.fisadev.com/posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;p&gt;No te gustaría poder ver algo como esto en tu máquina, para saber cuándo alguno de los satélites argentinos anda por el cielo que está arriba tuyo?:&lt;/p&gt;
-&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/satelites-arriba-tuyo/preview.png"&gt;&lt;img alt="/images/satelites-arriba-tuyo/preview.thumbnail.png" src="http://blog.fisadev.com/images/satelites-arriba-tuyo/preview.thumbnail.png"&gt;&lt;/a&gt;
-&lt;p&gt;Parece algo salido de una película, es re interesante para curiosear, y lo mejor de todo es que es una pavada tenerlo. Está todo disponible con programas y datos libres y gratuitos, y sin tener que hacer casi nada de trabajo. Así que les dejo los pasos para reproducirlo:&lt;/p&gt;
-&lt;div class="section" id="programa-y-datos"&gt;
-&lt;h2&gt;Programa y datos&lt;/h2&gt;
-&lt;p&gt;Primero que nada necesitamos instalar GPredict, el programa que hace todo esto. Se puede bajar desde el sitio oficial: &lt;a class="reference external" href="http://gpredict.oz9aec.net/"&gt;http://gpredict.oz9aec.net/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Para quienes estén en Ubuntu, pueden instalarlo desde los repositorios:&lt;/p&gt;
-&lt;pre class="code text"&gt;&lt;a name="rest_code_07fa800a85c649a1a6bda2573341d8a3-1"&gt;&lt;/a&gt;sudo apt install gpredict
-&lt;/pre&gt;&lt;p&gt;Lo abrimos y por primera vez vamos a ver un dashboard un poco diferente al que mostré, con datos de satélites y la estación espacial internacional.
-Vamos a decirle que se baje datos actualizados, así las órbitas que vemos tienen menos error: vamos al menú "Edit" &amp;gt; "Update TLE" &amp;gt; "From network".
-Eso nos va a mostrar una ventana con el progreso de la actualización, solamente tenemos que esperar a que termine (unos segundos) y luego cerrar la ventana.&lt;/p&gt;
-&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/satelites-arriba-tuyo/update.png"&gt;&lt;img alt="/images/satelites-arriba-tuyo/update.thumbnail.png" src="http://blog.fisadev.com/images/satelites-arriba-tuyo/update.thumbnail.png"&gt;&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class="section" id="configurar-que-queremos-ver"&gt;
-&lt;h2&gt;Configurar qué queremos ver&lt;/h2&gt;
-&lt;p&gt;Ahora solo tenemos que decirle al programa dos cosas: qué queremos ver, y dónde estamos.&lt;/p&gt;
-&lt;p&gt;Vamos al menú "File" &amp;gt; "New module", lo que nos va a mostrar una ventana como esta:&lt;/p&gt;
-&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/satelites-arriba-tuyo/new_module.png"&gt;&lt;img alt="/images/satelites-arriba-tuyo/new_module.thumbnail.png" src="http://blog.fisadev.com/images/satelites-arriba-tuyo/new_module.thumbnail.png"&gt;&lt;/a&gt;
-&lt;p&gt;Rellenamos:&lt;/p&gt;
-&lt;ul class="simple"&gt;
-&lt;li&gt;"Module Name": nombre de nuestro dashboard.&lt;/li&gt;
-&lt;li&gt;"Selected Satellites": los satélites que queremos ver, que agregamos haciendo doble click en la lista de la izquierda ("Available Satellites"). Por suerte permite buscar :)
-Los satélites argentinos actuales son los &lt;strong&gt;CUBEBUG, NUSAT y ARSAT (hay varios de cada tipo, NUSAT-3 por ejemplo es el Milanesat de Satellogic!)&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Guardamos, y terminamos con algo como esta imagen:&lt;/p&gt;
-&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/satelites-arriba-tuyo/initial_dashboard.png"&gt;&lt;img alt="/images/satelites-arriba-tuyo/initial_dashboard.thumbnail.png" src="http://blog.fisadev.com/images/satelites-arriba-tuyo/initial_dashboard.thumbnail.png"&gt;&lt;/a&gt;
-&lt;p&gt;Todavía no se ve muy lindo, y falta nuestra posición. Pero ya podemos ver la posición actual de los satélites que nos interesaban!&lt;/p&gt;
-&lt;p&gt;Agreguemos nuestra posición. Para ello hay que editar el módulo (dashboard), lo hacemos desplegando el menú que se abre con este botón (arriba a la derecha, en la esquina del mapa) y eligiendo la opción "Configure":&lt;/p&gt;
-&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/satelites-arriba-tuyo/menu_button.png"&gt;&lt;img alt="/images/satelites-arriba-tuyo/menu_button.thumbnail.png" src="http://blog.fisadev.com/images/satelites-arriba-tuyo/menu_button.thumbnail.png"&gt;&lt;/a&gt;
-&lt;p&gt;En la ventana que se nos abre (que es la misma que cuando creamos el dashboard), hacemos click en el botón con un signo "+" que está al lado de "Ground Station".
-Ello nos abre una ventana donde rellenar nuestra posición:&lt;/p&gt;
-&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/satelites-arriba-tuyo/add_ground_station.png"&gt;&lt;img alt="/images/satelites-arriba-tuyo/add_ground_station.thumbnail.png" src="http://blog.fisadev.com/images/satelites-arriba-tuyo/add_ground_station.thumbnail.png"&gt;&lt;/a&gt;
-&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/satelites-arriba-tuyo/ground_station.png"&gt;&lt;img alt="/images/satelites-arriba-tuyo/ground_station.thumbnail.png" src="http://blog.fisadev.com/images/satelites-arriba-tuyo/ground_station.thumbnail.png"&gt;&lt;/a&gt;
-&lt;p&gt;Lo importante a rellenar es "Name", "Latitude" y "Longitude" (datos que podemos obtener con el gps del celular, usando aplicaciones &lt;a class="reference external" href="https://play.google.com/store/apps/details?id=com.wered.sensorsmultitool"&gt;como esta&lt;/a&gt;). "Altitud" también es útil, pero no super importante.&lt;/p&gt;
-&lt;p&gt;Guardamos la ubicación, y ahora en la misma pantalla de edición del dashboard, vamos a hacer un último paso para que se vea un poco más lindo (al menos a mi gusto, jeje).
-Hacemos click en el botón "Properties". Esto nos despliega una ventana, en la que solo nos interesa cambiar el valor de "Select layout":&lt;/p&gt;
-&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/satelites-arriba-tuyo/edit_properties.png"&gt;&lt;img alt="/images/satelites-arriba-tuyo/edit_properties.thumbnail.png" src="http://blog.fisadev.com/images/satelites-arriba-tuyo/edit_properties.thumbnail.png"&gt;&lt;/a&gt;
-&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/satelites-arriba-tuyo/properties.png"&gt;&lt;img alt="/images/satelites-arriba-tuyo/properties.thumbnail.png" src="http://blog.fisadev.com/images/satelites-arriba-tuyo/properties.thumbnail.png"&gt;&lt;/a&gt;
-&lt;p&gt;Elegimos "Map, table, polar and single sat (wide)". Guardamos todo, y listo! Ya tenemos nuestro super dashboard satelital :)&lt;/p&gt;
-&lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/satelites-arriba-tuyo/todo.png"&gt;&lt;img alt="/images/satelites-arriba-tuyo/todo.thumbnail.png" src="http://blog.fisadev.com/images/satelites-arriba-tuyo/todo.thumbnail.png"&gt;&lt;/a&gt;
-&lt;p&gt;Podés dejar de leer en este punto, o si te interesa saber un poco más, debajo explico qué son las cosas más importantes que se ven en el dashboard.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="section" id="que-estamos-viendo-en-el-mapa"&gt;
-&lt;h2&gt;Qué estamos viendo en el mapa?&lt;/h2&gt;
-&lt;p&gt;En el mapa se ven las posiciones de los satélites, y el área de la tierra que ellos "cubren". Imaginate una pelota muy grande (o un planeta, jeje): si estás muy cerca ves poco, pero si te alejás, ves mucho más.
-Cuánto ves? Ves una zona de la pelota que tiene forma de círculo. Un radio de X distancia alrededor tuyo.&lt;/p&gt;
-&lt;p&gt;Con los sates pasa esto mismo: si están muy cerca de la tierra (como los NUSAT), ven menos de ella al mismo tiempo. Si están más lejos (como los ARSAT), ven más.
-Dependiendo de qué función tenga el satélite, conviene estar más lejos o más cerca, y no hay una "mejor".
-Por ejemplo, no sirve estar super lejos y cubrir un montón si lo que interesa es sacar fotos detalladas de ciudades.
-Y no sirve estar re cerca y cubrir poco si lo que interesa es transmitir señales de comunicaciones.&lt;/p&gt;
-&lt;p&gt;Si dije que el area que cubre tiene forma de círculo, por qué no se ven como círculos en en mapa?
-Los ARSAT parecieran cubrir un cuadrado, mientras que los NUSAT ven círculos o cosas más deformes dependiendo del momento!&lt;/p&gt;
-&lt;p&gt;Eso es culpa de la proyección que usamos en el mapa. El mapa deforma mucho la imagen, la estira más cuanto más cerca estemos del polo.
-Si lo viésemos en un globo terraqueo, se verían como círculos.&lt;/p&gt;
-&lt;p&gt;Cosa extra que se puede ver: si hacemos click derecho en el punto de un satélite, podemos tildar la opción "Ground Track", y eso nos muestra el camino que el satélite va a recorrer
-durante las próximas horas. Si lo hacemos para un ARSAT no se va a ver ningún camino, porque son sates que están siempre en el mismo lugar en el cielo! (geoestacionarios).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="section" id="que-estamos-viendo-alrededor"&gt;
-&lt;h2&gt;Qué estamos viendo alrededor?&lt;/h2&gt;
-&lt;p&gt;Al costado hay dos cosas: un gráfico con forma de mira ("vista polar"), y un grupito de datos de un satélite.&lt;/p&gt;
-&lt;p&gt;El gráfico con forma de mira es el cielo que vemos desde nuestra casa, con las posiciones de los satélites que lleguemos a ver (si es que hay alguno arriba nuestro).
-Si por ejemplo vivís en Argentina y pusiste tus coordenadas, deberías siempre poder ver a los dos ARSAT, y de a ratos algún otro.&lt;/p&gt;
-&lt;p&gt;Los datos que se ven abajo del gráfico son el detalle de algún satélite en particular.
-Con el menú que tiene esa sección (botoncito con flecha hacia abajo), podemos elegir qué satélite ver.
-Cosa que sorprende a la mayoría de la gente: velocidad de los NUSAT o CUBEBUG, de 7 km/s. O sea, más o menos 23000 km/h.
-Un poquito rápido, suficiente como para dar la vuelta al mundo 16 veces por día (lo hacen!).&lt;/p&gt;
-&lt;p&gt;Otra cosa útil: podemos ver cuándo es la próxima pasada del satélite por encima nuestro (o cuánto tiempo le falta antes de irse de nuestro cielo, si justo está pasando por arriba).
-Eso se ve en el campo "Next Event".&lt;/p&gt;
-&lt;p&gt;Y finalmente, la tabla de abajo es similar al detalle del costado. Solo que muestra datos de varios sates a la vez.&lt;/p&gt;
-&lt;p&gt;Espero que lo disfruten tanto como yo :)&lt;/p&gt;
-&lt;/div&gt;</description><guid>http://blog.fisadev.com/posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/</guid><pubDate>Wed, 06 Sep 2017 23:14:38 GMT</pubDate></item></channel></rss>
+&lt;/section&gt;</description><guid>http://blog.fisadev.com/posts/customer-and-code-quality/</guid><pubDate>Sun, 17 Sep 2017 19:28:30 GMT</pubDate></item></channel></rss>
