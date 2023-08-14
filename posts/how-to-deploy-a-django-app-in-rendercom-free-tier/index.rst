@@ -41,7 +41,7 @@ Create a ``requirements.txt`` file in the root of your repository, and add these
     gunicorn==21.2.0
 
 
-If you already had a ``requirements.txt``, just add the new packages to it.
+If you already have a ``requirements.txt``, just add the new packages to it.
 
 2: Creating deploy scripts
 ==========================
@@ -106,7 +106,7 @@ This code basically overrides some of the settings of your project, so it can wo
 But it only does that when it detects your project is running inside Render, otherwise it does nothing to your settings.
 
 You can further customize this if you have other settings that should have different values when running in Render.com. 
-Just remember to never put secret stuff in there, because this will be commited to your repo. 
+Just remember to never put secret stuff in there, because this will be committed to your repo. 
 If you need to read any secret keys or values, you can use ``os.environ.get('MY_SECRET_THING_XYZ')`` and then define the value for that environment variable in the Render dashboard.
 
 4. Commit everything
@@ -166,6 +166,6 @@ After the deploy finishes, your website should be ready at ``https://YOUR_RENDER
 What's next?
 ============
 
-* Any time you need to deploy a new version, you just push it to your repo, and you can use the manual deploy menu to re-deploy. You can even configure your Render app to use a different branch from your repository, so you can deploy from a "stable" branch instead.
+* Anytime you need to deploy a new version, you just push it to your repo, and you can use the manual deploy menu to re-deploy. You can even configure your Render app to use a different branch from your repository, so you can deploy from a "stable" branch instead.
 * The rest of Render's UI is pretty straightforward, explore it! There are plenty of useful things even in the free tier, including logs, usage metrics, etc.
 * The free tier doesn't include the web shell to access your running app directly, but you can still connect to it via ssh using the "Connect" button to the side of the ""Manual Deploy" one.
