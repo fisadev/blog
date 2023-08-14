@@ -151,7 +151,7 @@ Go to the "Environment" section of your web app inside Render:
 
 .. thumbnail:: /images/deploy-django-render/web_env.png
 
-And add three environment variables (it's important that the name are UPPERCASE):
+And add three environment variables (it's important that the names are UPPERCASE):
 
 * ``DATABASE_URL``: here you need to paste the database url that you copied at step 5. You can go to the database details to copy it again if needed.
 * ``DJANGO_SUPERUSER_PASSWORD``: here set a password that you want to use for your Django superuser.
