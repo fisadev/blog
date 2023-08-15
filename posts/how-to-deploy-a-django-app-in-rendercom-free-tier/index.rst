@@ -19,7 +19,7 @@ Assumptions
 * You have a working Django app (for instance, you can already run it locally with ``python manage.py runserver`` and everything works fine).
 * You're using Django 4 or newer (tested up to Django 4.2.4), and your project structure is what Django does by default.
 * Your Django project is in a Github or Gitlab repository.
-* There's a single Django project in the repo, not multiple projects at once, and you don't have.
+* There's a single Django project in the repo, not multiple projects at once.
 * You want to use Postgres as your production database in Render.
 
 0: Render.com account
