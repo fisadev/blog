@@ -139,7 +139,7 @@ After you have specified your repo, in the next page you will need to fill out a
 .. thumbnail:: /images/deploy-django-render/web_create_form.png
 
 * Name: important, this will be part of the url of your deployed web app, so use something meaningful.
-* Root Directory: important to leave this empty, so all the code is ran from the root directory.
+* Root Directory: important to leave this empty, so all the scripts are executed from the root directory.
 * Runtime: must be Python.
 * Build command: here you will use your build script: ``bash build.sh``
 * Start command: and here you will use your run script: ``bash run.sh``
