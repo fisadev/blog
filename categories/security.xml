@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about security)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/security.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Mon, 27 Dec 2021 18:27:49 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Suspicious logins</title><link>http://blog.fisadev.com/posts/suspicious-logins/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;div class="section" id="the-interesting-story"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about security)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/security.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Tue, 15 Aug 2023 00:02:28 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Suspicious logins</title><link>http://blog.fisadev.com/posts/suspicious-logins/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;section id="the-interesting-story"&gt;
 &lt;h2&gt;The "interesting" story&lt;/h2&gt;
 &lt;p&gt;Imagine having a main gmail account, and a handfull of extra accounts (to reserve names, to test some api stuff, etc).&lt;/p&gt;
 &lt;p&gt;Imagine not having used those extra accounts in years. And even more: not having used them &lt;strong&gt;ever&lt;/strong&gt;. Not a single email sent, not a single external app connected to them, not any login to other sites, etc.&lt;/p&gt;
@@ -10,10 +10,10 @@
 &lt;p&gt;(worth mentioning: I'm from Argentina, the access was from the US)&lt;/p&gt;
 &lt;p&gt;After some investigation, you discover:&lt;/p&gt;
 &lt;ul class="simple"&gt;
-&lt;li&gt;You were reusing the password from that account.&lt;/li&gt;
-&lt;li&gt;The way you were using the password manager, the account names weren't encrypted (the passwords were, of course).&lt;/li&gt;
-&lt;li&gt;By reusing it, the encrypted data is the same in all encrypted files.&lt;/li&gt;
-&lt;li&gt;You never used the account, but it has your name on it, easily guessable account name.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;You were reusing the password from that account.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The way you were using the password manager, the account names weren't encrypted (the passwords were, of course).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;By reusing it, the encrypted data is the same in all encrypted files.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;You never used the account, but it has your name on it, easily guessable account name.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Conclussion&lt;/strong&gt;: someone who has your password from another (unsafe?) service, could have either guessed your secondary account name, or gained access to the encrypted data, which has the account names in clear text. By just comparing encrypted contents, not even decrypting them, that person could have known in which other sites the leaked password could work.&lt;/p&gt;
 &lt;p&gt;Ok, you now think you know, you just need to change passwords on all those sites, and never ever reuse passwords again. But oh no, you know nothing. After doing it, a few days later...&lt;/p&gt;
@@ -24,8 +24,8 @@
 &lt;p&gt;Think about it: Google is telling you "hey, someone knows your account and password", and you know that the account name was only present in old emails at your inbox, while the password was only written down in your trusty new password manager.&lt;/p&gt;
 &lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/suspicious-logins/scared.jpg"&gt;&lt;img alt="/images/suspicious-logins/scared.thumbnail.jpg" src="http://blog.fisadev.com/images/suspicious-logins/scared.thumbnail.jpg"&gt;&lt;/a&gt;
 &lt;p&gt;NSA, is that you? Or a random hacker who really wants to steal my data? What valuable data can I have? Hell, I need to get everyone to revoke my credentials everywhere, now.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="section" id="the-boring-story"&gt;
+&lt;/section&gt;
+&lt;section id="the-boring-story"&gt;
 &lt;h2&gt;The "boring" story&lt;/h2&gt;
 &lt;p&gt;But no. There is always a boring explanation, something simpler, that doesn't look like a CSI Cyber episode. In this case? something that looks like a bug on some internal Google services.&lt;/p&gt;
 &lt;p&gt;I discovered this almost by chance, while writting down a super comprehensive explanation of the things I was seeing (a 5x longer version of the interesting story). I realized I had both accounts added to my main email account, using gmail's feature to access emails from multiple sources. This feature:&lt;/p&gt;
@@ -35,17 +35,17 @@
 &lt;p&gt;Some might think "oh, that's to be expected as well. Google must have blocked the account as soon as the security incident was detected". But no. This feature doesn't check email every second. For my accounts, it's doing it once every day, more or less. And the failed attempt was at the exact same time the "suspicious login" happened. In &lt;strong&gt;both&lt;/strong&gt; accounts. Different times each one. Too much coincidence.&lt;/p&gt;
 &lt;p&gt;I wasn't able to see the original error for one of the accounts, too many login errors since it because of the password change, and it only stores the last 5 of them. But for the other account the first error was still there, and it was different to the password related ones.&lt;/p&gt;
 &lt;p&gt;The errors after the password changes were:&lt;/p&gt;
-&lt;pre class="code text"&gt;&lt;a name="rest_code_3cd21b2fb4e048ce995b96abc150b9ac-1"&gt;&lt;/a&gt;Authentication error.
-&lt;a name="rest_code_3cd21b2fb4e048ce995b96abc150b9ac-2"&gt;&lt;/a&gt;Server returned error "[AUTH] Username and password not accepted."
+&lt;pre class="code text"&gt;&lt;a id="rest_code_108a526f773749cbad6405be6f72ab45-1" name="rest_code_108a526f773749cbad6405be6f72ab45-1"&gt;&lt;/a&gt;Authentication error.
+&lt;a id="rest_code_108a526f773749cbad6405be6f72ab45-2" name="rest_code_108a526f773749cbad6405be6f72ab45-2"&gt;&lt;/a&gt;Server returned error "[AUTH] Username and password not accepted."
 &lt;/pre&gt;&lt;p&gt;But the error at the same time than the suspicious login was:&lt;/p&gt;
-&lt;pre class="code text"&gt;&lt;a name="rest_code_458d158fefd0445aa6b24ade0dd3d383-1"&gt;&lt;/a&gt;Authentication error.
-&lt;a name="rest_code_458d158fefd0445aa6b24ade0dd3d383-2"&gt;&lt;/a&gt;Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
+&lt;pre class="code text"&gt;&lt;a id="rest_code_d3642d935e2d4b1b847d6dd30230b0b5-1" name="rest_code_d3642d935e2d4b1b847d6dd30230b0b5-1"&gt;&lt;/a&gt;Authentication error.
+&lt;a id="rest_code_d3642d935e2d4b1b847d6dd30230b0b5-2" name="rest_code_d3642d935e2d4b1b847d6dd30230b0b5-2"&gt;&lt;/a&gt;Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
 &lt;/pre&gt;&lt;p&gt;The linked support page isn't very helpful, but if you google the error you will find some people having the same issue: after years of not using an account, the login on their pop3 client starts to fail. Maybe something changed in google's security policies, maybe it's related to new terms of service, or required security checkups. But the thing is: logins fail until you login from a browser and tweak some stuff (enabling less secure apps, etc).&lt;/p&gt;
 &lt;p&gt;That itself isn't the bug. The bug is flagging those pop3 logins which came &lt;strong&gt;from inside google&lt;/strong&gt; (it's a gmail feature, running on their servers), as if they were "suspicious logins". They are not suspicious, they are comming from inside google, they are being made from a google server trying to execute a gmail feature.&lt;/p&gt;
-&lt;p&gt;Finally, how sure am I that the logins came from inside google? Well, a traceroute to the login ip took me to this host: &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;mail-pa0-x218.google.com&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;Finally, how sure am I that the logins came from inside google? Well, a traceroute to the login ip took me to this host: &lt;code class="docutils literal"&gt;&lt;span class="pre"&gt;mail-pa0-x218.google.com&lt;/span&gt;&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;So yes, I'm pretty sure this was a bug. But by Cthulhu's beard, I'm &lt;strong&gt;happy&lt;/strong&gt; this was a bug.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="section" id="in-short"&gt;
+&lt;/section&gt;
+&lt;section id="in-short"&gt;
 &lt;h2&gt;In short&lt;/h2&gt;
 &lt;p&gt;A gmail server tries to login to a gmail account for a gmail feature to work, and the user gets a big red email: "someone has your password". Yes, google, someone has my password. It's you.&lt;/p&gt;
-&lt;/div&gt;</description><category>security</category><guid>http://blog.fisadev.com/posts/suspicious-logins/</guid><pubDate>Mon, 19 Sep 2016 23:45:15 GMT</pubDate></item></channel></rss>
+&lt;/section&gt;</description><category>security</category><guid>http://blog.fisadev.com/posts/suspicious-logins/</guid><pubDate>Mon, 19 Sep 2016 23:45:15 GMT</pubDate></item></channel></rss>

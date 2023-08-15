@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
-" lang="en">
+<html prefix="" lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width">
 <title>Using Keras and TensorFlow with Nvidia gpus under Ubuntu | Blog (fisa)</title>
-<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<meta name="theme-color" content="#5670d4">
-<meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
+<link href="../../assets/css/all.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
 <link rel="canonical" href="http://blog.fisadev.com/posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Juan Pedro Fisanotti">
 <link rel="prev" href="../customer-and-code-quality/" title="Customer and code quality" type="text/html">
@@ -26,150 +24,109 @@ TensorFlow: the Python l">
 <meta property="article:published_time" content="2017-11-19T09:55:28-03:00">
 </head>
 <body>
-<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
-
-<!-- Menubar -->
-
-<nav class="navbar navbar-expand-md static-top mb-4
-navbar-dark
-bg-dark
-"><div class="container">
-<!-- This keeps the margins nice -->
-        <a class="navbar-brand" href="../../">
-
-            <span id="blog-title">Blog (fisa)</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="bs-navbar">
-            <ul class="navbar-nav mr-auto">
-<li class="nav-item">
-<a href="../../archive.html" class="nav-link">Archive</a>
-                </li>
-<li class="nav-item">
-<a href="../../categories/" class="nav-link">Tags</a>
-                </li>
-<li class="nav-item">
-<a href="../../rss.xml" class="nav-link">RSS feed</a>
-
-                
-            </li>
-</ul>
-<ul class="navbar-nav navbar-right">
-<li class="nav-item">
-    <a href="index.rst" id="sourcelink" class="nav-link">Source</a>
-    </li>
-
-
-                
-            </ul>
+    <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+            styles, `#sidebar-checkbox` for behavior. -->
+    <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"><!-- Toggleable sidebar --><div class="sidebar" id="sidebar">
+        <div class="sidebar-item">
+            <p>A reserved <a href="https://getnikola.com" target="_blank">Nikola</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a> for Jekyll,
+            ported to Nikola by <a href="https://twitter.com/ralsina" target="_blank">@ralsina</a>.</p>
+        </div>
+        
+    <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../../archive.html">Archive</a>
+        <a class="sidebar-nav-item" href="../../categories/">Tags</a>
+        <a class="sidebar-nav-item" href="../../rss.xml">RSS feed</a>
+    
+    
+    </nav>
 </div>
-<!-- /.navbar-collapse -->
-    </div>
-<!-- /.container -->
-</nav><!-- End of Menubar --><div class="container" id="content" role="main">
-    <div class="body-content">
-        <!--Body content-->
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          
+    <h3 id="brand" class="masthead-title">
+      <a href="http://blog.fisadev.com/" title="Blog (fisa)" rel="home">Blog (fisa)</a>
+    </h3>
+
+        </div>
+      </div>
+
+      <div class="container content" id="content">
         
-        
-        
-<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Using Keras and TensorFlow with Nvidia gpus under Ubuntu</a></h1>
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="post-title p-name entry-title" itemprop="headline name"><a href="." class="u-url">Using Keras and TensorFlow with Nvidia gpus under Ubuntu</a></h1>
 
         <div class="metadata">
-            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
-                    Juan Pedro Fisanotti
-            </span></p>
-            <p class="dateline">
-            <a href="." rel="bookmark">
-            <time class="published dt-published" datetime="2017-11-19T09:55:28-03:00" itemprop="datePublished" title="2017-11-19 09:55">2017-11-19 09:55</time></a>
-            </p>
+            <p class="byline author vcard"><span class="byline-name fn">Juan Pedro Fisanotti</span></p>
+            <p class="dateline"><a href="." rel="bookmark"><time class="post-date published dt-published" datetime="2017-11-19T09:55:28-03:00" itemprop="datePublished" title="2017-11-19 09:55">2017-11-19 09:55</time></a></p>
                 <p class="commentline">
     
     <a href="#disqus_thread" data-disqus-identifier="cache/posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu.html">Comments</a>
 
 
-            
         </p>
-<p class="sourceline"><a href="index.rst" class="sourcelink">Source</a></p>
-
-        </div>
+</div>
         
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
-    <div class="section" id="using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu">
-<h2>Using Keras and TensorFlow with Nvidia gpus under Ubuntu</h2>
-<div class="section" id="what-are-all-these-things">
-<h3>What are all these things???</h3>
+    <section id="using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu"><h2>Using Keras and TensorFlow with Nvidia gpus under Ubuntu</h2>
+<section id="what-are-all-these-things"><h3>What are all these things???</h3>
 <ul class="simple">
-<li>
-<strong>Keras</strong>: the Python library that knows how to build and train artificial neural networks.</li>
-<li>
-<strong>TensorFlow</strong>: the Python library that knows how to do heavy computations both under cpus and gpus, used by Keras.</li>
-<li>
-<strong>CUDA + cuDNN</strong>: Nvidia utilities to be able to run general purpose computations in the gpu.</li>
-<li>
-<strong>Graphics drivers</strong>: drivers that allow your linux to access and use the graphics card.</li>
-</ul>
-</div>
-<div class="section" id="graphics-drivers">
-<h3>Graphics drivers</h3>
+<li><p><strong>Keras</strong>: the Python library that knows how to build and train artificial neural networks.</p></li>
+<li><p><strong>TensorFlow</strong>: the Python library that knows how to do heavy computations both under cpus and gpus, used by Keras.</p></li>
+<li><p><strong>CUDA + cuDNN</strong>: Nvidia utilities to be able to run general purpose computations in the gpu.</p></li>
+<li><p><strong>Graphics drivers</strong>: drivers that allow your linux to access and use the graphics card.</p></li>
+</ul></section><section id="graphics-drivers"><h3>Graphics drivers</h3>
 <p>It might be possible to use CUDA without having the graphics drivers installed, but I'm not sure how easy and stable it is.
 So my recommendation is to install them first, and verify that they are working.</p>
-<p>Usually it's just installing a package with <tt class="docutils literal">apt</tt>:</p>
-<pre class="code text"><a name="rest_code_a81502b9bc724a95a6cf798be31e21a4-1"></a>sudo apt install nvidia-375
+<p>Usually it's just installing a package with <code class="docutils literal">apt</code>:</p>
+<pre class="code text"><a id="rest_code_25e28b28512e4039bc7523f3d69de285-1" name="rest_code_25e28b28512e4039bc7523f3d69de285-1"></a>sudo apt install nvidia-375
 </pre>
 <p>But if you are using an Optimus-enabled graphics card (most laptops with Nvidia cards previous to the 10xx generation),
-you might need to install the <tt class="docutils literal"><span class="pre">nvidia-prime</span></tt> package too.</p>
+you might need to install the <code class="docutils literal"><span class="pre">nvidia-prime</span></code> package too.</p>
 <p>The recommended version might be higher in the future, 375 is the one I'm using right now under Ubuntu 16.10.</p>
-</div>
-<div class="section" id="cuda-installation">
-<h3>CUDA installation</h3>
+</section><section id="cuda-installation"><h3>CUDA installation</h3>
 <p>Get both the CUDA installer and the cuDNN installer, from their official websites:
 <a class="reference external" href="https://developer.nvidia.com/cuda-downloads">https://developer.nvidia.com/cuda-downloads</a> and <a class="reference external" href="https://developer.nvidia.com/cudnn">https://developer.nvidia.com/cudnn</a>
 (you will need to register in the website and fill a survey to be able to download cuDNN).</p>
 <p>The versions you need to get depend on which versions does TensorFlow support.
 You can check this in the official website, at <a class="reference external" href="https://www.tensorflow.org/install/install_linux">https://www.tensorflow.org/install/install_linux</a> .</p>
 <p>Once you have both installers, first run the cuda installer (replace the name of the file with the one you got):</p>
-<pre class="code text"><a name="rest_code_ddcd16714e6c42d9b1f7538aa54d926f-1"></a>sudo sh ./cuda_8.0.61_375.26_linux.run --override
+<pre class="code text"><a id="rest_code_5a1a5a7ba4374d1da265f42b20a616f6-1" name="rest_code_5a1a5a7ba4374d1da265f42b20a616f6-1"></a>sudo sh ./cuda_8.0.61_375.26_linux.run --override
 </pre>
 <p>It will ask you a few things. Tell "no" to the installation of graphics drivers (you should already have them),
 and "yes" to the creation of the symbolic link.</p>
-<p>Then uncompress the cuDNN installer (a file with a name similar to <tt class="docutils literal"><span class="pre">cudnn-8.0-linux-x64-v5.1.tgz</span></tt>),
-and copy its files into the <tt class="docutils literal"><span class="pre">/usr/local/cuda-8.0</span></tt> folder (you should have it from the CUDA installation).
+<p>Then uncompress the cuDNN installer (a file with a name similar to <code class="docutils literal"><span class="pre">cudnn-8.0-linux-x64-v5.1.tgz</span></code>),
+and copy its files into the <code class="docutils literal"><span class="pre">/usr/local/cuda-8.0</span></code> folder (you should have it from the CUDA installation).
 The tar file contains subfolders, be sure to copy the files into the same subfolders in the destination.</p>
-</div>
-<div class="section" id="tensorflow-and-keras-installation">
-<h3>TensorFlow and Keras installation</h3>
+</section><section id="tensorflow-and-keras-installation"><h3>TensorFlow and Keras installation</h3>
 <p>Once you have the graphics drivers and CUDA, then it's easy to install TensorFlow and Keras, they are just Python packages:</p>
-<pre class="code text"><a name="rest_code_b704da22b17243aaab0a9b0b3540b176-1"></a>pip install tensorflow-gpu keras
+<pre class="code text"><a id="rest_code_8cac8d32de9442d69dd6dba58d493890-1" name="rest_code_8cac8d32de9442d69dd6dba58d493890-1"></a>pip install tensorflow-gpu keras
 </pre>
-<p>If you aren't using virtualenvs (you should!), you should add <tt class="docutils literal"><span class="pre">--user</span></tt> to that command.
-I don't recommend installing the packages system-wide with <tt class="docutils literal">sudo</tt>, as with time you will probably need different versions of both
-<tt class="docutils literal">tensorflow</tt> and <tt class="docutils literal">keras</tt> for different projects (they both evolve quite quickly).</p>
-</div>
-<div class="section" id="running-the-code">
-<h3>Running the code</h3>
-<p>Finally, when running your code you may need to define the <tt class="docutils literal">LD_LIBRARY_PATH</tt> environment variable, for TensorFlow to be able to
+<p>If you aren't using virtualenvs (you should!), you should add <code class="docutils literal"><span class="pre">--user</span></code> to that command.
+I don't recommend installing the packages system-wide with <code class="docutils literal">sudo</code>, as with time you will probably need different versions of both
+<code class="docutils literal">tensorflow</code> and <code class="docutils literal">keras</code> for different projects (they both evolve quite quickly).</p>
+</section><section id="running-the-code"><h3>Running the code</h3>
+<p>Finally, when running your code you may need to define the <code class="docutils literal">LD_LIBRARY_PATH</code> environment variable, for TensorFlow to be able to
 find the needed CUDA libraries:</p>
-<pre class="code text"><a name="rest_code_1a915c5f85cf40b4948f0ba77d48cd8e-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python your_awesome_code.py
+<pre class="code text"><a id="rest_code_334ba23cebfe48be98dd13a088f6aee4-1" name="rest_code_334ba23cebfe48be98dd13a088f6aee4-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python your_awesome_code.py
 </pre>
 <p>This is true also for Jupyter notebooks:</p>
-<pre class="code text"><a name="rest_code_49849716d9684d288488386fc54876a3-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 jupyter notebook
+<pre class="code text"><a id="rest_code_2f6f40fadb1e45b593a095a74b096293-1" name="rest_code_2f6f40fadb1e45b593a095a74b096293-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 jupyter notebook
 </pre>
-<p>If you are unsure if your code is actually using your gpu, you can paste this snippet into a <tt class="docutils literal">test_device.py</tt> file:</p>
-<pre class="code python"><a name="rest_code_dd42661bf26844de8f03e1c2bd207061-1"></a><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="kn">as</span> <span class="nn">tf</span>
-<a name="rest_code_dd42661bf26844de8f03e1c2bd207061-2"></a><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">(</span><span class="n">log_device_placement</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+<p>If you are unsure if your code is actually using your gpu, you can paste this snippet into a <code class="docutils literal">test_device.py</code> file:</p>
+<pre class="code python"><a id="rest_code_934dca78fda94e708111074c67d93732-1" name="rest_code_934dca78fda94e708111074c67d93732-1"></a><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<a id="rest_code_934dca78fda94e708111074c67d93732-2" name="rest_code_934dca78fda94e708111074c67d93732-2"></a><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">(</span><span class="n">log_device_placement</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre>
 <p>And then run it:</p>
-<pre class="code text"><a name="rest_code_14de8d3f42144cbf97fe3b0ed32e6f98-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python test_device.py
+<pre class="code text"><a id="rest_code_49e4c5c3bce54ff9965eb64c1c1dd3fb-1" name="rest_code_49e4c5c3bce54ff9965eb64c1c1dd3fb-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python test_device.py
 </pre>
 <p>It should print a lot of information, but in between you should see something with your graphics card name, like
-<tt class="docutils literal">name: GeForce GTX 1070</tt>.</p>
+<code class="docutils literal">name: GeForce GTX 1070</code>.</p>
+</section></section>
 </div>
-</div>
-    </div>
     <aside class="postpromonav"><nav><ul class="pager hidden-print">
 <li class="previous">
                 <a href="../customer-and-code-quality/" rel="prev" title="Customer and code quality">Previous post</a>
@@ -199,24 +156,22 @@ find the needed CUDA libraries:</p>
     <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
-            Contents © 2023         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
-            
+        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2023         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>
-</div>
-
-
-        <script src="../../assets/js/all-nocdn.js"></script><script>
-    baguetteBox.run('div#content', {
-        ignoreClass: 'islink',
-        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
-    </script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-10031421-14"></script><script>
+    </div>
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-10031421-14"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'UA-10031421-14');
-    </script>
+    </script><script src="../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates -->
 </body>
 </html>

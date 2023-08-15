@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
-" lang="en">
+<html prefix="" lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="description" content="Cómo hacer que todo eso funcione.">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width">
 <title>Programar STM32F103C8 en Ubuntu con Arduino IDE | Blog (fisa)</title>
-<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<meta name="theme-color" content="#5670d4">
-<meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
+<link href="../../assets/css/all.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
 <link rel="canonical" href="http://blog.fisadev.com/posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Juan Pedro Fisanotti">
 <link rel="prev" href="../separate-io-from-algorithms/" title="Separate IO from algorithms" type="text/html">
@@ -23,75 +21,50 @@
 <meta property="article:tag" content="arduino">
 </head>
 <body>
-<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
-
-<!-- Menubar -->
-
-<nav class="navbar navbar-expand-md static-top mb-4
-navbar-dark
-bg-dark
-"><div class="container">
-<!-- This keeps the margins nice -->
-        <a class="navbar-brand" href="../../">
-
-            <span id="blog-title">Blog (fisa)</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="bs-navbar">
-            <ul class="navbar-nav mr-auto">
-<li class="nav-item">
-<a href="../../archive.html" class="nav-link">Archive</a>
-                </li>
-<li class="nav-item">
-<a href="../../categories/" class="nav-link">Tags</a>
-                </li>
-<li class="nav-item">
-<a href="../../rss.xml" class="nav-link">RSS feed</a>
-
-                
-            </li>
-</ul>
-<ul class="navbar-nav navbar-right">
-<li class="nav-item">
-    <a href="index.rst" id="sourcelink" class="nav-link">Source</a>
-    </li>
-
-
-                
-            </ul>
+    <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+            styles, `#sidebar-checkbox` for behavior. -->
+    <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"><!-- Toggleable sidebar --><div class="sidebar" id="sidebar">
+        <div class="sidebar-item">
+            <p>A reserved <a href="https://getnikola.com" target="_blank">Nikola</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a> for Jekyll,
+            ported to Nikola by <a href="https://twitter.com/ralsina" target="_blank">@ralsina</a>.</p>
+        </div>
+        
+    <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../../archive.html">Archive</a>
+        <a class="sidebar-nav-item" href="../../categories/">Tags</a>
+        <a class="sidebar-nav-item" href="../../rss.xml">RSS feed</a>
+    
+    
+    </nav>
 </div>
-<!-- /.navbar-collapse -->
-    </div>
-<!-- /.container -->
-</nav><!-- End of Menubar --><div class="container" id="content" role="main">
-    <div class="body-content">
-        <!--Body content-->
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          
+    <h3 id="brand" class="masthead-title">
+      <a href="http://blog.fisadev.com/" title="Blog (fisa)" rel="home">Blog (fisa)</a>
+    </h3>
+
+        </div>
+      </div>
+
+      <div class="container content" id="content">
         
-        
-        
-<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Programar STM32F103C8 en Ubuntu con Arduino IDE</a></h1>
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="post-title p-name entry-title" itemprop="headline name"><a href="." class="u-url">Programar STM32F103C8 en Ubuntu con Arduino IDE</a></h1>
 
         <div class="metadata">
-            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
-                    Juan Pedro Fisanotti
-            </span></p>
-            <p class="dateline">
-            <a href="." rel="bookmark">
-            <time class="published dt-published" datetime="2022-08-04T09:48:13-03:00" itemprop="datePublished" title="2022-08-04 09:48">2022-08-04 09:48</time></a>
-            </p>
+            <p class="byline author vcard"><span class="byline-name fn">Juan Pedro Fisanotti</span></p>
+            <p class="dateline"><a href="." rel="bookmark"><time class="post-date published dt-published" datetime="2022-08-04T09:48:13-03:00" itemprop="datePublished" title="2022-08-04 09:48">2022-08-04 09:48</time></a></p>
                 <p class="commentline">
     
     <a href="#disqus_thread" data-disqus-identifier="cache/posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide.html">Comments</a>
 
 
-            
-        </p>
-<p class="sourceline"><a href="index.rst" class="sourcelink">Source</a></p>
-
-        </div>
+                <meta name="description" itemprop="description" content="Cómo hacer que todo eso funcione."></p>
+</div>
         
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
@@ -102,7 +75,7 @@ bg-dark
 <p>Lo primero que hay que hacer es instalar los plugins necesarios en Arduino IDE, para que el editor sepa compilar y grabar programas en las placas STM32.</p>
 <p>Para ello tenemos que ir al menú "File", opción "Preferences", y en la ventana que se nos abre, clickear el botón que está al lado de Additional Board Manager URLs:</p>
 <img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/menu_preferences.png" src="../../images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/menu_preferences.png"><img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/boton_boards_urls.png" src="../../images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/boton_boards_urls.png"><p>En la segunda ventana que se nos abre debemos agregar la URL de donde Arduino IDE va a bajar toda la información de estas placas. La url es esta:</p>
-<pre class="code text"><a id="rest_code_ad5030989d0c45f489e963038a2ac1f4-1" name="rest_code_ad5030989d0c45f489e963038a2ac1f4-1"></a>http://dan.drown.org/stm32duino/package_STM32duino_index.json
+<pre class="code text"><a id="rest_code_f84523f62d1b4cd690f333bc6ab8a23f-1" name="rest_code_f84523f62d1b4cd690f333bc6ab8a23f-1"></a>http://dan.drown.org/stm32duino/package_STM32duino_index.json
 </pre>
 <p>Y debe agregarse al final, en un renglón nuevo (si es que ya teníamos otras URLs en esta configuración, como es mi caso), y clickear en "Ok":</p>
 <img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/board_url_agregada.png" src="../../images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/board_url_agregada.png"><p>Luego debemos decirle a Arduino IDE que se baje desde esa URL la información que necesitamos para controlar nuestra placa STM32. Para ello vamos al menú "Tools", luego "Board", y elegimos la opción "Boards Manager..."</p>
@@ -117,33 +90,33 @@ bg-dark
 <p>Con los pasos que hicimos antes, en un mundo ideal y con placas más normales, ya todo queda listo para poder programar, hacer click en Play, y que nuestro código corra en la placa que tenemos conectada a la PC. Pero en el caso de las STM32 esto está roto, y hay que hacer algunos pasos manuales para arreglarlo. Los descubrí probando y renegando, y probablemente esto cambie en el futuro.</p>
 <p>En particular: el plugin de Arduino IDE para las STM trae dentro un programita que se usa para flashear la placa, llamado "stlink-tools". Pero el problema es que trae una versión vieja y rota (al menos rota en entornos modernos).</p>
 <p>Así que lo primero que vamos a hacer, es eliminar esa versión vieja de ese programita que no sirve de dentro del plugin. Lo hacemos corriendo este comando en una terminal de linux:</p>
-<pre class="code text"><a id="rest_code_9b5544d0c05b4f9b8ce7f472a4a6471d-1" name="rest_code_9b5544d0c05b4f9b8ce7f472a4a6471d-1"></a>rm ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/st-*
+<pre class="code text"><a id="rest_code_5a67ca10d7c84a56a6cc250e888a6001-1" name="rest_code_5a67ca10d7c84a56a6cc250e888a6001-1"></a>rm ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/st-*
 </pre>
 <p>Si el comando dispara un error diciendo que los archivos no existen, lo más probable es que tengan alguna versión diferente o de Arduino IDE, o del plugin. En ese caso van a necesitar encontrar cuál es la ruta para el caso particular de ustedes (probablemente si es otra versión de Arduino IDE, cambie el nombre del directorio <cite>.arduino15</cite>, o si es otra versión del plugin, cambie el nombre del directorio <cite>2021.5.31</cite>).</p>
 <p>Una vez borrados esos archivos, tenemos que instalar una mejor versión de la herramienta "stlink-tools". Hacemos eso con este comando:</p>
-<pre class="code text"><a id="rest_code_e87085ba03a54164921de3bee6b3a7e9-1" name="rest_code_e87085ba03a54164921de3bee6b3a7e9-1"></a>sudo apt install stlink-tools
+<pre class="code text"><a id="rest_code_5826e40f2053493b935f35189d6fa2ac-1" name="rest_code_5826e40f2053493b935f35189d6fa2ac-1"></a>sudo apt install stlink-tools
 </pre>
 <p>Esperamos a que termine de bajar e instalar, y luego tenemos que hacer un último pasito: indicarle a Arduino IDE que use nuestro nuevo stlink tools. Para ello corremos estos tres comandos. Pero ojo!! La ruta que estamos usando acá tiene que ser la misma que la que usamos antes para borrar el viejo stlink tools del plugin. Si cambiamos algún nombre de directorio en el paso de borrado, acá también deberíamos cambiarlo de la misma forma:</p>
-<pre class="code text"><a id="rest_code_9f12f545cb8444b4844739c3065ffa8b-1" name="rest_code_9f12f545cb8444b4844739c3065ffa8b-1"></a>ln -s /usr/bin/st-flash ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
-<a id="rest_code_9f12f545cb8444b4844739c3065ffa8b-2" name="rest_code_9f12f545cb8444b4844739c3065ffa8b-2"></a>ln -s /usr/bin/st-info ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
-<a id="rest_code_9f12f545cb8444b4844739c3065ffa8b-3" name="rest_code_9f12f545cb8444b4844739c3065ffa8b-3"></a>ln -s /usr/bin/st-util ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
+<pre class="code text"><a id="rest_code_532bd88b8ac8437c9566e7fe06064125-1" name="rest_code_532bd88b8ac8437c9566e7fe06064125-1"></a>ln -s /usr/bin/st-flash ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
+<a id="rest_code_532bd88b8ac8437c9566e7fe06064125-2" name="rest_code_532bd88b8ac8437c9566e7fe06064125-2"></a>ln -s /usr/bin/st-info ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
+<a id="rest_code_532bd88b8ac8437c9566e7fe06064125-3" name="rest_code_532bd88b8ac8437c9566e7fe06064125-3"></a>ln -s /usr/bin/st-util ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
 </pre></section><section id="listo"><h2>Listo!</h2>
 <p>Con estos pasos hechos, ya deberíamos poder hacer un programa de ejemplo en Arduino IDE, y al apretar el botón de play (la flecha hacia la derecha) nuestro programa debería ejecutarse en la placa :)</p>
 <p>Un programa de ejemplo que vi usado en muchos de los tutoriales (desconozco su autor original, si no lo linkearía):</p>
-<pre class="code text"><a id="rest_code_9c6984fce12b4e67acb225bd89f82575-1" name="rest_code_9c6984fce12b4e67acb225bd89f82575-1"></a>const int ledPIN = PC13;
-<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-2" name="rest_code_9c6984fce12b4e67acb225bd89f82575-2"></a>
-<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-3" name="rest_code_9c6984fce12b4e67acb225bd89f82575-3"></a>void setup()
-<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-4" name="rest_code_9c6984fce12b4e67acb225bd89f82575-4"></a>{
-<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-5" name="rest_code_9c6984fce12b4e67acb225bd89f82575-5"></a>  pinMode(ledPIN, OUTPUT);
-<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-6" name="rest_code_9c6984fce12b4e67acb225bd89f82575-6"></a>}
-<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-7" name="rest_code_9c6984fce12b4e67acb225bd89f82575-7"></a>
-<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-8" name="rest_code_9c6984fce12b4e67acb225bd89f82575-8"></a>void loop()
-<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-9" name="rest_code_9c6984fce12b4e67acb225bd89f82575-9"></a>{
-<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-10" name="rest_code_9c6984fce12b4e67acb225bd89f82575-10"></a>  digitalWrite(ledPIN, HIGH);
-<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-11" name="rest_code_9c6984fce12b4e67acb225bd89f82575-11"></a>  delay(1000);
-<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-12" name="rest_code_9c6984fce12b4e67acb225bd89f82575-12"></a>  digitalWrite(ledPIN, LOW);
-<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-13" name="rest_code_9c6984fce12b4e67acb225bd89f82575-13"></a>  delay(1000);
-<a id="rest_code_9c6984fce12b4e67acb225bd89f82575-14" name="rest_code_9c6984fce12b4e67acb225bd89f82575-14"></a>}
+<pre class="code text"><a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-1" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-1"></a>const int ledPIN = PC13;
+<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-2" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-2"></a>
+<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-3" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-3"></a>void setup()
+<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-4" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-4"></a>{
+<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-5" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-5"></a>  pinMode(ledPIN, OUTPUT);
+<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-6" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-6"></a>}
+<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-7" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-7"></a>
+<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-8" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-8"></a>void loop()
+<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-9" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-9"></a>{
+<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-10" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-10"></a>  digitalWrite(ledPIN, HIGH);
+<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-11" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-11"></a>  delay(1000);
+<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-12" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-12"></a>  digitalWrite(ledPIN, LOW);
+<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-13" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-13"></a>  delay(1000);
+<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-14" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-14"></a>}
 </pre>
 <p>Si todo anduvo bien, al dar play el led verde de nuestra placa STM32F103C8 debería titilar exáctamente cada 1 segundo :)</p>
 </section>
@@ -180,24 +153,22 @@ bg-dark
     <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><!--End of body content--><footer id="footer">
-            Contents © 2023         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
-            
+        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2023         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>
-</div>
-
-
-        <script src="../../assets/js/all-nocdn.js"></script><script>
-    baguetteBox.run('div#content', {
-        ignoreClass: 'islink',
-        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
-    </script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-10031421-14"></script><script>
+    </div>
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-10031421-14"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'UA-10031421-14');
-    </script>
+    </script><script src="../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates -->
 </body>
 </html>
