@@ -162,7 +162,7 @@ After the deploy finishes, your website should be ready at ``https://YOUR_RENDER
 Re-deploying new versions
 =========================
 
-Now you can re-attempt any deploy, or manually deploy any version you whish. Just use this menu and everything should work:
+Now you can re-attempt any deploy, or manually deploy any version you wish. Just use this menu and everything should work:
 
 .. thumbnail:: /images/deploy-django-render/web_deploy.png
 
