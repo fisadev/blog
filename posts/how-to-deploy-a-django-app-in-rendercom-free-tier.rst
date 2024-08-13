@@ -152,6 +152,9 @@ Scroll down, to the "Environment Variables" section, and add three environment v
 * ``DJANGO_SUPERUSER_PASSWORD``: here set a password that you want to use for your Django superuser.
 * ``PYTHON_VERSION``: set it to ``3.11.0`` (or newer?).
 
+.. thumbnail:: /images/deploy-django-render/web_env.png
+
+
 And finally, just hit the "Deploy Web Service" button. Your website should be built and deployed in a couple of minutes! :)
 
 After the deploy finishes, your website should be ready at ``https://YOUR_RENDER_WEB_SERVICE_NAME.onrender.com/``
