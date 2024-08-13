@@ -34,11 +34,11 @@ Create a ``requirements.txt`` file in the root of your repository, and add these
 
 .. code-block::
 
-    django==4.2.4
-    dj-database-url==2.0.0
-    psycopg2-binary==2.9.7
-    whitenoise[brotli]==6.5.0
-    gunicorn==21.2.0
+    django==5.1
+    dj-database-url==2.2.0
+    psycopg2-binary==2.9.9
+    whitenoise[brotli]==6.7.0
+    gunicorn==23.0.0
 
 
 If you already have a ``requirements.txt``, just add the new packages to it.
@@ -109,8 +109,8 @@ You can further customize this if you have other settings that should have diffe
 Just remember to never put secret stuff in there, because this will be committed to your repo. 
 If you need to read any secret keys or values, you can use ``os.environ.get('MY_SECRET_THING_XYZ')`` and then define the value for that environment variable in the Render dashboard.
 
-4. Commit everything
-====================
+4. Commit everything!!
+======================
 
 Commit all your new files and modified files, and push the changes to your Github/Gitlab repo!
 
@@ -139,29 +139,30 @@ After you have specified your repo, in the next page you will need to fill out a
 .. thumbnail:: /images/deploy-django-render/web_create_form.png
 
 * Name: important, this will be part of the url of your deployed web app, so use something meaningful.
+* Language: must be ``Python 3``.
+* Branch: the branch of your repo from which the code should be cloned to be deployed. Usually just ``main``.
 * Root Directory: important to leave this empty, so all the scripts are executed from the root directory.
-* Runtime: must be Python.
 * Build command: here you will use your build script: ``bash build.sh``
 * Start command: and here you will use your run script: ``bash run.sh``
+* Instance type: Free works fine for small Django apps.
 
-Scroll down, and click "Create Web Service".
-
-This will automatically attempt a first deploy, that will fail because we are missing a last step :).
-Go to the "Environment" section of your web app inside Render:
-
-.. thumbnail:: /images/deploy-django-render/web_env.png
-
-And add three environment variables (it's important that the names are UPPERCASE):
+Scroll down, to the "Environment Variables" section, and add three environment variables (it's important that the names are UPPERCASE):
 
 * ``DATABASE_URL``: here you need to paste the database url that you copied at step 5. You can go to the database details to copy it again if needed.
 * ``DJANGO_SUPERUSER_PASSWORD``: here set a password that you want to use for your Django superuser.
 * ``PYTHON_VERSION``: set it to ``3.11.0`` (or newer?).
 
-Now you can re-attempt the deploy, just hit this menu and everything should work!:
+And finally, just hit the "Deploy Web Service" button. Your website should be built and deployed in a couple of minutes! :)
+
+After the deploy finishes, your website should be ready at ``https://YOUR_RENDER_WEB_SERVICE_NAME.onrender.com/``
+
+Re-deploying new versions
+=========================
+
+Now you can re-attempt any deploy, or manually deploy any version you whish. Just use this menu and everything should work:
 
 .. thumbnail:: /images/deploy-django-render/web_deploy.png
 
-After the deploy finishes, your website should be ready at ``https://YOUR_RENDER_WEB_SERVICE_NAME.onrender.com/``
 
 What's next?
 ============
