@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width">
 <title>Blog (fisa) (old posts, page 1) | Blog (fisa)</title>
 <link href="assets/css/all.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="http://blog.fisadev.com/index-1.html">
 <link rel="prev" href="." type="text/html">
@@ -60,21 +60,24 @@
 </div>
     </header><div class="e-content entry-content">
     <p>No te gustaría poder ver algo como esto en tu máquina, para saber cuándo alguno de los satélites argentinos anda por el cielo que está arriba tuyo?:</p>
-<a class="reference external image-reference" href="images/satelites-arriba-tuyo/preview.png"><img alt="/images/satelites-arriba-tuyo/preview.thumbnail.png" src="images/satelites-arriba-tuyo/preview.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/preview.png">
+<img alt="/images/satelites-arriba-tuyo/preview.thumbnail.png" src="images/satelites-arriba-tuyo/preview.thumbnail.png"></a>
 <p>Parece algo salido de una película, es re interesante para curiosear, y lo mejor de todo es que es una pavada tenerlo. Está todo disponible con programas y datos libres y gratuitos, y sin tener que hacer casi nada de trabajo. Así que les dejo los pasos para reproducirlo:</p>
 <section id="programa-y-datos"><h2>Programa y datos</h2>
 <p>Primero que nada necesitamos instalar GPredict, el programa que hace todo esto. Se puede bajar desde el sitio oficial: <a class="reference external" href="http://gpredict.oz9aec.net/">http://gpredict.oz9aec.net/</a></p>
 <p>Para quienes estén en Ubuntu, pueden instalarlo desde los repositorios:</p>
-<pre class="code text"><a id="rest_code_d33e27b86a8c4661b80c9d0b487f3a92-1" name="rest_code_d33e27b86a8c4661b80c9d0b487f3a92-1"></a>sudo apt install gpredict
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_97848dc5aa0a4ba4b3a96c1202fcf407-1" name="rest_code_97848dc5aa0a4ba4b3a96c1202fcf407-1" href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/#rest_code_97848dc5aa0a4ba4b3a96c1202fcf407-1"></a>sudo apt install gpredict
+</pre></div>
 <p>Lo abrimos y por primera vez vamos a ver un dashboard un poco diferente al que mostré, con datos de satélites y la estación espacial internacional.
 Vamos a decirle que se baje datos actualizados, así las órbitas que vemos tienen menos error: vamos al menú "Edit" &gt; "Update TLE" &gt; "From network".
 Eso nos va a mostrar una ventana con el progreso de la actualización, solamente tenemos que esperar a que termine (unos segundos) y luego cerrar la ventana.</p>
-<a class="reference external image-reference" href="images/satelites-arriba-tuyo/update.png"><img alt="/images/satelites-arriba-tuyo/update.thumbnail.png" src="images/satelites-arriba-tuyo/update.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/update.png">
+<img alt="/images/satelites-arriba-tuyo/update.thumbnail.png" src="images/satelites-arriba-tuyo/update.thumbnail.png"></a>
 </section><section id="configurar-que-queremos-ver"><h2>Configurar qué queremos ver</h2>
 <p>Ahora solo tenemos que decirle al programa dos cosas: qué queremos ver, y dónde estamos.</p>
 <p>Vamos al menú "File" &gt; "New module", lo que nos va a mostrar una ventana como esta:</p>
-<a class="reference external image-reference" href="images/satelites-arriba-tuyo/new_module.png"><img alt="/images/satelites-arriba-tuyo/new_module.thumbnail.png" src="images/satelites-arriba-tuyo/new_module.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/new_module.png">
+<img alt="/images/satelites-arriba-tuyo/new_module.thumbnail.png" src="images/satelites-arriba-tuyo/new_module.thumbnail.png"></a>
 <p>Rellenamos:</p>
 <ul class="simple">
 <li><p>"Module Name": nombre de nuestro dashboard.</p></li>
@@ -82,21 +85,28 @@ Eso nos va a mostrar una ventana con el progreso de la actualización, solamente
 Los satélites argentinos actuales son los <strong>CUBEBUG, NUSAT y ARSAT (hay varios de cada tipo, NUSAT-3 por ejemplo es el Milanesat de Satellogic!)</strong>.</p></li>
 </ul>
 <p>Guardamos, y terminamos con algo como esta imagen:</p>
-<a class="reference external image-reference" href="images/satelites-arriba-tuyo/initial_dashboard.png"><img alt="/images/satelites-arriba-tuyo/initial_dashboard.thumbnail.png" src="images/satelites-arriba-tuyo/initial_dashboard.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/initial_dashboard.png">
+<img alt="/images/satelites-arriba-tuyo/initial_dashboard.thumbnail.png" src="images/satelites-arriba-tuyo/initial_dashboard.thumbnail.png"></a>
 <p>Todavía no se ve muy lindo, y falta nuestra posición. Pero ya podemos ver la posición actual de los satélites que nos interesaban!</p>
 <p>Agreguemos nuestra posición. Para ello hay que editar el módulo (dashboard), lo hacemos desplegando el menú que se abre con este botón (arriba a la derecha, en la esquina del mapa) y eligiendo la opción "Configure":</p>
-<a class="reference external image-reference" href="images/satelites-arriba-tuyo/menu_button.png"><img alt="/images/satelites-arriba-tuyo/menu_button.thumbnail.png" src="images/satelites-arriba-tuyo/menu_button.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/menu_button.png">
+<img alt="/images/satelites-arriba-tuyo/menu_button.thumbnail.png" src="images/satelites-arriba-tuyo/menu_button.thumbnail.png"></a>
 <p>En la ventana que se nos abre (que es la misma que cuando creamos el dashboard), hacemos click en el botón con un signo "+" que está al lado de "Ground Station".
 Ello nos abre una ventana donde rellenar nuestra posición:</p>
-<a class="reference external image-reference" href="images/satelites-arriba-tuyo/add_ground_station.png"><img alt="/images/satelites-arriba-tuyo/add_ground_station.thumbnail.png" src="images/satelites-arriba-tuyo/add_ground_station.thumbnail.png"></a>
-<a class="reference external image-reference" href="images/satelites-arriba-tuyo/ground_station.png"><img alt="/images/satelites-arriba-tuyo/ground_station.thumbnail.png" src="images/satelites-arriba-tuyo/ground_station.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/add_ground_station.png">
+<img alt="/images/satelites-arriba-tuyo/add_ground_station.thumbnail.png" src="images/satelites-arriba-tuyo/add_ground_station.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/ground_station.png">
+<img alt="/images/satelites-arriba-tuyo/ground_station.thumbnail.png" src="images/satelites-arriba-tuyo/ground_station.thumbnail.png"></a>
 <p>Lo importante a rellenar es "Name", "Latitude" y "Longitude" (datos que podemos obtener con el gps del celular, usando aplicaciones <a class="reference external" href="https://play.google.com/store/apps/details?id=com.wered.sensorsmultitool">como esta</a>). "Altitud" también es útil, pero no super importante.</p>
 <p>Guardamos la ubicación, y ahora en la misma pantalla de edición del dashboard, vamos a hacer un último paso para que se vea un poco más lindo (al menos a mi gusto, jeje).
 Hacemos click en el botón "Properties". Esto nos despliega una ventana, en la que solo nos interesa cambiar el valor de "Select layout":</p>
-<a class="reference external image-reference" href="images/satelites-arriba-tuyo/edit_properties.png"><img alt="/images/satelites-arriba-tuyo/edit_properties.thumbnail.png" src="images/satelites-arriba-tuyo/edit_properties.thumbnail.png"></a>
-<a class="reference external image-reference" href="images/satelites-arriba-tuyo/properties.png"><img alt="/images/satelites-arriba-tuyo/properties.thumbnail.png" src="images/satelites-arriba-tuyo/properties.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/edit_properties.png">
+<img alt="/images/satelites-arriba-tuyo/edit_properties.thumbnail.png" src="images/satelites-arriba-tuyo/edit_properties.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/properties.png">
+<img alt="/images/satelites-arriba-tuyo/properties.thumbnail.png" src="images/satelites-arriba-tuyo/properties.thumbnail.png"></a>
 <p>Elegimos "Map, table, polar and single sat (wide)". Guardamos todo, y listo! Ya tenemos nuestro super dashboard satelital :)</p>
-<a class="reference external image-reference" href="images/satelites-arriba-tuyo/todo.png"><img alt="/images/satelites-arriba-tuyo/todo.thumbnail.png" src="images/satelites-arriba-tuyo/todo.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/satelites-arriba-tuyo/todo.png">
+<img alt="/images/satelites-arriba-tuyo/todo.thumbnail.png" src="images/satelites-arriba-tuyo/todo.thumbnail.png"></a>
 <p>Podés dejar de leer en este punto, o si te interesa saber un poco más, debajo explico qué son las cosas más importantes que se ven en el dashboard.</p>
 </section><section id="que-estamos-viendo-en-el-mapa"><h2>Qué estamos viendo en el mapa?</h2>
 <p>En el mapa se ven las posiciones de los satélites, y el área de la tierra que ellos "cubren". Imaginate una pelota muy grande (o un planeta, jeje): si estás muy cerca ves poco, pero si te alejás, ves mucho más.
@@ -188,25 +198,27 @@ The script is somewhat dumb and doesn't detect the drivers we installed on the p
 Later versions won't work.
 Ubuntu 16.04 ships with gcc 5.4.</p>
 <p>But we can have both versions side by side, and trick CUDA to use the older versions with just some simple symlinks (thanks to <a class="reference external" href="https://twitter.com/_zzzoom_/status/765720104868904964">charlie</a> for the tip, the old solution was far more complicated).</p>
-<pre class="code bash"><a id="rest_code_224528d982f14f9dac3f4d8aef423c7e-1" name="rest_code_224528d982f14f9dac3f4d8aef423c7e-1"></a>sudo apt-get install gcc-4.9 g++-4.9
-<a id="rest_code_224528d982f14f9dac3f4d8aef423c7e-2" name="rest_code_224528d982f14f9dac3f4d8aef423c7e-2"></a>sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
-<a id="rest_code_224528d982f14f9dac3f4d8aef423c7e-3" name="rest_code_224528d982f14f9dac3f4d8aef423c7e-3"></a>sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
-<a id="rest_code_224528d982f14f9dac3f4d8aef423c7e-4" name="rest_code_224528d982f14f9dac3f4d8aef423c7e-4"></a>
-<a id="rest_code_224528d982f14f9dac3f4d8aef423c7e-5" name="rest_code_224528d982f14f9dac3f4d8aef423c7e-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
-<a id="rest_code_224528d982f14f9dac3f4d8aef423c7e-6" name="rest_code_224528d982f14f9dac3f4d8aef423c7e-6"></a><span class="nb">echo</span> -e <span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span> &gt;&gt; ~/.theanorc
-</pre></section><section id="testing"><h2>4. Testing</h2>
+<div class="code"><pre class="code bash"><a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-1" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-1" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-1"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>gcc-4.9<span class="w"> </span>g++-4.9
+<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-2" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-2" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-2"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/gcc-4.9<span class="w">  </span>/usr/local/cuda/bin/gcc
+<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-3" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-3" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-3"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/g++-4.9<span class="w">  </span>/usr/local/cuda/bin/g++
+<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-4" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-4" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-4"></a>
+<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-5" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-5" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
+<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-6" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-6" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-6"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.theanorc
+</pre></div>
+</section><section id="testing"><h2>4. Testing</h2>
 <p>Done! You should be able to run Theano things (including Keras neural networks) using your gpu.</p>
 <p>A simple way to check if that's true, is to run the <code class="docutils literal">test_gpu.py</code> script from the example repo.
 But don't just "run" it.
 You need to tell Theano "hey, I want you to use my shiny cuda gpu".
 To achieve that, run the script like this (inside your virtualenv):</p>
-<pre class="code bash"><a id="rest_code_7bbfa04c5d434523898f5f3089b52fe2-1" name="rest_code_7bbfa04c5d434523898f5f3089b52fe2-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> python test_gpu.py
-</pre>
+<div class="code"><pre class="code bash"><a id="rest_code_40dd64eed89745a89680f9936d295a8f-1" name="rest_code_40dd64eed89745a89680f9936d295a8f-1" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_40dd64eed89745a89680f9936d295a8f-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span><span class="w"> </span>python<span class="w"> </span>test_gpu.py
+</pre></div>
 <p>If everything is working, it should quickly run and output something which ends with: <code class="docutils literal">Used the gpu</code>.
 If instead it takes a long time (~1 minute) and ends with <code class="docutils literal">Used the cpu</code>, then something is not working.</p>
 <p>If that worked, then you can try the full example and play a little with it (should be able to run all lines without errors):</p>
-<pre class="code bash"><a id="rest_code_20a534a1545249cc824d15924f9fb575-1" name="rest_code_20a534a1545249cc824d15924f9fb575-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> ipython notebook
-</pre></section>
+<div class="code"><pre class="code bash"><a id="rest_code_235cbfdf50304184afc44b2c9c97c6e1-1" name="rest_code_235cbfdf50304184afc44b2c9c97c6e1-1" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_235cbfdf50304184afc44b2c9c97c6e1-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span><span class="w"> </span>ipython<span class="w"> </span>notebook
+</pre></div>
+</section>
 </div>
     </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/suspicious-logins/" class="u-url">Suspicious logins</a></h1>
         <div class="metadata">
@@ -225,7 +237,8 @@ If instead it takes a long time (~1 minute) and ends with <code class="docutils 
 <p>Imagine not having used those extra accounts in years. And even more: not having used them <strong>ever</strong>. Not a single email sent, not a single external app connected to them, not any login to other sites, etc.</p>
 <p>One day you decide to start using a password manager. And an open source one, which stores the data encrypted using gpg. You even create a new gpg key to encrypt them, to be sure it's safe. You sync your encrypted data into an online private git repo, because nobody could decrypt the data anyway.</p>
 <p>Two days later, you receive an email from google:</p>
-<a class="reference external image-reference" href="images/suspicious-logins/someone_has_your_password.png"><img alt="/images/suspicious-logins/someone_has_your_password.thumbnail.png" src="images/suspicious-logins/someone_has_your_password.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/suspicious-logins/someone_has_your_password.png">
+<img alt="/images/suspicious-logins/someone_has_your_password.thumbnail.png" src="images/suspicious-logins/someone_has_your_password.thumbnail.png"></a>
 <p><strong>PANIC</strong></p>
 <p>(worth mentioning: I'm from Argentina, the access was from the US)</p>
 <p>After some investigation, you discover:</p>
@@ -242,24 +255,26 @@ If instead it takes a long time (~1 minute) and ends with <code class="docutils 
 <p>How could someone have gained access to that account? How in hell can someone know you own that account, and he can use that "username" as password for it?</p>
 <p>You start to recall... There is only <strong>one</strong> place were you have references to that account: old emails you received in your inbox, when you created the account. <strong>Your inbox</strong>.</p>
 <p>Think about it: Google is telling you "hey, someone knows your account and password", and you know that the account name was only present in old emails at your inbox, while the password was only written down in your trusty new password manager.</p>
-<a class="reference external image-reference" href="images/suspicious-logins/scared.jpg"><img alt="/images/suspicious-logins/scared.thumbnail.jpg" src="images/suspicious-logins/scared.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/suspicious-logins/scared.jpg">
+<img alt="/images/suspicious-logins/scared.thumbnail.jpg" src="images/suspicious-logins/scared.thumbnail.jpg"></a>
 <p>NSA, is that you? Or a random hacker who really wants to steal my data? What valuable data can I have? Hell, I need to get everyone to revoke my credentials everywhere, now.</p>
 </section><section id="the-boring-story"><h2>The "boring" story</h2>
 <p>But no. There is always a boring explanation, something simpler, that doesn't look like a CSI Cyber episode. In this case? something that looks like a bug on some internal Google services.</p>
 <p>I discovered this almost by chance, while writting down a super comprehensive explanation of the things I was seeing (a 5x longer version of the interesting story). I realized I had both accounts added to my main email account, using gmail's feature to access emails from multiple sources. This feature:</p>
-<a class="reference external image-reference" href="images/suspicious-logins/gmail_feature.png"><img alt="/images/suspicious-logins/gmail_feature.thumbnail.png" src="images/suspicious-logins/gmail_feature.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/suspicious-logins/gmail_feature.png">
+<img alt="/images/suspicious-logins/gmail_feature.thumbnail.png" src="images/suspicious-logins/gmail_feature.thumbnail.png"></a>
 <p>I thought: "oh! I forgot to update those settings after changing the passwords". And so I opened gmail, went to the settings, and saw the big red errors telling me that gmail wasn't able to connect to those accounts. Which was to be expected, as I changed the passwords. But something clicked inside my head: since when is gmail unable to check those accounts? what was the error?...</p>
 <p>And there it was, the boring truth in all its boringness: gmail wasn't able to access the accounts from the exact same moment the "suspicious logins" happened.</p>
 <p>Some might think "oh, that's to be expected as well. Google must have blocked the account as soon as the security incident was detected". But no. This feature doesn't check email every second. For my accounts, it's doing it once every day, more or less. And the failed attempt was at the exact same time the "suspicious login" happened. In <strong>both</strong> accounts. Different times each one. Too much coincidence.</p>
 <p>I wasn't able to see the original error for one of the accounts, too many login errors since it because of the password change, and it only stores the last 5 of them. But for the other account the first error was still there, and it was different to the password related ones.</p>
 <p>The errors after the password changes were:</p>
-<pre class="code text"><a id="rest_code_108a526f773749cbad6405be6f72ab45-1" name="rest_code_108a526f773749cbad6405be6f72ab45-1"></a>Authentication error.
-<a id="rest_code_108a526f773749cbad6405be6f72ab45-2" name="rest_code_108a526f773749cbad6405be6f72ab45-2"></a>Server returned error "[AUTH] Username and password not accepted."
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_50f7f17ee4254dfc9bc266aa12cd1e2a-1" name="rest_code_50f7f17ee4254dfc9bc266aa12cd1e2a-1" href="posts/suspicious-logins/#rest_code_50f7f17ee4254dfc9bc266aa12cd1e2a-1"></a>Authentication error.
+<a id="rest_code_50f7f17ee4254dfc9bc266aa12cd1e2a-2" name="rest_code_50f7f17ee4254dfc9bc266aa12cd1e2a-2" href="posts/suspicious-logins/#rest_code_50f7f17ee4254dfc9bc266aa12cd1e2a-2"></a>Server returned error "[AUTH] Username and password not accepted."
+</pre></div>
 <p>But the error at the same time than the suspicious login was:</p>
-<pre class="code text"><a id="rest_code_d3642d935e2d4b1b847d6dd30230b0b5-1" name="rest_code_d3642d935e2d4b1b847d6dd30230b0b5-1"></a>Authentication error.
-<a id="rest_code_d3642d935e2d4b1b847d6dd30230b0b5-2" name="rest_code_d3642d935e2d4b1b847d6dd30230b0b5-2"></a>Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_018c82b468d04846a1ef3105076dcc0f-1" name="rest_code_018c82b468d04846a1ef3105076dcc0f-1" href="posts/suspicious-logins/#rest_code_018c82b468d04846a1ef3105076dcc0f-1"></a>Authentication error.
+<a id="rest_code_018c82b468d04846a1ef3105076dcc0f-2" name="rest_code_018c82b468d04846a1ef3105076dcc0f-2" href="posts/suspicious-logins/#rest_code_018c82b468d04846a1ef3105076dcc0f-2"></a>Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
+</pre></div>
 <p>The linked support page isn't very helpful, but if you google the error you will find some people having the same issue: after years of not using an account, the login on their pop3 client starts to fail. Maybe something changed in google's security policies, maybe it's related to new terms of service, or required security checkups. But the thing is: logins fail until you login from a browser and tweak some stuff (enabling less secure apps, etc).</p>
 <p>That itself isn't the bug. The bug is flagging those pop3 logins which came <strong>from inside google</strong> (it's a gmail feature, running on their servers), as if they were "suspicious logins". They are not suspicious, they are comming from inside google, they are being made from a google server trying to execute a gmail feature.</p>
 <p>Finally, how sure am I that the logins came from inside google? Well, a traceroute to the login ip took me to this host: <code class="docutils literal"><span class="pre">mail-pa0-x218.google.com</span></code>.</p>
@@ -275,7 +290,7 @@ If instead it takes a long time (~1 minute) and ends with <code class="docutils 
 <li class="previous">
                 <a href="." rel="prev">Newer posts</a>
             </li>
-        </ul></nav><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2023         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        </ul></nav><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2024         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>

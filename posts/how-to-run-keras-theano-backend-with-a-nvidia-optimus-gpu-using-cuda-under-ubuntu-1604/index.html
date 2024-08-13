@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width">
 <title>How to run Keras (Theano backend) with a Nvidia Optimus gpu using CUDA, under Ubuntu 16.04 | Blog (fisa)</title>
 <link href="../../assets/css/all.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
 <link rel="canonical" href="http://blog.fisadev.com/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Juan Pedro Fisanotti">
@@ -124,25 +124,27 @@ The script is somewhat dumb and doesn't detect the drivers we installed on the p
 Later versions won't work.
 Ubuntu 16.04 ships with gcc 5.4.</p>
 <p>But we can have both versions side by side, and trick CUDA to use the older versions with just some simple symlinks (thanks to <a class="reference external" href="https://twitter.com/_zzzoom_/status/765720104868904964">charlie</a> for the tip, the old solution was far more complicated).</p>
-<pre class="code bash"><a id="rest_code_224528d982f14f9dac3f4d8aef423c7e-1" name="rest_code_224528d982f14f9dac3f4d8aef423c7e-1"></a>sudo apt-get install gcc-4.9 g++-4.9
-<a id="rest_code_224528d982f14f9dac3f4d8aef423c7e-2" name="rest_code_224528d982f14f9dac3f4d8aef423c7e-2"></a>sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
-<a id="rest_code_224528d982f14f9dac3f4d8aef423c7e-3" name="rest_code_224528d982f14f9dac3f4d8aef423c7e-3"></a>sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
-<a id="rest_code_224528d982f14f9dac3f4d8aef423c7e-4" name="rest_code_224528d982f14f9dac3f4d8aef423c7e-4"></a>
-<a id="rest_code_224528d982f14f9dac3f4d8aef423c7e-5" name="rest_code_224528d982f14f9dac3f4d8aef423c7e-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
-<a id="rest_code_224528d982f14f9dac3f4d8aef423c7e-6" name="rest_code_224528d982f14f9dac3f4d8aef423c7e-6"></a><span class="nb">echo</span> -e <span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span> &gt;&gt; ~/.theanorc
-</pre></section><section id="testing"><h2>4. Testing</h2>
+<div class="code"><pre class="code bash"><a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-1" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-1" href="#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-1"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>gcc-4.9<span class="w"> </span>g++-4.9
+<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-2" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-2" href="#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-2"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/gcc-4.9<span class="w">  </span>/usr/local/cuda/bin/gcc
+<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-3" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-3" href="#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-3"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/g++-4.9<span class="w">  </span>/usr/local/cuda/bin/g++
+<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-4" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-4" href="#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-4"></a>
+<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-5" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-5" href="#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
+<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-6" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-6" href="#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-6"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.theanorc
+</pre></div>
+</section><section id="testing"><h2>4. Testing</h2>
 <p>Done! You should be able to run Theano things (including Keras neural networks) using your gpu.</p>
 <p>A simple way to check if that's true, is to run the <code class="docutils literal">test_gpu.py</code> script from the example repo.
 But don't just "run" it.
 You need to tell Theano "hey, I want you to use my shiny cuda gpu".
 To achieve that, run the script like this (inside your virtualenv):</p>
-<pre class="code bash"><a id="rest_code_7bbfa04c5d434523898f5f3089b52fe2-1" name="rest_code_7bbfa04c5d434523898f5f3089b52fe2-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> python test_gpu.py
-</pre>
+<div class="code"><pre class="code bash"><a id="rest_code_40dd64eed89745a89680f9936d295a8f-1" name="rest_code_40dd64eed89745a89680f9936d295a8f-1" href="#rest_code_40dd64eed89745a89680f9936d295a8f-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span><span class="w"> </span>python<span class="w"> </span>test_gpu.py
+</pre></div>
 <p>If everything is working, it should quickly run and output something which ends with: <code class="docutils literal">Used the gpu</code>.
 If instead it takes a long time (~1 minute) and ends with <code class="docutils literal">Used the cpu</code>, then something is not working.</p>
 <p>If that worked, then you can try the full example and play a little with it (should be able to run all lines without errors):</p>
-<pre class="code bash"><a id="rest_code_20a534a1545249cc824d15924f9fb575-1" name="rest_code_20a534a1545249cc824d15924f9fb575-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span> ipython notebook
-</pre></section>
+<div class="code"><pre class="code bash"><a id="rest_code_235cbfdf50304184afc44b2c9c97c6e1-1" name="rest_code_235cbfdf50304184afc44b2c9c97c6e1-1" href="#rest_code_235cbfdf50304184afc44b2c9c97c6e1-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span><span class="w"> </span>ipython<span class="w"> </span>notebook
+</pre></div>
+</section>
 </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
 <li><a class="tag p-category" href="../../categories/cuda/" rel="tag">cuda</a></li>
@@ -181,7 +183,7 @@ If instead it takes a long time (~1 minute) and ends with <code class="docutils 
     <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2023         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2024         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>

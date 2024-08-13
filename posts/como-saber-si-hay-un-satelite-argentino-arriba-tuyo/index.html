@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width">
 <title>Cómo saber si hay un satélite argentino arriba tuyo | Blog (fisa)</title>
 <link href="../../assets/css/all.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
 <link rel="canonical" href="http://blog.fisadev.com/posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Juan Pedro Fisanotti">
@@ -16,7 +16,9 @@
 <meta property="og:url" content="http://blog.fisadev.com/posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/">
 <meta property="og:description" content="No te gustaría poder ver algo como esto en tu máquina, para saber cuándo alguno de los satélites argentinos anda por el cielo que está arriba tuyo?:
 
-Parece algo salido de una película, es re interesa">
+
+
+Parece algo salido de una película, es re intere">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2017-09-06T20:14:38-03:00">
 </head>
@@ -69,21 +71,24 @@ Parece algo salido de una película, es re interesa">
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
     <p>No te gustaría poder ver algo como esto en tu máquina, para saber cuándo alguno de los satélites argentinos anda por el cielo que está arriba tuyo?:</p>
-<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/preview.png"><img alt="/images/satelites-arriba-tuyo/preview.thumbnail.png" src="../../images/satelites-arriba-tuyo/preview.thumbnail.png"></a>
+<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/preview.png">
+<img alt="/images/satelites-arriba-tuyo/preview.thumbnail.png" src="../../images/satelites-arriba-tuyo/preview.thumbnail.png"></a>
 <p>Parece algo salido de una película, es re interesante para curiosear, y lo mejor de todo es que es una pavada tenerlo. Está todo disponible con programas y datos libres y gratuitos, y sin tener que hacer casi nada de trabajo. Así que les dejo los pasos para reproducirlo:</p>
 <section id="programa-y-datos"><h2>Programa y datos</h2>
 <p>Primero que nada necesitamos instalar GPredict, el programa que hace todo esto. Se puede bajar desde el sitio oficial: <a class="reference external" href="http://gpredict.oz9aec.net/">http://gpredict.oz9aec.net/</a></p>
 <p>Para quienes estén en Ubuntu, pueden instalarlo desde los repositorios:</p>
-<pre class="code text"><a id="rest_code_d33e27b86a8c4661b80c9d0b487f3a92-1" name="rest_code_d33e27b86a8c4661b80c9d0b487f3a92-1"></a>sudo apt install gpredict
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_97848dc5aa0a4ba4b3a96c1202fcf407-1" name="rest_code_97848dc5aa0a4ba4b3a96c1202fcf407-1" href="#rest_code_97848dc5aa0a4ba4b3a96c1202fcf407-1"></a>sudo apt install gpredict
+</pre></div>
 <p>Lo abrimos y por primera vez vamos a ver un dashboard un poco diferente al que mostré, con datos de satélites y la estación espacial internacional.
 Vamos a decirle que se baje datos actualizados, así las órbitas que vemos tienen menos error: vamos al menú "Edit" &gt; "Update TLE" &gt; "From network".
 Eso nos va a mostrar una ventana con el progreso de la actualización, solamente tenemos que esperar a que termine (unos segundos) y luego cerrar la ventana.</p>
-<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/update.png"><img alt="/images/satelites-arriba-tuyo/update.thumbnail.png" src="../../images/satelites-arriba-tuyo/update.thumbnail.png"></a>
+<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/update.png">
+<img alt="/images/satelites-arriba-tuyo/update.thumbnail.png" src="../../images/satelites-arriba-tuyo/update.thumbnail.png"></a>
 </section><section id="configurar-que-queremos-ver"><h2>Configurar qué queremos ver</h2>
 <p>Ahora solo tenemos que decirle al programa dos cosas: qué queremos ver, y dónde estamos.</p>
 <p>Vamos al menú "File" &gt; "New module", lo que nos va a mostrar una ventana como esta:</p>
-<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/new_module.png"><img alt="/images/satelites-arriba-tuyo/new_module.thumbnail.png" src="../../images/satelites-arriba-tuyo/new_module.thumbnail.png"></a>
+<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/new_module.png">
+<img alt="/images/satelites-arriba-tuyo/new_module.thumbnail.png" src="../../images/satelites-arriba-tuyo/new_module.thumbnail.png"></a>
 <p>Rellenamos:</p>
 <ul class="simple">
 <li><p>"Module Name": nombre de nuestro dashboard.</p></li>
@@ -91,21 +96,28 @@ Eso nos va a mostrar una ventana con el progreso de la actualización, solamente
 Los satélites argentinos actuales son los <strong>CUBEBUG, NUSAT y ARSAT (hay varios de cada tipo, NUSAT-3 por ejemplo es el Milanesat de Satellogic!)</strong>.</p></li>
 </ul>
 <p>Guardamos, y terminamos con algo como esta imagen:</p>
-<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/initial_dashboard.png"><img alt="/images/satelites-arriba-tuyo/initial_dashboard.thumbnail.png" src="../../images/satelites-arriba-tuyo/initial_dashboard.thumbnail.png"></a>
+<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/initial_dashboard.png">
+<img alt="/images/satelites-arriba-tuyo/initial_dashboard.thumbnail.png" src="../../images/satelites-arriba-tuyo/initial_dashboard.thumbnail.png"></a>
 <p>Todavía no se ve muy lindo, y falta nuestra posición. Pero ya podemos ver la posición actual de los satélites que nos interesaban!</p>
 <p>Agreguemos nuestra posición. Para ello hay que editar el módulo (dashboard), lo hacemos desplegando el menú que se abre con este botón (arriba a la derecha, en la esquina del mapa) y eligiendo la opción "Configure":</p>
-<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/menu_button.png"><img alt="/images/satelites-arriba-tuyo/menu_button.thumbnail.png" src="../../images/satelites-arriba-tuyo/menu_button.thumbnail.png"></a>
+<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/menu_button.png">
+<img alt="/images/satelites-arriba-tuyo/menu_button.thumbnail.png" src="../../images/satelites-arriba-tuyo/menu_button.thumbnail.png"></a>
 <p>En la ventana que se nos abre (que es la misma que cuando creamos el dashboard), hacemos click en el botón con un signo "+" que está al lado de "Ground Station".
 Ello nos abre una ventana donde rellenar nuestra posición:</p>
-<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/add_ground_station.png"><img alt="/images/satelites-arriba-tuyo/add_ground_station.thumbnail.png" src="../../images/satelites-arriba-tuyo/add_ground_station.thumbnail.png"></a>
-<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/ground_station.png"><img alt="/images/satelites-arriba-tuyo/ground_station.thumbnail.png" src="../../images/satelites-arriba-tuyo/ground_station.thumbnail.png"></a>
+<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/add_ground_station.png">
+<img alt="/images/satelites-arriba-tuyo/add_ground_station.thumbnail.png" src="../../images/satelites-arriba-tuyo/add_ground_station.thumbnail.png"></a>
+<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/ground_station.png">
+<img alt="/images/satelites-arriba-tuyo/ground_station.thumbnail.png" src="../../images/satelites-arriba-tuyo/ground_station.thumbnail.png"></a>
 <p>Lo importante a rellenar es "Name", "Latitude" y "Longitude" (datos que podemos obtener con el gps del celular, usando aplicaciones <a class="reference external" href="https://play.google.com/store/apps/details?id=com.wered.sensorsmultitool">como esta</a>). "Altitud" también es útil, pero no super importante.</p>
 <p>Guardamos la ubicación, y ahora en la misma pantalla de edición del dashboard, vamos a hacer un último paso para que se vea un poco más lindo (al menos a mi gusto, jeje).
 Hacemos click en el botón "Properties". Esto nos despliega una ventana, en la que solo nos interesa cambiar el valor de "Select layout":</p>
-<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/edit_properties.png"><img alt="/images/satelites-arriba-tuyo/edit_properties.thumbnail.png" src="../../images/satelites-arriba-tuyo/edit_properties.thumbnail.png"></a>
-<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/properties.png"><img alt="/images/satelites-arriba-tuyo/properties.thumbnail.png" src="../../images/satelites-arriba-tuyo/properties.thumbnail.png"></a>
+<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/edit_properties.png">
+<img alt="/images/satelites-arriba-tuyo/edit_properties.thumbnail.png" src="../../images/satelites-arriba-tuyo/edit_properties.thumbnail.png"></a>
+<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/properties.png">
+<img alt="/images/satelites-arriba-tuyo/properties.thumbnail.png" src="../../images/satelites-arriba-tuyo/properties.thumbnail.png"></a>
 <p>Elegimos "Map, table, polar and single sat (wide)". Guardamos todo, y listo! Ya tenemos nuestro super dashboard satelital :)</p>
-<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/todo.png"><img alt="/images/satelites-arriba-tuyo/todo.thumbnail.png" src="../../images/satelites-arriba-tuyo/todo.thumbnail.png"></a>
+<a class="reference external image-reference" href="../../images/satelites-arriba-tuyo/todo.png">
+<img alt="/images/satelites-arriba-tuyo/todo.thumbnail.png" src="../../images/satelites-arriba-tuyo/todo.thumbnail.png"></a>
 <p>Podés dejar de leer en este punto, o si te interesa saber un poco más, debajo explico qué son las cosas más importantes que se ven en el dashboard.</p>
 </section><section id="que-estamos-viendo-en-el-mapa"><h2>Qué estamos viendo en el mapa?</h2>
 <p>En el mapa se ven las posiciones de los satélites, y el área de la tierra que ellos "cubren". Imaginate una pelota muy grande (o un planeta, jeje): si estás muy cerca ves poco, pero si te alejás, ves mucho más.
@@ -163,7 +175,7 @@ Eso se ve en el campo "Next Event".</p>
     <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2023         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2024         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>

@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width">
 <title>The simplest Virtualenv tutorial (Python 3) | Blog (fisa)</title>
 <link href="../../assets/css/all.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
 <link rel="canonical" href="http://blog.fisadev.com/posts/virtualenvs-simplest-tutorial/">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Juan Pedro Fisanotti">
@@ -73,22 +73,22 @@
 <p>Python 3.3 or newer (older versions do have virtualenvs, but they are used in a slightly different way).</p>
 </section><section id="how-do-i-create-a-new-virtualenv"><h2>How do I create a new virtualenv?</h2>
 <p>Open a terminal, and run this:</p>
-<pre class="code bash"><a id="rest_code_3f75187217334bc6a2d09dcdebf2fe28-1" name="rest_code_3f75187217334bc6a2d09dcdebf2fe28-1"></a>python3 -m venv PATH_TO_YOUR_VIRTUALENV
-</pre>
+<div class="code"><pre class="code bash"><a id="rest_code_548ce4f6b92a4377975461275e323751-1" name="rest_code_548ce4f6b92a4377975461275e323751-1" href="#rest_code_548ce4f6b92a4377975461275e323751-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>PATH_TO_YOUR_VIRTUALENV
+</pre></div>
 <p>The path it receives as a paramenter, is the location for a folder that will be created and will contain your virtualenv inside. It will only contain the virtualenv, <strong>don't</strong> add any files inside that folder. Treat it like a "system" folder.</p>
 <p>Example:</p>
-<pre class="code bash"><a id="rest_code_43aeb42795f44d928f6b49f63d18538e-1" name="rest_code_43aeb42795f44d928f6b49f63d18538e-1"></a>python3 -m venv /home/fisa/projects/my_blog/venv
-</pre>
+<div class="code"><pre class="code bash"><a id="rest_code_f58f65285d9541cab7ee94877c4f98c7-1" name="rest_code_f58f65285d9541cab7ee94877c4f98c7-1" href="#rest_code_f58f65285d9541cab7ee94877c4f98c7-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/home/fisa/projects/my_blog/venv
+</pre></div>
 <p>(If you are using Windows, the path would instead look something like this: <code class="docutils literal"><span class="pre">C:\Users\fisa\projects\my_blog\venv</span></code>)</p>
 </section><section id="how-do-i-use-the-virtualenv"><h2>How do I use the virtualenv?</h2>
 <p>Each time you open a new terminal (console) to work in your project, you need to <strong>activate</strong> the virtualenv. The command to activate the virtualenv is different for Linux/MacOS vs Windows.</p>
 <p>On Linux and MacOS, run:</p>
-<pre class="code bash"><a id="rest_code_d29020cb6a4e4e7f994704f7fd7c1e2e-1" name="rest_code_d29020cb6a4e4e7f994704f7fd7c1e2e-1"></a><span class="nb">source</span> PATH_TO_YOUR_VIRTUALENV/bin/activate
-</pre>
+<div class="code"><pre class="code bash"><a id="rest_code_e35c4420c50d43cab0d01dc4dc011e2a-1" name="rest_code_e35c4420c50d43cab0d01dc4dc011e2a-1" href="#rest_code_e35c4420c50d43cab0d01dc4dc011e2a-1"></a><span class="nb">source</span><span class="w"> </span>PATH_TO_YOUR_VIRTUALENV/bin/activate
+</pre></div>
 <p>(if you are using fish shell, replace <code class="docutils literal">activate</code> with <code class="docutils literal">activate.fish</code> at the end of that command)</p>
 <p>On Windows:</p>
-<pre class="code text"><a id="rest_code_0f22d3a7a4d94be6ae287e405db8dddd-1" name="rest_code_0f22d3a7a4d94be6ae287e405db8dddd-1"></a>PATH_TO_YOUR_VIRTUALENV\Scripts\activate.bat
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_85f9b2ed6c04441db30918a6caef7b4b-1" name="rest_code_85f9b2ed6c04441db30918a6caef7b4b-1" href="#rest_code_85f9b2ed6c04441db30918a6caef7b4b-1"></a>PATH_TO_YOUR_VIRTUALENV\Scripts\activate.bat
+</pre></div>
 <p>From now on, the prompt of the terminal should say something like <code class="docutils literal">(venv)</code> at the begining (with the name of your virtualenv). This indicates that you are working inside your virtualenv.</p>
 <p>With your virtualenv activated, if you now install libs with pip (example: <code class="docutils literal">pip install pandas</code>), they will be installed inside the virtualenv. If you run a program inside that terminal, it will be able to import any libs installed in the virtualenv.</p>
 </section><section id="that-s-it"><h2>That's it?</h2>
@@ -130,7 +130,7 @@
     <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2023         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2024         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>

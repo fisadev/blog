@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width">
 <title>Blog (fisa) | Blog (fisa)</title>
 <link href="assets/css/all.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="http://blog.fisadev.com/">
 <link rel="next" href="index-1.html" type="text/html">
@@ -73,92 +73,97 @@ This also doesn't cover how to do a Django app, it assumes you already have a wo
 <p>Just go to <a class="reference external" href="http://render.com">Render.com</a>, create a user (if you don't already have one), activate your account, and sign in to the <a class="reference external" href="https://dashboard.render.com/">Dashboard</a>.</p>
 </section><section id="defining-dependencies"><h2>1: Defining dependencies</h2>
 <p>Create a <code class="docutils literal">requirements.txt</code> file in the root of your repository, and add these dependencies in it:</p>
-<pre class="code text"><a id="rest_code_587464f0e775453bb9065df877e7eb5d-1" name="rest_code_587464f0e775453bb9065df877e7eb5d-1"></a>django==4.2.4
-<a id="rest_code_587464f0e775453bb9065df877e7eb5d-2" name="rest_code_587464f0e775453bb9065df877e7eb5d-2"></a>dj-database-url==2.0.0
-<a id="rest_code_587464f0e775453bb9065df877e7eb5d-3" name="rest_code_587464f0e775453bb9065df877e7eb5d-3"></a>psycopg2-binary==2.9.7
-<a id="rest_code_587464f0e775453bb9065df877e7eb5d-4" name="rest_code_587464f0e775453bb9065df877e7eb5d-4"></a>whitenoise[brotli]==6.5.0
-<a id="rest_code_587464f0e775453bb9065df877e7eb5d-5" name="rest_code_587464f0e775453bb9065df877e7eb5d-5"></a>gunicorn==21.2.0
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_36344893f270421cb717d6cbf5971b2a-1" name="rest_code_36344893f270421cb717d6cbf5971b2a-1" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_36344893f270421cb717d6cbf5971b2a-1"></a>django==5.1
+<a id="rest_code_36344893f270421cb717d6cbf5971b2a-2" name="rest_code_36344893f270421cb717d6cbf5971b2a-2" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_36344893f270421cb717d6cbf5971b2a-2"></a>dj-database-url==2.2.0
+<a id="rest_code_36344893f270421cb717d6cbf5971b2a-3" name="rest_code_36344893f270421cb717d6cbf5971b2a-3" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_36344893f270421cb717d6cbf5971b2a-3"></a>psycopg2-binary==2.9.9
+<a id="rest_code_36344893f270421cb717d6cbf5971b2a-4" name="rest_code_36344893f270421cb717d6cbf5971b2a-4" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_36344893f270421cb717d6cbf5971b2a-4"></a>whitenoise[brotli]==6.7.0
+<a id="rest_code_36344893f270421cb717d6cbf5971b2a-5" name="rest_code_36344893f270421cb717d6cbf5971b2a-5" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_36344893f270421cb717d6cbf5971b2a-5"></a>gunicorn==23.0.0
+</pre></div>
 <p>If you already have a <code class="docutils literal">requirements.txt</code>, just add the new packages to it.</p>
 </section><section id="creating-deploy-scripts"><h2>2: Creating deploy scripts</h2>
 <p>You will need two scripts: one that builds the web app server (installs dependencies, updates the database structure, etc), and another one that runs your web app.
 Render will use these two scripts when you want to deploy your web app.</p>
 <p>Create a <code class="docutils literal">build.sh</code> file in the root of your repository, with these contents:</p>
-<pre class="code bash"><a id="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-1" name="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-1"></a><span class="c1"># exit on error</span>
-<a id="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-2" name="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-2"></a><span class="nb">set</span> -o errexit
-<a id="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-3" name="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-3"></a>
-<a id="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-4" name="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-4"></a>pip install -r ./requirements.txt
-<a id="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-5" name="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-5"></a>
-<a id="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-6" name="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-6"></a><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="k">$(</span>find . <span class="p">|</span> grep manage.py$<span class="k">))</span>
-<a id="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-7" name="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-7"></a>python manage.py collectstatic --no-input
-<a id="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-8" name="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-8"></a>python manage.py migrate
-<a id="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-9" name="rest_code_8f6fbc5a48db4eab8df69eb8aa3e2b28-9"></a>python manage.py createsuperuser --username admin --email <span class="s2">"YOUR@EMAIL.com"</span> --noinput <span class="o">||</span> <span class="nb">true</span>
-</pre>
+<div class="code"><pre class="code bash"><a id="rest_code_765c3037090d4c839b433aca4def308e-1" name="rest_code_765c3037090d4c839b433aca4def308e-1" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_765c3037090d4c839b433aca4def308e-1"></a><span class="c1"># exit on error</span>
+<a id="rest_code_765c3037090d4c839b433aca4def308e-2" name="rest_code_765c3037090d4c839b433aca4def308e-2" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_765c3037090d4c839b433aca4def308e-2"></a><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>errexit
+<a id="rest_code_765c3037090d4c839b433aca4def308e-3" name="rest_code_765c3037090d4c839b433aca4def308e-3" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_765c3037090d4c839b433aca4def308e-3"></a>
+<a id="rest_code_765c3037090d4c839b433aca4def308e-4" name="rest_code_765c3037090d4c839b433aca4def308e-4" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_765c3037090d4c839b433aca4def308e-4"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>./requirements.txt
+<a id="rest_code_765c3037090d4c839b433aca4def308e-5" name="rest_code_765c3037090d4c839b433aca4def308e-5" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_765c3037090d4c839b433aca4def308e-5"></a>
+<a id="rest_code_765c3037090d4c839b433aca4def308e-6" name="rest_code_765c3037090d4c839b433aca4def308e-6" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_765c3037090d4c839b433aca4def308e-6"></a><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>manage.py$<span class="k">))</span>
+<a id="rest_code_765c3037090d4c839b433aca4def308e-7" name="rest_code_765c3037090d4c839b433aca4def308e-7" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_765c3037090d4c839b433aca4def308e-7"></a>python<span class="w"> </span>manage.py<span class="w"> </span>collectstatic<span class="w"> </span>--no-input
+<a id="rest_code_765c3037090d4c839b433aca4def308e-8" name="rest_code_765c3037090d4c839b433aca4def308e-8" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_765c3037090d4c839b433aca4def308e-8"></a>python<span class="w"> </span>manage.py<span class="w"> </span>migrate
+<a id="rest_code_765c3037090d4c839b433aca4def308e-9" name="rest_code_765c3037090d4c839b433aca4def308e-9" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_765c3037090d4c839b433aca4def308e-9"></a>python<span class="w"> </span>manage.py<span class="w"> </span>createsuperuser<span class="w"> </span>--username<span class="w"> </span>admin<span class="w"> </span>--email<span class="w"> </span><span class="s2">"YOUR@EMAIL.com"</span><span class="w"> </span>--noinput<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</pre></div>
 <p>In that script, replace <code class="docutils literal">YOUR@EMAIL.com</code> with your real email.</p>
 <p>Then create a <code class="docutils literal">run.sh</code> file in the root of your repository, with these contents:</p>
-<pre class="code bash"><a id="rest_code_2ffa0b326a784cf592e9e10b1deb100e-1" name="rest_code_2ffa0b326a784cf592e9e10b1deb100e-1"></a><span class="c1"># exit on error</span>
-<a id="rest_code_2ffa0b326a784cf592e9e10b1deb100e-2" name="rest_code_2ffa0b326a784cf592e9e10b1deb100e-2"></a><span class="nb">set</span> -o errexit
-<a id="rest_code_2ffa0b326a784cf592e9e10b1deb100e-3" name="rest_code_2ffa0b326a784cf592e9e10b1deb100e-3"></a>
-<a id="rest_code_2ffa0b326a784cf592e9e10b1deb100e-4" name="rest_code_2ffa0b326a784cf592e9e10b1deb100e-4"></a><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="k">$(</span>find . <span class="p">|</span> grep manage.py$<span class="k">))</span>
-<a id="rest_code_2ffa0b326a784cf592e9e10b1deb100e-5" name="rest_code_2ffa0b326a784cf592e9e10b1deb100e-5"></a>gunicorn <span class="k">$(</span>dirname <span class="k">$(</span>find . <span class="p">|</span> grep wsgi.py$<span class="k">)</span> <span class="p">|</span> sed <span class="s2">"s/\.\///g"</span><span class="k">)</span>.wsgi:application
-</pre>
+<div class="code"><pre class="code bash"><a id="rest_code_ed6e8d4cd3e24973b1f824164b13777e-1" name="rest_code_ed6e8d4cd3e24973b1f824164b13777e-1" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_ed6e8d4cd3e24973b1f824164b13777e-1"></a><span class="c1"># exit on error</span>
+<a id="rest_code_ed6e8d4cd3e24973b1f824164b13777e-2" name="rest_code_ed6e8d4cd3e24973b1f824164b13777e-2" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_ed6e8d4cd3e24973b1f824164b13777e-2"></a><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>errexit
+<a id="rest_code_ed6e8d4cd3e24973b1f824164b13777e-3" name="rest_code_ed6e8d4cd3e24973b1f824164b13777e-3" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_ed6e8d4cd3e24973b1f824164b13777e-3"></a>
+<a id="rest_code_ed6e8d4cd3e24973b1f824164b13777e-4" name="rest_code_ed6e8d4cd3e24973b1f824164b13777e-4" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_ed6e8d4cd3e24973b1f824164b13777e-4"></a><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>manage.py$<span class="k">))</span>
+<a id="rest_code_ed6e8d4cd3e24973b1f824164b13777e-5" name="rest_code_ed6e8d4cd3e24973b1f824164b13777e-5" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_ed6e8d4cd3e24973b1f824164b13777e-5"></a>gunicorn<span class="w"> </span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>wsgi.py$<span class="k">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s2">"s/\.\///g"</span><span class="k">)</span>.wsgi:application
+</pre></div>
 <p>If you have a less standard project or repo structure, you can replace the dark magic in those scripts: the <code class="docutils literal">cd</code> command just needs to get inside your Django project folder, and the <code class="docutils literal">gunicorn</code> command needs to look something like <code class="docutils literal">gunicorn your_project_name.wsgi:application</code>.
 But for normal project structures, the dark magic should work just fine :)</p>
 </section><section id="django-settings-for-render"><h2>3. Django settings for Render</h2>
 <p>Now you need to add this to the end of your <code class="docutils literal">settings.py</code> file:</p>
-<pre class="code python"><a id="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-1" name="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-1"></a><span class="c1"># code needed to deploy in Render.com:</span>
-<a id="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-2" name="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-2"></a><span class="kn">import</span> <span class="nn">os</span>
-<a id="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-3" name="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-3"></a><span class="kn">import</span> <span class="nn">dj_database_url</span>
-<a id="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-4" name="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-4"></a>
-<a id="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-5" name="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-5"></a><span class="k">if</span> <span class="s1">'RENDER'</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
-<a id="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-6" name="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"USING RENDER.COM SETTINGS!"</span><span class="p">)</span>
-<a id="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-7" name="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-7"></a>    <span class="n">DEBUG</span> <span class="o">=</span> <span class="kc">False</span>
-<a id="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-8" name="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-8"></a>    <span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'RENDER_EXTERNAL_HOSTNAME'</span><span class="p">)]</span>
-<a id="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-9" name="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-9"></a>    <span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'default'</span><span class="p">:</span> <span class="n">dj_database_url</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">conn_max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)}</span>
-<a id="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-10" name="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-10"></a>    <span class="n">MIDDLEWARE</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">MIDDLEWARE</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">'django.middleware.security.SecurityMiddleware'</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
-<a id="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-11" name="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-11"></a>                      <span class="s1">'whitenoise.middleware.WhiteNoiseMiddleware'</span><span class="p">)</span>
-<a id="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-12" name="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-12"></a>    <span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">'staticfiles'</span><span class="p">)</span>
-<a id="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-13" name="rest_code_0fb0e400329b45f89d83e07cf6ed6aca-13"></a>    <span class="n">STATICFILES_STORAGE</span> <span class="o">=</span> <span class="s1">'whitenoise.storage.CompressedManifestStaticFilesStorage'</span>
-</pre>
+<div class="code"><pre class="code python"><a id="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-1" name="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-1" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-1"></a><span class="c1"># code needed to deploy in Render.com:</span>
+<a id="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-2" name="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-2" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-2"></a><span class="kn">import</span> <span class="nn">os</span>
+<a id="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-3" name="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-3" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-3"></a><span class="kn">import</span> <span class="nn">dj_database_url</span>
+<a id="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-4" name="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-4" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-4"></a>
+<a id="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-5" name="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-5" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-5"></a><span class="k">if</span> <span class="s1">'RENDER'</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+<a id="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-6" name="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-6" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"USING RENDER.COM SETTINGS!"</span><span class="p">)</span>
+<a id="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-7" name="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-7" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-7"></a>    <span class="n">DEBUG</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-8" name="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-8" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-8"></a>    <span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'RENDER_EXTERNAL_HOSTNAME'</span><span class="p">)]</span>
+<a id="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-9" name="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-9" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-9"></a>    <span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'default'</span><span class="p">:</span> <span class="n">dj_database_url</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">conn_max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)}</span>
+<a id="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-10" name="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-10" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-10"></a>    <span class="n">MIDDLEWARE</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">MIDDLEWARE</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">'django.middleware.security.SecurityMiddleware'</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+<a id="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-11" name="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-11" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-11"></a>                      <span class="s1">'whitenoise.middleware.WhiteNoiseMiddleware'</span><span class="p">)</span>
+<a id="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-12" name="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-12" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-12"></a>    <span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">'staticfiles'</span><span class="p">)</span>
+<a id="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-13" name="rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-13" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_3b0a9b5928a844f88f2984d2cedaf4ef-13"></a>    <span class="n">STATICFILES_STORAGE</span> <span class="o">=</span> <span class="s1">'whitenoise.storage.CompressedManifestStaticFilesStorage'</span>
+</pre></div>
 <p>This code basically overrides some of the settings of your project, so it can work well with what we are using inside Render.com: the database, the static files backend, etc.
 But it only does that when it detects your project is running inside Render, otherwise it does nothing to your settings.</p>
 <p>You can further customize this if you have other settings that should have different values when running in Render.com.
 Just remember to never put secret stuff in there, because this will be committed to your repo.
 If you need to read any secret keys or values, you can use <code class="docutils literal"><span class="pre">os.environ.get('MY_SECRET_THING_XYZ')</span></code> and then define the value for that environment variable in the Render dashboard.</p>
-</section><section id="commit-everything"><h2>4. Commit everything</h2>
+</section><section id="commit-everything"><h2>4. Commit everything!!</h2>
 <p>Commit all your new files and modified files, and push the changes to your Github/Gitlab repo!</p>
 </section><section id="creating-your-postgres-database"><h2>5. Creating your Postgres database</h2>
 <p>Go to <a class="reference external" href="https://dashboard.render.com/">Render's dashboard</a> and create a new Postgres database using this menu:</p>
-<a class="reference external image-reference" href="images/deploy-django-render/db_create_menu.png"><img alt="/images/deploy-django-render/db_create_menu.thumbnail.png" src="images/deploy-django-render/db_create_menu.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/deploy-django-render/db_create_menu.png">
+<img alt="/images/deploy-django-render/db_create_menu.thumbnail.png" src="images/deploy-django-render/db_create_menu.thumbnail.png"></a>
 <p>You will need to specify the database name and a few other fields.
 After you created your database, open its details page from the dashboard and copy the value from this field, to use it in the next step:</p>
-<a class="reference external image-reference" href="images/deploy-django-render/db_url_field.png"><img alt="/images/deploy-django-render/db_url_field.thumbnail.png" src="images/deploy-django-render/db_url_field.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/deploy-django-render/db_url_field.png">
+<img alt="/images/deploy-django-render/db_url_field.thumbnail.png" src="images/deploy-django-render/db_url_field.thumbnail.png"></a>
 </section><section id="deploying-your-app-at-render"><h2>6. Deploying your app at Render</h2>
 <p>Go again to <a class="reference external" href="https://dashboard.render.com/">Render's dashboard</a> and create a new "Web service" using this menu:</p>
-<a class="reference external image-reference" href="images/deploy-django-render/web_create_menu.png"><img alt="/images/deploy-django-render/web_create_menu.thumbnail.png" src="images/deploy-django-render/web_create_menu.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/deploy-django-render/web_create_menu.png">
+<img alt="/images/deploy-django-render/web_create_menu.thumbnail.png" src="images/deploy-django-render/web_create_menu.thumbnail.png"></a>
 <p>In the first page you will need to either fill the url of a public Github or Gitlab repository, or login with your Github/Gitlab account to choose a private repository.
 After you have specified your repo, in the next page you will need to fill out a few fields:</p>
-<a class="reference external image-reference" href="images/deploy-django-render/web_create_form.png"><img alt="/images/deploy-django-render/web_create_form.thumbnail.png" src="images/deploy-django-render/web_create_form.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/deploy-django-render/web_create_form.png">
+<img alt="/images/deploy-django-render/web_create_form.thumbnail.png" src="images/deploy-django-render/web_create_form.thumbnail.png"></a>
 <ul class="simple">
 <li><p>Name: important, this will be part of the url of your deployed web app, so use something meaningful.</p></li>
+<li><p>Language: must be <code class="docutils literal">Python 3</code>.</p></li>
+<li><p>Branch: the branch of your repo from which the code should be cloned to be deployed. Usually just <code class="docutils literal">main</code>.</p></li>
 <li><p>Root Directory: important to leave this empty, so all the scripts are executed from the root directory.</p></li>
-<li><p>Runtime: must be Python.</p></li>
 <li><p>Build command: here you will use your build script: <code class="docutils literal">bash build.sh</code></p></li>
 <li><p>Start command: and here you will use your run script: <code class="docutils literal">bash run.sh</code></p></li>
+<li><p>Instance type: Free works fine for small Django apps.</p></li>
 </ul>
-<p>Scroll down, and click "Create Web Service".</p>
-<p>This will automatically attempt a first deploy, that will fail because we are missing a last step :).
-Go to the "Environment" section of your web app inside Render:</p>
-<a class="reference external image-reference" href="images/deploy-django-render/web_env.png"><img alt="/images/deploy-django-render/web_env.thumbnail.png" src="images/deploy-django-render/web_env.thumbnail.png"></a>
-<p>And add three environment variables (it's important that the names are UPPERCASE):</p>
+<p>Scroll down, to the "Environment Variables" section, and add three environment variables (it's important that the names are UPPERCASE):</p>
 <ul class="simple">
 <li><p><code class="docutils literal">DATABASE_URL</code>: here you need to paste the database url that you copied at step 5. You can go to the database details to copy it again if needed.</p></li>
 <li><p><code class="docutils literal">DJANGO_SUPERUSER_PASSWORD</code>: here set a password that you want to use for your Django superuser.</p></li>
 <li><p><code class="docutils literal">PYTHON_VERSION</code>: set it to <code class="docutils literal">3.11.0</code> (or newer?).</p></li>
 </ul>
-<p>Now you can re-attempt the deploy, just hit this menu and everything should work!:</p>
-<a class="reference external image-reference" href="images/deploy-django-render/web_deploy.png"><img alt="/images/deploy-django-render/web_deploy.thumbnail.png" src="images/deploy-django-render/web_deploy.thumbnail.png"></a>
+<p>And finally, just hit the "Deploy Web Service" button. Your website should be built and deployed in a couple of minutes! :)</p>
 <p>After the deploy finishes, your website should be ready at <code class="docutils literal"><span class="pre">https://YOUR_RENDER_WEB_SERVICE_NAME.onrender.com/</span></code></p>
+</section><section id="re-deploying-new-versions"><h2>Re-deploying new versions</h2>
+<p>Now you can re-attempt any deploy, or manually deploy any version you whish. Just use this menu and everything should work:</p>
+<a class="reference external image-reference" href="images/deploy-django-render/web_deploy.png">
+<img alt="/images/deploy-django-render/web_deploy.thumbnail.png" src="images/deploy-django-render/web_deploy.thumbnail.png"></a>
 </section><section id="what-s-next"><h2>What's next?</h2>
 <ul class="simple">
 <li><p>Anytime you need to deploy a new version, you just push it to your repo, and you can use the manual deploy menu to re-deploy. You can even configure your Render app to use a different branch from your repository, so you can deploy from a "stable" branch instead.</p></li>
@@ -179,7 +184,8 @@ Go to the "Environment" section of your web app inside Render:</p>
 </div>
     </header><div class="e-content entry-content">
     <p>A few hours ago, a friend and ex-student of mine asked me this on twitter:</p>
-<a class="reference external image-reference" href="images/art-killer-ai/lucas-question.png"><img alt="/images/art-killer-ai/lucas-question.thumbnail.png" src="images/art-killer-ai/lucas-question.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/art-killer-ai/lucas-question.png">
+<img alt="/images/art-killer-ai/lucas-question.thumbnail.png" src="images/art-killer-ai/lucas-question.thumbnail.png"></a>
 <p>Basically, what were my thoughts on the artists vs content-generation AIs debate.</p>
 <p>I really wanted to answer in a couple of tweets. Believe me, I tried. But I can't, so instead of torturing him and any spectators with a kilometer-long twitter thread, I decided to make this a short-ish blog post :)</p>
 <section id="disclaimer"><h2>Disclaimer</h2>
@@ -193,7 +199,8 @@ Go to the "Environment" section of your web app inside Render:</p>
 <p>Learning styles, concepts, techniques, and more from the contents (art) of others, to then be able to create your own novel art, was never considered “plagiarizing”. And it would be a VERY bad idea to try to classify that as plagiarizing. Basically because that’s how human artists work too, you would end up banning the artistic process itself, because no artist is born from the ether knowing how to create art, nor is any artist able to create a new branch of art from nothing. We humans always learn from others. And now computers too.</p>
 <p>With that out of the way, now my opinion on the four biggest fears/discussions I’ve seen repeated multiple times:</p>
 </section><section id="ai-art-will-destroy-human-art"><h2>1. AI art will destroy human art</h2>
-<a class="reference external image-reference" href="images/art-killer-ai/robot_artist.png"><img alt="/images/art-killer-ai/robot_artist.thumbnail.png" src="images/art-killer-ai/robot_artist.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/art-killer-ai/robot_artist.png">
+<img alt="/images/art-killer-ai/robot_artist.thumbnail.png" src="images/art-killer-ai/robot_artist.thumbnail.png"></a>
 <p>I’ve seen quite a few people arguing that when computers can do art faster and more efficiently than humans, human art itself will die. There will be no more human artists, computers will replace that as they’ve replaced so many other manual tasks.</p>
 <p>Honestly, I found this one hilarious. Mostly because people saying this sound like they have <em>never</em> spoken to a real, human artist.</p>
 <p>Humans do art for <em>lots</em> of different reasons. Love, pleasure, to express feelings, to share ideas, to call for action, to relax, to improve themselves, to have fun, and so much more. People enjoy CREATING art, not just consuming it!
@@ -201,7 +208,8 @@ If a computer can now create art too, so what? Most artists will keep doing art 
 <p>Would you stop eating ice cream just because a new computer can eat ice cream faster than you? How silly is that?</p>
 <p>Human art won’t die. Stop panicking over that one.</p>
 </section><section id="ai-art-will-destroy-paid-human-artists"><h2>2. AI art will destroy <em>paid</em> human artists</h2>
-<a class="reference external image-reference" href="images/art-killer-ai/robot_money.png"><img alt="/images/art-killer-ai/robot_money.thumbnail.png" src="images/art-killer-ai/robot_money.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/art-killer-ai/robot_money.png">
+<img alt="/images/art-killer-ai/robot_money.thumbnail.png" src="images/art-killer-ai/robot_money.thumbnail.png"></a>
 <p>This one might sound similar, but is not the same as the previous fear. Even though sometimes in discussions they’re both mixed together as one.</p>
 <p>I absolutely believe human artists will keep doing art for the love of it. But there’s a catch: not all art/content is produced, and especially <em>sold</em>, just for the love of art itself. Some forms of content are produced and paid just for utilitary reasons… and those are at risk of some huge impact, in my opinion.</p>
 <p>The person buying a painting out of admiration for the person creating it, or listening to a song for the deep connection they feel with the artist, will probably keep consuming their favorite human’s art even if the AI produced art is cheaper or more easily available. The human author is part of the reason they want to consume that particular art form, and the AI art isn’t replacing that human connection.</p>
@@ -211,7 +219,8 @@ If a computer can now create art too, so what? Most artists will keep doing art 
 <p>So, human artists disappearing? Not a chance.
 Human artists having trouble selling “utilitary” art? Yep, that will happen.</p>
 </section><section id="permission-to-learn"><h2>3. Permission to learn</h2>
-<a class="reference external image-reference" href="images/art-killer-ai/padlock_book.png"><img alt="/images/art-killer-ai/padlock_book.thumbnail.png" src="images/art-killer-ai/padlock_book.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/art-killer-ai/padlock_book.png">
+<img alt="/images/art-killer-ai/padlock_book.thumbnail.png" src="images/art-killer-ai/padlock_book.thumbnail.png"></a>
 <p>Another big discussion being held in many places, relates to the basic question of the fairness (or even legality) of using other people’s art/content to train your own AI model. Even if the model doesn’t plagiarize the content, just the act of learning from it, some people argue, should require some form of compensation or permission at least. Even being able to prevent that from happening.</p>
 <p>This, I think, is a well intentioned discussion with a terribly short-sighted proposal for a solution, that will absolutely backfire if implemented. And I think that because of two different reasons:</p>
 <p>First:</p>
@@ -227,7 +236,8 @@ The result? Big corporations abuse their position to hoard legal ownership of ar
 Hint: corporations have lots of money, lots of lawyers, and lots of art ownership rights. Artists and the rest of us, don’t.
 It’s almost as if solving problems by “requiring money to do X”, always ends up benefiting those guys with lots of money instead.</p>
 </section><section id="the-powerful-getting-more-powerful"><h2>4. The powerful getting more powerful</h2>
-<a class="reference external image-reference" href="images/art-killer-ai/concentration.png"><img alt="/images/art-killer-ai/concentration.thumbnail.png" src="images/art-killer-ai/concentration.thumbnail.png"></a>
+<a class="reference external image-reference" href="images/art-killer-ai/concentration.png">
+<img alt="/images/art-killer-ai/concentration.thumbnail.png" src="images/art-killer-ai/concentration.thumbnail.png"></a>
 <p>Finally, there’s one last fear that I deeply share, because it’s my main fear with AI in general, not just for content generation: power keeps getting concentrated.</p>
 <p>These AI models require <em>a lot</em> of money to train. The datasets are huge, the training process is incredibly consuming. Not to mention the work of so many (absolutely not cheap) specialists who do the research, and then productivize the models.
 So only big players are able to train the best models. Only big corporations or organizations can afford to do so. And the trend, while sometimes reversing a tiny bit, in general points towards that problem getting worse with every new generation of AI models: bigger models, more data, more money.</p>
@@ -258,8 +268,8 @@ So only big players are able to train the best models. Only big corporations or 
 <p>Lo primero que hay que hacer es instalar los plugins necesarios en Arduino IDE, para que el editor sepa compilar y grabar programas en las placas STM32.</p>
 <p>Para ello tenemos que ir al menú "File", opción "Preferences", y en la ventana que se nos abre, clickear el botón que está al lado de Additional Board Manager URLs:</p>
 <img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/menu_preferences.png" src="images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/menu_preferences.png"><img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/boton_boards_urls.png" src="images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/boton_boards_urls.png"><p>En la segunda ventana que se nos abre debemos agregar la URL de donde Arduino IDE va a bajar toda la información de estas placas. La url es esta:</p>
-<pre class="code text"><a id="rest_code_f84523f62d1b4cd690f333bc6ab8a23f-1" name="rest_code_f84523f62d1b4cd690f333bc6ab8a23f-1"></a>http://dan.drown.org/stm32duino/package_STM32duino_index.json
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_c6b6d48f3aa24cc2b8fc9dd67e668e2e-1" name="rest_code_c6b6d48f3aa24cc2b8fc9dd67e668e2e-1" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_c6b6d48f3aa24cc2b8fc9dd67e668e2e-1"></a>http://dan.drown.org/stm32duino/package_STM32duino_index.json
+</pre></div>
 <p>Y debe agregarse al final, en un renglón nuevo (si es que ya teníamos otras URLs en esta configuración, como es mi caso), y clickear en "Ok":</p>
 <img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/board_url_agregada.png" src="images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/board_url_agregada.png"><p>Luego debemos decirle a Arduino IDE que se baje desde esa URL la información que necesitamos para controlar nuestra placa STM32. Para ello vamos al menú "Tools", luego "Board", y elegimos la opción "Boards Manager..."</p>
 <img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/menu_boards_manager.png" src="images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/menu_boards_manager.png"><p>En la ventana que se nos abre tenemos la posibilidad de filtrar la lista de plugins de Arduino IDE. Tenemos que buscar los que nos interesan, escribiendo "STM32" en la caja de búsqueda. Y de los resultados, tenemos que elegir el que dice "STM32F1xx/GD32F1xx boards". Luego de elegirlo nos va a aparecer un botón de "Install" para ese plugin, al que le hacemos click y esperamos que termine el progreso de la instalación.</p>
@@ -273,34 +283,35 @@ So only big players are able to train the best models. Only big corporations or 
 <p>Con los pasos que hicimos antes, en un mundo ideal y con placas más normales, ya todo queda listo para poder programar, hacer click en Play, y que nuestro código corra en la placa que tenemos conectada a la PC. Pero en el caso de las STM32 esto está roto, y hay que hacer algunos pasos manuales para arreglarlo. Los descubrí probando y renegando, y probablemente esto cambie en el futuro.</p>
 <p>En particular: el plugin de Arduino IDE para las STM trae dentro un programita que se usa para flashear la placa, llamado "stlink-tools". Pero el problema es que trae una versión vieja y rota (al menos rota en entornos modernos).</p>
 <p>Así que lo primero que vamos a hacer, es eliminar esa versión vieja de ese programita que no sirve de dentro del plugin. Lo hacemos corriendo este comando en una terminal de linux:</p>
-<pre class="code text"><a id="rest_code_5a67ca10d7c84a56a6cc250e888a6001-1" name="rest_code_5a67ca10d7c84a56a6cc250e888a6001-1"></a>rm ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/st-*
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_4c54c6ea359a441e90b6d6d173fd87e3-1" name="rest_code_4c54c6ea359a441e90b6d6d173fd87e3-1" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_4c54c6ea359a441e90b6d6d173fd87e3-1"></a>rm ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/st-*
+</pre></div>
 <p>Si el comando dispara un error diciendo que los archivos no existen, lo más probable es que tengan alguna versión diferente o de Arduino IDE, o del plugin. En ese caso van a necesitar encontrar cuál es la ruta para el caso particular de ustedes (probablemente si es otra versión de Arduino IDE, cambie el nombre del directorio <cite>.arduino15</cite>, o si es otra versión del plugin, cambie el nombre del directorio <cite>2021.5.31</cite>).</p>
 <p>Una vez borrados esos archivos, tenemos que instalar una mejor versión de la herramienta "stlink-tools". Hacemos eso con este comando:</p>
-<pre class="code text"><a id="rest_code_5826e40f2053493b935f35189d6fa2ac-1" name="rest_code_5826e40f2053493b935f35189d6fa2ac-1"></a>sudo apt install stlink-tools
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_538b4f0a51c84817848b1cc9d2f929c9-1" name="rest_code_538b4f0a51c84817848b1cc9d2f929c9-1" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_538b4f0a51c84817848b1cc9d2f929c9-1"></a>sudo apt install stlink-tools
+</pre></div>
 <p>Esperamos a que termine de bajar e instalar, y luego tenemos que hacer un último pasito: indicarle a Arduino IDE que use nuestro nuevo stlink tools. Para ello corremos estos tres comandos. Pero ojo!! La ruta que estamos usando acá tiene que ser la misma que la que usamos antes para borrar el viejo stlink tools del plugin. Si cambiamos algún nombre de directorio en el paso de borrado, acá también deberíamos cambiarlo de la misma forma:</p>
-<pre class="code text"><a id="rest_code_532bd88b8ac8437c9566e7fe06064125-1" name="rest_code_532bd88b8ac8437c9566e7fe06064125-1"></a>ln -s /usr/bin/st-flash ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
-<a id="rest_code_532bd88b8ac8437c9566e7fe06064125-2" name="rest_code_532bd88b8ac8437c9566e7fe06064125-2"></a>ln -s /usr/bin/st-info ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
-<a id="rest_code_532bd88b8ac8437c9566e7fe06064125-3" name="rest_code_532bd88b8ac8437c9566e7fe06064125-3"></a>ln -s /usr/bin/st-util ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
-</pre></section><section id="listo"><h2>Listo!</h2>
+<div class="code"><pre class="code text"><a id="rest_code_6875595236ff43bea59b17ae958acb2f-1" name="rest_code_6875595236ff43bea59b17ae958acb2f-1" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_6875595236ff43bea59b17ae958acb2f-1"></a>ln -s /usr/bin/st-flash ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
+<a id="rest_code_6875595236ff43bea59b17ae958acb2f-2" name="rest_code_6875595236ff43bea59b17ae958acb2f-2" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_6875595236ff43bea59b17ae958acb2f-2"></a>ln -s /usr/bin/st-info ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
+<a id="rest_code_6875595236ff43bea59b17ae958acb2f-3" name="rest_code_6875595236ff43bea59b17ae958acb2f-3" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_6875595236ff43bea59b17ae958acb2f-3"></a>ln -s /usr/bin/st-util ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
+</pre></div>
+</section><section id="listo"><h2>Listo!</h2>
 <p>Con estos pasos hechos, ya deberíamos poder hacer un programa de ejemplo en Arduino IDE, y al apretar el botón de play (la flecha hacia la derecha) nuestro programa debería ejecutarse en la placa :)</p>
 <p>Un programa de ejemplo que vi usado en muchos de los tutoriales (desconozco su autor original, si no lo linkearía):</p>
-<pre class="code text"><a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-1" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-1"></a>const int ledPIN = PC13;
-<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-2" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-2"></a>
-<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-3" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-3"></a>void setup()
-<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-4" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-4"></a>{
-<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-5" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-5"></a>  pinMode(ledPIN, OUTPUT);
-<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-6" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-6"></a>}
-<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-7" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-7"></a>
-<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-8" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-8"></a>void loop()
-<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-9" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-9"></a>{
-<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-10" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-10"></a>  digitalWrite(ledPIN, HIGH);
-<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-11" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-11"></a>  delay(1000);
-<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-12" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-12"></a>  digitalWrite(ledPIN, LOW);
-<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-13" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-13"></a>  delay(1000);
-<a id="rest_code_a9854f83603c4f6c8b6c61a4a5097266-14" name="rest_code_a9854f83603c4f6c8b6c61a4a5097266-14"></a>}
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_57d548a09da9467ca37137a779556b94-1" name="rest_code_57d548a09da9467ca37137a779556b94-1" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_57d548a09da9467ca37137a779556b94-1"></a>const int ledPIN = PC13;
+<a id="rest_code_57d548a09da9467ca37137a779556b94-2" name="rest_code_57d548a09da9467ca37137a779556b94-2" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_57d548a09da9467ca37137a779556b94-2"></a>
+<a id="rest_code_57d548a09da9467ca37137a779556b94-3" name="rest_code_57d548a09da9467ca37137a779556b94-3" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_57d548a09da9467ca37137a779556b94-3"></a>void setup()
+<a id="rest_code_57d548a09da9467ca37137a779556b94-4" name="rest_code_57d548a09da9467ca37137a779556b94-4" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_57d548a09da9467ca37137a779556b94-4"></a>{
+<a id="rest_code_57d548a09da9467ca37137a779556b94-5" name="rest_code_57d548a09da9467ca37137a779556b94-5" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_57d548a09da9467ca37137a779556b94-5"></a>  pinMode(ledPIN, OUTPUT);
+<a id="rest_code_57d548a09da9467ca37137a779556b94-6" name="rest_code_57d548a09da9467ca37137a779556b94-6" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_57d548a09da9467ca37137a779556b94-6"></a>}
+<a id="rest_code_57d548a09da9467ca37137a779556b94-7" name="rest_code_57d548a09da9467ca37137a779556b94-7" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_57d548a09da9467ca37137a779556b94-7"></a>
+<a id="rest_code_57d548a09da9467ca37137a779556b94-8" name="rest_code_57d548a09da9467ca37137a779556b94-8" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_57d548a09da9467ca37137a779556b94-8"></a>void loop()
+<a id="rest_code_57d548a09da9467ca37137a779556b94-9" name="rest_code_57d548a09da9467ca37137a779556b94-9" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_57d548a09da9467ca37137a779556b94-9"></a>{
+<a id="rest_code_57d548a09da9467ca37137a779556b94-10" name="rest_code_57d548a09da9467ca37137a779556b94-10" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_57d548a09da9467ca37137a779556b94-10"></a>  digitalWrite(ledPIN, HIGH);
+<a id="rest_code_57d548a09da9467ca37137a779556b94-11" name="rest_code_57d548a09da9467ca37137a779556b94-11" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_57d548a09da9467ca37137a779556b94-11"></a>  delay(1000);
+<a id="rest_code_57d548a09da9467ca37137a779556b94-12" name="rest_code_57d548a09da9467ca37137a779556b94-12" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_57d548a09da9467ca37137a779556b94-12"></a>  digitalWrite(ledPIN, LOW);
+<a id="rest_code_57d548a09da9467ca37137a779556b94-13" name="rest_code_57d548a09da9467ca37137a779556b94-13" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_57d548a09da9467ca37137a779556b94-13"></a>  delay(1000);
+<a id="rest_code_57d548a09da9467ca37137a779556b94-14" name="rest_code_57d548a09da9467ca37137a779556b94-14" href="posts/programar-stm32f103c8-en-ubuntu-con-arduino-ide/#rest_code_57d548a09da9467ca37137a779556b94-14"></a>}
+</pre></div>
 <p>Si todo anduvo bien, al dar play el led verde de nuestra placa STM32F103C8 debería titilar exáctamente cada 1 segundo :)</p>
 </section>
 </div>
@@ -323,31 +334,31 @@ So only big players are able to train the best models. Only big corporations or 
 <section id="a-not-so-real-example"><h3>A not-so-real example</h3>
 <p>Let’s start with a hypothetical task (later on we will look at a more real example). It will be something quite simple, but bear in mind I’m using it as a vehicle to present some ideas. In real life I would probably just use <code class="docutils literal">collections.Counter</code> and the csv module :)</p>
 <p>Imagine we have a .csv file, in which each line has the name of a developer and the language he uses:</p>
-<pre class="code text"><a id="rest_code_f43999a86dca446bab0313fe3ca3957c-1" name="rest_code_f43999a86dca446bab0313fe3ca3957c-1"></a>Guido Van Rossum,Python
-<a id="rest_code_f43999a86dca446bab0313fe3ca3957c-2" name="rest_code_f43999a86dca446bab0313fe3ca3957c-2"></a>Dennis Ritchie,C
-<a id="rest_code_f43999a86dca446bab0313fe3ca3957c-3" name="rest_code_f43999a86dca446bab0313fe3ca3957c-3"></a>Armin Ronacher,Python
-<a id="rest_code_f43999a86dca446bab0313fe3ca3957c-4" name="rest_code_f43999a86dca446bab0313fe3ca3957c-4"></a>Larry Wall,Perl
-<a id="rest_code_f43999a86dca446bab0313fe3ca3957c-5" name="rest_code_f43999a86dca446bab0313fe3ca3957c-5"></a>...
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_74e1a2d4e65244628fb545dbe636e1e3-1" name="rest_code_74e1a2d4e65244628fb545dbe636e1e3-1" href="posts/separate-io-from-algorithms/#rest_code_74e1a2d4e65244628fb545dbe636e1e3-1"></a>Guido Van Rossum,Python
+<a id="rest_code_74e1a2d4e65244628fb545dbe636e1e3-2" name="rest_code_74e1a2d4e65244628fb545dbe636e1e3-2" href="posts/separate-io-from-algorithms/#rest_code_74e1a2d4e65244628fb545dbe636e1e3-2"></a>Dennis Ritchie,C
+<a id="rest_code_74e1a2d4e65244628fb545dbe636e1e3-3" name="rest_code_74e1a2d4e65244628fb545dbe636e1e3-3" href="posts/separate-io-from-algorithms/#rest_code_74e1a2d4e65244628fb545dbe636e1e3-3"></a>Armin Ronacher,Python
+<a id="rest_code_74e1a2d4e65244628fb545dbe636e1e3-4" name="rest_code_74e1a2d4e65244628fb545dbe636e1e3-4" href="posts/separate-io-from-algorithms/#rest_code_74e1a2d4e65244628fb545dbe636e1e3-4"></a>Larry Wall,Perl
+<a id="rest_code_74e1a2d4e65244628fb545dbe636e1e3-5" name="rest_code_74e1a2d4e65244628fb545dbe636e1e3-5" href="posts/separate-io-from-algorithms/#rest_code_74e1a2d4e65244628fb545dbe636e1e3-5"></a>...
+</pre></div>
 <p>And we are asked to develop a small program that counts how many developers each language has. It must produce these results via standard output:</p>
-<pre class="code text"><a id="rest_code_b4dc6d2923e440fe95d6ae2285d6c318-1" name="rest_code_b4dc6d2923e440fe95d6ae2285d6c318-1"></a>Python: 2
-<a id="rest_code_b4dc6d2923e440fe95d6ae2285d6c318-2" name="rest_code_b4dc6d2923e440fe95d6ae2285d6c318-2"></a>Perl: 1
-<a id="rest_code_b4dc6d2923e440fe95d6ae2285d6c318-3" name="rest_code_b4dc6d2923e440fe95d6ae2285d6c318-3"></a>C: 1
-<a id="rest_code_b4dc6d2923e440fe95d6ae2285d6c318-4" name="rest_code_b4dc6d2923e440fe95d6ae2285d6c318-4"></a>...
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_f1c7275e356f40748de266b55b345015-1" name="rest_code_f1c7275e356f40748de266b55b345015-1" href="posts/separate-io-from-algorithms/#rest_code_f1c7275e356f40748de266b55b345015-1"></a>Python: 2
+<a id="rest_code_f1c7275e356f40748de266b55b345015-2" name="rest_code_f1c7275e356f40748de266b55b345015-2" href="posts/separate-io-from-algorithms/#rest_code_f1c7275e356f40748de266b55b345015-2"></a>Perl: 1
+<a id="rest_code_f1c7275e356f40748de266b55b345015-3" name="rest_code_f1c7275e356f40748de266b55b345015-3" href="posts/separate-io-from-algorithms/#rest_code_f1c7275e356f40748de266b55b345015-3"></a>C: 1
+<a id="rest_code_f1c7275e356f40748de266b55b345015-4" name="rest_code_f1c7275e356f40748de266b55b345015-4" href="posts/separate-io-from-algorithms/#rest_code_f1c7275e356f40748de266b55b345015-4"></a>...
+</pre></div>
 <p>The code we would write to solve the task could be something like this:</p>
-<pre class="code python"><a id="rest_code_f4f23829f7cb4b258d0060073dd54ae0-1" name="rest_code_f4f23829f7cb4b258d0060073dd54ae0-1"></a><span class="k">def</span> <span class="nf">count_developers</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
-<a id="rest_code_f4f23829f7cb4b258d0060073dd54ae0-2" name="rest_code_f4f23829f7cb4b258d0060073dd54ae0-2"></a>    <span class="n">quantities</span> <span class="o">=</span> <span class="p">{}</span>
-<a id="rest_code_f4f23829f7cb4b258d0060073dd54ae0-3" name="rest_code_f4f23829f7cb4b258d0060073dd54ae0-3"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">developers_file</span><span class="p">:</span>
-<a id="rest_code_f4f23829f7cb4b258d0060073dd54ae0-4" name="rest_code_f4f23829f7cb4b258d0060073dd54ae0-4"></a>        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">developers_file</span><span class="p">:</span>
-<a id="rest_code_f4f23829f7cb4b258d0060073dd54ae0-5" name="rest_code_f4f23829f7cb4b258d0060073dd54ae0-5"></a>            <span class="n">developer</span><span class="p">,</span> <span class="n">language</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span>
-<a id="rest_code_f4f23829f7cb4b258d0060073dd54ae0-6" name="rest_code_f4f23829f7cb4b258d0060073dd54ae0-6"></a>            <span class="k">if</span> <span class="n">language</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">quantities</span><span class="p">:</span>
-<a id="rest_code_f4f23829f7cb4b258d0060073dd54ae0-7" name="rest_code_f4f23829f7cb4b258d0060073dd54ae0-7"></a>                <span class="n">quantities</span><span class="p">[</span><span class="n">language</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="rest_code_f4f23829f7cb4b258d0060073dd54ae0-8" name="rest_code_f4f23829f7cb4b258d0060073dd54ae0-8"></a>            <span class="n">quantities</span><span class="p">[</span><span class="n">language</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-<a id="rest_code_f4f23829f7cb4b258d0060073dd54ae0-9" name="rest_code_f4f23829f7cb4b258d0060073dd54ae0-9"></a>
-<a id="rest_code_f4f23829f7cb4b258d0060073dd54ae0-10" name="rest_code_f4f23829f7cb4b258d0060073dd54ae0-10"></a>    <span class="k">for</span> <span class="n">language</span><span class="p">,</span> <span class="n">quantity</span> <span class="ow">in</span> <span class="n">quantities</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-<a id="rest_code_f4f23829f7cb4b258d0060073dd54ae0-11" name="rest_code_f4f23829f7cb4b258d0060073dd54ae0-11"></a>        <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="si">{l}</span><span class="s1">: </span><span class="si">{q}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">language</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="n">quantity</span><span class="p">))</span>
-</pre>
+<div class="code"><pre class="code python"><a id="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-1" name="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-1" href="posts/separate-io-from-algorithms/#rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-1"></a><span class="k">def</span> <span class="nf">count_developers</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<a id="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-2" name="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-2" href="posts/separate-io-from-algorithms/#rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-2"></a>    <span class="n">quantities</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-3" name="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-3" href="posts/separate-io-from-algorithms/#rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-3"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">developers_file</span><span class="p">:</span>
+<a id="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-4" name="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-4" href="posts/separate-io-from-algorithms/#rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-4"></a>        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">developers_file</span><span class="p">:</span>
+<a id="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-5" name="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-5" href="posts/separate-io-from-algorithms/#rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-5"></a>            <span class="n">developer</span><span class="p">,</span> <span class="n">language</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span>
+<a id="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-6" name="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-6" href="posts/separate-io-from-algorithms/#rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-6"></a>            <span class="k">if</span> <span class="n">language</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">quantities</span><span class="p">:</span>
+<a id="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-7" name="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-7" href="posts/separate-io-from-algorithms/#rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-7"></a>                <span class="n">quantities</span><span class="p">[</span><span class="n">language</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-8" name="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-8" href="posts/separate-io-from-algorithms/#rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-8"></a>            <span class="n">quantities</span><span class="p">[</span><span class="n">language</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-9" name="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-9" href="posts/separate-io-from-algorithms/#rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-9"></a>
+<a id="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-10" name="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-10" href="posts/separate-io-from-algorithms/#rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-10"></a>    <span class="k">for</span> <span class="n">language</span><span class="p">,</span> <span class="n">quantity</span> <span class="ow">in</span> <span class="n">quantities</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-11" name="rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-11" href="posts/separate-io-from-algorithms/#rest_code_2945767f8b3243d2b72d0a3a4ab8c9d8-11"></a>        <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="si">{l}</span><span class="s1">: </span><span class="si">{q}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">language</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="n">quantity</span><span class="p">))</span>
+</pre></div>
 <p>And it works, it gets the job done. Even more: it looks like simple code, clean code.</p>
 <p>But it has some not-so-obvious problems:</p>
 <ul class="simple">
@@ -358,44 +369,45 @@ So only big players are able to train the best models. Only big corporations or 
 <p>All these issues have the same root: our code is doing two things at the same time, that should be separated. Our program is dealing with the IO logic (reading files, showing results) and the algorithms itself (the “business logic”) in a single piece of code.</p>
 <p>In this simple example it would be trivial to refactor the code to solve any of those issues. But that kind of refactors (changes to the input and output formats of a piece of business logic) tends not to be so trivial in real life code.</p>
 <p>A better approach is then to follow that simple rule we mentioned in the beginning: to separate IO code from algorithms. Following that rule, our solution would look more like this:</p>
-<pre class="code python"><a id="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-1" name="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-1"></a><span class="k">def</span> <span class="nf">read_developers_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
-<a id="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-2" name="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-2"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">developers_file</span><span class="p">:</span>
-<a id="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-3" name="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-3"></a>        <span class="k">return</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span>
-<a id="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-4" name="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-4"></a>                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">developers_file</span><span class="p">]</span>
-<a id="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-5" name="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-5"></a>
-<a id="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-6" name="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-6"></a><span class="k">def</span> <span class="nf">count_developers</span><span class="p">(</span><span class="n">developers</span><span class="p">):</span>
-<a id="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-7" name="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-7"></a>    <span class="n">quantities</span> <span class="o">=</span> <span class="p">{}</span>
-<a id="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-8" name="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-8"></a>    <span class="k">for</span> <span class="n">developer</span><span class="p">,</span> <span class="n">language</span> <span class="ow">in</span> <span class="n">developers</span><span class="p">:</span>
-<a id="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-9" name="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-9"></a>        <span class="k">if</span> <span class="n">language</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">quantities</span><span class="p">:</span>
-<a id="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-10" name="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-10"></a>            <span class="n">quantities</span><span class="p">[</span><span class="n">language</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-11" name="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-11"></a>        <span class="n">quantities</span><span class="p">[</span><span class="n">language</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-<a id="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-12" name="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-12"></a>    <span class="k">return</span> <span class="n">quantities</span>
-<a id="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-13" name="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-13"></a>
-<a id="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-14" name="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-14"></a><span class="k">def</span> <span class="nf">show_report</span><span class="p">(</span><span class="n">quantities</span><span class="p">):</span>
-<a id="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-15" name="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-15"></a>    <span class="k">for</span> <span class="n">language</span><span class="p">,</span> <span class="n">quantity</span> <span class="ow">in</span> <span class="n">quantities</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-<a id="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-16" name="rest_code_f1b0af8c0d2941538ec88288f80fa2d0-16"></a>        <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="si">{l}</span><span class="s1">: </span><span class="si">{q}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">language</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="n">quantity</span><span class="p">))</span>
-</pre>
+<div class="code"><pre class="code python"><a id="rest_code_92af6489902e4099a9d43bda3ccc51c3-1" name="rest_code_92af6489902e4099a9d43bda3ccc51c3-1" href="posts/separate-io-from-algorithms/#rest_code_92af6489902e4099a9d43bda3ccc51c3-1"></a><span class="k">def</span> <span class="nf">read_developers_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<a id="rest_code_92af6489902e4099a9d43bda3ccc51c3-2" name="rest_code_92af6489902e4099a9d43bda3ccc51c3-2" href="posts/separate-io-from-algorithms/#rest_code_92af6489902e4099a9d43bda3ccc51c3-2"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">developers_file</span><span class="p">:</span>
+<a id="rest_code_92af6489902e4099a9d43bda3ccc51c3-3" name="rest_code_92af6489902e4099a9d43bda3ccc51c3-3" href="posts/separate-io-from-algorithms/#rest_code_92af6489902e4099a9d43bda3ccc51c3-3"></a>        <span class="k">return</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span>
+<a id="rest_code_92af6489902e4099a9d43bda3ccc51c3-4" name="rest_code_92af6489902e4099a9d43bda3ccc51c3-4" href="posts/separate-io-from-algorithms/#rest_code_92af6489902e4099a9d43bda3ccc51c3-4"></a>                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">developers_file</span><span class="p">]</span>
+<a id="rest_code_92af6489902e4099a9d43bda3ccc51c3-5" name="rest_code_92af6489902e4099a9d43bda3ccc51c3-5" href="posts/separate-io-from-algorithms/#rest_code_92af6489902e4099a9d43bda3ccc51c3-5"></a>
+<a id="rest_code_92af6489902e4099a9d43bda3ccc51c3-6" name="rest_code_92af6489902e4099a9d43bda3ccc51c3-6" href="posts/separate-io-from-algorithms/#rest_code_92af6489902e4099a9d43bda3ccc51c3-6"></a><span class="k">def</span> <span class="nf">count_developers</span><span class="p">(</span><span class="n">developers</span><span class="p">):</span>
+<a id="rest_code_92af6489902e4099a9d43bda3ccc51c3-7" name="rest_code_92af6489902e4099a9d43bda3ccc51c3-7" href="posts/separate-io-from-algorithms/#rest_code_92af6489902e4099a9d43bda3ccc51c3-7"></a>    <span class="n">quantities</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="rest_code_92af6489902e4099a9d43bda3ccc51c3-8" name="rest_code_92af6489902e4099a9d43bda3ccc51c3-8" href="posts/separate-io-from-algorithms/#rest_code_92af6489902e4099a9d43bda3ccc51c3-8"></a>    <span class="k">for</span> <span class="n">developer</span><span class="p">,</span> <span class="n">language</span> <span class="ow">in</span> <span class="n">developers</span><span class="p">:</span>
+<a id="rest_code_92af6489902e4099a9d43bda3ccc51c3-9" name="rest_code_92af6489902e4099a9d43bda3ccc51c3-9" href="posts/separate-io-from-algorithms/#rest_code_92af6489902e4099a9d43bda3ccc51c3-9"></a>        <span class="k">if</span> <span class="n">language</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">quantities</span><span class="p">:</span>
+<a id="rest_code_92af6489902e4099a9d43bda3ccc51c3-10" name="rest_code_92af6489902e4099a9d43bda3ccc51c3-10" href="posts/separate-io-from-algorithms/#rest_code_92af6489902e4099a9d43bda3ccc51c3-10"></a>            <span class="n">quantities</span><span class="p">[</span><span class="n">language</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="rest_code_92af6489902e4099a9d43bda3ccc51c3-11" name="rest_code_92af6489902e4099a9d43bda3ccc51c3-11" href="posts/separate-io-from-algorithms/#rest_code_92af6489902e4099a9d43bda3ccc51c3-11"></a>        <span class="n">quantities</span><span class="p">[</span><span class="n">language</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="rest_code_92af6489902e4099a9d43bda3ccc51c3-12" name="rest_code_92af6489902e4099a9d43bda3ccc51c3-12" href="posts/separate-io-from-algorithms/#rest_code_92af6489902e4099a9d43bda3ccc51c3-12"></a>    <span class="k">return</span> <span class="n">quantities</span>
+<a id="rest_code_92af6489902e4099a9d43bda3ccc51c3-13" name="rest_code_92af6489902e4099a9d43bda3ccc51c3-13" href="posts/separate-io-from-algorithms/#rest_code_92af6489902e4099a9d43bda3ccc51c3-13"></a>
+<a id="rest_code_92af6489902e4099a9d43bda3ccc51c3-14" name="rest_code_92af6489902e4099a9d43bda3ccc51c3-14" href="posts/separate-io-from-algorithms/#rest_code_92af6489902e4099a9d43bda3ccc51c3-14"></a><span class="k">def</span> <span class="nf">show_report</span><span class="p">(</span><span class="n">quantities</span><span class="p">):</span>
+<a id="rest_code_92af6489902e4099a9d43bda3ccc51c3-15" name="rest_code_92af6489902e4099a9d43bda3ccc51c3-15" href="posts/separate-io-from-algorithms/#rest_code_92af6489902e4099a9d43bda3ccc51c3-15"></a>    <span class="k">for</span> <span class="n">language</span><span class="p">,</span> <span class="n">quantity</span> <span class="ow">in</span> <span class="n">quantities</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="rest_code_92af6489902e4099a9d43bda3ccc51c3-16" name="rest_code_92af6489902e4099a9d43bda3ccc51c3-16" href="posts/separate-io-from-algorithms/#rest_code_92af6489902e4099a9d43bda3ccc51c3-16"></a>        <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="si">{l}</span><span class="s1">: </span><span class="si">{q}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="n">language</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="n">quantity</span><span class="p">))</span>
+</pre></div>
 <p>In this new solution, we clearly divided our code in three blocks: the code dealing with the input file, the counting algorithm itself (business logic), and the code dealing with the output of the results. We can easily test the business logic without mocking or doing real IO. We can easily reuse the business logic in scenarios where the input or output formats are different. Even if we have to support input data coming from a stream, something quite difficult with the previous approach, we could achieve that with simple refactors. This separation leaves the door open for changes in a way the old code didn’t.</p>
 </section><section id="a-real-example"><h3>A real example</h3>
 <p>A very common scenario in which this rule is neglected, leading to really ugly code, slow and complex tests, and overall difficult to maintain code, are Django views. Developers too often write much of the business logic of their web apps right into the views. At first sight this doesn’t look “that bad”, the code is clean, simple. It’s just a view doing business stuff. But as we saw before, problems start to arise when we need to write tests, or reuse that business logic in slightly different scenarios.</p>
 <p>When writing the tests, people usually just rely on the <code class="docutils literal">django.test.client</code> to solve the “I need to do IO to test this logic” issue. The test client is great, it really solves the need of having to test a view. But the problem is: we shouldn’t be testing a view, when we just need to test a piece of business logic. We are doing lots of unnecessary extra work (url resolving, middlewares, etc), and complicating the test code, when it could have been just a function call.</p>
 <p>And as you can imagine, things get really messy when we need to reuse that business logic that’s buried inside the view.</p>
 <p>So, instead of writing views like this:</p>
-<pre class="code python"><a id="rest_code_a1fe5c8449154439883514ef3236290c-1" name="rest_code_a1fe5c8449154439883514ef3236290c-1"></a><span class="k">def</span> <span class="nf">update_score</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
-<a id="rest_code_a1fe5c8449154439883514ef3236290c-2" name="rest_code_a1fe5c8449154439883514ef3236290c-2"></a>    <span class="c1"># logic to get the current score</span>
-<a id="rest_code_a1fe5c8449154439883514ef3236290c-3" name="rest_code_a1fe5c8449154439883514ef3236290c-3"></a>    <span class="c1"># logic to get the matches won</span>
-<a id="rest_code_a1fe5c8449154439883514ef3236290c-4" name="rest_code_a1fe5c8449154439883514ef3236290c-4"></a>    <span class="c1"># score = a little extra code calculating the new score</span>
-<a id="rest_code_a1fe5c8449154439883514ef3236290c-5" name="rest_code_a1fe5c8449154439883514ef3236290c-5"></a>    <span class="c1"># some more score updating</span>
-<a id="rest_code_a1fe5c8449154439883514ef3236290c-6" name="rest_code_a1fe5c8449154439883514ef3236290c-6"></a>    <span class="c1"># the last bits of the score update</span>
-<a id="rest_code_a1fe5c8449154439883514ef3236290c-7" name="rest_code_a1fe5c8449154439883514ef3236290c-7"></a>    <span class="n">returnrender</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">'score.html'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'score'</span><span class="p">:</span> <span class="n">score</span><span class="p">})</span>
-</pre>
+<div class="code"><pre class="code python"><a id="rest_code_35f858fdf828439e96a05feb76a09428-1" name="rest_code_35f858fdf828439e96a05feb76a09428-1" href="posts/separate-io-from-algorithms/#rest_code_35f858fdf828439e96a05feb76a09428-1"></a><span class="k">def</span> <span class="nf">update_score</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<a id="rest_code_35f858fdf828439e96a05feb76a09428-2" name="rest_code_35f858fdf828439e96a05feb76a09428-2" href="posts/separate-io-from-algorithms/#rest_code_35f858fdf828439e96a05feb76a09428-2"></a>    <span class="c1"># logic to get the current score</span>
+<a id="rest_code_35f858fdf828439e96a05feb76a09428-3" name="rest_code_35f858fdf828439e96a05feb76a09428-3" href="posts/separate-io-from-algorithms/#rest_code_35f858fdf828439e96a05feb76a09428-3"></a>    <span class="c1"># logic to get the matches won</span>
+<a id="rest_code_35f858fdf828439e96a05feb76a09428-4" name="rest_code_35f858fdf828439e96a05feb76a09428-4" href="posts/separate-io-from-algorithms/#rest_code_35f858fdf828439e96a05feb76a09428-4"></a>    <span class="c1"># score = a little extra code calculating the new score</span>
+<a id="rest_code_35f858fdf828439e96a05feb76a09428-5" name="rest_code_35f858fdf828439e96a05feb76a09428-5" href="posts/separate-io-from-algorithms/#rest_code_35f858fdf828439e96a05feb76a09428-5"></a>    <span class="c1"># some more score updating</span>
+<a id="rest_code_35f858fdf828439e96a05feb76a09428-6" name="rest_code_35f858fdf828439e96a05feb76a09428-6" href="posts/separate-io-from-algorithms/#rest_code_35f858fdf828439e96a05feb76a09428-6"></a>    <span class="c1"># the last bits of the score update</span>
+<a id="rest_code_35f858fdf828439e96a05feb76a09428-7" name="rest_code_35f858fdf828439e96a05feb76a09428-7" href="posts/separate-io-from-algorithms/#rest_code_35f858fdf828439e96a05feb76a09428-7"></a>    <span class="n">returnrender</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">'score.html'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'score'</span><span class="p">:</span> <span class="n">score</span><span class="p">})</span>
+</pre></div>
 <p>We should always try to write views more similar to this:</p>
-<pre class="code python"><a id="rest_code_87c6f643883c4f198d3bb6c7001f4fff-1" name="rest_code_87c6f643883c4f198d3bb6c7001f4fff-1"></a><span class="kn">import</span> <span class="nn">score_logic</span>
-<a id="rest_code_87c6f643883c4f198d3bb6c7001f4fff-2" name="rest_code_87c6f643883c4f198d3bb6c7001f4fff-2"></a>
-<a id="rest_code_87c6f643883c4f198d3bb6c7001f4fff-3" name="rest_code_87c6f643883c4f198d3bb6c7001f4fff-3"></a><span class="k">def</span> <span class="nf">update_score</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
-<a id="rest_code_87c6f643883c4f198d3bb6c7001f4fff-4" name="rest_code_87c6f643883c4f198d3bb6c7001f4fff-4"></a>    <span class="n">score</span> <span class="o">=</span> <span class="n">score_logic</span><span class="o">.</span><span class="n">update_score</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
-<a id="rest_code_87c6f643883c4f198d3bb6c7001f4fff-5" name="rest_code_87c6f643883c4f198d3bb6c7001f4fff-5"></a>    <span class="n">returnrender</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">'score.html'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'score'</span><span class="p">:</span> <span class="n">score</span><span class="p">})</span>
-</pre></section><section id="conclusion"><h3>Conclusion</h3>
+<div class="code"><pre class="code python"><a id="rest_code_278de13309154687abc14ab14758541e-1" name="rest_code_278de13309154687abc14ab14758541e-1" href="posts/separate-io-from-algorithms/#rest_code_278de13309154687abc14ab14758541e-1"></a><span class="kn">import</span> <span class="nn">score_logic</span>
+<a id="rest_code_278de13309154687abc14ab14758541e-2" name="rest_code_278de13309154687abc14ab14758541e-2" href="posts/separate-io-from-algorithms/#rest_code_278de13309154687abc14ab14758541e-2"></a>
+<a id="rest_code_278de13309154687abc14ab14758541e-3" name="rest_code_278de13309154687abc14ab14758541e-3" href="posts/separate-io-from-algorithms/#rest_code_278de13309154687abc14ab14758541e-3"></a><span class="k">def</span> <span class="nf">update_score</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<a id="rest_code_278de13309154687abc14ab14758541e-4" name="rest_code_278de13309154687abc14ab14758541e-4" href="posts/separate-io-from-algorithms/#rest_code_278de13309154687abc14ab14758541e-4"></a>    <span class="n">score</span> <span class="o">=</span> <span class="n">score_logic</span><span class="o">.</span><span class="n">update_score</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+<a id="rest_code_278de13309154687abc14ab14758541e-5" name="rest_code_278de13309154687abc14ab14758541e-5" href="posts/separate-io-from-algorithms/#rest_code_278de13309154687abc14ab14758541e-5"></a>    <span class="n">returnrender</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">'score.html'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'score'</span><span class="p">:</span> <span class="n">score</span><span class="p">})</span>
+</pre></div>
+</section><section id="conclusion"><h3>Conclusion</h3>
 <p>Separating IO from algorithms might sound like an obvious advice, but it isn’t, it’s a principle that is often overlooked. And specially in web apps, leading to test suites that take too much time to run, and code that is indeed very hard to maintain.</p>
 <p>It’s a simple rule, easy to follow, and it does prevent serious maintainability problems. So this is my advice: never again miss a chance to separate that function (or view) into dedicated IO and algorithms blocks. Your future self will be thankful :)</p>
 </section></section>
@@ -412,7 +424,8 @@ So only big players are able to train the best models. Only big corporations or 
         </p>
 </div>
     </header><div class="e-content entry-content">
-    <a class="reference external image-reference" href="images/katanas-especiales/katana.jpg"><img alt="/images/katanas-especiales/katana.thumbnail.jpg" src="images/katanas-especiales/katana.thumbnail.jpg"></a>
+    <a class="reference external image-reference" href="images/katanas-especiales/katana.jpg">
+<img alt="/images/katanas-especiales/katana.thumbnail.jpg" src="images/katanas-especiales/katana.thumbnail.jpg"></a>
 <p>Hay varios aspectos posibles para responder: podemos ver qué tiene de especial desde lo físico en comparación a otras espadas, desde lo técnico (su uso) y podemos ver qué tiene de especial desde lo cultural. Voy a responder con detalle sobre el primer aspecto, un poco menos del segundo, y muy poco del tercero. Pero spoiler alert: la katana no es una espada super especial, como mucha gente quiere creer. Lamentablemente hay mucha desinformación al respecto :)</p>
 <section id="lo-fisico"><h2>Lo físico</h2>
 <p>Mucha gente tiene la idea de que las katanas son espadas especialmente livianas y ágiles, o increíblemente filosas, o de un metal extraordinariamente resistente o bueno, en comparación a las espadas del resto del mundo, o especialmente de la Europa medieval y del renacimiento. Lamentablemente la mayoría de estas ideas se arraigan en mitos, perpetrados por juegos, películas, y hasta instructores de artes marciales muy poco informados.</p>
@@ -423,7 +436,8 @@ So only big players are able to train the best models. Only big corporations or 
 <p>Comparando contra espadas europeas de dos manos notamos que en promedio las katanas son más livianas. Pero es una comparación injusta porque la típica espada europea de dos manos tenía una hoja de 90cm, y no 70cm como la katana. Es decir, casi un 30% más largas. Cuánto pesaba la típica espada de dos manos europea? Alrededor de 1.5kg (de vuelta, con variación). Lo que es perfectamente lógico! Para una espada con hoja un 30% más largo, es esperable que el peso sea un poco mayor, pero no por estar mal hecha o ser más "primitiva", nada de eso. Simplemente es una espada más larga, así que va a poseer más metal.</p>
 <p>Respecto al balance y distribución del peso, también podemos ver que la hoja de la katana es muy similar a espadas europeas de uso comparable. Base más ancha con un poco de distal taper (afinamiento), con un balance alrededor de 10cm de la guarda.</p>
 <p>Con esta información está bastante claro que la katana no es un arma más ágil o rápida que cualquier espada europea similar. Es simplemente una espada más.</p>
-<a class="reference external image-reference" href="images/katanas-especiales/largos.jpeg"><img alt="/images/katanas-especiales/largos.thumbnail.jpeg" src="images/katanas-especiales/largos.thumbnail.jpeg"></a>
+<a class="reference external image-reference" href="images/katanas-especiales/largos.jpeg">
+<img alt="/images/katanas-especiales/largos.thumbnail.jpeg" src="images/katanas-especiales/largos.thumbnail.jpeg"></a>
 <p>(comparemos el largo de la hoja de la katana, respecto a otras espadas europeas. Incluso el sable victoriano de una mano tiene una hoja más larga)</p>
 </section><section id="filo"><h3>Filo:</h3>
 <p>Un aspecto interesante de la katana es que por su construcción, el filo de la espada está compuesto de un acero más duro que el que se usa para su espina. Esto tiene algunas ventajas respecto al filo, pero no son las ventajas que la gente suele imaginar.</p>
@@ -434,7 +448,8 @@ So only big players are able to train the best models. Only big corporations or 
 </section><section id="calidad-o-resistencia-del-metal"><h3>Calidad o resistencia del metal:</h3>
 <p>El mito de que el acero de las katanas es una especie de super acero increíblemente bueno, tiene pocas bases en la realidad. Lo cierto es que la materia prima que se conseguía en el Japón feudal tenía muchas inclusiones de materiales no deseados (similar a muchas partes del mundo), y el proceso de plegado tiene como objetivo remover parte de esas inclusiones, y distribuir más homogéneamente las que no se quitan. El resultado es un buen acero, sin dudas. Pero no un acero extraordinario. Cualquier acero moderno es muchísimo más puro, y el tratamiento térmico preciso moderno logra prestaciones y resistencias muchísimo mejores que las técnicas históricas de cualquier cultura, incluido Japón.</p>
 <p>Mucha gente cree que ese proceso de plegado era una especie de tecnología super avanzada exclusiva de Japón, que el resto del mundo no conocía y por eso generaban aceros inferiores. Nada más equivocado: en Europa se realizaban técnicas similares (plegado, y otras incluso más complejas, como el forjado en patrón de espadas de la era vikinga). Pero con el tiempo en Europa se desarrollaron hornos que lograban aceros más puros, haciendo menos necesario el proceso de plegado. Era algo común, y que en un punto se volvió obsoleto.</p>
-<a class="reference external image-reference" href="images/katanas-especiales/forjado-patron.jpg"><img alt="/images/katanas-especiales/forjado-patron.thumbnail.jpg" src="images/katanas-especiales/forjado-patron.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/katanas-especiales/forjado-patron.jpg">
+<img alt="/images/katanas-especiales/forjado-patron.thumbnail.jpg" src="images/katanas-especiales/forjado-patron.thumbnail.jpg"></a>
 <p>(forjado en patrón, técnica similar al plegado pero de mayor complejidad, muy presente en espadas vikingas)</p>
 </section><section id="construccion"><h3>Construcción:</h3>
 <p>En esto las katanas tienen una característica conocida por muchos, que es poco común: la diferencia en el acero del filo vs de al espina de la espada. Esto se logra utilizando aceros de diferente grado de carbono, y también realizando un templado diferenciado de la hoja (templando más el filo que la espina).</p>
@@ -443,19 +458,22 @@ So only big players are able to train the best models. Only big corporations or 
 </section><section id="curvatura"><h3>Curvatura:</h3>
 <p>Un detalle pero vale la pena aclararlo: en Europa también se usaban espadas curvas, y mucho. No se trata de una innovación exclusiva de Japón, o de algo objetivamente superior que solo ellos hacían.</p>
 <p>Espada recta vs espada curva es un debate que tiene cientos, si no miles de años, y en todas las culturas se dio variedad de opinión al respecto. El contexto muchas veces hizo que una u otra sean más adecuadas en diferentes lugares y épocas. En Europa, las armaduras dictaron una tendencia hacia las espadas rectas (que logran mejores estocadas, y cortes levemente inferiores), simplemente porque cortar hacia una armadura no logra nada.</p>
-<a class="reference external image-reference" href="images/katanas-especiales/kriegsmesser.jpg"><img alt="/images/katanas-especiales/kriegsmesser.thumbnail.jpg" src="images/katanas-especiales/kriegsmesser.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/katanas-especiales/kriegsmesser.jpg">
+<img alt="/images/katanas-especiales/kriegsmesser.thumbnail.jpg" src="images/katanas-especiales/kriegsmesser.thumbnail.jpg"></a>
 <p>(kriegsmesser europeo)</p>
 </section><section id="proteccion"><h3>Protección:</h3>
 <p>Otro aspecto relativamente interesante es la elección del estilo de guarda que tienen las katanas: un disco pequeño. Es discutible, pero por lo general se considera que ofrece un nivel mucho menor de protección en comparación a otros estilos de guardas, como la cruciforme o alternativas más elaboradas.</p>
 <p>Pero más allá de la opinión que se tenga respecto a su utilidad, el tener una guarda con forma de disco no es una característica exclusiva de las katanas. Hay otros tipos de espadas asiáticas con guardas similares (como los Dao chinos).</p>
-<a class="reference external image-reference" href="images/katanas-especiales/dao.jpg"><img alt="/images/katanas-especiales/dao.thumbnail.jpg" src="images/katanas-especiales/dao.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/katanas-especiales/dao.jpg">
+<img alt="/images/katanas-especiales/dao.thumbnail.jpg" src="images/katanas-especiales/dao.thumbnail.jpg"></a>
 <p>(Dao chino)</p>
 </section><section id="rigidez"><h3>Rigidez:</h3>
 <p>Un último aspecto interesante es que en comparación a las espadas europeas, la katana suele tener una hoja un tanto más rígida, menos elástica. Esto tiene también sus ventajas y problemas.</p>
 <p>La principal ventaja es que hace más fácil cortar, es un poco más permisiva si la técnica del atacante no es tan buena. Las hojas europeas requieren mejor alineación del filo para cortar adecuadamente, mientras que con una katana se puede tener el filo un poco peor alineado (por falla de la técnica del usuario), pero igual cortar de forma efectiva. Esto la hace bastante amigable para novatos. Pero un cortador experto puede cortar igual de bien con ambas.</p>
 <p>Claramente también ayuda un poco en las estocadas, ya que la flexión es energía perdida.</p>
 <p>La principal desventaja es que la elasticidad de las espadas europeas las hace más duraderas. Un impacto muy fuerte lateral flexiona la hoja, pero la misma vuelve a su forma original, como un resorte. En el caso de la katana, por cómo son tratados los aceros que la componen, tiene más tendencia a doblarse y permanecer doblada en lugar de volver a su forma original.</p>
-<a class="reference external image-reference" href="images/katanas-especiales/flexibilidad.jpg"><img alt="/images/katanas-especiales/flexibilidad.thumbnail.jpg" src="images/katanas-especiales/flexibilidad.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/katanas-especiales/flexibilidad.jpg">
+<img alt="/images/katanas-especiales/flexibilidad.thumbnail.jpg" src="images/katanas-especiales/flexibilidad.thumbnail.jpg"></a>
 </section></section><section id="lo-tecnico"><h2>Lo técnico</h2>
 <p>Mucha gente tiene la idea de que en Japón los samurais dedicaban su vida a estudiar el combate con espada, desarrollando técnicas super avanzadas, mientras que en Europa la gente se pegaba garrotasos a lo bruto, sin técnica alguna.</p>
 <p>La realidad, de vuelta, no es esa. En cambio en ambos lugares existieron y se desarrollaron artes marciales muy avanzadas de combate con espada. Sistemas completos con principios, técnicas, variaciones de estilo, etc.</p>
@@ -463,7 +481,8 @@ So only big players are able to train the best models. Only big corporations or 
 <p>Pero hoy en día existe mucha gente practicando artes marciales históricas europeas (HEMA), utilizando manuscritos medievales y del renacimiento escritos por los mismos maestros que enseñaban en esas épocas, para revivir dichas artes.</p>
 <p>Y lo interesante es que hay muchísimo en común entre ambos mundos. Hay técnicas y posturas que pueden encontrarse casi idénticas entre manuscritos japoneses e italianos. Los principios que guían ambas artes también son muy muy similares.</p>
 <p>En definitiva, no existen tantas formas diferentes de usar una espada de dos manos y poco más de 1kg de manera efectiva. Quienes usaban técnicas efectivas sobrevivían, quienes no, morían. Y por ello ambas culturas luego de siglos de uso, llegaron a conclusiones relativamente similares.</p>
-<a class="reference external image-reference" href="images/katanas-especiales/fiore.jpg"><img alt="/images/katanas-especiales/fiore.thumbnail.jpg" src="images/katanas-especiales/fiore.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/katanas-especiales/fiore.jpg">
+<img alt="/images/katanas-especiales/fiore.thumbnail.jpg" src="images/katanas-especiales/fiore.thumbnail.jpg"></a>
 <p>(página del manuscrito "Il Fior di Battaglia", escrito en el 1400. Versión completa online: <a class="reference external" href="https://wiktenauer.com/wiki/Fior_di_Battaglia_(MS_Ludwig_XV_13)">Fior di Battaglia (MS Ludwig XV 13)</a> )</p>
 </section><section id="lo-cultural"><h2>Lo cultural</h2>
 <p>En esto puede haber una diferencia muy importante entre la katana y las espadas de Europa (no hablo de otras culturas por que no conozco tanto).</p>
@@ -472,8 +491,10 @@ So only big players are able to train the best models. Only big corporations or 
 <p>Esto también llevó a que Japón valore y conserve muchísimo mejor sus espadas históricas, y que se desarrollen incluso artes de conservación alrededor de ellas. Una hoja del año 1500 puede verse hoy en perfectas condiciones, mantenida por generaciones de pulidores, y familias que las atesoraron con valor hasta religioso.</p>
 <p>En Europa en cambio, la mayoría de las que sobrevivieron se encuentran super maltratadas, mal mantenidas, oxidadas, etc. Y por lo general, luego de años de estar tiradas o escondidas en algún lugar, sin que se les preste demasiada atención.</p>
 <p>Esto contribuyó mucho al mito de que las katanas eran especialmente bien hechas, por culpa de ver hojas en estado casi perfecto de un lado, mientras que del otro solo veíamos cosas oxidadas y en estado de abandono.</p>
-<a class="reference external image-reference" href="images/katanas-especiales/conservacion_katana.jpeg"><img alt="/images/katanas-especiales/conservacion_katana.thumbnail.jpeg" src="images/katanas-especiales/conservacion_katana.thumbnail.jpeg"></a>
-<a class="reference external image-reference" href="images/katanas-especiales/conservacion_europea.jpeg"><img alt="/images/katanas-especiales/conservacion_europea.thumbnail.jpeg" src="images/katanas-especiales/conservacion_europea.thumbnail.jpeg"></a>
+<a class="reference external image-reference" href="images/katanas-especiales/conservacion_katana.jpeg">
+<img alt="/images/katanas-especiales/conservacion_katana.thumbnail.jpeg" src="images/katanas-especiales/conservacion_katana.thumbnail.jpeg"></a>
+<a class="reference external image-reference" href="images/katanas-especiales/conservacion_europea.jpeg">
+<img alt="/images/katanas-especiales/conservacion_europea.thumbnail.jpeg" src="images/katanas-especiales/conservacion_europea.thumbnail.jpeg"></a>
 <p>(estado típico de conservación de una katana vs el estado típico de conservación de una espada europea)</p>
 </section><section id="en-resumen"><h2>En resumen</h2>
 <p>La katana es un arma con un lugar muy especial dentro del mundo actual de espadas, pero más por accidentes históricos y diferencias culturales, que por las características del arma en sí o de sus técnicas asociadas.</p>
@@ -499,8 +520,9 @@ And because it uses a mounted filesystem, it's pretty transparent to other tools
 editors, etc).
 There's absolutely no need for specialized tools to work with your encrypted files.</p>
 <section id="dependencies"><h2>Dependencies</h2>
-<pre class="code bash"><a id="rest_code_b0178fc536db4056ab11e6d56d1139a1-1" name="rest_code_b0178fc536db4056ab11e6d56d1139a1-1"></a>sudo apt install ecryptfs-utils
-</pre></section><section id="initial-setup-one-time-only"><h2>Initial setup (one time only)</h2>
+<div class="code"><pre class="code bash"><a id="rest_code_1c11a13908884164805c844d3a223fc4-1" name="rest_code_1c11a13908884164805c844d3a223fc4-1" href="posts/encrypt-a-dir-with-ecryptfs/#rest_code_1c11a13908884164805c844d3a223fc4-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ecryptfs-utils
+</pre></div>
+</section><section id="initial-setup-one-time-only"><h2>Initial setup (one time only)</h2>
 <p>You need to do this only once to setup your dir.
 After that you won't have to run these steps in your daily use.</p>
 <p>First create two dirs:</p>
@@ -508,12 +530,12 @@ After that you won't have to run these steps in your daily use.</p>
 <li><p>A dir where you will work with your files when the encrypted filesystem is mounted.</p></li>
 <li><p>A dir where the encrypted data will live. You should <strong>never</strong> edit its contents by yourself.</p></li>
 </ul>
-<pre class="code bash"><a id="rest_code_54e53163016b4b8eb9d68e618a9dc68a-1" name="rest_code_54e53163016b4b8eb9d68e618a9dc68a-1"></a>mkdir super_secret_things
-<a id="rest_code_54e53163016b4b8eb9d68e618a9dc68a-2" name="rest_code_54e53163016b4b8eb9d68e618a9dc68a-2"></a>mkdir super_secret_things_encrypted
-</pre>
+<div class="code"><pre class="code bash"><a id="rest_code_afeaf578713045eebaf7a7e0970b537b-1" name="rest_code_afeaf578713045eebaf7a7e0970b537b-1" href="posts/encrypt-a-dir-with-ecryptfs/#rest_code_afeaf578713045eebaf7a7e0970b537b-1"></a>mkdir<span class="w"> </span>super_secret_things
+<a id="rest_code_afeaf578713045eebaf7a7e0970b537b-2" name="rest_code_afeaf578713045eebaf7a7e0970b537b-2" href="posts/encrypt-a-dir-with-ecryptfs/#rest_code_afeaf578713045eebaf7a7e0970b537b-2"></a>mkdir<span class="w"> </span>super_secret_things_encrypted
+</pre></div>
 <p>Then, mount the filesystem for the first time:</p>
-<pre class="code bash"><a id="rest_code_4e3ab44487cb47a5a31fad94a43d5988-1" name="rest_code_4e3ab44487cb47a5a31fad94a43d5988-1"></a>sudo mount super_secret_things_encrypted super_secret_things -t ecryptfs
-</pre>
+<div class="code"><pre class="code bash"><a id="rest_code_5223385b2b9e4f188fb2e4dc3d959f82-1" name="rest_code_5223385b2b9e4f188fb2e4dc3d959f82-1" href="posts/encrypt-a-dir-with-ecryptfs/#rest_code_5223385b2b9e4f188fb2e4dc3d959f82-1"></a>sudo<span class="w"> </span>mount<span class="w"> </span>super_secret_things_encrypted<span class="w"> </span>super_secret_things<span class="w"> </span>-t<span class="w"> </span>ecryptfs
+</pre></div>
 <p>This will ask you a bunch of questions, these are the answers I recommend, plus some explanations:</p>
 <ul class="simple">
 <li><p><strong>Passphrase</strong>: whatever you want to use as password :)</p></li>
@@ -540,19 +562,19 @@ the future! For me this became muscle memory: "1 2 n y enter".</p>
 <ol class="arabic simple">
 <li><p>Mount the encrypted dir</p></li>
 </ol>
-<pre class="code bash"><a id="rest_code_4b82c95ef41241deb8bb12d4513ee5d8-1" name="rest_code_4b82c95ef41241deb8bb12d4513ee5d8-1"></a>sudo mount super_secret_things_encrypted super_secret_things -t ecryptfs
-<a id="rest_code_4b82c95ef41241deb8bb12d4513ee5d8-2" name="rest_code_4b82c95ef41241deb8bb12d4513ee5d8-2"></a><span class="c1"># answer "1 2 n y enter", or whatever you chose instead</span>
-</pre>
+<div class="code"><pre class="code bash"><a id="rest_code_27b6b2ec4e594c39a6ca7efb3ff99872-1" name="rest_code_27b6b2ec4e594c39a6ca7efb3ff99872-1" href="posts/encrypt-a-dir-with-ecryptfs/#rest_code_27b6b2ec4e594c39a6ca7efb3ff99872-1"></a>sudo<span class="w"> </span>mount<span class="w"> </span>super_secret_things_encrypted<span class="w"> </span>super_secret_things<span class="w"> </span>-t<span class="w"> </span>ecryptfs
+<a id="rest_code_27b6b2ec4e594c39a6ca7efb3ff99872-2" name="rest_code_27b6b2ec4e594c39a6ca7efb3ff99872-2" href="posts/encrypt-a-dir-with-ecryptfs/#rest_code_27b6b2ec4e594c39a6ca7efb3ff99872-2"></a><span class="c1"># answer "1 2 n y enter", or whatever you chose instead</span>
+</pre></div>
 <p>You can also avoid having to answer all the questions, by passing all these extra parameters:</p>
-<pre class="code bash"><a id="rest_code_178d8edf55f247648745d75e771decd2-1" name="rest_code_178d8edf55f247648745d75e771decd2-1"></a>sudo mount super_secret_things_encrypted super_secret_things -t ecryptfs -o <span class="nv">ecryptfs_cipher</span><span class="o">=</span>aes,ecryptfs_key_bytes<span class="o">=</span><span class="m">32</span>,ecryptfs_passthrough<span class="o">=</span>n,ecryptfs_enable_filename_crypto<span class="o">=</span>y,ecryptfs_fnek_sig<span class="o">=</span>6b8de1a1e22ae45c
-<a id="rest_code_178d8edf55f247648745d75e771decd2-2" name="rest_code_178d8edf55f247648745d75e771decd2-2"></a><span class="c1"># (the "encryptfs_fnek_sig" signature is the one that the mount command asks you to verify in the final step, when not receiving all the extra params)</span>
-</pre>
+<div class="code"><pre class="code bash"><a id="rest_code_9fad65dc96d741bfb645125347ca1f18-1" name="rest_code_9fad65dc96d741bfb645125347ca1f18-1" href="posts/encrypt-a-dir-with-ecryptfs/#rest_code_9fad65dc96d741bfb645125347ca1f18-1"></a>sudo<span class="w"> </span>mount<span class="w"> </span>super_secret_things_encrypted<span class="w"> </span>super_secret_things<span class="w"> </span>-t<span class="w"> </span>ecryptfs<span class="w"> </span>-o<span class="w"> </span><span class="nv">ecryptfs_cipher</span><span class="o">=</span>aes,ecryptfs_key_bytes<span class="o">=</span><span class="m">32</span>,ecryptfs_passthrough<span class="o">=</span>n,ecryptfs_enable_filename_crypto<span class="o">=</span>y,ecryptfs_fnek_sig<span class="o">=</span>6b8de1a1e22ae45c
+<a id="rest_code_9fad65dc96d741bfb645125347ca1f18-2" name="rest_code_9fad65dc96d741bfb645125347ca1f18-2" href="posts/encrypt-a-dir-with-ecryptfs/#rest_code_9fad65dc96d741bfb645125347ca1f18-2"></a><span class="c1"># (the "encryptfs_fnek_sig" signature is the one that the mount command asks you to verify in the final step, when not receiving all the extra params)</span>
+</pre></div>
 <ol class="arabic simple" start="2">
 <li><p>Work with your files inside <cite>super_secret_things</cite> (REMEMBER!!! never edit the contents of <cite>super_secret_things_encrypted</cite> by yourself)</p></li>
 <li><p>Un-mount the encrypted dir</p></li>
 </ol>
-<pre class="code bash"><a id="rest_code_6f52e342cdc540f490a637237af39665-1" name="rest_code_6f52e342cdc540f490a637237af39665-1"></a>sudo umount super_secret_things
-</pre>
+<div class="code"><pre class="code bash"><a id="rest_code_e6c5ddef75e84676994d72dd35cd2e0d-1" name="rest_code_e6c5ddef75e84676994d72dd35cd2e0d-1" href="posts/encrypt-a-dir-with-ecryptfs/#rest_code_e6c5ddef75e84676994d72dd35cd2e0d-1"></a>sudo<span class="w"> </span>umount<span class="w"> </span>super_secret_things
+</pre></div>
 <p>Of course, you can automate these into scripts, alias in your shell, etc.</p>
 <p>Hope this is as useful to you as it was for me :)</p>
 </section>
@@ -571,7 +593,8 @@ the future! For me this became muscle memory: "1 2 n y enter".</p>
     </header><div class="e-content entry-content">
     <section id="the-sword"><h2>The sword</h2>
 <p>(click the photos to see the full resolution versions)</p>
-<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/1.jpg"><img alt="/images/daneluz-longsword-best-sword/1.thumbnail.jpg" src="images/daneluz-longsword-best-sword/1.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/1.jpg">
+<img alt="/images/daneluz-longsword-best-sword/1.thumbnail.jpg" src="images/daneluz-longsword-best-sword/1.thumbnail.jpg"></a>
 <p>It's a longsword made in the typical style of the year 1400, with a special reinforced tip (useful to fight against armor), and an actual medieval coin in the pommel.</p>
 <p><strong>Weight:</strong> 1.515 kg.</p>
 <p><strong>Length:</strong> 119.5 cm (118.5 cm not counting the pin block), 93 cm blade.</p>
@@ -581,29 +604,42 @@ the future! For me this became muscle memory: "1 2 n y enter".</p>
 <p><strong>Grip:</strong> made of really hard wood (Lapacho), with both hexagonal (near the guard) and oval (near the pommel) cross sections. Covered in string to give it the texture, resin, and then cow leather above it.</p>
 <p><strong>Coin:</strong> the coin in the pommel is an actual coin from the year 1180, with an image of  <a class="reference external" href="https://en.wikipedia.org/wiki/Manuel_I_Komnenos">Manuel I Komnenos</a>, a Byzantine emperor.</p>
 <p><strong>Maker:</strong> Leonardo Daneluz. More of his high quality work in <a class="reference external" href="https://www.facebook.com/leonardo.daneluz/photos">his facebook page</a>.</p>
-<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/2.jpg"><img alt="/images/daneluz-longsword-best-sword/2.thumbnail.jpg" src="images/daneluz-longsword-best-sword/2.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/2.jpg">
+<img alt="/images/daneluz-longsword-best-sword/2.thumbnail.jpg" src="images/daneluz-longsword-best-sword/2.thumbnail.jpg"></a>
 <p>Gosh, I'm really happy with this sword :D</p>
-<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/3.jpg"><img alt="/images/daneluz-longsword-best-sword/3.thumbnail.jpg" src="images/daneluz-longsword-best-sword/3.thumbnail.jpg"></a>
-<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/4.jpg"><img alt="/images/daneluz-longsword-best-sword/4.thumbnail.jpg" src="images/daneluz-longsword-best-sword/4.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/3.jpg">
+<img alt="/images/daneluz-longsword-best-sword/3.thumbnail.jpg" src="images/daneluz-longsword-best-sword/3.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/4.jpg">
+<img alt="/images/daneluz-longsword-best-sword/4.thumbnail.jpg" src="images/daneluz-longsword-best-sword/4.thumbnail.jpg"></a>
 <p>With "Il Fior Di Battaglia", a medieval martial arts manuscript from around 1400 (<a class="reference external" href="https://wiktenauer.com/wiki/Fior_di_Battaglia_(MS_Ludwig_XV_13)">you can read it online!</a>). People from that time didn't just crudely bash themselves with blunt heavy swords. In reality, swords were fairly light and agile, quite sharp, and they had very developed martial arts around their usage. Luckily many manuscripts from the time survive, which we can use to revive those martial arts (google "HEMA" if you want to see people practicing them).</p>
-<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/5.jpg"><img alt="/images/daneluz-longsword-best-sword/5.thumbnail.jpg" src="images/daneluz-longsword-best-sword/5.thumbnail.jpg"></a>
-<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/6.jpg"><img alt="/images/daneluz-longsword-best-sword/6.thumbnail.jpg" src="images/daneluz-longsword-best-sword/6.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/5.jpg">
+<img alt="/images/daneluz-longsword-best-sword/5.thumbnail.jpg" src="images/daneluz-longsword-best-sword/5.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/6.jpg">
+<img alt="/images/daneluz-longsword-best-sword/6.thumbnail.jpg" src="images/daneluz-longsword-best-sword/6.thumbnail.jpg"></a>
 <p>Here you can see the pin, which is the end of the tang (the part of the blade that continues inside the grip). And also a glimpse of the coin (better pictures below).</p>
-<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/7.jpg"><img alt="/images/daneluz-longsword-best-sword/7.thumbnail.jpg" src="images/daneluz-longsword-best-sword/7.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/7.jpg">
+<img alt="/images/daneluz-longsword-best-sword/7.thumbnail.jpg" src="images/daneluz-longsword-best-sword/7.thumbnail.jpg"></a>
 <p>The details of the coin. A little shiny because of the oil used to keep the sword from rusting. You can see the figure of <a class="reference external" href="https://en.wikipedia.org/wiki/Manuel_I_Komnenos">Manuel I Komnenos</a>.</p>
-<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/8.jpg"><img alt="/images/daneluz-longsword-best-sword/8.thumbnail.jpg" src="images/daneluz-longsword-best-sword/8.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/8.jpg">
+<img alt="/images/daneluz-longsword-best-sword/8.thumbnail.jpg" src="images/daneluz-longsword-best-sword/8.thumbnail.jpg"></a>
 <p>With a rondel dagger, a type of dagger designed to fight people in armor, usually carried by knights and man-at-arms along this kind of swords.</p>
-<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/9.jpg"><img alt="/images/daneluz-longsword-best-sword/9.thumbnail.jpg" src="images/daneluz-longsword-best-sword/9.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/9.jpg">
+<img alt="/images/daneluz-longsword-best-sword/9.thumbnail.jpg" src="images/daneluz-longsword-best-sword/9.thumbnail.jpg"></a>
 <p>Scolari is a HEMA study/practice group that we founded in Argentina. We focus on the teachings of <a class="reference external" href="https://wiktenauer.com/wiki/Fiore_de%27i_Liberi">Fiore dei Liberi</a>, the medieval martial arts master that wrote the manuscript you saw before. <a class="reference external" href="https://www.facebook.com/scolariesgrimahistorica/">https://www.facebook.com/scolariesgrimahistorica/</a></p>
-<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/10.jpg"><img alt="/images/daneluz-longsword-best-sword/10.thumbnail.jpg" src="images/daneluz-longsword-best-sword/10.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/10.jpg">
+<img alt="/images/daneluz-longsword-best-sword/10.thumbnail.jpg" src="images/daneluz-longsword-best-sword/10.thumbnail.jpg"></a>
 <p>A better picture of the coin, before it was embedded in the pommel.</p>
-<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/11.jpg"><img alt="/images/daneluz-longsword-best-sword/11.thumbnail.jpg" src="images/daneluz-longsword-best-sword/11.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/11.jpg">
+<img alt="/images/daneluz-longsword-best-sword/11.thumbnail.jpg" src="images/daneluz-longsword-best-sword/11.thumbnail.jpg"></a>
 <p>The sword without the grip and coin. You can see how the blade goes all the way through, sticking out of the pommel. This is how historical swords were built.</p>
-<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/12.jpg"><img alt="/images/daneluz-longsword-best-sword/12.thumbnail.jpg" src="images/daneluz-longsword-best-sword/12.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/12.jpg">
+<img alt="/images/daneluz-longsword-best-sword/12.thumbnail.jpg" src="images/daneluz-longsword-best-sword/12.thumbnail.jpg"></a>
 <p>To give it its final texture, the artisan not only uses string below the leather, but also above it. After a short while, the top string is removed, and the leather keeps its texture, providing better grip but also a nicer finish.</p>
-<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/13.jpg"><img alt="/images/daneluz-longsword-best-sword/13.thumbnail.jpg" src="images/daneluz-longsword-best-sword/13.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/13.jpg">
+<img alt="/images/daneluz-longsword-best-sword/13.thumbnail.jpg" src="images/daneluz-longsword-best-sword/13.thumbnail.jpg"></a>
 <p>That's a heck of a thick point.</p>
-<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/14.jpg"><img alt="/images/daneluz-longsword-best-sword/14.thumbnail.jpg" src="images/daneluz-longsword-best-sword/14.thumbnail.jpg"></a>
+<a class="reference external image-reference" href="images/daneluz-longsword-best-sword/14.jpg">
+<img alt="/images/daneluz-longsword-best-sword/14.thumbnail.jpg" src="images/daneluz-longsword-best-sword/14.thumbnail.jpg"></a>
 <p>Leonardo quenching it! :)</p>
 <p>He's well known for the quality and historicity of his work. If you like medieval swords, then you should definitely check <a class="reference external" href="https://www.facebook.com/leonardo.daneluz/photos">his swords</a>.</p>
 <p>Hope you enjoyed it as much as I do. Bah, that's impossible :p</p>
@@ -628,22 +664,22 @@ the future! For me this became muscle memory: "1 2 n y enter".</p>
 <p>Python 3.3 or newer (older versions do have virtualenvs, but they are used in a slightly different way).</p>
 </section><section id="how-do-i-create-a-new-virtualenv"><h2>How do I create a new virtualenv?</h2>
 <p>Open a terminal, and run this:</p>
-<pre class="code bash"><a id="rest_code_3f75187217334bc6a2d09dcdebf2fe28-1" name="rest_code_3f75187217334bc6a2d09dcdebf2fe28-1"></a>python3 -m venv PATH_TO_YOUR_VIRTUALENV
-</pre>
+<div class="code"><pre class="code bash"><a id="rest_code_548ce4f6b92a4377975461275e323751-1" name="rest_code_548ce4f6b92a4377975461275e323751-1" href="posts/virtualenvs-simplest-tutorial/#rest_code_548ce4f6b92a4377975461275e323751-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>PATH_TO_YOUR_VIRTUALENV
+</pre></div>
 <p>The path it receives as a paramenter, is the location for a folder that will be created and will contain your virtualenv inside. It will only contain the virtualenv, <strong>don't</strong> add any files inside that folder. Treat it like a "system" folder.</p>
 <p>Example:</p>
-<pre class="code bash"><a id="rest_code_43aeb42795f44d928f6b49f63d18538e-1" name="rest_code_43aeb42795f44d928f6b49f63d18538e-1"></a>python3 -m venv /home/fisa/projects/my_blog/venv
-</pre>
+<div class="code"><pre class="code bash"><a id="rest_code_f58f65285d9541cab7ee94877c4f98c7-1" name="rest_code_f58f65285d9541cab7ee94877c4f98c7-1" href="posts/virtualenvs-simplest-tutorial/#rest_code_f58f65285d9541cab7ee94877c4f98c7-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/home/fisa/projects/my_blog/venv
+</pre></div>
 <p>(If you are using Windows, the path would instead look something like this: <code class="docutils literal"><span class="pre">C:\Users\fisa\projects\my_blog\venv</span></code>)</p>
 </section><section id="how-do-i-use-the-virtualenv"><h2>How do I use the virtualenv?</h2>
 <p>Each time you open a new terminal (console) to work in your project, you need to <strong>activate</strong> the virtualenv. The command to activate the virtualenv is different for Linux/MacOS vs Windows.</p>
 <p>On Linux and MacOS, run:</p>
-<pre class="code bash"><a id="rest_code_d29020cb6a4e4e7f994704f7fd7c1e2e-1" name="rest_code_d29020cb6a4e4e7f994704f7fd7c1e2e-1"></a><span class="nb">source</span> PATH_TO_YOUR_VIRTUALENV/bin/activate
-</pre>
+<div class="code"><pre class="code bash"><a id="rest_code_e35c4420c50d43cab0d01dc4dc011e2a-1" name="rest_code_e35c4420c50d43cab0d01dc4dc011e2a-1" href="posts/virtualenvs-simplest-tutorial/#rest_code_e35c4420c50d43cab0d01dc4dc011e2a-1"></a><span class="nb">source</span><span class="w"> </span>PATH_TO_YOUR_VIRTUALENV/bin/activate
+</pre></div>
 <p>(if you are using fish shell, replace <code class="docutils literal">activate</code> with <code class="docutils literal">activate.fish</code> at the end of that command)</p>
 <p>On Windows:</p>
-<pre class="code text"><a id="rest_code_0f22d3a7a4d94be6ae287e405db8dddd-1" name="rest_code_0f22d3a7a4d94be6ae287e405db8dddd-1"></a>PATH_TO_YOUR_VIRTUALENV\Scripts\activate.bat
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_85f9b2ed6c04441db30918a6caef7b4b-1" name="rest_code_85f9b2ed6c04441db30918a6caef7b4b-1" href="posts/virtualenvs-simplest-tutorial/#rest_code_85f9b2ed6c04441db30918a6caef7b4b-1"></a>PATH_TO_YOUR_VIRTUALENV\Scripts\activate.bat
+</pre></div>
 <p>From now on, the prompt of the terminal should say something like <code class="docutils literal">(venv)</code> at the begining (with the name of your virtualenv). This indicates that you are working inside your virtualenv.</p>
 <p>With your virtualenv activated, if you now install libs with pip (example: <code class="docutils literal">pip install pandas</code>), they will be installed inside the virtualenv. If you run a program inside that terminal, it will be able to import any libs installed in the virtualenv.</p>
 </section><section id="that-s-it"><h2>That's it?</h2>
@@ -679,8 +715,8 @@ the future! For me this became muscle memory: "1 2 n y enter".</p>
 <p>It might be possible to use CUDA without having the graphics drivers installed, but I'm not sure how easy and stable it is.
 So my recommendation is to install them first, and verify that they are working.</p>
 <p>Usually it's just installing a package with <code class="docutils literal">apt</code>:</p>
-<pre class="code text"><a id="rest_code_25e28b28512e4039bc7523f3d69de285-1" name="rest_code_25e28b28512e4039bc7523f3d69de285-1"></a>sudo apt install nvidia-375
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_8f92bde1a2834d16b75b74d6edc30409-1" name="rest_code_8f92bde1a2834d16b75b74d6edc30409-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_8f92bde1a2834d16b75b74d6edc30409-1"></a>sudo apt install nvidia-375
+</pre></div>
 <p>But if you are using an Optimus-enabled graphics card (most laptops with Nvidia cards previous to the 10xx generation),
 you might need to install the <code class="docutils literal"><span class="pre">nvidia-prime</span></code> package too.</p>
 <p>The recommended version might be higher in the future, 375 is the one I'm using right now under Ubuntu 16.10.</p>
@@ -691,8 +727,8 @@ you might need to install the <code class="docutils literal"><span class="pre">n
 <p>The versions you need to get depend on which versions does TensorFlow support.
 You can check this in the official website, at <a class="reference external" href="https://www.tensorflow.org/install/install_linux">https://www.tensorflow.org/install/install_linux</a> .</p>
 <p>Once you have both installers, first run the cuda installer (replace the name of the file with the one you got):</p>
-<pre class="code text"><a id="rest_code_5a1a5a7ba4374d1da265f42b20a616f6-1" name="rest_code_5a1a5a7ba4374d1da265f42b20a616f6-1"></a>sudo sh ./cuda_8.0.61_375.26_linux.run --override
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_8f107c4ed3804231a71b3fa92115995b-1" name="rest_code_8f107c4ed3804231a71b3fa92115995b-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_8f107c4ed3804231a71b3fa92115995b-1"></a>sudo sh ./cuda_8.0.61_375.26_linux.run --override
+</pre></div>
 <p>It will ask you a few things. Tell "no" to the installation of graphics drivers (you should already have them),
 and "yes" to the creation of the symbolic link.</p>
 <p>Then uncompress the cuDNN installer (a file with a name similar to <code class="docutils literal"><span class="pre">cudnn-8.0-linux-x64-v5.1.tgz</span></code>),
@@ -700,26 +736,26 @@ and copy its files into the <code class="docutils literal"><span class="pre">/us
 The tar file contains subfolders, be sure to copy the files into the same subfolders in the destination.</p>
 </section><section id="tensorflow-and-keras-installation"><h3>TensorFlow and Keras installation</h3>
 <p>Once you have the graphics drivers and CUDA, then it's easy to install TensorFlow and Keras, they are just Python packages:</p>
-<pre class="code text"><a id="rest_code_8cac8d32de9442d69dd6dba58d493890-1" name="rest_code_8cac8d32de9442d69dd6dba58d493890-1"></a>pip install tensorflow-gpu keras
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_1128ff1f1bae430f9c34f518ad1c9616-1" name="rest_code_1128ff1f1bae430f9c34f518ad1c9616-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_1128ff1f1bae430f9c34f518ad1c9616-1"></a>pip install tensorflow-gpu keras
+</pre></div>
 <p>If you aren't using virtualenvs (you should!), you should add <code class="docutils literal"><span class="pre">--user</span></code> to that command.
 I don't recommend installing the packages system-wide with <code class="docutils literal">sudo</code>, as with time you will probably need different versions of both
 <code class="docutils literal">tensorflow</code> and <code class="docutils literal">keras</code> for different projects (they both evolve quite quickly).</p>
 </section><section id="running-the-code"><h3>Running the code</h3>
 <p>Finally, when running your code you may need to define the <code class="docutils literal">LD_LIBRARY_PATH</code> environment variable, for TensorFlow to be able to
 find the needed CUDA libraries:</p>
-<pre class="code text"><a id="rest_code_334ba23cebfe48be98dd13a088f6aee4-1" name="rest_code_334ba23cebfe48be98dd13a088f6aee4-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python your_awesome_code.py
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_a71e17349f444d648a319b92a7f4ccbf-1" name="rest_code_a71e17349f444d648a319b92a7f4ccbf-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_a71e17349f444d648a319b92a7f4ccbf-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python your_awesome_code.py
+</pre></div>
 <p>This is true also for Jupyter notebooks:</p>
-<pre class="code text"><a id="rest_code_2f6f40fadb1e45b593a095a74b096293-1" name="rest_code_2f6f40fadb1e45b593a095a74b096293-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 jupyter notebook
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_f564f9570a9f4b0390d20294d1301200-1" name="rest_code_f564f9570a9f4b0390d20294d1301200-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_f564f9570a9f4b0390d20294d1301200-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 jupyter notebook
+</pre></div>
 <p>If you are unsure if your code is actually using your gpu, you can paste this snippet into a <code class="docutils literal">test_device.py</code> file:</p>
-<pre class="code python"><a id="rest_code_934dca78fda94e708111074c67d93732-1" name="rest_code_934dca78fda94e708111074c67d93732-1"></a><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<a id="rest_code_934dca78fda94e708111074c67d93732-2" name="rest_code_934dca78fda94e708111074c67d93732-2"></a><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">(</span><span class="n">log_device_placement</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-</pre>
+<div class="code"><pre class="code python"><a id="rest_code_82a597c2b2da4400881f402de7fb80a7-1" name="rest_code_82a597c2b2da4400881f402de7fb80a7-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_82a597c2b2da4400881f402de7fb80a7-1"></a><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<a id="rest_code_82a597c2b2da4400881f402de7fb80a7-2" name="rest_code_82a597c2b2da4400881f402de7fb80a7-2" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_82a597c2b2da4400881f402de7fb80a7-2"></a><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">(</span><span class="n">log_device_placement</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
 <p>And then run it:</p>
-<pre class="code text"><a id="rest_code_49e4c5c3bce54ff9965eb64c1c1dd3fb-1" name="rest_code_49e4c5c3bce54ff9965eb64c1c1dd3fb-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python test_device.py
-</pre>
+<div class="code"><pre class="code text"><a id="rest_code_60c7894ed7974a628ff9d2e47d293ac0-1" name="rest_code_60c7894ed7974a628ff9d2e47d293ac0-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_60c7894ed7974a628ff9d2e47d293ac0-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python test_device.py
+</pre></div>
 <p>It should print a lot of information, but in between you should see something with your graphics card name, like
 <code class="docutils literal">name: GeForce GTX 1070</code>.</p>
 </section></section>
@@ -762,7 +798,8 @@ And giving them bad code without warning them of its impacts in maintainance, is
 <p>Finally, customers tend to be unable to clearly see this relation by themselves, and developers usually don't want to tell them "this is taking too long to modify because we gave you bad quality code".
 This may be the reason we got the idea that customers don't care about code, developers just usually fail to explain (or even hide) to them the strong relation between code quality and maintainance costs.
 So they never come back asking for "better code".</p>
-<a class="reference external image-reference" href="images/customer-and-code-quality/tech_debt.jpeg"><img alt="/images/customer-and-code-quality/tech_debt.thumbnail.jpeg" src="images/customer-and-code-quality/tech_debt.thumbnail.jpeg"></a>
+<a class="reference external image-reference" href="images/customer-and-code-quality/tech_debt.jpeg">
+<img alt="/images/customer-and-code-quality/tech_debt.thumbnail.jpeg" src="images/customer-and-code-quality/tech_debt.thumbnail.jpeg"></a>
 <p>(comic by <a class="reference external" href="https://twitter.com/vincentdnl">Vincent Déniel</a>)</p>
 </section>
 </div>
@@ -773,7 +810,7 @@ So they never come back asking for "better code".</p>
 <li class="next">
                 <a href="index-1.html" rel="next">Older posts</a>
             </li>
-        </ul></nav><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2023         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        </ul></nav><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2024         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>
