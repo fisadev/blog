@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about posts)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Sat, 03 May 2025 21:13:04 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>IA y educación</title><link>http://blog.fisadev.com/posts/ia-y-educacion/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;p&gt;En muy pocos años la Inteligencia Artificial logró hacerse un lugar en la vida cotidiana de un
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about posts)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Sat, 03 May 2025 21:20:36 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>IA y educación</title><link>http://blog.fisadev.com/posts/ia-y-educacion/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;p&gt;En muy pocos años la Inteligencia Artificial logró hacerse un lugar en la vida cotidiana de un
 montón de personas.&lt;/p&gt;
 &lt;p&gt;No es novedad que interactuemos con IAs todo el tiempo, eso ya sucedía desde hace mucho.
 Por ejemplo, cada vez que consumimos contenido en redes sociales, o publicidades en internet, o
@@ -40,9 +40,9 @@ Pero siempre sabe elegir super bien con qué palabra continuar la frase que le d
 &lt;p&gt;Por ejemplo, si le decimos "en Italia se come mucha...", nuestro super loro nos puede completar la
 frase diciendo "pasta!". O quizás "pizza!".
 A veces responde una, a veces la otra, ambas tienen sentido.
-Entre las mejores palabras que puedan completar esa frase con sentido, elije una al azar.&lt;/p&gt;
+Entre las mejores palabras que puedan completar esa frase con sentido, elige una al azar.&lt;/p&gt;
 &lt;p&gt;Para esa frase nunca nos va a decir "silla!" en vez, porque no tendría sentido.
-Siempre elije una palabra que completa bien la frase que le dimos.&lt;/p&gt;
+Siempre elige una palabra que complete bien la frase que le dimos.&lt;/p&gt;
 &lt;p&gt;Pero nuestro super loro no sabe qué es Italia, qué es una pizza, o qué es una silla.
 Después de todo, sigue siendo un simple loro.&lt;/p&gt;
 &lt;/section&gt;
@@ -79,7 +79,7 @@ tiene la capacidad de producir textos humanos de cualquier tipo.&lt;/p&gt;
 Son programas de computadora que toman un texto de entrada, y mediante una cantidad astronómica de
 operaciones matemáticas, determinan cuáles son las palabras más probables que podrían venir luego
 de ese texto.
-Y de entre ellas, elijen una al azar (las mejores palabras para ese texto tienen más chances de
+Y de entre ellas, elige una al azar (las mejores palabras para ese texto tienen más chances de
 ser elegidas).&lt;/p&gt;
 &lt;p&gt;Nosotros no nos damos cuenta, pero por detrás estos programas hacen este mismo proceso de "acumular
 palabras" que hicimos con el loro.
@@ -92,7 +92,7 @@ No son más que un montón (muy muy grande) de operaciones matemáticas, que dad
 producen una lista de probabilidades como salida.&lt;/p&gt;
 &lt;p&gt;Quizás sorprenda que estemos hablando de operaciones matemáticas con texto (las operaciones que la
 IA hace en base al texto de entrada para asignar probabilidades a las palabras de salida).
-Pero en realidad no es tan raro, es algo que en el mudno de la Ciencia de Datos se hace seguido.
+Pero en realidad no es tan raro, es algo que en el mundo de la Ciencia de Datos se hace seguido.
 Hay muchas formas de expresar un texto como números, que luego una IA puede utilizar para operar
 matemáticamente.
 No vamos a profundizar en eso en este post, pero es un tema muy interesante!&lt;/p&gt;
@@ -150,7 +150,7 @@ podemos hacer para que no nos muerdan.&lt;/p&gt;
 &lt;h2&gt;Sesgos y problemas de los textos de entrenamiento&lt;/h2&gt;
 &lt;p&gt;Es muy común que atribuyamos a la IA una especie de "objetividad" que en realidad no tiene.
 La IA está produciendo palabras de forma que se parezcan a los textos que utilizamos para entrenarla.
-¿Qué origen tienen esos textos?
+¿Qué origen tienen estos textos?
 Son textos humanos!&lt;/p&gt;
 &lt;p&gt;Los humanos tenemos sesgos, prejuicios, opiniones, creencias, etc.
 Los humanos nos equivocamos todo el tiempo, y dejamos esas equivocaciones escritas de formas
@@ -158,12 +158,12 @@ bien públicas: tweets, libros, artículos de noticias, etc.&lt;/p&gt;
 &lt;p&gt;Si la IA se entrena con esos textos humanos llenos de equivocaciones, puede aprender esos mismos
 sesgos y errores.
 Va a reproducirlos.
-Y cuanto más comunes sean esos sesgos en los textos de entrenamiento, más probable es que la IA los
+Y cuanto más comunes sean estos sesgos en los textos de entrenamiento, más probable es que la IA los
 reproduzca.&lt;/p&gt;
 &lt;p&gt;Como dice una frase conocida en el ambiente: entra basura, sale basura.
 Si entrenamos con malos textos, la IA va a ser igual de mala.&lt;/p&gt;
 &lt;p&gt;Por ejemplo, si internet y los libros están llenos de sesgos y discriminación por género, la IA
-tranquilamente puede reproducir esos sesgos en sus respuestas.
+tranquilamente puede reproducir estos sesgos en sus respuestas.
 Y de hecho lo vemos.&lt;/p&gt;
 &lt;p&gt;Hay mucho trabajo de quienes construyen y entrenan estas IAs para intentar resolver este problema.
 Mucho esfuerzo en limpiar los textos de entrenamiento, y en ajustar la IA para que no reproduzca
@@ -181,7 +181,7 @@ Solo sabe elegir palabras que tienen sentido en el contexto de lo que le dimos c
 &lt;p&gt;Esto implica que puede generar textos que suenan muy bien, pero que no son ciertos!
 Y no solo eso, sino que la confiabilidad de la respuesta va a depender muchísimo de los textos que
 usamos para entrenar la IA originalmente.&lt;/p&gt;
-&lt;p&gt;Por ejemplo, imaginemos que le pregunto sobre el origen de una canción de un cantannte super poco conocido,
+&lt;p&gt;Por ejemplo, imaginemos que le pregunto sobre el origen de una canción de un cantante super poco conocido,
 de la que casi no hay información en internet (ejemplo real que me pasó: Milonga de Gauna, de
 Jaime Ross).
 Qué va a responder la IA?
@@ -220,13 +220,13 @@ No un texto construído como un médico explicando una enfermedad en un libro de
 &lt;p&gt;Imagino que ya se dieron cuenta de lo que eso implica.
 Un texto de entrada mal armado, una pregunta mal construída, pueden llevar a una mala respuesta
 incluso cuando la IA tenía capacidad de generar una respuesta más confiable.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Tercer aprendizaje&lt;/strong&gt;: la forma en la que escribamos define fuertemente la calidad y
-confiabilidad de la respuesta. Poner esfuerzo en dar textos de entrada que fomenten mejores
+&lt;p&gt;&lt;strong&gt;Tercer aprendizaje&lt;/strong&gt;: la forma en la que escribimos define fuertemente la calidad y
+confiabilidad de la respuesta. Hay que poner esfuerzo en dar textos de entrada que fomenten mejores
 respuestas.&lt;/p&gt;
 &lt;/section&gt;
 &lt;section id="la-ia-me-hace-la-tarea"&gt;
 &lt;h2&gt;La IA me hace la tarea&lt;/h2&gt;
-&lt;p&gt;Y por úlltimo, esto no tiene tanto que ver con limitaciones de estas IAs sino más bien con nuestras
+&lt;p&gt;Y por último, esto no tiene tanto que ver con limitaciones de estas IAs sino más bien con nuestras
 limitaciones humanas.&lt;/p&gt;
 &lt;p&gt;Como estas IAs son tan buenas para producir contenido, es muy fácil caer en la tentación de usarlas
 para todas las cosas que tenemos que generar nosotros mismos.
@@ -249,10 +249,10 @@ Aprobamos la entrega. No aprendimos.
 Cuando vayamos a ejercer no vamos a tener el conocimiento que necesitábamos para lidiar con una
 situación real.&lt;/p&gt;
 &lt;p&gt;La IA puede ser extremadamente útil para automatizarnos tareas repetitivas o que no nos suman valor.
-Eso es innetable.
-Esto no quiere decir que no la usemos para crear o resolver problemas.&lt;/p&gt;
-&lt;p&gt;Pero mi último aprendizaje para este post es: ojo con darle a la IA las cosas que estaban pensadas
-para que nosotros crezcamos haciéndolas. No elijamos no aprender, porque perdemos nosotros.&lt;/p&gt;
+Eso es innegable.
+No quiero decir que no la usemos para crear contenido o resolver problemas.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pero mi último aprendizaje para este post es&lt;/strong&gt;: ojo con darle a la IA las cosas que estaban
+pensadas para que nosotros crezcamos haciéndolas. No elijamos no aprender, porque perdemos nosotros.&lt;/p&gt;
 &lt;/section&gt;
 &lt;section id="tambien-hay-cosas-buenas"&gt;
 &lt;h2&gt;También hay cosas buenas&lt;/h2&gt;
