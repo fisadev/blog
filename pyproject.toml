@@ -1,0 +1,11 @@
+[project]
+name = "blog"
+version = "0.1.0"
+description = "My personal blog"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "ghp-import2>=1.0.1",
+    "jinja2>=3.1.6",
+    "nikola>=8.3.1",
+]
