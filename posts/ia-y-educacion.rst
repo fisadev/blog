@@ -58,10 +58,10 @@ Pero siempre sabe elegir super bien con qué palabra continuar la frase que le d
 Por ejemplo, si le decimos "en Italia se come mucha...", nuestro super loro nos puede completar la
 frase diciendo "pasta!". O quizás "pizza!". 
 A veces responde una, a veces la otra, ambas tienen sentido.
-Entre las mejores palabras que puedan completar esa frase con sentido, elije una al azar.
+Entre las mejores palabras que puedan completar esa frase con sentido, elige una al azar.
 
 Para esa frase nunca nos va a decir "silla!" en vez, porque no tendría sentido.
-Siempre elije una palabra que completa bien la frase que le dimos.
+Siempre elige una palabra que complete bien la frase que le dimos.
 
 Pero nuestro super loro no sabe qué es Italia, qué es una pizza, o qué es una silla. 
 Después de todo, sigue siendo un simple loro.
@@ -107,7 +107,7 @@ Las IAs que usamos hoy en día funcionan básicamente de esa misma manera.
 Son programas de computadora que toman un texto de entrada, y mediante una cantidad astronómica de 
 operaciones matemáticas, determinan cuáles son las palabras más probables que podrían venir luego
 de ese texto.
-Y de entre ellas, elijen una al azar (las mejores palabras para ese texto tienen más chances de 
+Y de entre ellas, elige una al azar (las mejores palabras para ese texto tienen más chances de 
 ser elegidas).
 
 Nosotros no nos damos cuenta, pero por detrás estos programas hacen este mismo proceso de "acumular
@@ -123,7 +123,7 @@ producen una lista de probabilidades como salida.
 
 Quizás sorprenda que estemos hablando de operaciones matemáticas con texto (las operaciones que la
 IA hace en base al texto de entrada para asignar probabilidades a las palabras de salida).
-Pero en realidad no es tan raro, es algo que en el mudno de la Ciencia de Datos se hace seguido.
+Pero en realidad no es tan raro, es algo que en el mundo de la Ciencia de Datos se hace seguido.
 Hay muchas formas de expresar un texto como números, que luego una IA puede utilizar para operar 
 matemáticamente.
 No vamos a profundizar en eso en este post, pero es un tema muy interesante!
@@ -193,7 +193,7 @@ Sesgos y problemas de los textos de entrenamiento
 
 Es muy común que atribuyamos a la IA una especie de "objetividad" que en realidad no tiene.
 La IA está produciendo palabras de forma que se parezcan a los textos que utilizamos para entrenarla.
-¿Qué origen tienen esos textos?
+¿Qué origen tienen estos textos?
 Son textos humanos!
 
 Los humanos tenemos sesgos, prejuicios, opiniones, creencias, etc.
@@ -203,14 +203,14 @@ bien públicas: tweets, libros, artículos de noticias, etc.
 Si la IA se entrena con esos textos humanos llenos de equivocaciones, puede aprender esos mismos 
 sesgos y errores.
 Va a reproducirlos.
-Y cuanto más comunes sean esos sesgos en los textos de entrenamiento, más probable es que la IA los
+Y cuanto más comunes sean estos sesgos en los textos de entrenamiento, más probable es que la IA los
 reproduzca.
 
 Como dice una frase conocida en el ambiente: entra basura, sale basura.
 Si entrenamos con malos textos, la IA va a ser igual de mala.
 
 Por ejemplo, si internet y los libros están llenos de sesgos y discriminación por género, la IA 
-tranquilamente puede reproducir esos sesgos en sus respuestas.
+tranquilamente puede reproducir estos sesgos en sus respuestas.
 Y de hecho lo vemos.
 
 Hay mucho trabajo de quienes construyen y entrenan estas IAs para intentar resolver este problema.
@@ -234,7 +234,7 @@ Esto implica que puede generar textos que suenan muy bien, pero que no son ciert
 Y no solo eso, sino que la confiabilidad de la respuesta va a depender muchísimo de los textos que 
 usamos para entrenar la IA originalmente.
 
-Por ejemplo, imaginemos que le pregunto sobre el origen de una canción de un cantannte super poco conocido,
+Por ejemplo, imaginemos que le pregunto sobre el origen de una canción de un cantante super poco conocido,
 de la que casi no hay información en internet (ejemplo real que me pasó: Milonga de Gauna, de 
 Jaime Ross).
 Qué va a responder la IA?
@@ -282,14 +282,14 @@ Imagino que ya se dieron cuenta de lo que eso implica.
 Un texto de entrada mal armado, una pregunta mal construída, pueden llevar a una mala respuesta 
 incluso cuando la IA tenía capacidad de generar una respuesta más confiable.
 
-**Tercer aprendizaje**: la forma en la que escribamos define fuertemente la calidad y 
-confiabilidad de la respuesta. Poner esfuerzo en dar textos de entrada que fomenten mejores 
+**Tercer aprendizaje**: la forma en la que escribimos define fuertemente la calidad y 
+confiabilidad de la respuesta. Hay que poner esfuerzo en dar textos de entrada que fomenten mejores 
 respuestas.
 
 La IA me hace la tarea
 ----------------------
 
-Y por úlltimo, esto no tiene tanto que ver con limitaciones de estas IAs sino más bien con nuestras
+Y por último, esto no tiene tanto que ver con limitaciones de estas IAs sino más bien con nuestras
 limitaciones humanas.
 
 Como estas IAs son tan buenas para producir contenido, es muy fácil caer en la tentación de usarlas
@@ -317,11 +317,11 @@ Cuando vayamos a ejercer no vamos a tener el conocimiento que necesitábamos par
 situación real.
 
 La IA puede ser extremadamente útil para automatizarnos tareas repetitivas o que no nos suman valor.
-Eso es innetable.
-Esto no quiere decir que no la usemos para crear o resolver problemas.
+Eso es innegable.
+No quiero decir que no la usemos para crear contenido o resolver problemas.
 
-Pero mi último aprendizaje para este post es: ojo con darle a la IA las cosas que estaban pensadas 
-para que nosotros crezcamos haciéndolas. No elijamos no aprender, porque perdemos nosotros.
+**Pero mi último aprendizaje para este post es**: ojo con darle a la IA las cosas que estaban 
+pensadas para que nosotros crezcamos haciéndolas. No elijamos no aprender, porque perdemos nosotros.
 
 También hay cosas buenas
 ------------------------
