@@ -345,4 +345,4 @@ La calidad de lo que generemos, y lo mucho que nos pueden ayudar en el aprendiza
 gran medida de entender esas cuestiones y saber cómo jugar con ellas.
 
 Así que a seguir aprendiendo, ahora con IAs al lado. 
-Es una época super interesante para ser profes o estudiantes!
+Es una época súper interesante para ser profes o estudiantes!

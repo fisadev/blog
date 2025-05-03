@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about posts)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Sat, 03 May 2025 21:20:36 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>IA y educación</title><link>http://blog.fisadev.com/posts/ia-y-educacion/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;p&gt;En muy pocos años la Inteligencia Artificial logró hacerse un lugar en la vida cotidiana de un
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about posts)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Sat, 03 May 2025 21:21:03 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>IA y educación</title><link>http://blog.fisadev.com/posts/ia-y-educacion/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;p&gt;En muy pocos años la Inteligencia Artificial logró hacerse un lugar en la vida cotidiana de un
 montón de personas.&lt;/p&gt;
 &lt;p&gt;No es novedad que interactuemos con IAs todo el tiempo, eso ya sucedía desde hace mucho.
 Por ejemplo, cada vez que consumimos contenido en redes sociales, o publicidades en internet, o
@@ -271,7 +271,7 @@ filosos", que pueden jugarnos en contra si no los conocemos o no los tenemos en 
 &lt;p&gt;La calidad de lo que generemos, y lo mucho que nos pueden ayudar en el aprendizaje, depende en
 gran medida de entender esas cuestiones y saber cómo jugar con ellas.&lt;/p&gt;
 &lt;p&gt;Así que a seguir aprendiendo, ahora con IAs al lado.
-Es una época super interesante para ser profes o estudiantes!&lt;/p&gt;
+Es una época súper interesante para ser profes o estudiantes!&lt;/p&gt;
 &lt;/section&gt;</description><guid>http://blog.fisadev.com/posts/ia-y-educacion/</guid><pubDate>Sat, 03 May 2025 18:30:00 GMT</pubDate></item><item><title>How to deploy a Django app in Render.com (free tier)</title><link>http://blog.fisadev.com/posts/how-to-deploy-a-django-app-in-rendercom-free-tier/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;section id="how-to-deploy-a-django-app-in-render-com-free-tier"&gt;
 &lt;h2&gt;How to deploy a Django app in Render.com (free tier)&lt;/h2&gt;
 &lt;p&gt;This is a basic tutorial on how to deploy a Django app to Render.com, focused on using only the free tier features and automating things as much as possible.
