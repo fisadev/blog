@@ -5,7 +5,9 @@ description = "My personal blog"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "aiohttp>=3.11.18",
     "ghp-import2>=1.0.1",
     "jinja2>=3.1.6",
     "nikola>=8.3.1",
+    "watchdog>=6.0.0",
 ]
