@@ -75,7 +75,7 @@
 <p>Lo primero que hay que hacer es instalar los plugins necesarios en Arduino IDE, para que el editor sepa compilar y grabar programas en las placas STM32.</p>
 <p>Para ello tenemos que ir al menú "File", opción "Preferences", y en la ventana que se nos abre, clickear el botón que está al lado de Additional Board Manager URLs:</p>
 <img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/menu_preferences.png" src="../../images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/menu_preferences.png"><img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/boton_boards_urls.png" src="../../images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/boton_boards_urls.png"><p>En la segunda ventana que se nos abre debemos agregar la URL de donde Arduino IDE va a bajar toda la información de estas placas. La url es esta:</p>
-<div class="code"><pre class="code text"><a id="rest_code_c6b6d48f3aa24cc2b8fc9dd67e668e2e-1" name="rest_code_c6b6d48f3aa24cc2b8fc9dd67e668e2e-1" href="#rest_code_c6b6d48f3aa24cc2b8fc9dd67e668e2e-1"></a>http://dan.drown.org/stm32duino/package_STM32duino_index.json
+<div class="code"><pre class="code text"><a id="rest_code_b82e3018af534dc9874cdf0541429088-1" name="rest_code_b82e3018af534dc9874cdf0541429088-1" href="#rest_code_b82e3018af534dc9874cdf0541429088-1"></a>http://dan.drown.org/stm32duino/package_STM32duino_index.json
 </pre></div>
 <p>Y debe agregarse al final, en un renglón nuevo (si es que ya teníamos otras URLs en esta configuración, como es mi caso), y clickear en "Ok":</p>
 <img alt="/images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/board_url_agregada.png" src="../../images/programar-stm32f103c8-en-ubuntu-con-arduino-ide/board_url_agregada.png"><p>Luego debemos decirle a Arduino IDE que se baje desde esa URL la información que necesitamos para controlar nuestra placa STM32. Para ello vamos al menú "Tools", luego "Board", y elegimos la opción "Boards Manager..."</p>
@@ -90,34 +90,34 @@
 <p>Con los pasos que hicimos antes, en un mundo ideal y con placas más normales, ya todo queda listo para poder programar, hacer click en Play, y que nuestro código corra en la placa que tenemos conectada a la PC. Pero en el caso de las STM32 esto está roto, y hay que hacer algunos pasos manuales para arreglarlo. Los descubrí probando y renegando, y probablemente esto cambie en el futuro.</p>
 <p>En particular: el plugin de Arduino IDE para las STM trae dentro un programita que se usa para flashear la placa, llamado "stlink-tools". Pero el problema es que trae una versión vieja y rota (al menos rota en entornos modernos).</p>
 <p>Así que lo primero que vamos a hacer, es eliminar esa versión vieja de ese programita que no sirve de dentro del plugin. Lo hacemos corriendo este comando en una terminal de linux:</p>
-<div class="code"><pre class="code text"><a id="rest_code_4c54c6ea359a441e90b6d6d173fd87e3-1" name="rest_code_4c54c6ea359a441e90b6d6d173fd87e3-1" href="#rest_code_4c54c6ea359a441e90b6d6d173fd87e3-1"></a>rm ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/st-*
+<div class="code"><pre class="code text"><a id="rest_code_8a72fb13dd114110a80d11ce3a9f3fa5-1" name="rest_code_8a72fb13dd114110a80d11ce3a9f3fa5-1" href="#rest_code_8a72fb13dd114110a80d11ce3a9f3fa5-1"></a>rm ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/st-*
 </pre></div>
 <p>Si el comando dispara un error diciendo que los archivos no existen, lo más probable es que tengan alguna versión diferente o de Arduino IDE, o del plugin. En ese caso van a necesitar encontrar cuál es la ruta para el caso particular de ustedes (probablemente si es otra versión de Arduino IDE, cambie el nombre del directorio <cite>.arduino15</cite>, o si es otra versión del plugin, cambie el nombre del directorio <cite>2021.5.31</cite>).</p>
 <p>Una vez borrados esos archivos, tenemos que instalar una mejor versión de la herramienta "stlink-tools". Hacemos eso con este comando:</p>
-<div class="code"><pre class="code text"><a id="rest_code_538b4f0a51c84817848b1cc9d2f929c9-1" name="rest_code_538b4f0a51c84817848b1cc9d2f929c9-1" href="#rest_code_538b4f0a51c84817848b1cc9d2f929c9-1"></a>sudo apt install stlink-tools
+<div class="code"><pre class="code text"><a id="rest_code_1fd7149139c84c01b4ea730c0ae3ab43-1" name="rest_code_1fd7149139c84c01b4ea730c0ae3ab43-1" href="#rest_code_1fd7149139c84c01b4ea730c0ae3ab43-1"></a>sudo apt install stlink-tools
 </pre></div>
 <p>Esperamos a que termine de bajar e instalar, y luego tenemos que hacer un último pasito: indicarle a Arduino IDE que use nuestro nuevo stlink tools. Para ello corremos estos tres comandos. Pero ojo!! La ruta que estamos usando acá tiene que ser la misma que la que usamos antes para borrar el viejo stlink tools del plugin. Si cambiamos algún nombre de directorio en el paso de borrado, acá también deberíamos cambiarlo de la misma forma:</p>
-<div class="code"><pre class="code text"><a id="rest_code_6875595236ff43bea59b17ae958acb2f-1" name="rest_code_6875595236ff43bea59b17ae958acb2f-1" href="#rest_code_6875595236ff43bea59b17ae958acb2f-1"></a>ln -s /usr/bin/st-flash ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
-<a id="rest_code_6875595236ff43bea59b17ae958acb2f-2" name="rest_code_6875595236ff43bea59b17ae958acb2f-2" href="#rest_code_6875595236ff43bea59b17ae958acb2f-2"></a>ln -s /usr/bin/st-info ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
-<a id="rest_code_6875595236ff43bea59b17ae958acb2f-3" name="rest_code_6875595236ff43bea59b17ae958acb2f-3" href="#rest_code_6875595236ff43bea59b17ae958acb2f-3"></a>ln -s /usr/bin/st-util ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
+<div class="code"><pre class="code text"><a id="rest_code_39d2e374a7c04733a523fca8503419c7-1" name="rest_code_39d2e374a7c04733a523fca8503419c7-1" href="#rest_code_39d2e374a7c04733a523fca8503419c7-1"></a>ln -s /usr/bin/st-flash ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
+<a id="rest_code_39d2e374a7c04733a523fca8503419c7-2" name="rest_code_39d2e374a7c04733a523fca8503419c7-2" href="#rest_code_39d2e374a7c04733a523fca8503419c7-2"></a>ln -s /usr/bin/st-info ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
+<a id="rest_code_39d2e374a7c04733a523fca8503419c7-3" name="rest_code_39d2e374a7c04733a523fca8503419c7-3" href="#rest_code_39d2e374a7c04733a523fca8503419c7-3"></a>ln -s /usr/bin/st-util ~/.arduino15/packages/stm32duino/tools/stm32tools/2021.5.31/linux/stlink/
 </pre></div>
 </section><section id="listo"><h2>Listo!</h2>
 <p>Con estos pasos hechos, ya deberíamos poder hacer un programa de ejemplo en Arduino IDE, y al apretar el botón de play (la flecha hacia la derecha) nuestro programa debería ejecutarse en la placa :)</p>
 <p>Un programa de ejemplo que vi usado en muchos de los tutoriales (desconozco su autor original, si no lo linkearía):</p>
-<div class="code"><pre class="code text"><a id="rest_code_57d548a09da9467ca37137a779556b94-1" name="rest_code_57d548a09da9467ca37137a779556b94-1" href="#rest_code_57d548a09da9467ca37137a779556b94-1"></a>const int ledPIN = PC13;
-<a id="rest_code_57d548a09da9467ca37137a779556b94-2" name="rest_code_57d548a09da9467ca37137a779556b94-2" href="#rest_code_57d548a09da9467ca37137a779556b94-2"></a>
-<a id="rest_code_57d548a09da9467ca37137a779556b94-3" name="rest_code_57d548a09da9467ca37137a779556b94-3" href="#rest_code_57d548a09da9467ca37137a779556b94-3"></a>void setup()
-<a id="rest_code_57d548a09da9467ca37137a779556b94-4" name="rest_code_57d548a09da9467ca37137a779556b94-4" href="#rest_code_57d548a09da9467ca37137a779556b94-4"></a>{
-<a id="rest_code_57d548a09da9467ca37137a779556b94-5" name="rest_code_57d548a09da9467ca37137a779556b94-5" href="#rest_code_57d548a09da9467ca37137a779556b94-5"></a>  pinMode(ledPIN, OUTPUT);
-<a id="rest_code_57d548a09da9467ca37137a779556b94-6" name="rest_code_57d548a09da9467ca37137a779556b94-6" href="#rest_code_57d548a09da9467ca37137a779556b94-6"></a>}
-<a id="rest_code_57d548a09da9467ca37137a779556b94-7" name="rest_code_57d548a09da9467ca37137a779556b94-7" href="#rest_code_57d548a09da9467ca37137a779556b94-7"></a>
-<a id="rest_code_57d548a09da9467ca37137a779556b94-8" name="rest_code_57d548a09da9467ca37137a779556b94-8" href="#rest_code_57d548a09da9467ca37137a779556b94-8"></a>void loop()
-<a id="rest_code_57d548a09da9467ca37137a779556b94-9" name="rest_code_57d548a09da9467ca37137a779556b94-9" href="#rest_code_57d548a09da9467ca37137a779556b94-9"></a>{
-<a id="rest_code_57d548a09da9467ca37137a779556b94-10" name="rest_code_57d548a09da9467ca37137a779556b94-10" href="#rest_code_57d548a09da9467ca37137a779556b94-10"></a>  digitalWrite(ledPIN, HIGH);
-<a id="rest_code_57d548a09da9467ca37137a779556b94-11" name="rest_code_57d548a09da9467ca37137a779556b94-11" href="#rest_code_57d548a09da9467ca37137a779556b94-11"></a>  delay(1000);
-<a id="rest_code_57d548a09da9467ca37137a779556b94-12" name="rest_code_57d548a09da9467ca37137a779556b94-12" href="#rest_code_57d548a09da9467ca37137a779556b94-12"></a>  digitalWrite(ledPIN, LOW);
-<a id="rest_code_57d548a09da9467ca37137a779556b94-13" name="rest_code_57d548a09da9467ca37137a779556b94-13" href="#rest_code_57d548a09da9467ca37137a779556b94-13"></a>  delay(1000);
-<a id="rest_code_57d548a09da9467ca37137a779556b94-14" name="rest_code_57d548a09da9467ca37137a779556b94-14" href="#rest_code_57d548a09da9467ca37137a779556b94-14"></a>}
+<div class="code"><pre class="code text"><a id="rest_code_e047482234e44a328b1810a518c6b18b-1" name="rest_code_e047482234e44a328b1810a518c6b18b-1" href="#rest_code_e047482234e44a328b1810a518c6b18b-1"></a>const int ledPIN = PC13;
+<a id="rest_code_e047482234e44a328b1810a518c6b18b-2" name="rest_code_e047482234e44a328b1810a518c6b18b-2" href="#rest_code_e047482234e44a328b1810a518c6b18b-2"></a>
+<a id="rest_code_e047482234e44a328b1810a518c6b18b-3" name="rest_code_e047482234e44a328b1810a518c6b18b-3" href="#rest_code_e047482234e44a328b1810a518c6b18b-3"></a>void setup()
+<a id="rest_code_e047482234e44a328b1810a518c6b18b-4" name="rest_code_e047482234e44a328b1810a518c6b18b-4" href="#rest_code_e047482234e44a328b1810a518c6b18b-4"></a>{
+<a id="rest_code_e047482234e44a328b1810a518c6b18b-5" name="rest_code_e047482234e44a328b1810a518c6b18b-5" href="#rest_code_e047482234e44a328b1810a518c6b18b-5"></a>  pinMode(ledPIN, OUTPUT);
+<a id="rest_code_e047482234e44a328b1810a518c6b18b-6" name="rest_code_e047482234e44a328b1810a518c6b18b-6" href="#rest_code_e047482234e44a328b1810a518c6b18b-6"></a>}
+<a id="rest_code_e047482234e44a328b1810a518c6b18b-7" name="rest_code_e047482234e44a328b1810a518c6b18b-7" href="#rest_code_e047482234e44a328b1810a518c6b18b-7"></a>
+<a id="rest_code_e047482234e44a328b1810a518c6b18b-8" name="rest_code_e047482234e44a328b1810a518c6b18b-8" href="#rest_code_e047482234e44a328b1810a518c6b18b-8"></a>void loop()
+<a id="rest_code_e047482234e44a328b1810a518c6b18b-9" name="rest_code_e047482234e44a328b1810a518c6b18b-9" href="#rest_code_e047482234e44a328b1810a518c6b18b-9"></a>{
+<a id="rest_code_e047482234e44a328b1810a518c6b18b-10" name="rest_code_e047482234e44a328b1810a518c6b18b-10" href="#rest_code_e047482234e44a328b1810a518c6b18b-10"></a>  digitalWrite(ledPIN, HIGH);
+<a id="rest_code_e047482234e44a328b1810a518c6b18b-11" name="rest_code_e047482234e44a328b1810a518c6b18b-11" href="#rest_code_e047482234e44a328b1810a518c6b18b-11"></a>  delay(1000);
+<a id="rest_code_e047482234e44a328b1810a518c6b18b-12" name="rest_code_e047482234e44a328b1810a518c6b18b-12" href="#rest_code_e047482234e44a328b1810a518c6b18b-12"></a>  digitalWrite(ledPIN, LOW);
+<a id="rest_code_e047482234e44a328b1810a518c6b18b-13" name="rest_code_e047482234e44a328b1810a518c6b18b-13" href="#rest_code_e047482234e44a328b1810a518c6b18b-13"></a>  delay(1000);
+<a id="rest_code_e047482234e44a328b1810a518c6b18b-14" name="rest_code_e047482234e44a328b1810a518c6b18b-14" href="#rest_code_e047482234e44a328b1810a518c6b18b-14"></a>}
 </pre></div>
 <p>Si todo anduvo bien, al dar play el led verde de nuestra placa STM32F103C8 debería titilar exáctamente cada 1 segundo :)</p>
 </section>
@@ -154,7 +154,7 @@
     <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2024         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2025         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>

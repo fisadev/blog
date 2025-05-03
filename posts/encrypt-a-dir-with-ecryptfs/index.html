@@ -76,7 +76,7 @@ And because it uses a mounted filesystem, it's pretty transparent to other tools
 editors, etc).
 There's absolutely no need for specialized tools to work with your encrypted files.</p>
 <section id="dependencies"><h2>Dependencies</h2>
-<div class="code"><pre class="code bash"><a id="rest_code_1c11a13908884164805c844d3a223fc4-1" name="rest_code_1c11a13908884164805c844d3a223fc4-1" href="#rest_code_1c11a13908884164805c844d3a223fc4-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ecryptfs-utils
+<div class="code"><pre class="code bash"><a id="rest_code_b3c61bdcffb04530a9c743f1939c058c-1" name="rest_code_b3c61bdcffb04530a9c743f1939c058c-1" href="#rest_code_b3c61bdcffb04530a9c743f1939c058c-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ecryptfs-utils
 </pre></div>
 </section><section id="initial-setup-one-time-only"><h2>Initial setup (one time only)</h2>
 <p>You need to do this only once to setup your dir.
@@ -86,11 +86,11 @@ After that you won't have to run these steps in your daily use.</p>
 <li><p>A dir where you will work with your files when the encrypted filesystem is mounted.</p></li>
 <li><p>A dir where the encrypted data will live. You should <strong>never</strong> edit its contents by yourself.</p></li>
 </ul>
-<div class="code"><pre class="code bash"><a id="rest_code_afeaf578713045eebaf7a7e0970b537b-1" name="rest_code_afeaf578713045eebaf7a7e0970b537b-1" href="#rest_code_afeaf578713045eebaf7a7e0970b537b-1"></a>mkdir<span class="w"> </span>super_secret_things
-<a id="rest_code_afeaf578713045eebaf7a7e0970b537b-2" name="rest_code_afeaf578713045eebaf7a7e0970b537b-2" href="#rest_code_afeaf578713045eebaf7a7e0970b537b-2"></a>mkdir<span class="w"> </span>super_secret_things_encrypted
+<div class="code"><pre class="code bash"><a id="rest_code_4616e15bf13e45b6b36b6eabd0fd6fc9-1" name="rest_code_4616e15bf13e45b6b36b6eabd0fd6fc9-1" href="#rest_code_4616e15bf13e45b6b36b6eabd0fd6fc9-1"></a>mkdir<span class="w"> </span>super_secret_things
+<a id="rest_code_4616e15bf13e45b6b36b6eabd0fd6fc9-2" name="rest_code_4616e15bf13e45b6b36b6eabd0fd6fc9-2" href="#rest_code_4616e15bf13e45b6b36b6eabd0fd6fc9-2"></a>mkdir<span class="w"> </span>super_secret_things_encrypted
 </pre></div>
 <p>Then, mount the filesystem for the first time:</p>
-<div class="code"><pre class="code bash"><a id="rest_code_5223385b2b9e4f188fb2e4dc3d959f82-1" name="rest_code_5223385b2b9e4f188fb2e4dc3d959f82-1" href="#rest_code_5223385b2b9e4f188fb2e4dc3d959f82-1"></a>sudo<span class="w"> </span>mount<span class="w"> </span>super_secret_things_encrypted<span class="w"> </span>super_secret_things<span class="w"> </span>-t<span class="w"> </span>ecryptfs
+<div class="code"><pre class="code bash"><a id="rest_code_63fc66fe3a4d467f9a4837eeca1060a4-1" name="rest_code_63fc66fe3a4d467f9a4837eeca1060a4-1" href="#rest_code_63fc66fe3a4d467f9a4837eeca1060a4-1"></a>sudo<span class="w"> </span>mount<span class="w"> </span>super_secret_things_encrypted<span class="w"> </span>super_secret_things<span class="w"> </span>-t<span class="w"> </span>ecryptfs
 </pre></div>
 <p>This will ask you a bunch of questions, these are the answers I recommend, plus some explanations:</p>
 <ul class="simple">
@@ -118,18 +118,18 @@ the future! For me this became muscle memory: "1 2 n y enter".</p>
 <ol class="arabic simple">
 <li><p>Mount the encrypted dir</p></li>
 </ol>
-<div class="code"><pre class="code bash"><a id="rest_code_27b6b2ec4e594c39a6ca7efb3ff99872-1" name="rest_code_27b6b2ec4e594c39a6ca7efb3ff99872-1" href="#rest_code_27b6b2ec4e594c39a6ca7efb3ff99872-1"></a>sudo<span class="w"> </span>mount<span class="w"> </span>super_secret_things_encrypted<span class="w"> </span>super_secret_things<span class="w"> </span>-t<span class="w"> </span>ecryptfs
-<a id="rest_code_27b6b2ec4e594c39a6ca7efb3ff99872-2" name="rest_code_27b6b2ec4e594c39a6ca7efb3ff99872-2" href="#rest_code_27b6b2ec4e594c39a6ca7efb3ff99872-2"></a><span class="c1"># answer "1 2 n y enter", or whatever you chose instead</span>
+<div class="code"><pre class="code bash"><a id="rest_code_f4c50de1255b456fa8cbc4a88dea51a3-1" name="rest_code_f4c50de1255b456fa8cbc4a88dea51a3-1" href="#rest_code_f4c50de1255b456fa8cbc4a88dea51a3-1"></a>sudo<span class="w"> </span>mount<span class="w"> </span>super_secret_things_encrypted<span class="w"> </span>super_secret_things<span class="w"> </span>-t<span class="w"> </span>ecryptfs
+<a id="rest_code_f4c50de1255b456fa8cbc4a88dea51a3-2" name="rest_code_f4c50de1255b456fa8cbc4a88dea51a3-2" href="#rest_code_f4c50de1255b456fa8cbc4a88dea51a3-2"></a><span class="c1"># answer "1 2 n y enter", or whatever you chose instead</span>
 </pre></div>
 <p>You can also avoid having to answer all the questions, by passing all these extra parameters:</p>
-<div class="code"><pre class="code bash"><a id="rest_code_9fad65dc96d741bfb645125347ca1f18-1" name="rest_code_9fad65dc96d741bfb645125347ca1f18-1" href="#rest_code_9fad65dc96d741bfb645125347ca1f18-1"></a>sudo<span class="w"> </span>mount<span class="w"> </span>super_secret_things_encrypted<span class="w"> </span>super_secret_things<span class="w"> </span>-t<span class="w"> </span>ecryptfs<span class="w"> </span>-o<span class="w"> </span><span class="nv">ecryptfs_cipher</span><span class="o">=</span>aes,ecryptfs_key_bytes<span class="o">=</span><span class="m">32</span>,ecryptfs_passthrough<span class="o">=</span>n,ecryptfs_enable_filename_crypto<span class="o">=</span>y,ecryptfs_fnek_sig<span class="o">=</span>6b8de1a1e22ae45c
-<a id="rest_code_9fad65dc96d741bfb645125347ca1f18-2" name="rest_code_9fad65dc96d741bfb645125347ca1f18-2" href="#rest_code_9fad65dc96d741bfb645125347ca1f18-2"></a><span class="c1"># (the "encryptfs_fnek_sig" signature is the one that the mount command asks you to verify in the final step, when not receiving all the extra params)</span>
+<div class="code"><pre class="code bash"><a id="rest_code_ab230fada0c24fe0b9b11b17b8116062-1" name="rest_code_ab230fada0c24fe0b9b11b17b8116062-1" href="#rest_code_ab230fada0c24fe0b9b11b17b8116062-1"></a>sudo<span class="w"> </span>mount<span class="w"> </span>super_secret_things_encrypted<span class="w"> </span>super_secret_things<span class="w"> </span>-t<span class="w"> </span>ecryptfs<span class="w"> </span>-o<span class="w"> </span><span class="nv">ecryptfs_cipher</span><span class="o">=</span>aes,ecryptfs_key_bytes<span class="o">=</span><span class="m">32</span>,ecryptfs_passthrough<span class="o">=</span>n,ecryptfs_enable_filename_crypto<span class="o">=</span>y,ecryptfs_fnek_sig<span class="o">=</span>6b8de1a1e22ae45c
+<a id="rest_code_ab230fada0c24fe0b9b11b17b8116062-2" name="rest_code_ab230fada0c24fe0b9b11b17b8116062-2" href="#rest_code_ab230fada0c24fe0b9b11b17b8116062-2"></a><span class="c1"># (the "encryptfs_fnek_sig" signature is the one that the mount command asks you to verify in the final step, when not receiving all the extra params)</span>
 </pre></div>
 <ol class="arabic simple" start="2">
 <li><p>Work with your files inside <cite>super_secret_things</cite> (REMEMBER!!! never edit the contents of <cite>super_secret_things_encrypted</cite> by yourself)</p></li>
 <li><p>Un-mount the encrypted dir</p></li>
 </ol>
-<div class="code"><pre class="code bash"><a id="rest_code_e6c5ddef75e84676994d72dd35cd2e0d-1" name="rest_code_e6c5ddef75e84676994d72dd35cd2e0d-1" href="#rest_code_e6c5ddef75e84676994d72dd35cd2e0d-1"></a>sudo<span class="w"> </span>umount<span class="w"> </span>super_secret_things
+<div class="code"><pre class="code bash"><a id="rest_code_2c7d3a3fac2a4c31ba7962f1a3c99683-1" name="rest_code_2c7d3a3fac2a4c31ba7962f1a3c99683-1" href="#rest_code_2c7d3a3fac2a4c31ba7962f1a3c99683-1"></a>sudo<span class="w"> </span>umount<span class="w"> </span>super_secret_things
 </pre></div>
 <p>Of course, you can automate these into scripts, alias in your shell, etc.</p>
 <p>Hope this is as useful to you as it was for me :)</p>
@@ -164,7 +164,7 @@ the future! For me this became muscle memory: "1 2 n y enter".</p>
     <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2024         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2025         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>

@@ -47,7 +47,50 @@
         
 
 <div class="posts">
-    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/" class="u-url">Cómo saber si hay un satélite argentino arriba tuyo</a></h1>
+    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/customer-and-code-quality/" class="u-url">Customer and code quality</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn">Juan Pedro Fisanotti</span></p>
+            <p class="dateline"><a href="posts/customer-and-code-quality/" rel="bookmark"><time class="post-date published dt-published" datetime="2017-09-17T16:28:30-03:00" title="2017-09-17 16:28">2017-09-17 16:28</time></a></p>
+                <p class="commentline">
+    
+    <a href="posts/customer-and-code-quality/#disqus_thread" data-disqus-identifier="cache/posts/customer-and-code-quality.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <p>I hear this a lot in the software development community: "the customer doesn't care about the quality of the code, just about features, usability, user experience, etc.".
+It has many variations, but the idea remains the same: code quality isn't a factor in the decisions of the customer (internal or external).</p>
+<p>Sometimes it's even used to justify writing, or not refactoring, bad code.
+Because the main thing is to give your customer some value, and code quality just doesn't do that.</p>
+<p>I currently believe this is false.
+I believe that <strong>customers do care</strong> about the quality of the code, even if they don't understand what code is or how does it work.</p>
+<section id="cars"><h2>Cars</h2>
+<p>When buying a car, would you ask how are the wheels attached to the rest of the car?
+You probably wouldn't, you don't care about that.
+But what if car X had wheels so special that each time you must change a tire, you need to spend 10.000$?
+Suddenly you care about wheel attachment systems.
+You would even feel cheated if someone sold you this car without warning you about its wheels.</p>
+<p>Well, no, you don't care about wheel attachment systems specifically.
+But you don't want a car that costs lots of money each time it requires some maintainance.
+You care about <strong>maintainance costs</strong>.</p>
+</section><section id="software"><h2>Software</h2>
+<p>You probably get my point already.</p>
+<p>Software, code, will need maintainance in most projects.
+And we know that one of the major factors defining the time (money) required to do code maintainance, is how good it is.
+Bad code costs more to maintain because it tends to have more bugs, to spawn new bugs more easily when modifying it, to be harder to read/understand how to change it, etc.</p>
+<p>So the customer might have zero idea regarding what code is.
+But they still <strong>care</strong>, they want software with reasonable maintainance costs and that means code that is decent enough.
+And giving them bad code without warning them of its impacts in maintainance, is a way of cheating them.</p>
+<p>Finally, customers tend to be unable to clearly see this relation by themselves, and developers usually don't want to tell them "this is taking too long to modify because we gave you bad quality code".
+This may be the reason we got the idea that customers don't care about code, developers just usually fail to explain (or even hide) to them the strong relation between code quality and maintainance costs.
+So they never come back asking for "better code".</p>
+<a class="reference external image-reference" href="images/customer-and-code-quality/tech_debt.jpeg">
+<img alt="/images/customer-and-code-quality/tech_debt.thumbnail.jpeg" src="images/customer-and-code-quality/tech_debt.thumbnail.jpeg"></a>
+<p>(comic by <a class="reference external" href="https://twitter.com/vincentdnl">Vincent Déniel</a>)</p>
+</section>
+</div>
+    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/" class="u-url">Cómo saber si hay un satélite argentino arriba tuyo</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn">Juan Pedro Fisanotti</span></p>
             <p class="dateline"><a href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/" rel="bookmark"><time class="post-date published dt-published" datetime="2017-09-06T20:14:38-03:00" title="2017-09-06 20:14">2017-09-06 20:14</time></a></p>
@@ -66,7 +109,7 @@
 <section id="programa-y-datos"><h2>Programa y datos</h2>
 <p>Primero que nada necesitamos instalar GPredict, el programa que hace todo esto. Se puede bajar desde el sitio oficial: <a class="reference external" href="http://gpredict.oz9aec.net/">http://gpredict.oz9aec.net/</a></p>
 <p>Para quienes estén en Ubuntu, pueden instalarlo desde los repositorios:</p>
-<div class="code"><pre class="code text"><a id="rest_code_97848dc5aa0a4ba4b3a96c1202fcf407-1" name="rest_code_97848dc5aa0a4ba4b3a96c1202fcf407-1" href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/#rest_code_97848dc5aa0a4ba4b3a96c1202fcf407-1"></a>sudo apt install gpredict
+<div class="code"><pre class="code text"><a id="rest_code_972b22ed12b14829901aa5f57af0d78e-1" name="rest_code_972b22ed12b14829901aa5f57af0d78e-1" href="posts/como-saber-si-hay-un-satelite-argentino-arriba-tuyo/#rest_code_972b22ed12b14829901aa5f57af0d78e-1"></a>sudo apt install gpredict
 </pre></div>
 <p>Lo abrimos y por primera vez vamos a ver un dashboard un poco diferente al que mostré, con datos de satélites y la estación espacial internacional.
 Vamos a decirle que se baje datos actualizados, así las órbitas que vemos tienen menos error: vamos al menú "Edit" &gt; "Update TLE" &gt; "From network".
@@ -198,12 +241,12 @@ The script is somewhat dumb and doesn't detect the drivers we installed on the p
 Later versions won't work.
 Ubuntu 16.04 ships with gcc 5.4.</p>
 <p>But we can have both versions side by side, and trick CUDA to use the older versions with just some simple symlinks (thanks to <a class="reference external" href="https://twitter.com/_zzzoom_/status/765720104868904964">charlie</a> for the tip, the old solution was far more complicated).</p>
-<div class="code"><pre class="code bash"><a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-1" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-1" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-1"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>gcc-4.9<span class="w"> </span>g++-4.9
-<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-2" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-2" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-2"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/gcc-4.9<span class="w">  </span>/usr/local/cuda/bin/gcc
-<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-3" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-3" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-3"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/g++-4.9<span class="w">  </span>/usr/local/cuda/bin/g++
-<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-4" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-4" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-4"></a>
-<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-5" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-5" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
-<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-6" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-6" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-6"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.theanorc
+<div class="code"><pre class="code bash"><a id="rest_code_ce916753c82c4c4cac43f8587b6b25c2-1" name="rest_code_ce916753c82c4c4cac43f8587b6b25c2-1" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_ce916753c82c4c4cac43f8587b6b25c2-1"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>gcc-4.9<span class="w"> </span>g++-4.9
+<a id="rest_code_ce916753c82c4c4cac43f8587b6b25c2-2" name="rest_code_ce916753c82c4c4cac43f8587b6b25c2-2" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_ce916753c82c4c4cac43f8587b6b25c2-2"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/gcc-4.9<span class="w">  </span>/usr/local/cuda/bin/gcc
+<a id="rest_code_ce916753c82c4c4cac43f8587b6b25c2-3" name="rest_code_ce916753c82c4c4cac43f8587b6b25c2-3" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_ce916753c82c4c4cac43f8587b6b25c2-3"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/g++-4.9<span class="w">  </span>/usr/local/cuda/bin/g++
+<a id="rest_code_ce916753c82c4c4cac43f8587b6b25c2-4" name="rest_code_ce916753c82c4c4cac43f8587b6b25c2-4" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_ce916753c82c4c4cac43f8587b6b25c2-4"></a>
+<a id="rest_code_ce916753c82c4c4cac43f8587b6b25c2-5" name="rest_code_ce916753c82c4c4cac43f8587b6b25c2-5" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_ce916753c82c4c4cac43f8587b6b25c2-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
+<a id="rest_code_ce916753c82c4c4cac43f8587b6b25c2-6" name="rest_code_ce916753c82c4c4cac43f8587b6b25c2-6" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_ce916753c82c4c4cac43f8587b6b25c2-6"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.theanorc
 </pre></div>
 </section><section id="testing"><h2>4. Testing</h2>
 <p>Done! You should be able to run Theano things (including Keras neural networks) using your gpu.</p>
@@ -211,12 +254,12 @@ Ubuntu 16.04 ships with gcc 5.4.</p>
 But don't just "run" it.
 You need to tell Theano "hey, I want you to use my shiny cuda gpu".
 To achieve that, run the script like this (inside your virtualenv):</p>
-<div class="code"><pre class="code bash"><a id="rest_code_40dd64eed89745a89680f9936d295a8f-1" name="rest_code_40dd64eed89745a89680f9936d295a8f-1" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_40dd64eed89745a89680f9936d295a8f-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span><span class="w"> </span>python<span class="w"> </span>test_gpu.py
+<div class="code"><pre class="code bash"><a id="rest_code_38368fc8a2c0420b8b6fa203133310f6-1" name="rest_code_38368fc8a2c0420b8b6fa203133310f6-1" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_38368fc8a2c0420b8b6fa203133310f6-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span><span class="w"> </span>python<span class="w"> </span>test_gpu.py
 </pre></div>
 <p>If everything is working, it should quickly run and output something which ends with: <code class="docutils literal">Used the gpu</code>.
 If instead it takes a long time (~1 minute) and ends with <code class="docutils literal">Used the cpu</code>, then something is not working.</p>
 <p>If that worked, then you can try the full example and play a little with it (should be able to run all lines without errors):</p>
-<div class="code"><pre class="code bash"><a id="rest_code_235cbfdf50304184afc44b2c9c97c6e1-1" name="rest_code_235cbfdf50304184afc44b2c9c97c6e1-1" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_235cbfdf50304184afc44b2c9c97c6e1-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span><span class="w"> </span>ipython<span class="w"> </span>notebook
+<div class="code"><pre class="code bash"><a id="rest_code_1b85b28d3eea4806bebee2edcb0c1603-1" name="rest_code_1b85b28d3eea4806bebee2edcb0c1603-1" href="posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/#rest_code_1b85b28d3eea4806bebee2edcb0c1603-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span><span class="w"> </span>ipython<span class="w"> </span>notebook
 </pre></div>
 </section>
 </div>
@@ -268,12 +311,12 @@ If instead it takes a long time (~1 minute) and ends with <code class="docutils 
 <p>Some might think "oh, that's to be expected as well. Google must have blocked the account as soon as the security incident was detected". But no. This feature doesn't check email every second. For my accounts, it's doing it once every day, more or less. And the failed attempt was at the exact same time the "suspicious login" happened. In <strong>both</strong> accounts. Different times each one. Too much coincidence.</p>
 <p>I wasn't able to see the original error for one of the accounts, too many login errors since it because of the password change, and it only stores the last 5 of them. But for the other account the first error was still there, and it was different to the password related ones.</p>
 <p>The errors after the password changes were:</p>
-<div class="code"><pre class="code text"><a id="rest_code_50f7f17ee4254dfc9bc266aa12cd1e2a-1" name="rest_code_50f7f17ee4254dfc9bc266aa12cd1e2a-1" href="posts/suspicious-logins/#rest_code_50f7f17ee4254dfc9bc266aa12cd1e2a-1"></a>Authentication error.
-<a id="rest_code_50f7f17ee4254dfc9bc266aa12cd1e2a-2" name="rest_code_50f7f17ee4254dfc9bc266aa12cd1e2a-2" href="posts/suspicious-logins/#rest_code_50f7f17ee4254dfc9bc266aa12cd1e2a-2"></a>Server returned error "[AUTH] Username and password not accepted."
+<div class="code"><pre class="code text"><a id="rest_code_6949ae711a944707825799e3dcc8ae88-1" name="rest_code_6949ae711a944707825799e3dcc8ae88-1" href="posts/suspicious-logins/#rest_code_6949ae711a944707825799e3dcc8ae88-1"></a>Authentication error.
+<a id="rest_code_6949ae711a944707825799e3dcc8ae88-2" name="rest_code_6949ae711a944707825799e3dcc8ae88-2" href="posts/suspicious-logins/#rest_code_6949ae711a944707825799e3dcc8ae88-2"></a>Server returned error "[AUTH] Username and password not accepted."
 </pre></div>
 <p>But the error at the same time than the suspicious login was:</p>
-<div class="code"><pre class="code text"><a id="rest_code_018c82b468d04846a1ef3105076dcc0f-1" name="rest_code_018c82b468d04846a1ef3105076dcc0f-1" href="posts/suspicious-logins/#rest_code_018c82b468d04846a1ef3105076dcc0f-1"></a>Authentication error.
-<a id="rest_code_018c82b468d04846a1ef3105076dcc0f-2" name="rest_code_018c82b468d04846a1ef3105076dcc0f-2" href="posts/suspicious-logins/#rest_code_018c82b468d04846a1ef3105076dcc0f-2"></a>Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
+<div class="code"><pre class="code text"><a id="rest_code_4bfad05901e44de28314311e9b514a89-1" name="rest_code_4bfad05901e44de28314311e9b514a89-1" href="posts/suspicious-logins/#rest_code_4bfad05901e44de28314311e9b514a89-1"></a>Authentication error.
+<a id="rest_code_4bfad05901e44de28314311e9b514a89-2" name="rest_code_4bfad05901e44de28314311e9b514a89-2" href="posts/suspicious-logins/#rest_code_4bfad05901e44de28314311e9b514a89-2"></a>Server returned error "[AUTH] Web login required: https://support.google.com/mail/answer/78754"
 </pre></div>
 <p>The linked support page isn't very helpful, but if you google the error you will find some people having the same issue: after years of not using an account, the login on their pop3 client starts to fail. Maybe something changed in google's security policies, maybe it's related to new terms of service, or required security checkups. But the thing is: logins fail until you login from a browser and tweak some stuff (enabling less secure apps, etc).</p>
 <p>That itself isn't the bug. The bug is flagging those pop3 logins which came <strong>from inside google</strong> (it's a gmail feature, running on their servers), as if they were "suspicious logins". They are not suspicious, they are comming from inside google, they are being made from a google server trying to execute a gmail feature.</p>
@@ -290,7 +333,7 @@ If instead it takes a long time (~1 minute) and ends with <code class="docutils 
 <li class="previous">
                 <a href="." rel="prev">Newer posts</a>
             </li>
-        </ul></nav><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2024         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        </ul></nav><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2025         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>

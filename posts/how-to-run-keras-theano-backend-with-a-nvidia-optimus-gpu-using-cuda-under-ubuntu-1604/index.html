@@ -124,12 +124,12 @@ The script is somewhat dumb and doesn't detect the drivers we installed on the p
 Later versions won't work.
 Ubuntu 16.04 ships with gcc 5.4.</p>
 <p>But we can have both versions side by side, and trick CUDA to use the older versions with just some simple symlinks (thanks to <a class="reference external" href="https://twitter.com/_zzzoom_/status/765720104868904964">charlie</a> for the tip, the old solution was far more complicated).</p>
-<div class="code"><pre class="code bash"><a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-1" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-1" href="#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-1"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>gcc-4.9<span class="w"> </span>g++-4.9
-<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-2" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-2" href="#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-2"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/gcc-4.9<span class="w">  </span>/usr/local/cuda/bin/gcc
-<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-3" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-3" href="#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-3"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/g++-4.9<span class="w">  </span>/usr/local/cuda/bin/g++
-<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-4" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-4" href="#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-4"></a>
-<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-5" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-5" href="#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
-<a id="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-6" name="rest_code_1067b7a2d4c845fdb263aae487a9e1ff-6" href="#rest_code_1067b7a2d4c845fdb263aae487a9e1ff-6"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.theanorc
+<div class="code"><pre class="code bash"><a id="rest_code_ce916753c82c4c4cac43f8587b6b25c2-1" name="rest_code_ce916753c82c4c4cac43f8587b6b25c2-1" href="#rest_code_ce916753c82c4c4cac43f8587b6b25c2-1"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>gcc-4.9<span class="w"> </span>g++-4.9
+<a id="rest_code_ce916753c82c4c4cac43f8587b6b25c2-2" name="rest_code_ce916753c82c4c4cac43f8587b6b25c2-2" href="#rest_code_ce916753c82c4c4cac43f8587b6b25c2-2"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/gcc-4.9<span class="w">  </span>/usr/local/cuda/bin/gcc
+<a id="rest_code_ce916753c82c4c4cac43f8587b6b25c2-3" name="rest_code_ce916753c82c4c4cac43f8587b6b25c2-3" href="#rest_code_ce916753c82c4c4cac43f8587b6b25c2-3"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/bin/g++-4.9<span class="w">  </span>/usr/local/cuda/bin/g++
+<a id="rest_code_ce916753c82c4c4cac43f8587b6b25c2-4" name="rest_code_ce916753c82c4c4cac43f8587b6b25c2-4" href="#rest_code_ce916753c82c4c4cac43f8587b6b25c2-4"></a>
+<a id="rest_code_ce916753c82c4c4cac43f8587b6b25c2-5" name="rest_code_ce916753c82c4c4cac43f8587b6b25c2-5" href="#rest_code_ce916753c82c4c4cac43f8587b6b25c2-5"></a><span class="c1"># Work around a glibc bug (according to the theano docs)</span>
+<a id="rest_code_ce916753c82c4c4cac43f8587b6b25c2-6" name="rest_code_ce916753c82c4c4cac43f8587b6b25c2-6" href="#rest_code_ce916753c82c4c4cac43f8587b6b25c2-6"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"\n[nvcc]\nflags=-D_FORCE_INLINES\n"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.theanorc
 </pre></div>
 </section><section id="testing"><h2>4. Testing</h2>
 <p>Done! You should be able to run Theano things (including Keras neural networks) using your gpu.</p>
@@ -137,12 +137,12 @@ Ubuntu 16.04 ships with gcc 5.4.</p>
 But don't just "run" it.
 You need to tell Theano "hey, I want you to use my shiny cuda gpu".
 To achieve that, run the script like this (inside your virtualenv):</p>
-<div class="code"><pre class="code bash"><a id="rest_code_40dd64eed89745a89680f9936d295a8f-1" name="rest_code_40dd64eed89745a89680f9936d295a8f-1" href="#rest_code_40dd64eed89745a89680f9936d295a8f-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span><span class="w"> </span>python<span class="w"> </span>test_gpu.py
+<div class="code"><pre class="code bash"><a id="rest_code_38368fc8a2c0420b8b6fa203133310f6-1" name="rest_code_38368fc8a2c0420b8b6fa203133310f6-1" href="#rest_code_38368fc8a2c0420b8b6fa203133310f6-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span><span class="w"> </span>python<span class="w"> </span>test_gpu.py
 </pre></div>
 <p>If everything is working, it should quickly run and output something which ends with: <code class="docutils literal">Used the gpu</code>.
 If instead it takes a long time (~1 minute) and ends with <code class="docutils literal">Used the cpu</code>, then something is not working.</p>
 <p>If that worked, then you can try the full example and play a little with it (should be able to run all lines without errors):</p>
-<div class="code"><pre class="code bash"><a id="rest_code_235cbfdf50304184afc44b2c9c97c6e1-1" name="rest_code_235cbfdf50304184afc44b2c9c97c6e1-1" href="#rest_code_235cbfdf50304184afc44b2c9c97c6e1-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span><span class="w"> </span>ipython<span class="w"> </span>notebook
+<div class="code"><pre class="code bash"><a id="rest_code_1b85b28d3eea4806bebee2edcb0c1603-1" name="rest_code_1b85b28d3eea4806bebee2edcb0c1603-1" href="#rest_code_1b85b28d3eea4806bebee2edcb0c1603-1"></a><span class="nv">THEANO_FLAGS</span><span class="o">=</span><span class="s2">"mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/"</span><span class="w"> </span>ipython<span class="w"> </span>notebook
 </pre></div>
 </section>
 </div>
@@ -183,7 +183,7 @@ If instead it takes a long time (~1 minute) and ends with <code class="docutils 
     <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2024         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2025         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>

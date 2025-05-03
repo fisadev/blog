@@ -82,7 +82,7 @@ TensorFlow: the Python l">
 <p>It might be possible to use CUDA without having the graphics drivers installed, but I'm not sure how easy and stable it is.
 So my recommendation is to install them first, and verify that they are working.</p>
 <p>Usually it's just installing a package with <code class="docutils literal">apt</code>:</p>
-<div class="code"><pre class="code text"><a id="rest_code_8f92bde1a2834d16b75b74d6edc30409-1" name="rest_code_8f92bde1a2834d16b75b74d6edc30409-1" href="#rest_code_8f92bde1a2834d16b75b74d6edc30409-1"></a>sudo apt install nvidia-375
+<div class="code"><pre class="code text"><a id="rest_code_0beb065079ff4e44bb4cb096f4b4b9a4-1" name="rest_code_0beb065079ff4e44bb4cb096f4b4b9a4-1" href="#rest_code_0beb065079ff4e44bb4cb096f4b4b9a4-1"></a>sudo apt install nvidia-375
 </pre></div>
 <p>But if you are using an Optimus-enabled graphics card (most laptops with Nvidia cards previous to the 10xx generation),
 you might need to install the <code class="docutils literal"><span class="pre">nvidia-prime</span></code> package too.</p>
@@ -94,7 +94,7 @@ you might need to install the <code class="docutils literal"><span class="pre">n
 <p>The versions you need to get depend on which versions does TensorFlow support.
 You can check this in the official website, at <a class="reference external" href="https://www.tensorflow.org/install/install_linux">https://www.tensorflow.org/install/install_linux</a> .</p>
 <p>Once you have both installers, first run the cuda installer (replace the name of the file with the one you got):</p>
-<div class="code"><pre class="code text"><a id="rest_code_8f107c4ed3804231a71b3fa92115995b-1" name="rest_code_8f107c4ed3804231a71b3fa92115995b-1" href="#rest_code_8f107c4ed3804231a71b3fa92115995b-1"></a>sudo sh ./cuda_8.0.61_375.26_linux.run --override
+<div class="code"><pre class="code text"><a id="rest_code_473437bcb6014bb59299a2a6c86d59e6-1" name="rest_code_473437bcb6014bb59299a2a6c86d59e6-1" href="#rest_code_473437bcb6014bb59299a2a6c86d59e6-1"></a>sudo sh ./cuda_8.0.61_375.26_linux.run --override
 </pre></div>
 <p>It will ask you a few things. Tell "no" to the installation of graphics drivers (you should already have them),
 and "yes" to the creation of the symbolic link.</p>
@@ -103,7 +103,7 @@ and copy its files into the <code class="docutils literal"><span class="pre">/us
 The tar file contains subfolders, be sure to copy the files into the same subfolders in the destination.</p>
 </section><section id="tensorflow-and-keras-installation"><h3>TensorFlow and Keras installation</h3>
 <p>Once you have the graphics drivers and CUDA, then it's easy to install TensorFlow and Keras, they are just Python packages:</p>
-<div class="code"><pre class="code text"><a id="rest_code_1128ff1f1bae430f9c34f518ad1c9616-1" name="rest_code_1128ff1f1bae430f9c34f518ad1c9616-1" href="#rest_code_1128ff1f1bae430f9c34f518ad1c9616-1"></a>pip install tensorflow-gpu keras
+<div class="code"><pre class="code text"><a id="rest_code_be28c9afec7f4bfabde1eed7d3ca52a6-1" name="rest_code_be28c9afec7f4bfabde1eed7d3ca52a6-1" href="#rest_code_be28c9afec7f4bfabde1eed7d3ca52a6-1"></a>pip install tensorflow-gpu keras
 </pre></div>
 <p>If you aren't using virtualenvs (you should!), you should add <code class="docutils literal"><span class="pre">--user</span></code> to that command.
 I don't recommend installing the packages system-wide with <code class="docutils literal">sudo</code>, as with time you will probably need different versions of both
@@ -111,17 +111,17 @@ I don't recommend installing the packages system-wide with <code class="docutils
 </section><section id="running-the-code"><h3>Running the code</h3>
 <p>Finally, when running your code you may need to define the <code class="docutils literal">LD_LIBRARY_PATH</code> environment variable, for TensorFlow to be able to
 find the needed CUDA libraries:</p>
-<div class="code"><pre class="code text"><a id="rest_code_a71e17349f444d648a319b92a7f4ccbf-1" name="rest_code_a71e17349f444d648a319b92a7f4ccbf-1" href="#rest_code_a71e17349f444d648a319b92a7f4ccbf-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python your_awesome_code.py
+<div class="code"><pre class="code text"><a id="rest_code_5106f5cee04c4a8ea09d4c99775186f8-1" name="rest_code_5106f5cee04c4a8ea09d4c99775186f8-1" href="#rest_code_5106f5cee04c4a8ea09d4c99775186f8-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python your_awesome_code.py
 </pre></div>
 <p>This is true also for Jupyter notebooks:</p>
-<div class="code"><pre class="code text"><a id="rest_code_f564f9570a9f4b0390d20294d1301200-1" name="rest_code_f564f9570a9f4b0390d20294d1301200-1" href="#rest_code_f564f9570a9f4b0390d20294d1301200-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 jupyter notebook
+<div class="code"><pre class="code text"><a id="rest_code_0ae2e72412714b6caa000087dda9532d-1" name="rest_code_0ae2e72412714b6caa000087dda9532d-1" href="#rest_code_0ae2e72412714b6caa000087dda9532d-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 jupyter notebook
 </pre></div>
 <p>If you are unsure if your code is actually using your gpu, you can paste this snippet into a <code class="docutils literal">test_device.py</code> file:</p>
-<div class="code"><pre class="code python"><a id="rest_code_82a597c2b2da4400881f402de7fb80a7-1" name="rest_code_82a597c2b2da4400881f402de7fb80a7-1" href="#rest_code_82a597c2b2da4400881f402de7fb80a7-1"></a><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<a id="rest_code_82a597c2b2da4400881f402de7fb80a7-2" name="rest_code_82a597c2b2da4400881f402de7fb80a7-2" href="#rest_code_82a597c2b2da4400881f402de7fb80a7-2"></a><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">(</span><span class="n">log_device_placement</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<div class="code"><pre class="code python"><a id="rest_code_711d6b249dea474098bf5157e5254c28-1" name="rest_code_711d6b249dea474098bf5157e5254c28-1" href="#rest_code_711d6b249dea474098bf5157e5254c28-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
+<a id="rest_code_711d6b249dea474098bf5157e5254c28-2" name="rest_code_711d6b249dea474098bf5157e5254c28-2" href="#rest_code_711d6b249dea474098bf5157e5254c28-2"></a><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">(</span><span class="n">log_device_placement</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 <p>And then run it:</p>
-<div class="code"><pre class="code text"><a id="rest_code_60c7894ed7974a628ff9d2e47d293ac0-1" name="rest_code_60c7894ed7974a628ff9d2e47d293ac0-1" href="#rest_code_60c7894ed7974a628ff9d2e47d293ac0-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python test_device.py
+<div class="code"><pre class="code text"><a id="rest_code_d80577065ccc4737962c8baa32f0bad7-1" name="rest_code_d80577065ccc4737962c8baa32f0bad7-1" href="#rest_code_d80577065ccc4737962c8baa32f0bad7-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python test_device.py
 </pre></div>
 <p>It should print a lot of information, but in between you should see something with your graphics card name, like
 <code class="docutils literal">name: GeForce GTX 1070</code>.</p>
@@ -156,7 +156,7 @@ find the needed CUDA libraries:</p>
     <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2024         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2025         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
         </footer>
 </div>

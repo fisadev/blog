@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>http://blog.fisadev.com/</loc>
-  <lastmod>2023-08-14T23:26:00Z</lastmod>
+  <lastmod>2025-05-03T20:46:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/2016/</loc>
@@ -34,8 +34,12 @@
   <lastmod>2023-08-14T23:26:00Z</lastmod>
  </url>
  <url>
+  <loc>http://blog.fisadev.com/2025/</loc>
+  <lastmod>2025-05-03T20:46:00Z</lastmod>
+ </url>
+ <url>
   <loc>http://blog.fisadev.com/archive.html</loc>
-  <lastmod>2024-08-13T20:31:00Z</lastmod>
+  <lastmod>2025-05-03T20:46:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/categories/</loc>
@@ -91,7 +95,7 @@
  </url>
  <url>
   <loc>http://blog.fisadev.com/index-1.html</loc>
-  <lastmod>2024-08-13T20:31:00Z</lastmod>
+  <lastmod>2025-05-03T20:46:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/posts/art-killer-ai/</loc>
@@ -120,6 +124,10 @@
  <url>
   <loc>http://blog.fisadev.com/posts/how-to-run-keras-theano-backend-with-a-nvidia-optimus-gpu-using-cuda-under-ubuntu-1604/</loc>
   <lastmod>2019-04-21T11:26:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://blog.fisadev.com/posts/ia-y-educacion/</loc>
+  <lastmod>2025-05-03T20:46:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/posts/katanas-especiales/</loc>
