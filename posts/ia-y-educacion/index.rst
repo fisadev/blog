@@ -307,7 +307,7 @@ Pero el problema es que el o la profe no nos pidió ese resumen porque el resume
 o necesario.
 No nos pidió un resumen porque no quiere leer el texto y necesita una versión más corta.
 Probablemente nos pidió leerlo y resumirlo porque de esa forma, leyendo y re-redactando las ideas
-principales, nosotros mismos íbamos a aprender abuso emocional.
+principales, nosotros mismos íbamos a aprender sobre abuso emocional.
 
 Al darle la tarea a la IA en vez, nos estamos perdiendo la oportunidad de aprender.
 La tarea estaba diseñada para que quien la haga, aprenda algo. 

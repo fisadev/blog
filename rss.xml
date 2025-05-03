@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa)</title><link>http://blog.fisadev.com/</link><description>This is my personal blog.</description><atom:link href="http://blog.fisadev.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Sat, 03 May 2025 21:21:03 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>IA y educación</title><link>http://blog.fisadev.com/posts/ia-y-educacion/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;p&gt;En muy pocos años la Inteligencia Artificial logró hacerse un lugar en la vida cotidiana de un
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa)</title><link>http://blog.fisadev.com/</link><description>This is my personal blog.</description><atom:link href="http://blog.fisadev.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Sat, 03 May 2025 21:37:00 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>IA y educación</title><link>http://blog.fisadev.com/posts/ia-y-educacion/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;p&gt;En muy pocos años la Inteligencia Artificial logró hacerse un lugar en la vida cotidiana de un
 montón de personas.&lt;/p&gt;
 &lt;p&gt;No es novedad que interactuemos con IAs todo el tiempo, eso ya sucedía desde hace mucho.
 Por ejemplo, cada vez que consumimos contenido en redes sociales, o publicidades en internet, o
@@ -241,7 +241,7 @@ resumen. Lo revisamos un poco, y listo! Tarea hecha. Entrega aprobada.&lt;/p&gt;
 o necesario.
 No nos pidió un resumen porque no quiere leer el texto y necesita una versión más corta.
 Probablemente nos pidió leerlo y resumirlo porque de esa forma, leyendo y re-redactando las ideas
-principales, nosotros mismos íbamos a aprender abuso emocional.&lt;/p&gt;
+principales, nosotros mismos íbamos a aprender sobre abuso emocional.&lt;/p&gt;
 &lt;p&gt;Al darle la tarea a la IA en vez, nos estamos perdiendo la oportunidad de aprender.
 La tarea estaba diseñada para que quien la haga, aprenda algo.
 Y nosotros decidimos no aprender y dárselo a la IA en vez.
