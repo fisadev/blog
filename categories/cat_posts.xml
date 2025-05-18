@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about posts)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Sat, 03 May 2025 21:37:00 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>IA y educación</title><link>http://blog.fisadev.com/posts/ia-y-educacion/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;p&gt;En muy pocos años la Inteligencia Artificial logró hacerse un lugar en la vida cotidiana de un
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog (fisa) (Posts about posts)</title><link>http://blog.fisadev.com/</link><description></description><atom:link href="http://blog.fisadev.com/categories/cat_posts.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Sun, 18 May 2025 23:00:41 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>IA y educación</title><link>http://blog.fisadev.com/posts/ia-y-educacion/</link><dc:creator>Juan Pedro Fisanotti</dc:creator><description>&lt;p&gt;En muy pocos años la Inteligencia Artificial logró hacerse un lugar en la vida cotidiana de un
 montón de personas.&lt;/p&gt;
 &lt;p&gt;No es novedad que interactuemos con IAs todo el tiempo, eso ya sucedía desde hace mucho.
 Por ejemplo, cada vez que consumimos contenido en redes sociales, o publicidades en internet, o
@@ -27,6 +27,24 @@ problemas o limitaciones sin darnos cuenta?&lt;/p&gt;
 tiene eso.
 Sobre todo para que podamos sacarles mejor el jugo y que no nos "muerdan", y enfocándonos en
 educación.&lt;/p&gt;
+&lt;section id="copian-buscan-crean"&gt;
+&lt;h2&gt;Copian? Buscan? Crean?&lt;/h2&gt;
+&lt;p&gt;La mayoría de la gente con quien he charlado de este tema, asume que al hacerle una pregunta a una
+IA moderna, la IA o "copia" la respuesta de algún texto que tiene guardado en alguna especie de
+base de datos, o "busca" en el momento la respuesta en internet y nos devuelve un resumen de lo que
+encontró.&lt;/p&gt;
+&lt;p&gt;Parece algo bastante obvio.
+De dónde puede saber una IA que en Italia se come mucha pizza, si no es buscándolo en internet o
+una base de datos?
+De qué otra manera podría obtener ese dato?&lt;/p&gt;
+&lt;p&gt;Y sin embargo, ambas suposiciones son falsas en la gran mayoría de los casos (salvo cuando
+explícitamente les pedimos que hagan una búsqueda en internet y nos devuelven links).
+La gran mayoría de las veces en vez de buscar o copiar, estas IAs "crean" el texto que nos dan
+como respuesta. Y lo crean en el momento, "al vuelo", sin salir a buscar la información a ninguna
+parte!&lt;/p&gt;
+&lt;p&gt;Puede parecer raro, pero es así.
+Intentemos entonces entender un poco cómo funciona esto, y qué implica.&lt;/p&gt;
+&lt;/section&gt;
 &lt;section id="el-super-loro"&gt;
 &lt;h2&gt;El super loro&lt;/h2&gt;
 &lt;a class="reference external image-reference" href="http://blog.fisadev.com/images/ia-y-educacion/loro.png"&gt;
@@ -173,8 +191,8 @@ Pero es un trabajo difícil, y todavía falta mucho para considerarlo un problem
 quiere decir que es correcto o lo mejor, tranquilamente puede estar imitando un sesgo o error humano.&lt;/p&gt;
 &lt;p&gt;Todavía hace falta nuestra mirada crítica.&lt;/p&gt;
 &lt;/section&gt;
-&lt;section id="info-falsa-y-falta-de-ejemplos-al-entrenar"&gt;
-&lt;h2&gt;Info falsa, y falta de ejemplos al entrenar&lt;/h2&gt;
+&lt;section id="alucinaciones"&gt;
+&lt;h2&gt;Alucinaciones&lt;/h2&gt;
 &lt;p&gt;Como dijimos, es importante entender que la IA no entiende.
 No "sabe" lo que es una pizza, ni una silla, ni la física cuántica.
 Solo sabe elegir palabras que tienen sentido en el contexto de lo que le dimos como entrada.&lt;/p&gt;
@@ -187,10 +205,12 @@ Jaime Ross).
 Qué va a responder la IA?
 Va a inventar algo! Va a generar una cadena de palabras que suenan bien, con "sentido", pero que
 son absolutamente falsas.&lt;/p&gt;
+&lt;p&gt;El término técnico para estas invenciones que las IAs pueden devolvernos, es "alucinaciones".&lt;/p&gt;
 &lt;p&gt;Ese es el caso más extremo, el peor: casi no existía información en la biblioteca de entrenamiento.
 La mayoría de las veces vamos a estar en una situación más intermedia: quizás había muchísimos
 textos en internet y libros sobre el tema, o quizás había bastantes, o quizás pocos.
-Y eso va a influenciar mucho qué tan confiable es la respuesta generada.&lt;/p&gt;
+Y eso va a influenciar mucho qué tan confiable es la respuesta generada.
+Qué tanto de la respuesta obtenida es realidad, y qué tanto es "alucinado".&lt;/p&gt;
 &lt;p&gt;Y lo complicado es que no hay nada que nos diga cuánto podemos confiar.
 Cuando preguntamos, la IA no nos aclara cuánta info de entrenamiento tuvo sobre el tema.
 Está en nosotros saberlo y evaluar si la respuesta tiene sentido o no.&lt;/p&gt;
