@@ -42,6 +42,27 @@ tiene eso.
 Sobre todo para que podamos sacarles mejor el jugo y que no nos "muerdan", y enfocándonos en 
 educación.
 
+Copian? Buscan? Crean?
+----------------------
+
+La mayoría de la gente con quien he charlado de este tema, asume que al hacerle una pregunta a una 
+IA moderna, la IA o "copia" la respuesta de algún texto que tiene guardado en alguna especie de 
+base de datos, o "busca" en el momento la respuesta en internet y nos devuelve un resumen de lo que 
+encontró.
+
+Parece algo bastante obvio.
+De dónde puede saber una IA que en Italia se come mucha pizza, si no es buscándolo en internet o 
+una base de datos?
+De qué otra manera podría obtener ese dato?
+
+Y sin embargo, ambas suposiciones son falsas en la gran mayoría de los casos (salvo cuando 
+explícitamente les pedimos que hagan una búsqueda en internet y nos devuelven links). 
+La gran mayoría de las veces en vez de buscar o copiar, estas IAs "crean" el texto que nos dan
+como respuesta. Y lo crean en el momento, "al vuelo", sin salir a buscar la información a ninguna
+parte!
+
+Puede parecer raro, pero es así.
+Intentemos entonces entender un poco cómo funciona esto, y qué implica.
 
 El super loro
 -------------
@@ -223,8 +244,8 @@ quiere decir que es correcto o lo mejor, tranquilamente puede estar imitando un 
 
 Todavía hace falta nuestra mirada crítica.
 
-Info falsa, y falta de ejemplos al entrenar
--------------------------------------------
+Alucinaciones
+-------------
 
 Como dijimos, es importante entender que la IA no entiende. 
 No "sabe" lo que es una pizza, ni una silla, ni la física cuántica.
@@ -241,10 +262,13 @@ Qué va a responder la IA?
 Va a inventar algo! Va a generar una cadena de palabras que suenan bien, con "sentido", pero que 
 son absolutamente falsas.
 
+El término técnico para estas invenciones que las IAs pueden devolvernos, es "alucinaciones".
+
 Ese es el caso más extremo, el peor: casi no existía información en la biblioteca de entrenamiento.
 La mayoría de las veces vamos a estar en una situación más intermedia: quizás había muchísimos 
 textos en internet y libros sobre el tema, o quizás había bastantes, o quizás pocos.
 Y eso va a influenciar mucho qué tan confiable es la respuesta generada.
+Qué tanto de la respuesta obtenida es realidad, y qué tanto es "alucinado".
 
 Y lo complicado es que no hay nada que nos diga cuánto podemos confiar.
 Cuando preguntamos, la IA no nos aclara cuánta info de entrenamiento tuvo sobre el tema.
