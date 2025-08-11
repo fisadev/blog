@@ -8,7 +8,7 @@
 .. type: text
 
 How to deploy a Django app in Render.com with UV (free tier)
-====================================================
+============================================================
 
 This is a basic tutorial on how to deploy a Django app to Render.com, focused on using only the free tier features and automating things as much as possible. 
 This also doesn't cover how to do a Django app, it assumes you already have a working app that you just need to deploy.
