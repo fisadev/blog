@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html prefix="" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>How to deploy a Django app in Render.com with UV (free tier) | Blog (fisa)</title>
+<link href="../../assets/css/all.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="http://blog.fisadev.com/posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Juan Pedro Fisanotti">
+<link rel="prev" href="../ia-y-educacion/" title="IA y educación" type="text/html">
+<meta property="og:site_name" content="Blog (fisa)">
+<meta property="og:title" content="How to deploy a Django app in Render.com with UV (free tier)">
+<meta property="og:url" content="http://blog.fisadev.com/posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/">
+<meta property="og:description" content="How to deploy a Django app in Render.com with UV (free tier)
+
+System Message: WARNING/2 (&lt;string&gt;, line 2)
+Title underline too short.
+How to deploy a Django app in Render.com with UV (free tier)
+=====">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2025-08-11T20:00:00-03:00">
+</head>
+<body>
+    <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+            styles, `#sidebar-checkbox` for behavior. -->
+    <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"><!-- Toggleable sidebar --><div class="sidebar" id="sidebar">
+        <div class="sidebar-item">
+            <p>A reserved <a href="https://getnikola.com" target="_blank">Nikola</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a> for Jekyll,
+            ported to Nikola by <a href="https://twitter.com/ralsina" target="_blank">@ralsina</a>.</p>
+        </div>
+        
+    <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../../archive.html">Archive</a>
+        <a class="sidebar-nav-item" href="../../categories/">Tags</a>
+        <a class="sidebar-nav-item" href="../../rss.xml">RSS feed</a>
+    
+    
+    </nav>
+</div>
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          
+    <h3 id="brand" class="masthead-title">
+      <a href="http://blog.fisadev.com/" title="Blog (fisa)" rel="home">Blog (fisa)</a>
+    </h3>
+
+        </div>
+      </div>
+
+      <div class="container content" id="content">
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="post-title p-name entry-title" itemprop="headline name"><a href="." class="u-url">How to deploy a Django app in Render.com with UV (free tier)</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn">Juan Pedro Fisanotti</span></p>
+            <p class="dateline"><a href="." rel="bookmark"><time class="post-date published dt-published" datetime="2025-08-11T20:00:00-03:00" itemprop="datePublished" title="2025-08-11 20:00">2025-08-11 20:00</time></a></p>
+                <p class="commentline">
+    
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv.html">Comments</a>
+
+
+        </p>
+</div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <section id="how-to-deploy-a-django-app-in-render-com-with-uv-free-tier"><h2>How to deploy a Django app in Render.com with UV (free tier)</h2>
+<aside class="system-message"><p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">&lt;string&gt;</span>, line 2)</p>
+<p>Title underline too short.</p>
+<pre class="literal-block">How to deploy a Django app in Render.com with UV (free tier)
+====================================================</pre>
+</aside><p>This is a basic tutorial on how to deploy a Django app to Render.com, focused on using only the free tier features and automating things as much as possible.
+This also doesn't cover how to do a Django app, it assumes you already have a working app that you just need to deploy.</p>
+<p>This is an updated version of an older tutorial, now using UV for the environment and dependencies management.
+<a class="reference external" href="https://docs.astral.sh/uv/">UV is great!</a> I highly recommend using it :)</p>
+<p>If you are NOT using UV, then you can check the <a class="reference external" href="https://blog.fisadev.com/posts/how-to-deploy-a-django-app-in-rendercom-free-tier/">old version of this tutorial</a>.</p>
+</section><section id="assumptions"><h2>Assumptions</h2>
+<ul class="simple">
+<li><p>You have a working Django app (for instance, you can already run it locally with <code class="docutils literal">python manage.py runserver</code> and everything works fine).</p></li>
+<li><p>You're using Django 5 or newer (tested up to Django 5.2.4), and your project structure is what Django does by default. Older versions might work too, though.</p></li>
+<li><p>Your Django project is in a Github or Gitlab repository.</p></li>
+<li><p>There's a single Django project in the repo, not multiple projects at once.</p></li>
+<li><p>You want to use Postgres as your production database in Render.</p></li>
+<li><p>You're using <a class="reference external" href="https://docs.astral.sh/uv/">UV</a> for managing your Python environment and dependencies.</p></li>
+</ul></section><section id="render-com-account"><h2>0: Render.com account</h2>
+<p>Just go to <a class="reference external" href="http://render.com">Render.com</a>, create a user (if you don't already have one), activate your account, and sign in to the <a class="reference external" href="https://dashboard.render.com/">Dashboard</a>.</p>
+</section><section id="defining-dependencies"><h2>1: Defining dependencies</h2>
+<p>Add the following dependencies to your project's <code class="docutils literal">pyproject.toml</code> file using UV:</p>
+<div class="code"><pre class="code bash"><a id="rest_code_09c30b97fcf44bca82caa1e867e6e545-1" name="rest_code_09c30b97fcf44bca82caa1e867e6e545-1" href="#rest_code_09c30b97fcf44bca82caa1e867e6e545-1"></a>uv<span class="w"> </span>add<span class="w"> </span>django<span class="w"> </span>dj-database-url<span class="w"> </span>psycopg2-binary<span class="w"> </span>whitenoise<span class="o">[</span>brotli<span class="o">]</span><span class="w"> </span>gunicorn
+</pre></div>
+<p>Remember to commit the changes to your <code class="docutils literal">pyproject.toml</code> and <code class="docutils literal">uv.lock</code> files to your repository!
+This is super important. If you don't add these files, Render won't be able to install your dependencies.</p>
+</section><section id="creating-deploy-scripts"><h2>2: Creating deploy scripts</h2>
+<p>You will need two scripts: one that builds the web app server (installs dependencies, updates the database structure, etc), and another one that runs your web app.
+Render will use these two scripts when you want to deploy your web app.</p>
+<p>Create a <code class="docutils literal">build.sh</code> file in the root of your repository, with these contents:</p>
+<div class="code"><pre class="code bash"><a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-1" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-1" href="#rest_code_a6c5bb2440884d8c83c6ad993a597b51-1"></a><span class="c1"># exit on error</span>
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-2" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-2" href="#rest_code_a6c5bb2440884d8c83c6ad993a597b51-2"></a><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>errexit
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-3" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-3" href="#rest_code_a6c5bb2440884d8c83c6ad993a597b51-3"></a>
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-4" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-4" href="#rest_code_a6c5bb2440884d8c83c6ad993a597b51-4"></a><span class="c1"># install project dependencies</span>
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-5" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-5" href="#rest_code_a6c5bb2440884d8c83c6ad993a597b51-5"></a>uv<span class="w"> </span>sync
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-6" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-6" href="#rest_code_a6c5bb2440884d8c83c6ad993a597b51-6"></a>
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-7" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-7" href="#rest_code_a6c5bb2440884d8c83c6ad993a597b51-7"></a><span class="c1"># make sure django has all the things it needs to run</span>
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-8" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-8" href="#rest_code_a6c5bb2440884d8c83c6ad993a597b51-8"></a><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>manage.py$<span class="k">))</span>
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-9" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-9" href="#rest_code_a6c5bb2440884d8c83c6ad993a597b51-9"></a>uv<span class="w"> </span>run<span class="w"> </span>./manage.py<span class="w"> </span>collectstatic<span class="w"> </span>--no-input
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-10" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-10" href="#rest_code_a6c5bb2440884d8c83c6ad993a597b51-10"></a>uv<span class="w"> </span>run<span class="w"> </span>./manage.py<span class="w"> </span>migrate
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-11" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-11" href="#rest_code_a6c5bb2440884d8c83c6ad993a597b51-11"></a>uv<span class="w"> </span>run<span class="w"> </span>./manage.py<span class="w"> </span>createsuperuser<span class="w"> </span>--username<span class="w"> </span>admin<span class="w"> </span>--email<span class="w"> </span><span class="s2">"YOUR@EMAIL.com"</span><span class="w"> </span>--noinput<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</pre></div>
+<p>In that script, replace <code class="docutils literal">YOUR@EMAIL.com</code> with your real email.</p>
+<p>Then create a <code class="docutils literal">run.sh</code> file in the root of your repository, with these contents:</p>
+<div class="code"><pre class="code bash"><a id="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-1" name="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-1" href="#rest_code_bd0a4ef694a74bc196ca84f258ad2c76-1"></a><span class="c1"># exit on error</span>
+<a id="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-2" name="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-2" href="#rest_code_bd0a4ef694a74bc196ca84f258ad2c76-2"></a><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>errexit
+<a id="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-3" name="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-3" href="#rest_code_bd0a4ef694a74bc196ca84f258ad2c76-3"></a>
+<a id="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-4" name="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-4" href="#rest_code_bd0a4ef694a74bc196ca84f258ad2c76-4"></a><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>manage.py$<span class="k">))</span>
+<a id="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-5" name="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-5" href="#rest_code_bd0a4ef694a74bc196ca84f258ad2c76-5"></a>uv<span class="w"> </span>run<span class="w"> </span>gunicorn<span class="w"> </span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>wsgi.py$<span class="k">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s2">"s/\.\///g"</span><span class="k">)</span>.wsgi:application
+</pre></div>
+<p>If you have a less standard project or repo structure, you can replace the dark magic in those scripts: the <code class="docutils literal">cd</code> command just needs to get inside your Django project folder, and the <code class="docutils literal">gunicorn</code> command needs to look something like <code class="docutils literal">gunicorn your_project_name.wsgi:application</code>.
+But for normal project structures, the dark magic should work just fine :)</p>
+</section><section id="django-settings-for-render"><h2>3. Django settings for Render</h2>
+<p>Now you need to add this to the end of your <code class="docutils literal">settings.py</code> file:</p>
+<div class="code"><pre class="code python"><a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-1" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-1" href="#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-1"></a><span class="c1"># code needed to deploy in Render.com:</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-2" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-2" href="#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-3" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-3" href="#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">dj_database_url</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-4" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-4" href="#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-4"></a>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-5" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-5" href="#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-5"></a><span class="k">if</span> <span class="s1">'RENDER'</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-6" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-6" href="#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"USING RENDER.COM SETTINGS!"</span><span class="p">)</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-7" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-7" href="#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-7"></a>    <span class="n">DEBUG</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-8" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-8" href="#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-8"></a>    <span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'RENDER_EXTERNAL_HOSTNAME'</span><span class="p">)]</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-9" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-9" href="#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-9"></a>    <span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'default'</span><span class="p">:</span> <span class="n">dj_database_url</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">conn_max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)}</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-10" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-10" href="#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-10"></a>    <span class="n">MIDDLEWARE</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">MIDDLEWARE</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">'django.middleware.security.SecurityMiddleware'</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-11" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-11" href="#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-11"></a>                      <span class="s1">'whitenoise.middleware.WhiteNoiseMiddleware'</span><span class="p">)</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-12" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-12" href="#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-12"></a>    <span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">'staticfiles'</span><span class="p">)</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-13" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-13" href="#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-13"></a>    <span class="n">STATICFILES_STORAGE</span> <span class="o">=</span> <span class="s1">'whitenoise.storage.CompressedManifestStaticFilesStorage'</span>
+</pre></div>
+<p>This code basically overrides some of the settings of your project, so it can work well with what we are using inside Render.com: the database, the static files backend, etc.
+But it only does that when it detects your project is running inside Render, otherwise it does nothing to your settings.</p>
+<p>You can further customize this if you have other settings that should have different values when running in Render.com.
+Just remember to never put secret stuff in there, because this will be committed to your repo.
+If you need to read any secret keys or values, you can use <code class="docutils literal"><span class="pre">os.environ.get('MY_SECRET_THING_XYZ')</span></code> and then define the value for that environment variable in the Render dashboard.</p>
+</section><section id="commit-everything"><h2>4. Commit everything!!</h2>
+<p>Commit all your new files and modified files, and push the changes to your Github/Gitlab repo!</p>
+</section><section id="creating-your-postgres-database"><h2>5. Creating your Postgres database</h2>
+<p>Go to <a class="reference external" href="https://dashboard.render.com/">Render's dashboard</a> and create a new Postgres database using this menu:</p>
+<a class="reference external image-reference" href="../../images/deploy-django-render/db_create_menu_new.png">
+<img alt="/images/deploy-django-render/db_create_menu_new.thumbnail.png" src="../../images/deploy-django-render/db_create_menu_new.thumbnail.png"></a>
+<p>You will need to specify the database name and a few other fields.
+Also, make sure you select the Free plan:</p>
+<a class="reference external image-reference" href="../../images/deploy-django-render/db_free_plan_new.png">
+<img alt="/images/deploy-django-render/db_free_plan_new.thumbnail.png" src="../../images/deploy-django-render/db_free_plan_new.thumbnail.png"></a>
+<p>After you created your database, scroll down in its details page and copy the value from this field, to use it in the next step:</p>
+<a class="reference external image-reference" href="../../images/deploy-django-render/db_url_field_new.png">
+<img alt="/images/deploy-django-render/db_url_field_new.thumbnail.png" src="../../images/deploy-django-render/db_url_field_new.thumbnail.png"></a>
+</section><section id="deploying-your-app-at-render"><h2>6. Deploying your app at Render</h2>
+<p>Go again to <a class="reference external" href="https://dashboard.render.com/">Render's dashboard</a> and create a new "Web service" using this menu:</p>
+<a class="reference external image-reference" href="../../images/deploy-django-render/web_create_menu_new.png">
+<img alt="/images/deploy-django-render/web_create_menu_new.thumbnail.png" src="../../images/deploy-django-render/web_create_menu_new.thumbnail.png"></a>
+<p>In the first page you will need to either fill the url of a public Github or Gitlab repository, or login with your Github/Gitlab account to choose a private repository.
+After you have specified your repo, in the next page you will need to fill out a few fields:</p>
+<a class="reference external image-reference" href="../../images/deploy-django-render/web_create_form_new.png">
+<img alt="/images/deploy-django-render/web_create_form_new.thumbnail.png" src="../../images/deploy-django-render/web_create_form_new.thumbnail.png"></a>
+<ul class="simple">
+<li><p>Name: important, this will be part of the url of your deployed web app, so use something meaningful.</p></li>
+<li><p>Language: must be <code class="docutils literal">Python 3</code>.</p></li>
+<li><p>Branch: the branch of your repo from which the code should be cloned to be deployed. Usually just <code class="docutils literal">main</code>.</p></li>
+<li><p>Root Directory: important to leave this empty, so all the scripts are executed from the root directory.</p></li>
+<li><p>Build command: here you will use your build script: <code class="docutils literal">bash build.sh</code></p></li>
+<li><p>Start command: and here you will use your run script: <code class="docutils literal">bash run.sh</code></p></li>
+<li><p>Instance type: Free works fine for small Django apps.</p></li>
+</ul>
+<p>Scroll down, to the "Environment Variables" section, and add three environment variables (it's important that the names are UPPERCASE):</p>
+<ul class="simple">
+<li><p><code class="docutils literal">DATABASE_URL</code>: here you need to paste the database url that you copied at step 5. You can go to the database details to copy it again if needed.</p></li>
+<li><p><code class="docutils literal">DJANGO_SUPERUSER_PASSWORD</code>: here set a password that you want to use for your Django superuser.</p></li>
+<li><p><code class="docutils literal">PYTHON_VERSION</code>: set it to <code class="docutils literal">3.13.3</code> (others might also work, usually I suggest using the newest one you can).</p></li>
+</ul>
+<a class="reference external image-reference" href="../../images/deploy-django-render/web_env.png">
+<img alt="/images/deploy-django-render/web_env.thumbnail.png" src="../../images/deploy-django-render/web_env.thumbnail.png"></a>
+<p>And finally, just hit the "Deploy Web Service" button. Your website should be built and deployed in a couple of minutes! :)</p>
+<p>After the deploy finishes, your website should be ready at <code class="docutils literal"><span class="pre">https://YOUR_RENDER_WEB_SERVICE_NAME.onrender.com/</span></code></p>
+</section><section id="re-deploying-new-versions"><h2>Re-deploying new versions</h2>
+<p>Now you can re-attempt any deploy, or manually deploy any version you wish. Just use this menu and everything should work:</p>
+<a class="reference external image-reference" href="../../images/deploy-django-render/web_deploy_new.png">
+<img alt="/images/deploy-django-render/web_deploy_new.thumbnail.png" src="../../images/deploy-django-render/web_deploy_new.thumbnail.png"></a>
+</section><section id="what-s-next"><h2>What's next?</h2>
+<ul class="simple">
+<li><p>Anytime you need to deploy a new version, you just push it to your repo, and you can use the manual deploy menu to re-deploy. You can even configure your Render app to use a different branch from your repository, so you can deploy from a "stable" branch instead.</p></li>
+<li><p>The rest of Render's UI is pretty straightforward, explore it! There are plenty of useful things even in the free tier, including logs, usage metrics, etc.</p></li>
+<li><p>The free tier doesn't include the web shell to access your running app directly, but you can still connect to it via ssh using the "Connect" button to the side of the ""Manual Deploy" one.</p></li>
+</ul></section>
+</div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../ia-y-educacion/" rel="prev" title="IA y educación">Previous post</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+        
+    
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="fisa-blog",
+            disqus_url="http://blog.fisadev.com/posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/",
+        disqus_title="How to deploy a Django app in Render.com with UV (free tier)",
+        disqus_identifier="cache/posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="fisa-blog";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><footer id="footer"><p>Contents © 2025         <a href="mailto:fisadev@gmail.com">Juan Pedro Fisanotti</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
+            
+        </footer>
+</div>
+    </div>
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-10031421-14"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-10031421-14');
+    </script><script src="../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates -->
+</body>
+</html>

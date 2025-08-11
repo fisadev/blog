@@ -47,7 +47,75 @@
         
 
 <div class="posts">
-    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/customer-and-code-quality/" class="u-url">Customer and code quality</a></h1>
+    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/" class="u-url">Using Keras and TensorFlow with Nvidia gpus under Ubuntu</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn">Juan Pedro Fisanotti</span></p>
+            <p class="dateline"><a href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/" rel="bookmark"><time class="post-date published dt-published" datetime="2017-11-19T09:55:28-03:00" title="2017-11-19 09:55">2017-11-19 09:55</time></a></p>
+                <p class="commentline">
+    
+    <a href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#disqus_thread" data-disqus-identifier="cache/posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <section id="using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu"><h2>Using Keras and TensorFlow with Nvidia gpus under Ubuntu</h2>
+<section id="what-are-all-these-things"><h3>What are all these things???</h3>
+<ul class="simple">
+<li><p><strong>Keras</strong>: the Python library that knows how to build and train artificial neural networks.</p></li>
+<li><p><strong>TensorFlow</strong>: the Python library that knows how to do heavy computations both under cpus and gpus, used by Keras.</p></li>
+<li><p><strong>CUDA + cuDNN</strong>: Nvidia utilities to be able to run general purpose computations in the gpu.</p></li>
+<li><p><strong>Graphics drivers</strong>: drivers that allow your linux to access and use the graphics card.</p></li>
+</ul></section><section id="graphics-drivers"><h3>Graphics drivers</h3>
+<p>It might be possible to use CUDA without having the graphics drivers installed, but I'm not sure how easy and stable it is.
+So my recommendation is to install them first, and verify that they are working.</p>
+<p>Usually it's just installing a package with <code class="docutils literal">apt</code>:</p>
+<div class="code"><pre class="code text"><a id="rest_code_0beb065079ff4e44bb4cb096f4b4b9a4-1" name="rest_code_0beb065079ff4e44bb4cb096f4b4b9a4-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_0beb065079ff4e44bb4cb096f4b4b9a4-1"></a>sudo apt install nvidia-375
+</pre></div>
+<p>But if you are using an Optimus-enabled graphics card (most laptops with Nvidia cards previous to the 10xx generation),
+you might need to install the <code class="docutils literal"><span class="pre">nvidia-prime</span></code> package too.</p>
+<p>The recommended version might be higher in the future, 375 is the one I'm using right now under Ubuntu 16.10.</p>
+</section><section id="cuda-installation"><h3>CUDA installation</h3>
+<p>Get both the CUDA installer and the cuDNN installer, from their official websites:
+<a class="reference external" href="https://developer.nvidia.com/cuda-downloads">https://developer.nvidia.com/cuda-downloads</a> and <a class="reference external" href="https://developer.nvidia.com/cudnn">https://developer.nvidia.com/cudnn</a>
+(you will need to register in the website and fill a survey to be able to download cuDNN).</p>
+<p>The versions you need to get depend on which versions does TensorFlow support.
+You can check this in the official website, at <a class="reference external" href="https://www.tensorflow.org/install/install_linux">https://www.tensorflow.org/install/install_linux</a> .</p>
+<p>Once you have both installers, first run the cuda installer (replace the name of the file with the one you got):</p>
+<div class="code"><pre class="code text"><a id="rest_code_473437bcb6014bb59299a2a6c86d59e6-1" name="rest_code_473437bcb6014bb59299a2a6c86d59e6-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_473437bcb6014bb59299a2a6c86d59e6-1"></a>sudo sh ./cuda_8.0.61_375.26_linux.run --override
+</pre></div>
+<p>It will ask you a few things. Tell "no" to the installation of graphics drivers (you should already have them),
+and "yes" to the creation of the symbolic link.</p>
+<p>Then uncompress the cuDNN installer (a file with a name similar to <code class="docutils literal"><span class="pre">cudnn-8.0-linux-x64-v5.1.tgz</span></code>),
+and copy its files into the <code class="docutils literal"><span class="pre">/usr/local/cuda-8.0</span></code> folder (you should have it from the CUDA installation).
+The tar file contains subfolders, be sure to copy the files into the same subfolders in the destination.</p>
+</section><section id="tensorflow-and-keras-installation"><h3>TensorFlow and Keras installation</h3>
+<p>Once you have the graphics drivers and CUDA, then it's easy to install TensorFlow and Keras, they are just Python packages:</p>
+<div class="code"><pre class="code text"><a id="rest_code_be28c9afec7f4bfabde1eed7d3ca52a6-1" name="rest_code_be28c9afec7f4bfabde1eed7d3ca52a6-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_be28c9afec7f4bfabde1eed7d3ca52a6-1"></a>pip install tensorflow-gpu keras
+</pre></div>
+<p>If you aren't using virtualenvs (you should!), you should add <code class="docutils literal"><span class="pre">--user</span></code> to that command.
+I don't recommend installing the packages system-wide with <code class="docutils literal">sudo</code>, as with time you will probably need different versions of both
+<code class="docutils literal">tensorflow</code> and <code class="docutils literal">keras</code> for different projects (they both evolve quite quickly).</p>
+</section><section id="running-the-code"><h3>Running the code</h3>
+<p>Finally, when running your code you may need to define the <code class="docutils literal">LD_LIBRARY_PATH</code> environment variable, for TensorFlow to be able to
+find the needed CUDA libraries:</p>
+<div class="code"><pre class="code text"><a id="rest_code_5106f5cee04c4a8ea09d4c99775186f8-1" name="rest_code_5106f5cee04c4a8ea09d4c99775186f8-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_5106f5cee04c4a8ea09d4c99775186f8-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python your_awesome_code.py
+</pre></div>
+<p>This is true also for Jupyter notebooks:</p>
+<div class="code"><pre class="code text"><a id="rest_code_0ae2e72412714b6caa000087dda9532d-1" name="rest_code_0ae2e72412714b6caa000087dda9532d-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_0ae2e72412714b6caa000087dda9532d-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 jupyter notebook
+</pre></div>
+<p>If you are unsure if your code is actually using your gpu, you can paste this snippet into a <code class="docutils literal">test_device.py</code> file:</p>
+<div class="code"><pre class="code python"><a id="rest_code_711d6b249dea474098bf5157e5254c28-1" name="rest_code_711d6b249dea474098bf5157e5254c28-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_711d6b249dea474098bf5157e5254c28-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
+<a id="rest_code_711d6b249dea474098bf5157e5254c28-2" name="rest_code_711d6b249dea474098bf5157e5254c28-2" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_711d6b249dea474098bf5157e5254c28-2"></a><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">(</span><span class="n">log_device_placement</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+<p>And then run it:</p>
+<div class="code"><pre class="code text"><a id="rest_code_d80577065ccc4737962c8baa32f0bad7-1" name="rest_code_d80577065ccc4737962c8baa32f0bad7-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_d80577065ccc4737962c8baa32f0bad7-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python test_device.py
+</pre></div>
+<p>It should print a lot of information, but in between you should see something with your graphics card name, like
+<code class="docutils literal">name: GeForce GTX 1070</code>.</p>
+</section></section>
+</div>
+    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/customer-and-code-quality/" class="u-url">Customer and code quality</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn">Juan Pedro Fisanotti</span></p>
             <p class="dateline"><a href="posts/customer-and-code-quality/" rel="bookmark"><time class="post-date published dt-published" datetime="2017-09-17T16:28:30-03:00" title="2017-09-17 16:28">2017-09-17 16:28</time></a></p>

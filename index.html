@@ -10,7 +10,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="http://blog.fisadev.com/">
 <link rel="next" href="index-1.html" type="text/html">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/ia-y-educacion/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/" type="text/html">
 </head>
 <body>
     <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -47,7 +47,143 @@
         
 
 <div class="posts">
-    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/ia-y-educacion/" class="u-url">IA y educación</a></h1>
+    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/" class="u-url">How to deploy a Django app in Render.com with UV (free tier)</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn">Juan Pedro Fisanotti</span></p>
+            <p class="dateline"><a href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/" rel="bookmark"><time class="post-date published dt-published" datetime="2025-08-11T20:00:00-03:00" title="2025-08-11 20:00">2025-08-11 20:00</time></a></p>
+                <p class="commentline">
+    
+    <a href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#disqus_thread" data-disqus-identifier="cache/posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv.html">Comments</a>
+
+
+        </p>
+</div>
+    </header><div class="e-content entry-content">
+    <section id="how-to-deploy-a-django-app-in-render-com-with-uv-free-tier"><h2>How to deploy a Django app in Render.com with UV (free tier)</h2>
+<aside class="system-message"><p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">&lt;string&gt;</span>, line 2)</p>
+<p>Title underline too short.</p>
+<pre class="literal-block">How to deploy a Django app in Render.com with UV (free tier)
+====================================================</pre>
+</aside><p>This is a basic tutorial on how to deploy a Django app to Render.com, focused on using only the free tier features and automating things as much as possible.
+This also doesn't cover how to do a Django app, it assumes you already have a working app that you just need to deploy.</p>
+<p>This is an updated version of an older tutorial, now using UV for the environment and dependencies management.
+<a class="reference external" href="https://docs.astral.sh/uv/">UV is great!</a> I highly recommend using it :)</p>
+<p>If you are NOT using UV, then you can check the <a class="reference external" href="https://blog.fisadev.com/posts/how-to-deploy-a-django-app-in-rendercom-free-tier/">old version of this tutorial</a>.</p>
+</section><section id="assumptions"><h2>Assumptions</h2>
+<ul class="simple">
+<li><p>You have a working Django app (for instance, you can already run it locally with <code class="docutils literal">python manage.py runserver</code> and everything works fine).</p></li>
+<li><p>You're using Django 5 or newer (tested up to Django 5.2.4), and your project structure is what Django does by default. Older versions might work too, though.</p></li>
+<li><p>Your Django project is in a Github or Gitlab repository.</p></li>
+<li><p>There's a single Django project in the repo, not multiple projects at once.</p></li>
+<li><p>You want to use Postgres as your production database in Render.</p></li>
+<li><p>You're using <a class="reference external" href="https://docs.astral.sh/uv/">UV</a> for managing your Python environment and dependencies.</p></li>
+</ul></section><section id="render-com-account"><h2>0: Render.com account</h2>
+<p>Just go to <a class="reference external" href="http://render.com">Render.com</a>, create a user (if you don't already have one), activate your account, and sign in to the <a class="reference external" href="https://dashboard.render.com/">Dashboard</a>.</p>
+</section><section id="defining-dependencies"><h2>1: Defining dependencies</h2>
+<p>Add the following dependencies to your project's <code class="docutils literal">pyproject.toml</code> file using UV:</p>
+<div class="code"><pre class="code bash"><a id="rest_code_09c30b97fcf44bca82caa1e867e6e545-1" name="rest_code_09c30b97fcf44bca82caa1e867e6e545-1" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_09c30b97fcf44bca82caa1e867e6e545-1"></a>uv<span class="w"> </span>add<span class="w"> </span>django<span class="w"> </span>dj-database-url<span class="w"> </span>psycopg2-binary<span class="w"> </span>whitenoise<span class="o">[</span>brotli<span class="o">]</span><span class="w"> </span>gunicorn
+</pre></div>
+<p>Remember to commit the changes to your <code class="docutils literal">pyproject.toml</code> and <code class="docutils literal">uv.lock</code> files to your repository!
+This is super important. If you don't add these files, Render won't be able to install your dependencies.</p>
+</section><section id="creating-deploy-scripts"><h2>2: Creating deploy scripts</h2>
+<p>You will need two scripts: one that builds the web app server (installs dependencies, updates the database structure, etc), and another one that runs your web app.
+Render will use these two scripts when you want to deploy your web app.</p>
+<p>Create a <code class="docutils literal">build.sh</code> file in the root of your repository, with these contents:</p>
+<div class="code"><pre class="code bash"><a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-1" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-1" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_a6c5bb2440884d8c83c6ad993a597b51-1"></a><span class="c1"># exit on error</span>
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-2" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-2" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_a6c5bb2440884d8c83c6ad993a597b51-2"></a><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>errexit
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-3" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-3" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_a6c5bb2440884d8c83c6ad993a597b51-3"></a>
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-4" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-4" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_a6c5bb2440884d8c83c6ad993a597b51-4"></a><span class="c1"># install project dependencies</span>
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-5" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-5" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_a6c5bb2440884d8c83c6ad993a597b51-5"></a>uv<span class="w"> </span>sync
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-6" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-6" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_a6c5bb2440884d8c83c6ad993a597b51-6"></a>
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-7" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-7" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_a6c5bb2440884d8c83c6ad993a597b51-7"></a><span class="c1"># make sure django has all the things it needs to run</span>
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-8" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-8" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_a6c5bb2440884d8c83c6ad993a597b51-8"></a><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>manage.py$<span class="k">))</span>
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-9" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-9" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_a6c5bb2440884d8c83c6ad993a597b51-9"></a>uv<span class="w"> </span>run<span class="w"> </span>./manage.py<span class="w"> </span>collectstatic<span class="w"> </span>--no-input
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-10" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-10" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_a6c5bb2440884d8c83c6ad993a597b51-10"></a>uv<span class="w"> </span>run<span class="w"> </span>./manage.py<span class="w"> </span>migrate
+<a id="rest_code_a6c5bb2440884d8c83c6ad993a597b51-11" name="rest_code_a6c5bb2440884d8c83c6ad993a597b51-11" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_a6c5bb2440884d8c83c6ad993a597b51-11"></a>uv<span class="w"> </span>run<span class="w"> </span>./manage.py<span class="w"> </span>createsuperuser<span class="w"> </span>--username<span class="w"> </span>admin<span class="w"> </span>--email<span class="w"> </span><span class="s2">"YOUR@EMAIL.com"</span><span class="w"> </span>--noinput<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</pre></div>
+<p>In that script, replace <code class="docutils literal">YOUR@EMAIL.com</code> with your real email.</p>
+<p>Then create a <code class="docutils literal">run.sh</code> file in the root of your repository, with these contents:</p>
+<div class="code"><pre class="code bash"><a id="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-1" name="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-1" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_bd0a4ef694a74bc196ca84f258ad2c76-1"></a><span class="c1"># exit on error</span>
+<a id="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-2" name="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-2" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_bd0a4ef694a74bc196ca84f258ad2c76-2"></a><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>errexit
+<a id="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-3" name="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-3" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_bd0a4ef694a74bc196ca84f258ad2c76-3"></a>
+<a id="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-4" name="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-4" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_bd0a4ef694a74bc196ca84f258ad2c76-4"></a><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>manage.py$<span class="k">))</span>
+<a id="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-5" name="rest_code_bd0a4ef694a74bc196ca84f258ad2c76-5" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_bd0a4ef694a74bc196ca84f258ad2c76-5"></a>uv<span class="w"> </span>run<span class="w"> </span>gunicorn<span class="w"> </span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>wsgi.py$<span class="k">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s2">"s/\.\///g"</span><span class="k">)</span>.wsgi:application
+</pre></div>
+<p>If you have a less standard project or repo structure, you can replace the dark magic in those scripts: the <code class="docutils literal">cd</code> command just needs to get inside your Django project folder, and the <code class="docutils literal">gunicorn</code> command needs to look something like <code class="docutils literal">gunicorn your_project_name.wsgi:application</code>.
+But for normal project structures, the dark magic should work just fine :)</p>
+</section><section id="django-settings-for-render"><h2>3. Django settings for Render</h2>
+<p>Now you need to add this to the end of your <code class="docutils literal">settings.py</code> file:</p>
+<div class="code"><pre class="code python"><a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-1" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-1" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-1"></a><span class="c1"># code needed to deploy in Render.com:</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-2" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-2" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-3" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-3" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">dj_database_url</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-4" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-4" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-4"></a>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-5" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-5" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-5"></a><span class="k">if</span> <span class="s1">'RENDER'</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-6" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-6" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"USING RENDER.COM SETTINGS!"</span><span class="p">)</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-7" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-7" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-7"></a>    <span class="n">DEBUG</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-8" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-8" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-8"></a>    <span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'RENDER_EXTERNAL_HOSTNAME'</span><span class="p">)]</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-9" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-9" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-9"></a>    <span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'default'</span><span class="p">:</span> <span class="n">dj_database_url</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">conn_max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)}</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-10" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-10" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-10"></a>    <span class="n">MIDDLEWARE</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">MIDDLEWARE</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">'django.middleware.security.SecurityMiddleware'</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-11" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-11" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-11"></a>                      <span class="s1">'whitenoise.middleware.WhiteNoiseMiddleware'</span><span class="p">)</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-12" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-12" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-12"></a>    <span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">'staticfiles'</span><span class="p">)</span>
+<a id="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-13" name="rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-13" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/#rest_code_d9ff69ced6ff4e518acf0c0dd4129cd2-13"></a>    <span class="n">STATICFILES_STORAGE</span> <span class="o">=</span> <span class="s1">'whitenoise.storage.CompressedManifestStaticFilesStorage'</span>
+</pre></div>
+<p>This code basically overrides some of the settings of your project, so it can work well with what we are using inside Render.com: the database, the static files backend, etc.
+But it only does that when it detects your project is running inside Render, otherwise it does nothing to your settings.</p>
+<p>You can further customize this if you have other settings that should have different values when running in Render.com.
+Just remember to never put secret stuff in there, because this will be committed to your repo.
+If you need to read any secret keys or values, you can use <code class="docutils literal"><span class="pre">os.environ.get('MY_SECRET_THING_XYZ')</span></code> and then define the value for that environment variable in the Render dashboard.</p>
+</section><section id="commit-everything"><h2>4. Commit everything!!</h2>
+<p>Commit all your new files and modified files, and push the changes to your Github/Gitlab repo!</p>
+</section><section id="creating-your-postgres-database"><h2>5. Creating your Postgres database</h2>
+<p>Go to <a class="reference external" href="https://dashboard.render.com/">Render's dashboard</a> and create a new Postgres database using this menu:</p>
+<a class="reference external image-reference" href="images/deploy-django-render/db_create_menu_new.png">
+<img alt="/images/deploy-django-render/db_create_menu_new.thumbnail.png" src="images/deploy-django-render/db_create_menu_new.thumbnail.png"></a>
+<p>You will need to specify the database name and a few other fields.
+Also, make sure you select the Free plan:</p>
+<a class="reference external image-reference" href="images/deploy-django-render/db_free_plan_new.png">
+<img alt="/images/deploy-django-render/db_free_plan_new.thumbnail.png" src="images/deploy-django-render/db_free_plan_new.thumbnail.png"></a>
+<p>After you created your database, scroll down in its details page and copy the value from this field, to use it in the next step:</p>
+<a class="reference external image-reference" href="images/deploy-django-render/db_url_field_new.png">
+<img alt="/images/deploy-django-render/db_url_field_new.thumbnail.png" src="images/deploy-django-render/db_url_field_new.thumbnail.png"></a>
+</section><section id="deploying-your-app-at-render"><h2>6. Deploying your app at Render</h2>
+<p>Go again to <a class="reference external" href="https://dashboard.render.com/">Render's dashboard</a> and create a new "Web service" using this menu:</p>
+<a class="reference external image-reference" href="images/deploy-django-render/web_create_menu_new.png">
+<img alt="/images/deploy-django-render/web_create_menu_new.thumbnail.png" src="images/deploy-django-render/web_create_menu_new.thumbnail.png"></a>
+<p>In the first page you will need to either fill the url of a public Github or Gitlab repository, or login with your Github/Gitlab account to choose a private repository.
+After you have specified your repo, in the next page you will need to fill out a few fields:</p>
+<a class="reference external image-reference" href="images/deploy-django-render/web_create_form_new.png">
+<img alt="/images/deploy-django-render/web_create_form_new.thumbnail.png" src="images/deploy-django-render/web_create_form_new.thumbnail.png"></a>
+<ul class="simple">
+<li><p>Name: important, this will be part of the url of your deployed web app, so use something meaningful.</p></li>
+<li><p>Language: must be <code class="docutils literal">Python 3</code>.</p></li>
+<li><p>Branch: the branch of your repo from which the code should be cloned to be deployed. Usually just <code class="docutils literal">main</code>.</p></li>
+<li><p>Root Directory: important to leave this empty, so all the scripts are executed from the root directory.</p></li>
+<li><p>Build command: here you will use your build script: <code class="docutils literal">bash build.sh</code></p></li>
+<li><p>Start command: and here you will use your run script: <code class="docutils literal">bash run.sh</code></p></li>
+<li><p>Instance type: Free works fine for small Django apps.</p></li>
+</ul>
+<p>Scroll down, to the "Environment Variables" section, and add three environment variables (it's important that the names are UPPERCASE):</p>
+<ul class="simple">
+<li><p><code class="docutils literal">DATABASE_URL</code>: here you need to paste the database url that you copied at step 5. You can go to the database details to copy it again if needed.</p></li>
+<li><p><code class="docutils literal">DJANGO_SUPERUSER_PASSWORD</code>: here set a password that you want to use for your Django superuser.</p></li>
+<li><p><code class="docutils literal">PYTHON_VERSION</code>: set it to <code class="docutils literal">3.13.3</code> (others might also work, usually I suggest using the newest one you can).</p></li>
+</ul>
+<a class="reference external image-reference" href="images/deploy-django-render/web_env.png">
+<img alt="/images/deploy-django-render/web_env.thumbnail.png" src="images/deploy-django-render/web_env.thumbnail.png"></a>
+<p>And finally, just hit the "Deploy Web Service" button. Your website should be built and deployed in a couple of minutes! :)</p>
+<p>After the deploy finishes, your website should be ready at <code class="docutils literal"><span class="pre">https://YOUR_RENDER_WEB_SERVICE_NAME.onrender.com/</span></code></p>
+</section><section id="re-deploying-new-versions"><h2>Re-deploying new versions</h2>
+<p>Now you can re-attempt any deploy, or manually deploy any version you wish. Just use this menu and everything should work:</p>
+<a class="reference external image-reference" href="images/deploy-django-render/web_deploy_new.png">
+<img alt="/images/deploy-django-render/web_deploy_new.thumbnail.png" src="images/deploy-django-render/web_deploy_new.thumbnail.png"></a>
+</section><section id="what-s-next"><h2>What's next?</h2>
+<ul class="simple">
+<li><p>Anytime you need to deploy a new version, you just push it to your repo, and you can use the manual deploy menu to re-deploy. You can even configure your Render app to use a different branch from your repository, so you can deploy from a "stable" branch instead.</p></li>
+<li><p>The rest of Render's UI is pretty straightforward, explore it! There are plenty of useful things even in the free tier, including logs, usage metrics, etc.</p></li>
+<li><p>The free tier doesn't include the web shell to access your running app directly, but you can still connect to it via ssh using the "Connect" button to the side of the ""Manual Deploy" one.</p></li>
+</ul></section>
+</div>
+    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/ia-y-educacion/" class="u-url">IA y educación</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn">Juan Pedro Fisanotti</span></p>
             <p class="dateline"><a href="posts/ia-y-educacion/" rel="bookmark"><time class="post-date published dt-published" datetime="2025-05-03T15:30:00-03:00" title="2025-05-03 15:30">2025-05-03 15:30</time></a></p>
@@ -342,7 +478,10 @@ Es una época súper interesante para ser profes o estudiantes!</p>
         </p>
 </div>
     </header><div class="e-content entry-content">
-    <section id="how-to-deploy-a-django-app-in-render-com-free-tier"><h2>How to deploy a Django app in Render.com (free tier)</h2>
+    <section id="this-tutorial-is-outdated"><h2>THIS TUTORIAL IS OUTDATED!!</h2>
+<p>A new version is available <a class="reference external" href="https://blog.fisadev.com/posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/">HERE</a>.</p>
+<p>But just in case you are looking for the old version, here it is anyway:</p>
+</section><section id="how-to-deploy-a-django-app-in-render-com-free-tier"><h2>How to deploy a Django app in Render.com (free tier)</h2>
 <p>This is a basic tutorial on how to deploy a Django app to Render.com, focused on using only the free tier features and automating things as much as possible.
 This also doesn't cover how to do a Django app, it assumes you already have a working app that you just need to deploy.</p>
 </section><section id="assumptions"><h2>Assumptions</h2>
@@ -356,52 +495,52 @@ This also doesn't cover how to do a Django app, it assumes you already have a wo
 <p>Just go to <a class="reference external" href="http://render.com">Render.com</a>, create a user (if you don't already have one), activate your account, and sign in to the <a class="reference external" href="https://dashboard.render.com/">Dashboard</a>.</p>
 </section><section id="defining-dependencies"><h2>1: Defining dependencies</h2>
 <p>Create a <code class="docutils literal">requirements.txt</code> file in the root of your repository, and add these dependencies in it:</p>
-<div class="code"><pre class="code text"><a id="rest_code_191df0ed2fbf40ada5887afbcee7ef04-1" name="rest_code_191df0ed2fbf40ada5887afbcee7ef04-1" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_191df0ed2fbf40ada5887afbcee7ef04-1"></a>django==5.1
-<a id="rest_code_191df0ed2fbf40ada5887afbcee7ef04-2" name="rest_code_191df0ed2fbf40ada5887afbcee7ef04-2" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_191df0ed2fbf40ada5887afbcee7ef04-2"></a>dj-database-url==2.2.0
-<a id="rest_code_191df0ed2fbf40ada5887afbcee7ef04-3" name="rest_code_191df0ed2fbf40ada5887afbcee7ef04-3" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_191df0ed2fbf40ada5887afbcee7ef04-3"></a>psycopg2-binary==2.9.9
-<a id="rest_code_191df0ed2fbf40ada5887afbcee7ef04-4" name="rest_code_191df0ed2fbf40ada5887afbcee7ef04-4" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_191df0ed2fbf40ada5887afbcee7ef04-4"></a>whitenoise[brotli]==6.7.0
-<a id="rest_code_191df0ed2fbf40ada5887afbcee7ef04-5" name="rest_code_191df0ed2fbf40ada5887afbcee7ef04-5" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_191df0ed2fbf40ada5887afbcee7ef04-5"></a>gunicorn==23.0.0
+<div class="code"><pre class="code text"><a id="rest_code_48877e8984264ba681cb8f4daed932f5-1" name="rest_code_48877e8984264ba681cb8f4daed932f5-1" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_48877e8984264ba681cb8f4daed932f5-1"></a>django==5.1
+<a id="rest_code_48877e8984264ba681cb8f4daed932f5-2" name="rest_code_48877e8984264ba681cb8f4daed932f5-2" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_48877e8984264ba681cb8f4daed932f5-2"></a>dj-database-url==2.2.0
+<a id="rest_code_48877e8984264ba681cb8f4daed932f5-3" name="rest_code_48877e8984264ba681cb8f4daed932f5-3" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_48877e8984264ba681cb8f4daed932f5-3"></a>psycopg2-binary==2.9.9
+<a id="rest_code_48877e8984264ba681cb8f4daed932f5-4" name="rest_code_48877e8984264ba681cb8f4daed932f5-4" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_48877e8984264ba681cb8f4daed932f5-4"></a>whitenoise[brotli]==6.7.0
+<a id="rest_code_48877e8984264ba681cb8f4daed932f5-5" name="rest_code_48877e8984264ba681cb8f4daed932f5-5" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_48877e8984264ba681cb8f4daed932f5-5"></a>gunicorn==23.0.0
 </pre></div>
 <p>If you already have a <code class="docutils literal">requirements.txt</code>, just add the new packages to it.</p>
 </section><section id="creating-deploy-scripts"><h2>2: Creating deploy scripts</h2>
 <p>You will need two scripts: one that builds the web app server (installs dependencies, updates the database structure, etc), and another one that runs your web app.
 Render will use these two scripts when you want to deploy your web app.</p>
 <p>Create a <code class="docutils literal">build.sh</code> file in the root of your repository, with these contents:</p>
-<div class="code"><pre class="code bash"><a id="rest_code_76134683b193488bbbc668f700822531-1" name="rest_code_76134683b193488bbbc668f700822531-1" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_76134683b193488bbbc668f700822531-1"></a><span class="c1"># exit on error</span>
-<a id="rest_code_76134683b193488bbbc668f700822531-2" name="rest_code_76134683b193488bbbc668f700822531-2" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_76134683b193488bbbc668f700822531-2"></a><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>errexit
-<a id="rest_code_76134683b193488bbbc668f700822531-3" name="rest_code_76134683b193488bbbc668f700822531-3" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_76134683b193488bbbc668f700822531-3"></a>
-<a id="rest_code_76134683b193488bbbc668f700822531-4" name="rest_code_76134683b193488bbbc668f700822531-4" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_76134683b193488bbbc668f700822531-4"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>./requirements.txt
-<a id="rest_code_76134683b193488bbbc668f700822531-5" name="rest_code_76134683b193488bbbc668f700822531-5" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_76134683b193488bbbc668f700822531-5"></a>
-<a id="rest_code_76134683b193488bbbc668f700822531-6" name="rest_code_76134683b193488bbbc668f700822531-6" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_76134683b193488bbbc668f700822531-6"></a><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>manage.py$<span class="k">))</span>
-<a id="rest_code_76134683b193488bbbc668f700822531-7" name="rest_code_76134683b193488bbbc668f700822531-7" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_76134683b193488bbbc668f700822531-7"></a>python<span class="w"> </span>manage.py<span class="w"> </span>collectstatic<span class="w"> </span>--no-input
-<a id="rest_code_76134683b193488bbbc668f700822531-8" name="rest_code_76134683b193488bbbc668f700822531-8" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_76134683b193488bbbc668f700822531-8"></a>python<span class="w"> </span>manage.py<span class="w"> </span>migrate
-<a id="rest_code_76134683b193488bbbc668f700822531-9" name="rest_code_76134683b193488bbbc668f700822531-9" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_76134683b193488bbbc668f700822531-9"></a>python<span class="w"> </span>manage.py<span class="w"> </span>createsuperuser<span class="w"> </span>--username<span class="w"> </span>admin<span class="w"> </span>--email<span class="w"> </span><span class="s2">"YOUR@EMAIL.com"</span><span class="w"> </span>--noinput<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+<div class="code"><pre class="code bash"><a id="rest_code_e52d3feb37c04457a44f1501fddbb801-1" name="rest_code_e52d3feb37c04457a44f1501fddbb801-1" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_e52d3feb37c04457a44f1501fddbb801-1"></a><span class="c1"># exit on error</span>
+<a id="rest_code_e52d3feb37c04457a44f1501fddbb801-2" name="rest_code_e52d3feb37c04457a44f1501fddbb801-2" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_e52d3feb37c04457a44f1501fddbb801-2"></a><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>errexit
+<a id="rest_code_e52d3feb37c04457a44f1501fddbb801-3" name="rest_code_e52d3feb37c04457a44f1501fddbb801-3" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_e52d3feb37c04457a44f1501fddbb801-3"></a>
+<a id="rest_code_e52d3feb37c04457a44f1501fddbb801-4" name="rest_code_e52d3feb37c04457a44f1501fddbb801-4" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_e52d3feb37c04457a44f1501fddbb801-4"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>./requirements.txt
+<a id="rest_code_e52d3feb37c04457a44f1501fddbb801-5" name="rest_code_e52d3feb37c04457a44f1501fddbb801-5" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_e52d3feb37c04457a44f1501fddbb801-5"></a>
+<a id="rest_code_e52d3feb37c04457a44f1501fddbb801-6" name="rest_code_e52d3feb37c04457a44f1501fddbb801-6" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_e52d3feb37c04457a44f1501fddbb801-6"></a><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>manage.py$<span class="k">))</span>
+<a id="rest_code_e52d3feb37c04457a44f1501fddbb801-7" name="rest_code_e52d3feb37c04457a44f1501fddbb801-7" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_e52d3feb37c04457a44f1501fddbb801-7"></a>python<span class="w"> </span>manage.py<span class="w"> </span>collectstatic<span class="w"> </span>--no-input
+<a id="rest_code_e52d3feb37c04457a44f1501fddbb801-8" name="rest_code_e52d3feb37c04457a44f1501fddbb801-8" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_e52d3feb37c04457a44f1501fddbb801-8"></a>python<span class="w"> </span>manage.py<span class="w"> </span>migrate
+<a id="rest_code_e52d3feb37c04457a44f1501fddbb801-9" name="rest_code_e52d3feb37c04457a44f1501fddbb801-9" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_e52d3feb37c04457a44f1501fddbb801-9"></a>python<span class="w"> </span>manage.py<span class="w"> </span>createsuperuser<span class="w"> </span>--username<span class="w"> </span>admin<span class="w"> </span>--email<span class="w"> </span><span class="s2">"YOUR@EMAIL.com"</span><span class="w"> </span>--noinput<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
 </pre></div>
 <p>In that script, replace <code class="docutils literal">YOUR@EMAIL.com</code> with your real email.</p>
 <p>Then create a <code class="docutils literal">run.sh</code> file in the root of your repository, with these contents:</p>
-<div class="code"><pre class="code bash"><a id="rest_code_b399fc6ec2ac4b22902b211b331bf717-1" name="rest_code_b399fc6ec2ac4b22902b211b331bf717-1" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_b399fc6ec2ac4b22902b211b331bf717-1"></a><span class="c1"># exit on error</span>
-<a id="rest_code_b399fc6ec2ac4b22902b211b331bf717-2" name="rest_code_b399fc6ec2ac4b22902b211b331bf717-2" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_b399fc6ec2ac4b22902b211b331bf717-2"></a><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>errexit
-<a id="rest_code_b399fc6ec2ac4b22902b211b331bf717-3" name="rest_code_b399fc6ec2ac4b22902b211b331bf717-3" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_b399fc6ec2ac4b22902b211b331bf717-3"></a>
-<a id="rest_code_b399fc6ec2ac4b22902b211b331bf717-4" name="rest_code_b399fc6ec2ac4b22902b211b331bf717-4" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_b399fc6ec2ac4b22902b211b331bf717-4"></a><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>manage.py$<span class="k">))</span>
-<a id="rest_code_b399fc6ec2ac4b22902b211b331bf717-5" name="rest_code_b399fc6ec2ac4b22902b211b331bf717-5" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_b399fc6ec2ac4b22902b211b331bf717-5"></a>gunicorn<span class="w"> </span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>wsgi.py$<span class="k">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s2">"s/\.\///g"</span><span class="k">)</span>.wsgi:application
+<div class="code"><pre class="code bash"><a id="rest_code_20576e7ea262439794d55cbe1ecbafd0-1" name="rest_code_20576e7ea262439794d55cbe1ecbafd0-1" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_20576e7ea262439794d55cbe1ecbafd0-1"></a><span class="c1"># exit on error</span>
+<a id="rest_code_20576e7ea262439794d55cbe1ecbafd0-2" name="rest_code_20576e7ea262439794d55cbe1ecbafd0-2" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_20576e7ea262439794d55cbe1ecbafd0-2"></a><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>errexit
+<a id="rest_code_20576e7ea262439794d55cbe1ecbafd0-3" name="rest_code_20576e7ea262439794d55cbe1ecbafd0-3" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_20576e7ea262439794d55cbe1ecbafd0-3"></a>
+<a id="rest_code_20576e7ea262439794d55cbe1ecbafd0-4" name="rest_code_20576e7ea262439794d55cbe1ecbafd0-4" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_20576e7ea262439794d55cbe1ecbafd0-4"></a><span class="nb">cd</span><span class="w"> </span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>manage.py$<span class="k">))</span>
+<a id="rest_code_20576e7ea262439794d55cbe1ecbafd0-5" name="rest_code_20576e7ea262439794d55cbe1ecbafd0-5" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_20576e7ea262439794d55cbe1ecbafd0-5"></a>gunicorn<span class="w"> </span><span class="k">$(</span>dirname<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>wsgi.py$<span class="k">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s2">"s/\.\///g"</span><span class="k">)</span>.wsgi:application
 </pre></div>
 <p>If you have a less standard project or repo structure, you can replace the dark magic in those scripts: the <code class="docutils literal">cd</code> command just needs to get inside your Django project folder, and the <code class="docutils literal">gunicorn</code> command needs to look something like <code class="docutils literal">gunicorn your_project_name.wsgi:application</code>.
 But for normal project structures, the dark magic should work just fine :)</p>
 </section><section id="django-settings-for-render"><h2>3. Django settings for Render</h2>
 <p>Now you need to add this to the end of your <code class="docutils literal">settings.py</code> file:</p>
-<div class="code"><pre class="code python"><a id="rest_code_bac84eab49e3420daac5b16ec6676e41-1" name="rest_code_bac84eab49e3420daac5b16ec6676e41-1" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_bac84eab49e3420daac5b16ec6676e41-1"></a><span class="c1"># code needed to deploy in Render.com:</span>
-<a id="rest_code_bac84eab49e3420daac5b16ec6676e41-2" name="rest_code_bac84eab49e3420daac5b16ec6676e41-2" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_bac84eab49e3420daac5b16ec6676e41-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<a id="rest_code_bac84eab49e3420daac5b16ec6676e41-3" name="rest_code_bac84eab49e3420daac5b16ec6676e41-3" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_bac84eab49e3420daac5b16ec6676e41-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">dj_database_url</span>
-<a id="rest_code_bac84eab49e3420daac5b16ec6676e41-4" name="rest_code_bac84eab49e3420daac5b16ec6676e41-4" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_bac84eab49e3420daac5b16ec6676e41-4"></a>
-<a id="rest_code_bac84eab49e3420daac5b16ec6676e41-5" name="rest_code_bac84eab49e3420daac5b16ec6676e41-5" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_bac84eab49e3420daac5b16ec6676e41-5"></a><span class="k">if</span> <span class="s1">'RENDER'</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
-<a id="rest_code_bac84eab49e3420daac5b16ec6676e41-6" name="rest_code_bac84eab49e3420daac5b16ec6676e41-6" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_bac84eab49e3420daac5b16ec6676e41-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"USING RENDER.COM SETTINGS!"</span><span class="p">)</span>
-<a id="rest_code_bac84eab49e3420daac5b16ec6676e41-7" name="rest_code_bac84eab49e3420daac5b16ec6676e41-7" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_bac84eab49e3420daac5b16ec6676e41-7"></a>    <span class="n">DEBUG</span> <span class="o">=</span> <span class="kc">False</span>
-<a id="rest_code_bac84eab49e3420daac5b16ec6676e41-8" name="rest_code_bac84eab49e3420daac5b16ec6676e41-8" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_bac84eab49e3420daac5b16ec6676e41-8"></a>    <span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'RENDER_EXTERNAL_HOSTNAME'</span><span class="p">)]</span>
-<a id="rest_code_bac84eab49e3420daac5b16ec6676e41-9" name="rest_code_bac84eab49e3420daac5b16ec6676e41-9" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_bac84eab49e3420daac5b16ec6676e41-9"></a>    <span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'default'</span><span class="p">:</span> <span class="n">dj_database_url</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">conn_max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)}</span>
-<a id="rest_code_bac84eab49e3420daac5b16ec6676e41-10" name="rest_code_bac84eab49e3420daac5b16ec6676e41-10" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_bac84eab49e3420daac5b16ec6676e41-10"></a>    <span class="n">MIDDLEWARE</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">MIDDLEWARE</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">'django.middleware.security.SecurityMiddleware'</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
-<a id="rest_code_bac84eab49e3420daac5b16ec6676e41-11" name="rest_code_bac84eab49e3420daac5b16ec6676e41-11" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_bac84eab49e3420daac5b16ec6676e41-11"></a>                      <span class="s1">'whitenoise.middleware.WhiteNoiseMiddleware'</span><span class="p">)</span>
-<a id="rest_code_bac84eab49e3420daac5b16ec6676e41-12" name="rest_code_bac84eab49e3420daac5b16ec6676e41-12" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_bac84eab49e3420daac5b16ec6676e41-12"></a>    <span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">'staticfiles'</span><span class="p">)</span>
-<a id="rest_code_bac84eab49e3420daac5b16ec6676e41-13" name="rest_code_bac84eab49e3420daac5b16ec6676e41-13" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_bac84eab49e3420daac5b16ec6676e41-13"></a>    <span class="n">STATICFILES_STORAGE</span> <span class="o">=</span> <span class="s1">'whitenoise.storage.CompressedManifestStaticFilesStorage'</span>
+<div class="code"><pre class="code python"><a id="rest_code_660ba09eb3eb4392a617afb9114d4f6c-1" name="rest_code_660ba09eb3eb4392a617afb9114d4f6c-1" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_660ba09eb3eb4392a617afb9114d4f6c-1"></a><span class="c1"># code needed to deploy in Render.com:</span>
+<a id="rest_code_660ba09eb3eb4392a617afb9114d4f6c-2" name="rest_code_660ba09eb3eb4392a617afb9114d4f6c-2" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_660ba09eb3eb4392a617afb9114d4f6c-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<a id="rest_code_660ba09eb3eb4392a617afb9114d4f6c-3" name="rest_code_660ba09eb3eb4392a617afb9114d4f6c-3" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_660ba09eb3eb4392a617afb9114d4f6c-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">dj_database_url</span>
+<a id="rest_code_660ba09eb3eb4392a617afb9114d4f6c-4" name="rest_code_660ba09eb3eb4392a617afb9114d4f6c-4" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_660ba09eb3eb4392a617afb9114d4f6c-4"></a>
+<a id="rest_code_660ba09eb3eb4392a617afb9114d4f6c-5" name="rest_code_660ba09eb3eb4392a617afb9114d4f6c-5" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_660ba09eb3eb4392a617afb9114d4f6c-5"></a><span class="k">if</span> <span class="s1">'RENDER'</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+<a id="rest_code_660ba09eb3eb4392a617afb9114d4f6c-6" name="rest_code_660ba09eb3eb4392a617afb9114d4f6c-6" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_660ba09eb3eb4392a617afb9114d4f6c-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"USING RENDER.COM SETTINGS!"</span><span class="p">)</span>
+<a id="rest_code_660ba09eb3eb4392a617afb9114d4f6c-7" name="rest_code_660ba09eb3eb4392a617afb9114d4f6c-7" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_660ba09eb3eb4392a617afb9114d4f6c-7"></a>    <span class="n">DEBUG</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="rest_code_660ba09eb3eb4392a617afb9114d4f6c-8" name="rest_code_660ba09eb3eb4392a617afb9114d4f6c-8" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_660ba09eb3eb4392a617afb9114d4f6c-8"></a>    <span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'RENDER_EXTERNAL_HOSTNAME'</span><span class="p">)]</span>
+<a id="rest_code_660ba09eb3eb4392a617afb9114d4f6c-9" name="rest_code_660ba09eb3eb4392a617afb9114d4f6c-9" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_660ba09eb3eb4392a617afb9114d4f6c-9"></a>    <span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'default'</span><span class="p">:</span> <span class="n">dj_database_url</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">conn_max_age</span><span class="o">=</span><span class="mi">600</span><span class="p">)}</span>
+<a id="rest_code_660ba09eb3eb4392a617afb9114d4f6c-10" name="rest_code_660ba09eb3eb4392a617afb9114d4f6c-10" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_660ba09eb3eb4392a617afb9114d4f6c-10"></a>    <span class="n">MIDDLEWARE</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">MIDDLEWARE</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">'django.middleware.security.SecurityMiddleware'</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+<a id="rest_code_660ba09eb3eb4392a617afb9114d4f6c-11" name="rest_code_660ba09eb3eb4392a617afb9114d4f6c-11" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_660ba09eb3eb4392a617afb9114d4f6c-11"></a>                      <span class="s1">'whitenoise.middleware.WhiteNoiseMiddleware'</span><span class="p">)</span>
+<a id="rest_code_660ba09eb3eb4392a617afb9114d4f6c-12" name="rest_code_660ba09eb3eb4392a617afb9114d4f6c-12" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_660ba09eb3eb4392a617afb9114d4f6c-12"></a>    <span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">'staticfiles'</span><span class="p">)</span>
+<a id="rest_code_660ba09eb3eb4392a617afb9114d4f6c-13" name="rest_code_660ba09eb3eb4392a617afb9114d4f6c-13" href="posts/how-to-deploy-a-django-app-in-rendercom-free-tier/#rest_code_660ba09eb3eb4392a617afb9114d4f6c-13"></a>    <span class="n">STATICFILES_STORAGE</span> <span class="o">=</span> <span class="s1">'whitenoise.storage.CompressedManifestStaticFilesStorage'</span>
 </pre></div>
 <p>This code basically overrides some of the settings of your project, so it can work well with what we are using inside Render.com: the database, the static files backend, etc.
 But it only does that when it detects your project is running inside Render, otherwise it does nothing to your settings.</p>
@@ -976,74 +1115,6 @@ the future! For me this became muscle memory: "1 2 n y enter".</p>
 <li><p>... how do I delete the virtualenv? Just delete the folder. Nothing else is created anywhere else.</p></li>
 <li><p>... can I move the virtualenv? No. Just delete it, and create a new one in the new location. Virtualenvs are disposable, don't get attached to them :) (your project should define its dependencies either in a <code class="docutils literal">requirements.txt</code> or in a <code class="docutils literal">setup.py</code>, so you can easily install all the dependencies at once in the new environment)</p></li>
 </ul></section>
-</div>
-    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/" class="u-url">Using Keras and TensorFlow with Nvidia gpus under Ubuntu</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn">Juan Pedro Fisanotti</span></p>
-            <p class="dateline"><a href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/" rel="bookmark"><time class="post-date published dt-published" datetime="2017-11-19T09:55:28-03:00" title="2017-11-19 09:55">2017-11-19 09:55</time></a></p>
-                <p class="commentline">
-    
-    <a href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#disqus_thread" data-disqus-identifier="cache/posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu.html">Comments</a>
-
-
-        </p>
-</div>
-    </header><div class="e-content entry-content">
-    <section id="using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu"><h2>Using Keras and TensorFlow with Nvidia gpus under Ubuntu</h2>
-<section id="what-are-all-these-things"><h3>What are all these things???</h3>
-<ul class="simple">
-<li><p><strong>Keras</strong>: the Python library that knows how to build and train artificial neural networks.</p></li>
-<li><p><strong>TensorFlow</strong>: the Python library that knows how to do heavy computations both under cpus and gpus, used by Keras.</p></li>
-<li><p><strong>CUDA + cuDNN</strong>: Nvidia utilities to be able to run general purpose computations in the gpu.</p></li>
-<li><p><strong>Graphics drivers</strong>: drivers that allow your linux to access and use the graphics card.</p></li>
-</ul></section><section id="graphics-drivers"><h3>Graphics drivers</h3>
-<p>It might be possible to use CUDA without having the graphics drivers installed, but I'm not sure how easy and stable it is.
-So my recommendation is to install them first, and verify that they are working.</p>
-<p>Usually it's just installing a package with <code class="docutils literal">apt</code>:</p>
-<div class="code"><pre class="code text"><a id="rest_code_0beb065079ff4e44bb4cb096f4b4b9a4-1" name="rest_code_0beb065079ff4e44bb4cb096f4b4b9a4-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_0beb065079ff4e44bb4cb096f4b4b9a4-1"></a>sudo apt install nvidia-375
-</pre></div>
-<p>But if you are using an Optimus-enabled graphics card (most laptops with Nvidia cards previous to the 10xx generation),
-you might need to install the <code class="docutils literal"><span class="pre">nvidia-prime</span></code> package too.</p>
-<p>The recommended version might be higher in the future, 375 is the one I'm using right now under Ubuntu 16.10.</p>
-</section><section id="cuda-installation"><h3>CUDA installation</h3>
-<p>Get both the CUDA installer and the cuDNN installer, from their official websites:
-<a class="reference external" href="https://developer.nvidia.com/cuda-downloads">https://developer.nvidia.com/cuda-downloads</a> and <a class="reference external" href="https://developer.nvidia.com/cudnn">https://developer.nvidia.com/cudnn</a>
-(you will need to register in the website and fill a survey to be able to download cuDNN).</p>
-<p>The versions you need to get depend on which versions does TensorFlow support.
-You can check this in the official website, at <a class="reference external" href="https://www.tensorflow.org/install/install_linux">https://www.tensorflow.org/install/install_linux</a> .</p>
-<p>Once you have both installers, first run the cuda installer (replace the name of the file with the one you got):</p>
-<div class="code"><pre class="code text"><a id="rest_code_473437bcb6014bb59299a2a6c86d59e6-1" name="rest_code_473437bcb6014bb59299a2a6c86d59e6-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_473437bcb6014bb59299a2a6c86d59e6-1"></a>sudo sh ./cuda_8.0.61_375.26_linux.run --override
-</pre></div>
-<p>It will ask you a few things. Tell "no" to the installation of graphics drivers (you should already have them),
-and "yes" to the creation of the symbolic link.</p>
-<p>Then uncompress the cuDNN installer (a file with a name similar to <code class="docutils literal"><span class="pre">cudnn-8.0-linux-x64-v5.1.tgz</span></code>),
-and copy its files into the <code class="docutils literal"><span class="pre">/usr/local/cuda-8.0</span></code> folder (you should have it from the CUDA installation).
-The tar file contains subfolders, be sure to copy the files into the same subfolders in the destination.</p>
-</section><section id="tensorflow-and-keras-installation"><h3>TensorFlow and Keras installation</h3>
-<p>Once you have the graphics drivers and CUDA, then it's easy to install TensorFlow and Keras, they are just Python packages:</p>
-<div class="code"><pre class="code text"><a id="rest_code_be28c9afec7f4bfabde1eed7d3ca52a6-1" name="rest_code_be28c9afec7f4bfabde1eed7d3ca52a6-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_be28c9afec7f4bfabde1eed7d3ca52a6-1"></a>pip install tensorflow-gpu keras
-</pre></div>
-<p>If you aren't using virtualenvs (you should!), you should add <code class="docutils literal"><span class="pre">--user</span></code> to that command.
-I don't recommend installing the packages system-wide with <code class="docutils literal">sudo</code>, as with time you will probably need different versions of both
-<code class="docutils literal">tensorflow</code> and <code class="docutils literal">keras</code> for different projects (they both evolve quite quickly).</p>
-</section><section id="running-the-code"><h3>Running the code</h3>
-<p>Finally, when running your code you may need to define the <code class="docutils literal">LD_LIBRARY_PATH</code> environment variable, for TensorFlow to be able to
-find the needed CUDA libraries:</p>
-<div class="code"><pre class="code text"><a id="rest_code_5106f5cee04c4a8ea09d4c99775186f8-1" name="rest_code_5106f5cee04c4a8ea09d4c99775186f8-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_5106f5cee04c4a8ea09d4c99775186f8-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python your_awesome_code.py
-</pre></div>
-<p>This is true also for Jupyter notebooks:</p>
-<div class="code"><pre class="code text"><a id="rest_code_0ae2e72412714b6caa000087dda9532d-1" name="rest_code_0ae2e72412714b6caa000087dda9532d-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_0ae2e72412714b6caa000087dda9532d-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 jupyter notebook
-</pre></div>
-<p>If you are unsure if your code is actually using your gpu, you can paste this snippet into a <code class="docutils literal">test_device.py</code> file:</p>
-<div class="code"><pre class="code python"><a id="rest_code_711d6b249dea474098bf5157e5254c28-1" name="rest_code_711d6b249dea474098bf5157e5254c28-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_711d6b249dea474098bf5157e5254c28-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
-<a id="rest_code_711d6b249dea474098bf5157e5254c28-2" name="rest_code_711d6b249dea474098bf5157e5254c28-2" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_711d6b249dea474098bf5157e5254c28-2"></a><span class="n">sess</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">ConfigProto</span><span class="p">(</span><span class="n">log_device_placement</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-</pre></div>
-<p>And then run it:</p>
-<div class="code"><pre class="code text"><a id="rest_code_d80577065ccc4737962c8baa32f0bad7-1" name="rest_code_d80577065ccc4737962c8baa32f0bad7-1" href="posts/using-keras-and-tensorflow-with-nvidia-gpus-under-ubuntu/#rest_code_d80577065ccc4737962c8baa32f0bad7-1"></a>LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64 python test_device.py
-</pre></div>
-<p>It should print a lot of information, but in between you should see something with your graphics card name, like
-<code class="docutils literal">name: GeForce GTX 1070</code>.</p>
-</section></section>
 </div>
     </article>
 </div>

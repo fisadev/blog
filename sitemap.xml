@@ -39,7 +39,7 @@
  </url>
  <url>
   <loc>http://blog.fisadev.com/archive.html</loc>
-  <lastmod>2025-05-03T20:46:00Z</lastmod>
+  <lastmod>2025-08-11T23:44:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/categories/</loc>
@@ -95,7 +95,7 @@
  </url>
  <url>
   <loc>http://blog.fisadev.com/index-1.html</loc>
-  <lastmod>2025-05-03T20:46:00Z</lastmod>
+  <lastmod>2025-08-11T23:44:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/posts/art-killer-ai/</loc>
@@ -116,6 +116,10 @@
  <url>
   <loc>http://blog.fisadev.com/posts/encrypt-a-dir-with-ecryptfs/</loc>
   <lastmod>2020-03-12T00:32:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://blog.fisadev.com/posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/</loc>
+  <lastmod>2025-08-11T23:44:00Z</lastmod>
  </url>
  <url>
   <loc>http://blog.fisadev.com/posts/how-to-deploy-a-django-app-in-rendercom-free-tier/</loc>
