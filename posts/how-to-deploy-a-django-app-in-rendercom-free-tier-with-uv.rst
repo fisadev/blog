@@ -1,33 +1,32 @@
-.. title: How to deploy a Django app in Render.com (free tier)
-.. slug: how-to-deploy-a-django-app-in-rendercom-free-tier
-.. date: 2023-08-14 19:10:17 UTC-03:00
+.. title: How to deploy a Django app in Render.com with UV (free tier)
+.. slug: how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv
+.. date: 2025-08-11 20:00:00 UTC-03:00
 .. tags: 
 .. category: 
 .. link: 
 .. description: 
 .. type: text
 
-THIS TUTORIAL IS OUTDATED!! 
-===========================
-
-A new version is available `HERE <https://blog.fisadev.com/posts/how-to-deploy-a-django-app-in-rendercom-free-tier-with-uv/>`_.
-
-But just in case you are looking for the old version, here it is anyway:
-
-How to deploy a Django app in Render.com (free tier)
+How to deploy a Django app in Render.com with UV (free tier)
 ====================================================
 
 This is a basic tutorial on how to deploy a Django app to Render.com, focused on using only the free tier features and automating things as much as possible. 
 This also doesn't cover how to do a Django app, it assumes you already have a working app that you just need to deploy.
 
+This is an updated version of an older tutorial, now using UV for the environment and dependencies management.
+`UV is great! <https://docs.astral.sh/uv/>`_ I highly recommend using it :)
+
+If you are NOT using UV, then you can check the `old version of this tutorial <https://blog.fisadev.com/posts/how-to-deploy-a-django-app-in-rendercom-free-tier/>`_.
+
 Assumptions
 ===========
 
 * You have a working Django app (for instance, you can already run it locally with ``python manage.py runserver`` and everything works fine).
-* You're using Django 4 or newer (tested up to Django 4.2.4), and your project structure is what Django does by default.
+* You're using Django 5 or newer (tested up to Django 5.2.4), and your project structure is what Django does by default. Older versions might work too, though.
 * Your Django project is in a Github or Gitlab repository.
 * There's a single Django project in the repo, not multiple projects at once.
 * You want to use Postgres as your production database in Render.
+* You're using `UV <https://docs.astral.sh/uv/>`_ for managing your Python environment and dependencies.
 
 0: Render.com account
 =====================
@@ -37,18 +36,16 @@ Just go to `Render.com <http://render.com>`_, create a user (if you don't alread
 1: Defining dependencies
 ========================
 
-Create a ``requirements.txt`` file in the root of your repository, and add these dependencies in it:
+Add the following dependencies to your project's ``pyproject.toml`` file using UV:
 
-.. code-block::
+.. code-block:: bash
 
-    django==5.1
-    dj-database-url==2.2.0
-    psycopg2-binary==2.9.9
-    whitenoise[brotli]==6.7.0
-    gunicorn==23.0.0
+    uv add django dj-database-url psycopg2-binary whitenoise[brotli] gunicorn
 
 
-If you already have a ``requirements.txt``, just add the new packages to it.
+Remember to commit the changes to your ``pyproject.toml`` and ``uv.lock`` files to your repository! 
+This is super important. If you don't add these files, Render won't be able to install your dependencies.
+
 
 2: Creating deploy scripts
 ==========================
@@ -63,12 +60,14 @@ Create a ``build.sh`` file in the root of your repository, with these contents:
     # exit on error
     set -o errexit
 
-    pip install -r ./requirements.txt
+    # install project dependencies
+    uv sync
 
+    # make sure django has all the things it needs to run
     cd $(dirname $(find . | grep manage.py$))
-    python manage.py collectstatic --no-input
-    python manage.py migrate
-    python manage.py createsuperuser --username admin --email "YOUR@EMAIL.com" --noinput || true
+    uv run ./manage.py collectstatic --no-input
+    uv run ./manage.py migrate
+    uv run ./manage.py createsuperuser --username admin --email "YOUR@EMAIL.com" --noinput || true
 
 
 In that script, replace ``YOUR@EMAIL.com`` with your real email.
@@ -81,7 +80,7 @@ Then create a ``run.sh`` file in the root of your repository, with these content
     set -o errexit
 
     cd $(dirname $(find . | grep manage.py$))
-    gunicorn $(dirname $(find . | grep wsgi.py$) | sed "s/\.\///g").wsgi:application
+    uv run gunicorn $(dirname $(find . | grep wsgi.py$) | sed "s/\.\///g").wsgi:application
 
 
 If you have a less standard project or repo structure, you can replace the dark magic in those scripts: the ``cd`` command just needs to get inside your Django project folder, and the ``gunicorn`` command needs to look something like ``gunicorn your_project_name.wsgi:application``.
@@ -126,24 +125,33 @@ Commit all your new files and modified files, and push the changes to your Githu
 
 Go to `Render's dashboard <https://dashboard.render.com/>`_ and create a new Postgres database using this menu:
 
-.. thumbnail:: /images/deploy-django-render/db_create_menu.png
+.. thumbnail:: /images/deploy-django-render/db_create_menu_new.png
+
 
 You will need to specify the database name and a few other fields. 
-After you created your database, open its details page from the dashboard and copy the value from this field, to use it in the next step:
+Also, make sure you select the Free plan:
 
-.. thumbnail:: /images/deploy-django-render/db_url_field.png
+.. thumbnail:: /images/deploy-django-render/db_free_plan_new.png
+
+
+After you created your database, scroll down in its details page and copy the value from this field, to use it in the next step:
+
+.. thumbnail:: /images/deploy-django-render/db_url_field_new.png
+
 
 6. Deploying your app at Render
 ===============================
 
 Go again to `Render's dashboard <https://dashboard.render.com/>`_ and create a new "Web service" using this menu:
 
-.. thumbnail:: /images/deploy-django-render/web_create_menu.png
+.. thumbnail:: /images/deploy-django-render/web_create_menu_new.png
+
 
 In the first page you will need to either fill the url of a public Github or Gitlab repository, or login with your Github/Gitlab account to choose a private repository.
 After you have specified your repo, in the next page you will need to fill out a few fields:
 
-.. thumbnail:: /images/deploy-django-render/web_create_form.png
+.. thumbnail:: /images/deploy-django-render/web_create_form_new.png
+
 
 * Name: important, this will be part of the url of your deployed web app, so use something meaningful.
 * Language: must be ``Python 3``.
@@ -157,7 +165,7 @@ Scroll down, to the "Environment Variables" section, and add three environment v
 
 * ``DATABASE_URL``: here you need to paste the database url that you copied at step 5. You can go to the database details to copy it again if needed.
 * ``DJANGO_SUPERUSER_PASSWORD``: here set a password that you want to use for your Django superuser.
-* ``PYTHON_VERSION``: set it to ``3.11.0`` (or newer?).
+* ``PYTHON_VERSION``: set it to ``3.13.3`` (others might also work, usually I suggest using the newest one you can).
 
 .. thumbnail:: /images/deploy-django-render/web_env.png
 
@@ -171,7 +179,7 @@ Re-deploying new versions
 
 Now you can re-attempt any deploy, or manually deploy any version you wish. Just use this menu and everything should work:
 
-.. thumbnail:: /images/deploy-django-render/web_deploy.png
+.. thumbnail:: /images/deploy-django-render/web_deploy_new.png
 
 
 What's next?
