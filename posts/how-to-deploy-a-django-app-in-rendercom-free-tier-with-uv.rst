@@ -132,7 +132,7 @@ Go to `Render's dashboard <https://dashboard.render.com/>`_ and create a new Pos
 You will need to specify the database name and a few other fields. 
 Also, make sure you select the Free plan:
 
-.. thumbnail:: /images/deploy-django-render/db_free_plan_new.png
+.. thumbnail:: /images/deploy-django-render/db_free_plan.png
 
 
 After you created your database, scroll down in its details page and copy the value from this field, to use it in the next step:
