@@ -79,6 +79,7 @@ Then create a ``run.sh`` file in the root of your repository, with these content
     # exit on error
     set -o errexit
 
+    # run the web app server
     cd $(dirname $(find . | grep manage.py$))
     uv run gunicorn $(dirname $(find . | grep wsgi.py$) | sed "s/\.\///g").wsgi:application
 
